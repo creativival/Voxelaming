@@ -55,7 +55,7 @@ In the sample folder, we have prepared examples of scripts. Running the script b
 
 Please load the Voxelaming extension and create your script.
 
-![VoxelamingScratch3](image/voxelaming_scratch3.png)
+![VoxelamingScratch3](image/voxelaming_scratch3_en.png)
 
 ### Python (3.6+)
 
