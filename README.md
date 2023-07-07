@@ -53,7 +53,9 @@ sampleフォルダーに、スクリプトの例を用意しました。以下�
 
 準備中
 
-### Python
+### Python (3.6以上)
+
+#### スクリプト
 
 ```python
 # Python
@@ -85,10 +87,21 @@ for i in range(50):
 #         build_box.create_box(i, j, k, 0, 1, 1)
 
 build_box.send_data()
+```
 
+#### 実行方法
+
+```bash
+$ python main.py
+
+or  
+
+$ python3 main.py
 ```
 
 ### JavaScript (Node.js)
+
+#### スクリプト
 
 ```javascript
 // JavaScript (Node.js)
@@ -116,7 +129,15 @@ for (let i = 0; i < 50; i++) {
 buildBox.sendData();
 ```
 
+#### 実行方法
+
+```bash
+$ node main.mjs
+```
+
 ### Ruby
+
+#### スクリプト
 
 ```ruby
 # Ruby
@@ -144,7 +165,15 @@ end
 build_box.send_data
 ```
 
+#### 実行方法
+
+```bash
+$ ruby main.rb
+```
+
 ### Swift
+
+#### スクリプト
 
 ```swift
 // Swift (リファクタリング中)
@@ -185,7 +214,13 @@ if #available(iOS 15.0, macOS 12.0, *) {
 } else {
     fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }
+```
 
+#### 実行方法
+
+```bash
+$ cd swift/Sources
+$ swift run
 ```
 
 ### ボクセルの削除
