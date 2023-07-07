@@ -51,7 +51,7 @@ sampleフォルダーに、スクリプトの例を用意しました。以下�
 
 ### Scratch3 MOD
 
-準備中
+![VoxelamingScratch3](image/voxelaming_scratch3.png)
 
 ### Python (3.6以上)
 
