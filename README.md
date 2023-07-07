@@ -22,7 +22,7 @@ Voxelamingアプリを起動します。初回の起動時のみ、カメラの�
 
 パソコン（Windows、Mac）でボクセルを設置するための「ボクセルデータ」をプログラミングします。ボクセルデータには、「位置、色、サイズ、設置する間隔など」の情報が含まれます。対応の言語は、Scratch3 MOD、Python、JavaScript (Node.js)、Ruby、Swiftです。
 
-スクリプトを作成しましょう。初めに、WebSocketサーバーのルームに接続するためにルームネームを設定します。ルームネームは、デバイス（iPhone、iPad）の画面中央に表示されている文字列です。変数room_name（roomName）にルームナンバーを代入します。
+スクリプトを作成しましょう。初めに、WebSocketサーバーのルームに接続するためにルームネームを設定します。ルームネームは、デバイス（iPhone、iPad）の画面中央に表示されている文字列です。変数room_name（roomName）にルームネームを代入します。
 
 次に、各言語の繰り返し文や条件式などを使って、ボクセルデータを作成します。ボクセルの位置は、平面アンカーを基準にして、x軸、y軸、z軸の値を指定します。x軸は左右、y軸は上下、z軸は奥行き（手前がプラス）を表します（単位はセンチメートル）。ボクセルの大きさは、1.0cmを基準にして小数で指定します。色はRGB値で0から1までの小数で指定します。そして、ボクセルを設置する間隔を秒で指定します。ボクセルを設置する間隔を指定することで、ボクセルが一気に設置されるのではなく、時間をかけて設置されるようになります。
 
@@ -30,11 +30,15 @@ Voxelamingアプリを起動します。初回の起動時のみ、カメラの�
 
 スクリプトを実行すると、WebSocket通信でボクセルデータがデバイス（iPhone、iPad）に送信されます。データが受信できたら、デバイス画面の平面アンカーを基準にして、ARボクセルが設置されます。
 
-### スクリプトの例
+## スクリプトの例
 
 sampleフォルダーに、スクリプトの例を用意しました。以下のスクリプトを実行すると、画像のようなボクセルが設置されます。
 
-#### Scratch3 MODは準備中です。
+### Scratch3 MOD
+
+準備中
+
+### Python
 
 ```python
 # Python
@@ -68,6 +72,8 @@ for i in range(50):
 build_box.send_data(room_name)
 ```
 
+### JavaScript (Node.js)
+
 ```javascript
 // JavaScript (Node.js)
 import BuildBox from './buildBox.mjs';
@@ -94,6 +100,8 @@ for (let i = 0; i < 50; i++) {
 buildBox.sendData();
 ```
 
+### Ruby
+
 ```ruby
 # Ruby
 require_relative 'build_box'
@@ -117,6 +125,8 @@ end
 
 build_box.send_data
 ```
+
+### Swift
 
 ```swift
 // Swift (リファクタリング中)
