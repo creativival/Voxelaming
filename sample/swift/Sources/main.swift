@@ -5,9 +5,10 @@ let roomName = "1000"
 @available(iOS 15.0, macOS 12.0, *)
 func main() async {
     do {
-        let buildBox = BuildBox()
+        let buildBox = BuildBox(roomName)
 
-        buildBox.setSize(0.1)
+        buildBox.setBoxSize(0.5)
+        buildBox.setBuildInterval(0.01)
 
         for i in 0..<100 {
             buildBox.createBox(-1, Double(i), 0, 0, 1, 1)
@@ -20,7 +21,7 @@ func main() async {
             buildBox.removeBox(0, Double(i * 2), 0)
             buildBox.removeBox(1, Double(i * 2 + 1), 0)
         }
-        try await buildBox.sendData(roomName: roomName)
+        try await buildBox.sendData()
     } catch {
         print("An error occurred: \(error)")
     }
@@ -34,3 +35,4 @@ if #available(iOS 15.0, macOS 12.0, *) {
 } else {
     fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }
+

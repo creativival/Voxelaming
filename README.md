@@ -32,6 +32,19 @@ Voxelamingアプリを起動します。初回の起動時のみ、カメラの�
 
 ＊ WebSocketサーバーが休止しているとき、データ送信が失敗する場合があります。そのときは、しばらく待ってから再度実行してください。
 
+## メソッドの説明
+
+スクリプトで使用するメソッドを説明します。各言語のメソッド名は、以下の通りです。
+
+* set_box_size(size)：ボクセルの大きさを設定します。単位はセンチメートルです。デフォルトは1.0です。
+* set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。単位は秒です。デフォルトは0.01です。
+* create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
+* remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
+* send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。
+* clear_boxes()：設置されているボクセルをすべて削除します。サイズ、インターバルも初期化します。
+
+＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -> setBoxSize）
+
 ## スクリプトの例
 
 sampleフォルダーに、スクリプトの例を用意しました。以下のスクリプトを実行すると、画像のようなボクセルが設置されます。
@@ -110,8 +123,8 @@ buildBox.sendData();
 require_relative 'build_box'
 
 room_name = '1000'
-
 build_box = BuildBox.new(room_name)
+
 build_box.clear_boxes()
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
@@ -142,9 +155,10 @@ let roomName = "1000"
 @available(iOS 15.0, macOS 12.0, *)
 func main() async {
     do {
-        let buildBox = BuildBox()
+        let buildBox = BuildBox(roomName)
 
-        buildBox.setSize(0.1)
+        buildBox.setSize(0.5)
+        buildBox.setBuildInterval(0.01)
 
         for i in 0..<100 {
             buildBox.createBox(-1, Double(i), 0, 0, 1, 1)
@@ -157,7 +171,7 @@ func main() async {
             buildBox.removeBox(0, Double(i * 2), 0)
             buildBox.removeBox(1, Double(i * 2 + 1), 0)
         }
-        try await buildBox.sendData(roomName: roomName)
+        try await buildBox.sendData()
     } catch {
         print("An error occurred: \(error)")
     }
@@ -171,6 +185,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 } else {
     fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }
+
 ```
 
 ### ボクセルの削除

@@ -1,20 +1,16 @@
-//
-//  File.swift
-//
-//
-//  Created by user_name on 2023/07/05.
-//
-
 import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
 class BuildBox {
-    let url = URL(string: "wss://render-nodes-server.onrender.com")!
+    let url = URL(string: "wss://render-nodejs-server.onrender.com")!
     let webSocketTask: URLSessionWebSocketTask
+    var roomName = ""
     var boxes = [[Double]]()
     var size: Double = 1.0
+    var buildInterval = 0.01
 
-    init() {
+    init(_ roomName: String) {
+        self.roomName = roomName
         webSocketTask = URLSession.shared.webSocketTask(with: url)
     }
 
@@ -36,8 +32,12 @@ class BuildBox {
         }
     }
 
-    func setSize(_ boxSize: Double) {
+    func setBoxSize(_ boxSize: Double) {
         size = boxSize
+    }
+
+    func setBuildInterval(_ interval: Double) {
+        buildInterval = interval
     }
 
     func clearBoxes() {
@@ -45,13 +45,13 @@ class BuildBox {
         size = 1.0
     }
 
-    func sendData(roomName: String) async throws {
+    func sendData() async throws {
         self.webSocketTask.resume()
 
         let date = Date()
         let dateFormatter = ISO8601DateFormatter()
         let dateString = dateFormatter.string(from: date)
-        let dataDict = ["boxes": boxes, "size": size, "date": dateString] as [String : Any]
+        let dataDict = ["boxes": boxes, "size": size, "interval": buildInterval, "date": dateString] as [String : Any]
 
         let jsonData = try JSONSerialization.data(withJSONObject: dataDict, options: [])
         guard let jsonString = String(data: jsonData, encoding: .utf8) else {
@@ -65,4 +65,3 @@ class BuildBox {
         print("Sent message: \(jsonString)")
     }
 }
-
