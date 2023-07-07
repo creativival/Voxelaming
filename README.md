@@ -30,6 +30,8 @@ Voxelamingアプリを起動します。初回の起動時のみ、カメラの�
 
 スクリプトを実行すると、WebSocket通信でボクセルデータがデバイス（iPhone、iPad）に送信されます。データが受信できたら、デバイス画面の平面アンカーを基準にして、ARボクセルが設置されます。
 
+＊ WebSocketサーバーが休止しているとき、データ送信が失敗する場合があります。そのときは、しばらく待ってから再度実行してください。
+
 ## スクリプトの例
 
 sampleフォルダーに、スクリプトの例を用意しました。以下のスクリプトを実行すると、画像のようなボクセルが設置されます。
@@ -45,7 +47,7 @@ sampleフォルダーに、スクリプトの例を用意しました。以下�
 from build_box import BuildBox
 
 room_name = "1000"
-build_box = BuildBox()
+build_box = BuildBox(room_name)
 
 build_box.clear_boxes()
 build_box.set_box_size(0.5)
@@ -69,7 +71,8 @@ for i in range(50):
 #         print(i, j, k)
 #         build_box.create_box(i, j, k, 0, 1, 1)
 
-build_box.send_data(room_name)
+build_box.send_data()
+
 ```
 
 ### JavaScript (Node.js)

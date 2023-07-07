@@ -1,7 +1,7 @@
 from build_box import BuildBox
 
 room_name = "1000"
-build_box = BuildBox()
+build_box = BuildBox(room_name)
 
 build_box.clear_boxes()
 build_box.set_box_size(0.5)
@@ -25,4 +25,4 @@ for i in range(50):
 #         print(i, j, k)
 #         build_box.create_box(i, j, k, 0, 1, 1)
 
-build_box.send_data(room_name)
+build_box.send_data()

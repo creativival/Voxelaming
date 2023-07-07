@@ -5,7 +5,8 @@ import datetime
 
 
 class BuildBox:
-  def __init__(self):
+  def __init__(self, room_name):
+    self.room_name = room_name
     self.boxes = []
     self.size = 1
     self.build_interval = 0.01
@@ -37,7 +38,7 @@ class BuildBox:
     self.build_interval = 0.01
 
 
-  def send_data(self, room_name):
+  def send_data(self):
     now = datetime.datetime.now()
     data_to_send = f"""
       {{
@@ -56,4 +57,4 @@ class BuildBox:
         print("Sent data to server")
         self.clear_boxes()
 
-    asyncio.get_event_loop().run_until_complete(sender(room_name))
+    asyncio.get_event_loop().run_until_complete(sender(self.room_name))
