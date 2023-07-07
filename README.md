@@ -239,6 +239,10 @@ $ swift run
 
 準備中
 
+## 設定
+
+画面右上の「Settings」ボタンから設定画面に移動できます。デバッグモードをオフにすると、画面の情報表示が無効になrます。
+
 ## ライセンス
 
 [MIT License](https://github.com/creativival/Voxelaming/blob/master/LICENSE)

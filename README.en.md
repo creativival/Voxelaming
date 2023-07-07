@@ -240,6 +240,10 @@ Prepare a script to animate the voxel.
 
 Prepare a script to share the voxel with other users.
 
+## Settings
+
+You can move to the settings screen from the "Settings" button at the top right of the screen. If you turn off debug mode, the information display on the screen will be disabled.
+
 ## License
 
 [MIT License](https://github.com/creativival/Voxelaming/blob/master/LICENSE)
