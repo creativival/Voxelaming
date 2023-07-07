@@ -1,6 +1,6 @@
 # Voxelaming
 
-![VoxelLadder](image/voxel_ladder.png)
+![VoxelLadder](image/voxel_ladder.jpeg)
 
 ## Voxelamingとは
 
