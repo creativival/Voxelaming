@@ -2,6 +2,8 @@
 
 ![VoxelLadder](image/voxel_ladder.jpeg)
 
+*Read this in other languages: [English](README.en.md), [日本語](README.md)*
+
 ## Voxelamingとは
 
 Voxelaming = Voxel + Programing
