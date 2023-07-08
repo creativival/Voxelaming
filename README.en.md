@@ -55,6 +55,8 @@ In the sample folder, we have prepared examples of scripts. Running the script b
 
 Please load the Voxelaming extension and create your script.
 
+[Sample project with Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
+
 ![VoxelamingScratch3](image/voxelaming_scratch3_en.png)
 
 ### Python (3.6+)

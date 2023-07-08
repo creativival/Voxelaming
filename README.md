@@ -55,6 +55,8 @@ sampleフォルダーに、スクリプトの例を用意しました。以下�
 
 Voxelaming extensionを読み込んで、スクリプトを作成してください。
 
+[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
+
 ![VoxelamingScratch3](image/voxelaming_scratch3.png)
 
 ### Python (3.6以上)
