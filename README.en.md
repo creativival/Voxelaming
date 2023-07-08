@@ -1,4 +1,4 @@
-# Voxelaming
+# Voxelaming - Programming learning app with ARKit
 
 ![VoxelLadder](image/voxel_ladder.jpeg)
 
@@ -8,7 +8,7 @@
 
 Voxelaming = Voxel + Programming
 
-Voxelaming is a programming learning app utilizing ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun by arranging voxels (cubical equivalent to pixels in 3D space), programmed on a computer, in a virtual space.
+Voxelaming is a programming learning app with ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun by arranging voxels (cubical equivalent to pixels in 3D space), programmed on a computer, in a virtual space.
 
 ## Usage
 
