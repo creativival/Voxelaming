@@ -42,6 +42,7 @@ We will explain the methods used in the script. The method names for each langua
 * set_build_interval(interval): Sets the interval for placing voxels. The unit is seconds. The default is 0.01.
 * create_box(x, y, z, r, g, b): Places a voxel. Specify the position in x, y, z axis, and the color. Color is specified in decimal from 0 to 1 in RGB values.
 * remove_box(x, y, z): Removes a voxel. Specify the position in x, y, z axis. (If no voxel is at the specified position, nothing happens.)
+* write_sentence(sentence, x, y, z, r, g, b)：Write a sentence (one line of text) with voxels. Specify the position in x, y, z axis, and the color. Color is specified in decimal from 0 to 1 in RGB values.
 * send_data(): Sends voxel data to the device (iPhone, iPad).
 * clear_boxes(): Removes all placed voxels. Also resets the size and interval.
 
@@ -228,11 +229,6 @@ if #available(iOS 15.0, macOS 12.0, *) {
 $ cd swift/Sources
 $ swift run
 ```
-
-### Remove voxel
-
-Prepare a script to remove the voxel.
-
 
 ### Animation voxel
 

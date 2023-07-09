@@ -42,6 +42,7 @@
 * set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。単位は秒です。デフォルトは0.01です。
 * create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
+* write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
 * send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。
 * clear_boxes()：設置されているボクセルをすべて削除します。サイズ、インターバルも初期化します。
 
@@ -228,10 +229,6 @@ if #available(iOS 15.0, macOS 12.0, *) {
 $ cd swift/Sources
 $ swift run
 ```
-
-### ボクセルの削除
-
-準備中
 
 ### ボクセルのアニメーション
 
