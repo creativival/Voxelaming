@@ -1,6 +1,6 @@
 # Voxelaming - Programming learning app with ARKit
 
-![VoxelLadder](image/voxel_ladder.jpeg)
+<p align="center"><img src="image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
 
 *Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
