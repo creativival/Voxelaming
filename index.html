@@ -6,9 +6,10 @@
           href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
-<body style="width: 1075px;">
-<div class="vditor-reset" id="preview">
+<body>
+<div class="container">
     <h1 id="ボクセラミング---ARKitを使ったプログラミング学習アプリ">ボクセラミング - ARKitを使ったプログラミング学習アプリ<a
             id="vditorAnchor-ボクセラミング---ARKitを使ったプログラミング学習アプリ" class="vditor-anchor"
             href="#ボクセラミング---ARKitを使ったプログラミング学習アプリ">
@@ -18,7 +19,7 @@
         </svg>
     </a></h1>
     <p align="center"><img src="image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
-    <p><em>Read this in other languages: <a href="README.en.md">English</a>, <a href="README.md">日本語</a></em></p>
+    <p><em>Read this in other languages: <a href="index.en.html">English</a>, <a href="index.html">日本語</a></em></p>
     <h2 id="ボクセラミングとは">ボクセラミングとは<a id="vditorAnchor-ボクセラミングとは" class="vditor-anchor" href="#ボクセラミングとは">
         <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
             <path fill-rule="evenodd"
@@ -63,7 +64,7 @@
         スクリプトを作成しましょう。初めに、WebSocketサーバーのルームに接続するためにルームネームを設定します。ルームネームは、デバイス（iPhone、iPad）の画面中央に表示されている文字列です。変数room_name（roomName）にルームネームを代入します。</p>
     <p>
         次に、各言語の繰り返し文や条件式などを使って、ボクセルデータを作成します。ボクセルの位置は、平面アンカーを基準にして、x軸、y軸、z軸の値を指定します。x軸は左右、y軸は上下、z軸は奥行き（手前がプラス）を表します（単位はセンチメートル）。ボクセルの大きさは、1.0cmを基準にして小数で指定します。色はRGB値で0から1までの小数で指定します。そして、ボクセルを設置する間隔を秒で指定します。ボクセルを設置する間隔を指定することで、ボクセルが一気に設置されるのではなく、時間をかけて設置されるようになります。</p>
-    <h3 id="ボクセルの配置">ボクセルの配置<a id="vditorAnchor-ボクセルの配置" class="vditor-anchor" href="#ボクセルの配置">
+    <h3 id="ARボクセルの配置">ARボクセルの配置<a id="vditorAnchor-ARボクセルの配置" class="vditor-anchor" href="#ARボクセルの配置">
         <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
             <path fill-rule="evenodd"
                   d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
@@ -84,11 +85,17 @@
         <li>set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。単位は秒です。デフォルトは0.01です。</li>
         <li>create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。</li>
         <li>remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）</li>
-        <li>write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。</li>
-        <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。</li>
-        <li>clear_boxes()：設置されているボクセルをすべて削除します。サイズ、インターバルも初期化します。</li>
+        <li>write_sentence(sentence, x, y, z, r, g,
+            b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。色はRGB値で0から1までの小数で指定します。
+        </li>
+        <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。（送信後、ボクセルデータは初期化されます。）</li>
+        <li>clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。</li>
+        <li>set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。</li>
+        <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw<code>,
+            roll）、拡大（scale）、設置する間隔（interval） </code><br/>
+            ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -&gt; setBoxSize）
+        </li>
     </ul>
-    <p>＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -&gt; setBoxSize）</p>
     <h2 id="スクリプトの例">スクリプトの例<a id="vditorAnchor-スクリプトの例" class="vditor-anchor" href="#スクリプトの例">
         <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
             <path fill-rule="evenodd"
@@ -106,7 +113,7 @@
     <p>
         <a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3">Xcratchで、サンプルプロジェクトを再生する</a>
     </p>
-    <p><img src="image/voxelaming_scratch3.png" alt="VoxelamingScratch3"/></p>
+    <p align="center"><img src="image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="50%"/></p>
     <h3 id="Python--3-6以上-">Python (3.6以上)<a id="vditorAnchor-Python--3-6以上-" class="vditor-anchor"
                                                  href="#Python--3-6以上-">
         <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -126,27 +133,20 @@ from build_box import BuildBox
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
 
-build_box.clear_boxes()
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
+build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animation_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
-  build_box.create_box(-1, i, 0, 0, 1, 1)
-  build_box.create_box(0, i, 0, 1, 0, 0)
-  build_box.create_box(1, i, 0, 1, 1, 0)
-  build_box.create_box(2, i, 0, 0, 1, 1)
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(50):
   build_box.remove_box(0, i * 2 + 1, 0)
   build_box.remove_box(1, i * 2, 0)
-
-
-# for i in range(-10, 11):
-#   for j in range(0, 11):
-#     for k in range(-10, 11):
-#       if i ** 2 + j ** 2 + k ** 2 &lt; 10 ** 2:
-#         print(i, j, k)
-#         build_box.create_box(i, j, k, 0, 1, 1)
 
 build_box.send_data()
 </code></pre>
@@ -181,7 +181,6 @@ import BuildBox from './buildBox.mjs';
 const roomName = '1000';
 const buildBox = new BuildBox(roomName);
 
-buildBox.clearData();
 buildBox.setBoxSize(0.5);
 buildBox.setBuildInterval(0.01);
 
@@ -225,7 +224,6 @@ require_relative 'build_box'
 room_name = '1000'
 build_box = BuildBox.new(room_name)
 
-build_box.clear_boxes()
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
@@ -311,13 +309,190 @@ if #available(iOS 15.0, macOS 12.0, *) {
     <pre><code class="language-bash">$ cd swift/Sources
 $ swift run
 </code></pre>
-    <h3 id="ボクセルのアニメーション">ボクセルのアニメーション<a id="vditorAnchor-ボクセルのアニメーション" class="vditor-anchor" href="#ボクセルのアニメーション">
+    <h2 id="ショーケース">ショーケース<a id="vditorAnchor-ショーケース" class="vditor-anchor" href="#ショーケース">
+        <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+            <path fill-rule="evenodd"
+                  d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+        </svg>
+    </a></h2>
+    <p>Pythonのみ例示します。他の言語は変換してください。</p>
+    <h3 id="球体">球体<a id="vditorAnchor-球体" class="vditor-anchor" href="#球体">
         <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
             <path fill-rule="evenodd"
                   d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
         </svg>
     </a></h3>
-    <p>準備中</p>
+    <p align="center"><img src="image/square_sample.png" alt="square" width="50%"/></p>
+    <pre><code class="language-python">from build_box import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 10, 0, pitch=0, yaw=0, roll=0)
+
+radius = 11
+for i in range(-radius, radius + 1):
+  for j in range(-radius, radius + 1):
+    for k in range(-radius, radius + 1):
+      if (radius -1 ) ** 2 &lt;= i ** 2 + j ** 2 + k ** 2 &lt; radius ** 2:
+        print(i, j, k)
+        build_box.create_box(i, j, k, 0, 1, 1)
+
+build_box.send_data()
+</code></pre>
+    <h3 id="ノードの移動">ノードの移動<a id="vditorAnchor-ノードの移動" class="vditor-anchor" href="#ノードの移動">
+        <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+            <path fill-rule="evenodd"
+                  d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+        </svg>
+    </a></h3>
+    <p align="center"><img src="image/move_sample.png" alt="node_move" width="50%"/></p>
+    <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+for j in range(5):
+  build_box.set_box_size(0.5)
+  build_box.set_build_interval(0.01)
+  build_box.set_node(-25 + j * 10, 0, 0, pitch=0, yaw=0, roll=0)
+
+  for i in range(10):
+    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+    build_box.create_box(0, i, 0, r=1, g=0, b=0)
+    build_box.create_box(1, i, 0, r=1, g=1, b=0)
+    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+  for i in range(5):
+    build_box.remove_box(0, i * 2 + 1, 0)
+    build_box.remove_box(1, i * 2, 0)
+
+  build_box.send_data()
+  time.sleep(1)
+</code></pre>
+    <h3 id="ノードの回転">ノードの回転<a id="vditorAnchor-ノードの回転" class="vditor-anchor" href="#ノードの回転">
+        <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+            <path fill-rule="evenodd"
+                  d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+        </svg>
+    </a></h3>
+    <p align="center"><img src="image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+    <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+rotations = [
+  [0, 0, 0],
+  [30, 0, 0],
+  [0, 30, 0],
+  [0, 0, 30],
+  # [30, 30, 0],
+]
+
+
+for rotation in rotations:
+  pitch = rotation[0]
+  yaw = rotation[1]
+  roll = rotation[2]
+
+  build_box.set_box_size(0.5)
+  build_box.set_build_interval(0.01)
+  build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+
+  for i in range(10):
+    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+    build_box.create_box(0, i, 0, r=1, g=0, b=0)
+    build_box.create_box(1, i, 0, r=1, g=1, b=0)
+    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+  for i in range(5):
+    build_box.remove_box(0, i * 2 + 1, 0)
+    build_box.remove_box(1, i * 2, 0)
+
+  build_box.send_data()
+  time.sleep(1)
+
+</code></pre>
+    <h3 id="ノードのアニメーション">ノードのアニメーション<a id="vditorAnchor-ノードのアニメーション" class="vditor-anchor" href="#ノードのアニメーション">
+        <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+            <path fill-rule="evenodd"
+                  d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+        </svg>
+    </a></h3>
+    <p align="center"><img src="image/animation_sample.png" alt="node_animation" width="50%"/></p>
+    <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+</code></pre>
+    <h3 id="文字表示">文字表示<a id="vditorAnchor-文字表示" class="vditor-anchor" href="#文字表示">
+        <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+            <path fill-rule="evenodd"
+                  d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+        </svg>
+    </a></h3>
+    <p align="center"><img src="image/sentence.png" alt="sentence" width="50%"/></p>
+    <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence(&quot;Hello World&quot;, 0, 0, 0, r=1, g=0, b=0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence(&quot;こんにちは&quot;, 0, 0, 0, r=0, g=1, b=0)
+
+build_box.send_data()
+</code></pre>
     <h3 id="ユーザー共有">ユーザー共有<a id="vditorAnchor-ユーザー共有" class="vditor-anchor" href="#ユーザー共有">
         <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
             <path fill-rule="evenodd"
@@ -347,6 +522,7 @@ $ swift run
     </a></h2>
     <p>creativival</p>
 </div>
+
 <script>    const previewElement = document.getElementById('preview');
 Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
 Vditor.codeRender(previewElement);

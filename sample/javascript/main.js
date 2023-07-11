@@ -3,7 +3,6 @@ const BuildBox = require('./buildBox.js');
 const roomName = '1000';
 const buildBox = new BuildBox(roomName);
 
-buildBox.clearData();
 buildBox.setBoxSize(0.5);
 buildBox.setBuildInterval(0.01);
 

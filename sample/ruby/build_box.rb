@@ -29,7 +29,7 @@ class BuildBox
     @build_interval = interval
   end
 
-  def clear_boxes
+  def clear_data
     @boxes = []
     @size = 1
     @build_interval = 0.01

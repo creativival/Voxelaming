@@ -28,7 +28,7 @@
 
 次に、各言語の繰り返し文や条件式などを使って、ボクセルデータを作成します。ボクセルの位置は、平面アンカーを基準にして、x軸、y軸、z軸の値を指定します。x軸は左右、y軸は上下、z軸は奥行き（手前がプラス）を表します（単位はセンチメートル）。ボクセルの大きさは、1.0cmを基準にして小数で指定します。色はRGB値で0から1までの小数で指定します。そして、ボクセルを設置する間隔を秒で指定します。ボクセルを設置する間隔を指定することで、ボクセルが一気に設置されるのではなく、時間をかけて設置されるようになります。
 
-### ボクセルの配置
+### ARボクセルの配置
 
 スクリプトを実行すると、WebSocket通信でボクセルデータがデバイス（iPhone、iPad）に送信されます。データが受信できたら、デバイス画面の平面アンカーを基準にして、ARボクセルが設置されます。
 
@@ -42,10 +42,12 @@
 * set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。単位は秒です。デフォルトは0.01です。
 * create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
-* write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
-* send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。
-* clear_boxes()：設置されているボクセルをすべて削除します。サイズ、インターバルも初期化します。
-
+* write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。色はRGB値で0から1までの小数で指定します。
+* send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。（送信後、ボクセルデータは初期化されます。）
+* clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。
+* set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
+* animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw`, roll）、拡大（scale）、設置する間隔（interval）
+`
 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -> setBoxSize）
 
 ## スクリプトの例
@@ -58,7 +60,7 @@ sampleフォルダーに、スクリプトの例を用意しました。以下�
 
 [Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
 
-![VoxelamingScratch3](image/voxelaming_scratch3.png)
+<p align="center"><img src="image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="50%"/></p>
 
 ### Python (3.6以上)
 
@@ -71,27 +73,20 @@ from build_box import BuildBox
 room_name = "1000"
 build_box = BuildBox(room_name)
 
-build_box.clear_boxes()
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
+build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animation_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
-  build_box.create_box(-1, i, 0, 0, 1, 1)
-  build_box.create_box(0, i, 0, 1, 0, 0)
-  build_box.create_box(1, i, 0, 1, 1, 0)
-  build_box.create_box(2, i, 0, 0, 1, 1)
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(50):
   build_box.remove_box(0, i * 2 + 1, 0)
   build_box.remove_box(1, i * 2, 0)
-
-
-# for i in range(-10, 11):
-#   for j in range(0, 11):
-#     for k in range(-10, 11):
-#       if i ** 2 + j ** 2 + k ** 2 < 10 ** 2:
-#         print(i, j, k)
-#         build_box.create_box(i, j, k, 0, 1, 1)
 
 build_box.send_data()
 ```
@@ -117,7 +112,6 @@ import BuildBox from './buildBox.mjs';
 const roomName = '1000';
 const buildBox = new BuildBox(roomName);
 
-buildBox.clearData();
 buildBox.setBoxSize(0.5);
 buildBox.setBuildInterval(0.01);
 
@@ -153,7 +147,6 @@ require_relative 'build_box'
 room_name = '1000'
 build_box = BuildBox.new(room_name)
 
-build_box.clear_boxes()
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
@@ -229,10 +222,183 @@ if #available(iOS 15.0, macOS 12.0, *) {
 $ cd swift/Sources
 $ swift run
 ```
+## ショーケース
 
-### ボクセルのアニメーション
+Pythonのみ例示します。他の言語は変換してください。
 
-準備中
+### 球体
+
+<p align="center"><img src="image/square_sample.png" alt="square" width="50%"/></p>
+
+```python
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 10, 0, pitch=0, yaw=0, roll=0)
+
+radius = 11
+for i in range(-radius, radius + 1):
+  for j in range(-radius, radius + 1):
+    for k in range(-radius, radius + 1):
+      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
+        print(i, j, k)
+        build_box.create_box(i, j, k, 0, 1, 1)
+
+build_box.send_data()
+```
+
+### ノードの移動
+
+<p align="center"><img src="image/move_sample.png" alt="node_move" width="50%"/></p>
+
+```python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+for j in range(5):
+  build_box.set_box_size(0.5)
+  build_box.set_build_interval(0.01)
+  build_box.set_node(-25 + j * 10, 0, 0, pitch=0, yaw=0, roll=0)
+
+  for i in range(10):
+    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+    build_box.create_box(0, i, 0, r=1, g=0, b=0)
+    build_box.create_box(1, i, 0, r=1, g=1, b=0)
+    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+  for i in range(5):
+    build_box.remove_box(0, i * 2 + 1, 0)
+    build_box.remove_box(1, i * 2, 0)
+
+  build_box.send_data()
+  time.sleep(1)
+```
+
+### ノードの回転
+
+<p align="center"><img src="image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+
+```python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+rotations = [
+  [0, 0, 0],
+  [30, 0, 0],
+  [0, 30, 0],
+  [0, 0, 30],
+  # [30, 30, 0],
+]
+
+
+for rotation in rotations:
+  pitch = rotation[0]
+  yaw = rotation[1]
+  roll = rotation[2]
+
+  build_box.set_box_size(0.5)
+  build_box.set_build_interval(0.01)
+  build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+
+  for i in range(10):
+    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+    build_box.create_box(0, i, 0, r=1, g=0, b=0)
+    build_box.create_box(1, i, 0, r=1, g=1, b=0)
+    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+  for i in range(5):
+    build_box.remove_box(0, i * 2 + 1, 0)
+    build_box.remove_box(1, i * 2, 0)
+
+  build_box.send_data()
+  time.sleep(1)
+
+```
+
+
+### ノードのアニメーション
+
+<p align="center"><img src="image/animation_sample.png" alt="node_animation" width="50%"/></p>
+
+```python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+```
+
+
+### 文字表示
+
+<p align="center"><img src="image/sentence.png" alt="sentence" width="50%"/></p>
+
+```python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0)
+
+build_box.send_data()
+```
 
 ### ユーザー共有
 
