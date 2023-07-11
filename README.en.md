@@ -1,6 +1,6 @@
 # Voxelaming - A Programming Learning App Using ARKit
 
-<p align="center"><img src="image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
 
 
 *Read this in other languages: [English](README.en.md), [日本語](README.md)*
@@ -61,7 +61,7 @@ Load the Voxelaming extension and create a script.
 
 [Play the sample project in Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
 
-<p align="center"><img src="image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="100%"/></p>
 
 ### Python (3.6+)
 
@@ -229,7 +229,7 @@ Only Python is demonstrated. Please translate for other languages.
 
 ### Square
 
-<p align="center"><img src="image/square_sample.png" alt="square" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/square_sample.png" alt="square" width="50%"/></p>
 
 ```python
 from build_box import BuildBox
@@ -254,7 +254,7 @@ build_box.send_data()
 
 ### Node move
 
-<p align="center"><img src="image/move_sample.png" alt="node_move" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/move_sample.png" alt="node_move" width="50%"/></p>
 
 ```python
 import time
@@ -284,7 +284,7 @@ for j in range(5):
 
 ### Node rotation
 
-<p align="center"><img src="image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
 
 ```python
 import time
@@ -329,7 +329,7 @@ for rotation in rotations:
 
 ### Node animation
 
-<p align="center"><img src="image/animation_sample.png" alt="node_animation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
 
 ```python
 import time
@@ -375,7 +375,7 @@ build_box.send_data()
 
 ### Write sentence
 
-<p align="center"><img src="image/sentence.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
 
 ```python
 import time

@@ -1,6 +1,6 @@
 # ボクセラミング - ARKitを使ったプログラミング学習アプリ
 
-<p align="center"><img src="image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
 
 *Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
@@ -60,7 +60,7 @@ sampleフォルダーに、スクリプトの例を用意しました。以下�
 
 [Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
 
-<p align="center"><img src="image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="100%"/></p>
 
 ### Python (3.6以上)
 
@@ -228,7 +228,7 @@ Pythonのみ例示します。他の言語は変換してください。
 
 ### 球体
 
-<p align="center"><img src="image/square_sample.png" alt="square" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/square_sample.png" alt="square" width="50%"/></p>
 
 ```python
 from build_box import BuildBox
@@ -253,7 +253,7 @@ build_box.send_data()
 
 ### ノードの移動
 
-<p align="center"><img src="image/move_sample.png" alt="node_move" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/move_sample.png" alt="node_move" width="50%"/></p>
 
 ```python
 import time
@@ -283,7 +283,7 @@ for j in range(5):
 
 ### ノードの回転
 
-<p align="center"><img src="image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
 
 ```python
 import time
@@ -328,7 +328,7 @@ for rotation in rotations:
 
 ### ノードのアニメーション
 
-<p align="center"><img src="image/animation_sample.png" alt="node_animation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
 
 ```python
 import time
@@ -374,7 +374,7 @@ build_box.send_data()
 
 ### 文字表示
 
-<p align="center"><img src="image/sentence.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/Voxelaming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
 
 ```python
 import time
