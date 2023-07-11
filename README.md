@@ -1,6 +1,9 @@
 # ボクセラミング - ARKitを使ったプログラミング学習アプリ
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>
+[//]: # (<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>)
+<p align="center"><video width="1280" height="720" controls>
+    <source src="video/voxelaming_top_video.mp4" type="video/mp4">
+</video></p>
 
 *Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
