@@ -48,17 +48,17 @@
 * set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。単位は秒です。デフォルトは0.01です。
 * create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
-* write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。色はRGB値で0から1までの小数で指定します。
+* write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。
 * send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。（送信後、ボクセルデータは初期化されます。）
 * clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。
 * set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
-* animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw`, roll）、拡大（scale）、設置する間隔（interval）
+* animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。
 `
 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -> setBoxSize）
 
-## スクリプトの例
+## サンプルスクリプト
 
-sampleフォルダーに、スクリプトの例を用意しました。以下のスクリプトを実行すると、画像のようなボクセルが設置されます。
+sampleフォルダーに、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、トップ画像のようなボクセルが設置されます。
 
 ### Scratch3 MOD
 
@@ -412,7 +412,7 @@ build_box.send_data()
 
 ## 設定
 
-画面右上の「Settings」ボタンから設定画面に移動できます。デバッグモードをオフにすると、画面の情報表示が無効になrます。
+画面右上の「Settings」ボタンから設定画面に移動できます。デバッグモードをオフにすると、画面の情報表示が無効になります。
 
 ## ライセンス
 
