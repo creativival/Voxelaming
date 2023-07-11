@@ -59,7 +59,7 @@ Please read snake_case as camelCase. (set_box_size -> setBoxSize)
 
 ## Script Examples
 
-You can try examples of scripts in the sample folder. When you run the following script, a voxel like the image will be placed.
+You can try examples of scripts in [the sample folder](https://github.com/creativival/Voxelaming/tree/main/sample). When you run the following script, a voxel like the image will be placed.
 
 ### Scratch3 MOD
 

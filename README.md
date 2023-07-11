@@ -58,7 +58,7 @@
 
 ## サンプルスクリプト
 
-sampleフォルダーに、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、トップ画像のようなボクセルが設置されます。
+[sampleフォルダー](https://github.com/creativival/Voxelaming/tree/main/sample)に、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、トップ画像のようなボクセルが設置されます。
 
 ### Scratch3 MOD
 
