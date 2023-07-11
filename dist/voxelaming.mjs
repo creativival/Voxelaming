@@ -199,6 +199,8 @@ var argumentType = ArgumentType;
 var en = {
 	"voxelaming.name": "Voxelaming",
 	"voxelaming.setRoomName": "Set room name to [ROOMNAME]",
+	"voxelaming.setNode": "Set node at x: [X] y: [Y] z: [Z] pitch: [PITCH] yaw: [YAW] roll: [ROLL]",
+	"voxelaming.animateNode": "Animate node at x: [X] y: [Y] z: [Z] pitch: [PITCH] yaw: [YAW] roll: [ROLL] scale: [SCALE] interval: [INTERVAL]",
 	"voxelaming.createBox": "Create voxel at x: [X] y: [Y] z: [Z] r: [R] g: [G] b: [B]",
 	"voxelaming.removeBox": "Remove voxel at x: [X] y: [Y] z: [Z]",
 	"voxelaming.setBoxSize": "Set voxel size to [BOXSIZE]",
@@ -209,10 +211,13 @@ var en = {
 var ja = {
 	"voxelaming.name": "ボクセラミング",
 	"voxelaming.setRoomName": "ルームネームを [ROOMNAME] にする",
+	"voxelaming.setNode": "ノードを x: [X] y: [Y] z: [Z] に配置する。角度を pitch: [PITCH] yaw: [YAW] roll: [ROLL] にする",
+	"voxelaming.animateNode": "アニメーション移動 x: [X] y: [Y] z: [Z] 。回転 pitch: [PITCH] yaw: [YAW] roll: [ROLL] 。拡大: [SCALE] 移動時間: [INTERVAL]",
 	"voxelaming.createBox": "ボクセルを x: [X] y: [Y] z: [Z] に作成する。色 r: [R] g: [G] b: [B]",
 	"voxelaming.removeBox": "ボクセルを x: [X] y: [Y] z: [Z] から削除する",
 	"voxelaming.setBoxSize": "ボクセルサイズを [BOXSIZE] にする",
 	"voxelaming.setBuildInterval": "ボクセルの作成間隔を [INTERVAL] 秒にする",
+	"voxelaming.setSentences": "[SENTENCES] を x: [X] y: [Y] z: [Z] に書く。色 r: [R] g: [G] b: [B]",
 	"voxelaming.clearData": "データを初期化する",
 	"voxelaming.sendData": "データを送信する"
 };
@@ -222,10 +227,13 @@ var translations = {
 	"ja-Hira": {
 	"voxelaming.name": "ボクセラミング",
 	"voxelaming.setRoomName": "ルームネームを [ROOMNAME] にする",
+	"voxelaming.setNode": "ノードを x: [X] y: [Y] z: [Z] におく。かくどを pitch: [PITCH] yaw: [YAW] roll: [ROLL] にする",
+	"voxelaming.animateNode": "アニメーションいどう x: [X] y: [Y] z: [Z] 。かいてん pitch: [PITCH] yaw: [YAW] roll: [ROLL] 。かくだい: [SCALE] じかん: [INTERVAL]",
 	"voxelaming.createBox": "ボクセルを x: [X] y: [Y] z: [Z] につくる。いろ r: [R] g: [G] b: [B]",
 	"voxelaming.removeBox": "ボクセルを x: [X] y: [Y] z: [Z] からけす",
 	"voxelaming.setBoxSize": "ボクセルサイズを [BOXSIZE] にする",
 	"voxelaming.setBuildInterval": "ボクセルのつくるかんかくを [INTERVAL] びょうにする",
+	"voxelaming.setSentences": "[SENTENCES] を x: [X] y: [Y] z: [Z] にかく。いろ r: [R] g: [G] b: [B]",
 	"voxelaming.clearData": "データをけす",
 	"voxelaming.sendData": "データをおくる"
 }
@@ -277,7 +285,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      */
     this.runtime = runtime;
     this.roomName = '1000';
+    this.node = [0, 0, 0, 0, 0, 0];
+    this.animation = [0, 0, 0, 0, 0, 0, 1, 0];
     this.boxes = [];
+    this.sentences = [];
     this.size = 1.0;
     this.buildInterval = 0.01;
     if (runtime.formatMessage) {
@@ -311,6 +322,110 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             ROOMNAME: {
               type: argumentType.STRING,
               defaultValue: '1000'
+            }
+          }
+        }, {
+          opcode: 'setBoxSize',
+          blockType: blockType.COMMAND,
+          text: formatMessage({
+            id: 'voxelaming.setBoxSize',
+            default: 'Set box size to [BOXSIZE]',
+            description: 'set box size'
+          }),
+          arguments: {
+            BOXSIZE: {
+              type: argumentType.NUMBER,
+              defaultValue: 1.0
+            }
+          }
+        }, {
+          opcode: 'setBuildInterval',
+          blockType: blockType.COMMAND,
+          text: formatMessage({
+            id: 'voxelaming.setBuildInterval',
+            default: 'Set build interval to [INTERVAL]',
+            description: 'set build interval'
+          }),
+          arguments: {
+            INTERVAL: {
+              type: argumentType.NUMBER,
+              defaultValue: 0.01
+            }
+          }
+        }, {
+          opcode: 'setNode',
+          blockType: blockType.COMMAND,
+          text: formatMessage({
+            id: 'voxelaming.setNode',
+            default: 'Set node at x: [X] y: [Y] z: [Z] pitch: [PITCH] yaw: [YAW] roll: [ROLL]',
+            description: 'set node'
+          }),
+          arguments: {
+            X: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            Y: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            Z: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            PITCH: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            YAW: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            ROLL: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            }
+          }
+        }, {
+          opcode: 'animateNode',
+          blockType: blockType.COMMAND,
+          text: formatMessage({
+            id: 'voxelaming.animateNode',
+            default: 'Animate node at x: [X] y: [Y] z: [Z] pitch: [PITCH] yaw: [YAW] roll: [ROLL] scale: [SCALE] interval: [INTERVAL]',
+            description: 'animate node'
+          }),
+          arguments: {
+            X: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            Y: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            Z: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            PITCH: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            YAW: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            ROLL: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            SCALE: {
+              type: argumentType.NUMBER,
+              defaultValue: 1
+            },
+            INTERVAL: {
+              type: argumentType.NUMBER,
+              defaultValue: 10
             }
           }
         }, {
@@ -370,31 +485,41 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             }
           }
         }, {
-          opcode: 'setBoxSize',
+          opcode: 'setSentences',
           blockType: blockType.COMMAND,
           text: formatMessage({
-            id: 'voxelaming.setBoxSize',
-            default: 'Set box size to [BOXSIZE]',
-            description: 'set box size'
+            id: 'voxelaming.setSentences',
+            default: 'Write [SENTENCES] at x: [X] y: [Y] z: [Z] r: [R] g: [G] b: [B]',
+            description: 'set sentences'
           }),
           arguments: {
-            BOXSIZE: {
+            SENTENCES: {
+              type: argumentType.STRING,
+              defaultValue: 'Hello World'
+            },
+            X: {
               type: argumentType.NUMBER,
-              defaultValue: 1.0
-            }
-          }
-        }, {
-          opcode: 'setBuildInterval',
-          blockType: blockType.COMMAND,
-          text: formatMessage({
-            id: 'voxelaming.setBuildInterval',
-            default: 'Set build interval to [INTERVAL]',
-            description: 'set build interval'
-          }),
-          arguments: {
-            INTERVAL: {
+              defaultValue: 0
+            },
+            Y: {
               type: argumentType.NUMBER,
-              defaultValue: 0.01
+              defaultValue: 0
+            },
+            Z: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            R: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            G: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
+            },
+            B: {
+              type: argumentType.NUMBER,
+              defaultValue: 0
             }
           }
         }, {
@@ -421,6 +546,30 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "setRoomName",
     value: function setRoomName(args) {
       this.roomName = args.ROOMNAME;
+    }
+  }, {
+    key: "setNode",
+    value: function setNode(args) {
+      var x = Math.floor(Number(args.X));
+      var y = Math.floor(Number(args.Y));
+      var z = Math.floor(Number(args.Z));
+      var pitch = Number(args.PITCH);
+      var yaw = Number(args.YAW);
+      var roll = Number(args.ROLL);
+      this.node = [x, y, z, pitch, yaw, roll];
+    }
+  }, {
+    key: "animateNode",
+    value: function animateNode(args) {
+      var x = Math.floor(Number(args.X));
+      var y = Math.floor(Number(args.Y));
+      var z = Math.floor(Number(args.Z));
+      var pitch = Number(args.PITCH);
+      var yaw = Number(args.YAW);
+      var roll = Number(args.ROLL);
+      var scale = Number(args.SCALE);
+      var interval = Number(args.INTERVAL);
+      this.animation = [x, y, z, pitch, yaw, roll, scale, interval];
     }
   }, {
     key: "createBox",
@@ -458,9 +607,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       this.buildInterval = Number(args.INTERVAL);
     }
   }, {
+    key: "setSentences",
+    value: function setSentences(args) {
+      var sentences = args.SENTENCES;
+      var x = args.X;
+      var y = args.Y;
+      var z = args.Z;
+      var r = args.R;
+      var g = args.G;
+      var b = args.B;
+      this.sentences.push([sentences, x, y, z, r, g, b]);
+    }
+  }, {
     key: "clearData",
     value: function clearData() {
+      this.node = [0, 0, 0, 0, 0, 0];
+      this.animation = [0, 0, 0, 0, 0, 0, 1, 0];
       this.boxes = [];
+      this.sentences = [];
       this.size = 1.0;
       this.buildInterval = 0.01;
     }
@@ -471,7 +635,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       var date = new Date();
       var self = this;
       var dataToSend = {
+        node: this.node,
+        animation: this.animation,
         boxes: this.boxes,
+        sentences: this.sentences,
         size: this.size,
         interval: this.buildInterval,
         date: date.toISOString()
