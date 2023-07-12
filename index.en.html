@@ -140,10 +140,10 @@
                 axis positions and the color in RGB values. The color is specified as a decimal from 0 to 1 in RGB
                 values.
             </li>
-            <li>send_data(): Sends the voxel data to the device (iPhone, iPad). (After sending, the voxel data is
-                reset.)
+            <li>send_data(): Sends the voxel data to the device (iPhone, iPad).
             </li>
-            <li>clear_data(): Initializes the voxel data. The size and interval are also reset.</li>
+            <li>clear_data(): Initializes the voxel data. The size and interval are also reset. (After sending, the voxel data is
+                reset if you want.)</li>
             <li>set_node(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of
                 the
                 node that groups the voxels.
@@ -413,26 +413,28 @@ build_box.send_data()
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
-for j in range(5):
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
-  build_box.set_node(-25 + j * 10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
 
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
 
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for i in range(5):
+  build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
 
   build_box.send_data()
   time.sleep(1)
+
 </code></pre>
         <h3 id="Node-rotation">Node rotation<a id="vditorAnchor-Node-rotation" class="vditor-anchor"
                                                href="#Node-rotation">
@@ -445,7 +447,7 @@ for j in range(5):
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
 rotations = [
@@ -453,32 +455,30 @@ rotations = [
   [30, 0, 0],
   [0, 30, 0],
   [0, 0, 30],
-  # [30, 30, 0],
 ]
 
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
   pitch = rotation[0]
   yaw = rotation[1]
   roll = rotation[2]
 
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
   build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
-
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
 
   build_box.send_data()
   time.sleep(1)
-
 </code></pre>
         <h3 id="Node-animation">Node animation<a id="vditorAnchor-Node-animation" class="vditor-anchor"
                                                  href="#Node-animation">
@@ -491,7 +491,7 @@ for rotation in rotations:
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
@@ -511,20 +511,7 @@ build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
 build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
 build_box.send_data()
 </code></pre>
         <h3 id="Write-sentence">Write sentence<a id="vditorAnchor-Write-sentence" class="vditor-anchor"
