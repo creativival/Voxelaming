@@ -95,8 +95,8 @@
             <li>write_sentence(sentence, x, y, z, r, g,
                 b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。
             </li>
-            <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。（送信後、ボクセルデータは初期化されます。）</li>
-            <li>clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。</li>
+            <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。</li>
+            <li>clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。（送信後、ボクセルデータを初期化するとき実行してください。）</li>
             <li>set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。</li>
             <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval） </code><br/>
                 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -&gt; setBoxSize）
@@ -359,26 +359,28 @@ build_box.send_data()
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
-for j in range(5):
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
-  build_box.set_node(-25 + j * 10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
 
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
 
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for i in range(5):
+  build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
 
   build_box.send_data()
   time.sleep(1)
+
 </code></pre>
         <h3 id="ノードの回転">ノードの回転<a id="vditorAnchor-ノードの回転" class="vditor-anchor" href="#ノードの回転">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -390,7 +392,7 @@ for j in range(5):
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
 rotations = [
@@ -398,32 +400,30 @@ rotations = [
   [30, 0, 0],
   [0, 30, 0],
   [0, 0, 30],
-  # [30, 30, 0],
 ]
 
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
   pitch = rotation[0]
   yaw = rotation[1]
   roll = rotation[2]
 
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
   build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
-
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
 
   build_box.send_data()
   time.sleep(1)
-
 </code></pre>
         <h3 id="ノードのアニメーション">ノードのアニメーション<a id="vditorAnchor-ノードのアニメーション" class="vditor-anchor" href="#ノードのアニメーション">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -435,7 +435,7 @@ for rotation in rotations:
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
@@ -455,20 +455,7 @@ build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
 build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
 build_box.send_data()
 </code></pre>
         <h3 id="文字表示">文字表示<a id="vditorAnchor-文字表示" class="vditor-anchor" href="#文字表示">
