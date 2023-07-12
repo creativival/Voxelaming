@@ -50,8 +50,9 @@ I will explain the methods to use in the script. The method names for each langu
 * create_box(x, y, z, r, g, b): Places a voxel. Specify the x, y, and z axis positions and the color. The color is specified as a decimal from 0 to 1 in RGB values.
 * remove_box(x, y, z): Deletes a voxel. Specify the x, y, and z axis positions. (If there is no voxel at the specified position, nothing will be done)
 * write_sentence(sentence, x, y, z, r, g, b): Writes a single line sentence in voxel. Specify the x, y, and z axis positions and the color in RGB values. The color is specified as a decimal from 0 to 1 in RGB values.
-* send_data(): Sends the voxel data to the device (iPhone, iPad). (After sending, the voxel data is reset.)
-* clear_data(): Initializes the voxel data. The size and interval are also reset.
+* send_data(): Sends the voxel data to the device (iPhone, iPad).
+* clear_data(): Initializes the voxel data. The size and interval are also reset. (After sending, the voxel data is
+  reset if you want.)
 * set_node(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups the voxels.
 * animate_node(x, y, z, pitch, yaw, roll, scale, interval): Animates the node. Specify movement (x, y, z), rotation (pitch, yaw, roll), enlargement (scale), and placement interval (interval).
 
@@ -269,20 +270,21 @@ from build_box import BuildBox
 room_name = "1000"
 build_box = BuildBox(room_name)
 
-for j in range(5):
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
-  build_box.set_node(-25 + j * 10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
 
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
 
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for i in range(5):
+  build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
 
   build_box.send_data()
   time.sleep(1)
@@ -304,32 +306,30 @@ rotations = [
   [30, 0, 0],
   [0, 30, 0],
   [0, 0, 30],
-  # [30, 30, 0],
 ]
 
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
   pitch = rotation[0]
   yaw = rotation[1]
   roll = rotation[2]
 
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
   build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
-
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
 
   build_box.send_data()
   time.sleep(1)
-
 ```
 
 
@@ -361,20 +361,7 @@ build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
 build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
 build_box.send_data()
 ```
 

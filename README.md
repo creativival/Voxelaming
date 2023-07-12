@@ -49,8 +49,8 @@
 * create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
 * write_sentence(sentence, x, y, z, r, g, b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。
-* send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。（送信後、ボクセルデータは初期化されます。）
-* clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。
+* send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。
+* clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。
 * set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
 * animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。
 `
@@ -268,20 +268,21 @@ from build_box import BuildBox
 room_name = "1000"
 build_box = BuildBox(room_name)
 
-for j in range(5):
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
-  build_box.set_node(-25 + j * 10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
 
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
 
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for i in range(5):
+  build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
 
   build_box.send_data()
   time.sleep(1)
@@ -303,32 +304,30 @@ rotations = [
   [30, 0, 0],
   [0, 30, 0],
   [0, 0, 30],
-  # [30, 30, 0],
 ]
 
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
   pitch = rotation[0]
   yaw = rotation[1]
   roll = rotation[2]
 
-  build_box.set_box_size(0.5)
-  build_box.set_build_interval(0.01)
   build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
-
-  for i in range(10):
-    build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-    build_box.create_box(0, i, 0, r=1, g=0, b=0)
-    build_box.create_box(1, i, 0, r=1, g=1, b=0)
-    build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-  for i in range(5):
-    build_box.remove_box(0, i * 2 + 1, 0)
-    build_box.remove_box(1, i * 2, 0)
 
   build_box.send_data()
   time.sleep(1)
-
 ```
 
 
@@ -360,20 +359,7 @@ build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
 build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
 build_box.send_data()
 ```
 
