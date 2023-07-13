@@ -5,7 +5,10 @@ class BuildBox {
     let url = URL(string: "wss://render-nodejs-server.onrender.com")!
     let webSocketTask: URLSessionWebSocketTask
     var roomName = ""
+    var node: [Double] = [0, 0, 0, 0, 0, 0, 0]
+    var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
+    var sentences = [[String]]()
     var size: Double = 1.0
     var buildInterval = 0.01
 
@@ -14,19 +17,33 @@ class BuildBox {
         webSocketTask = URLSession.shared.webSocketTask(with: url)
     }
 
-    func createBox(_ x: Double, _ y: Double, _  z: Double, _ r: Double, _ g: Double, _ b: Double) {
-        let _x = floor(x)
-        let _y = floor(y)
-        let _z = floor(z)
-        boxes.append([_x, _y, _z, r, g, b])
+    func setNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
+        let float_x = floor(x)
+        let float_y = floor(y)
+        let float_z = floor(z)
+        node = [float_x, float_y, float_z, pitch, yaw, roll]
+    }
+
+    func animationNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+        let float_x = floor(x)
+        let float_y = floor(y)
+        let float_z = floor(z)
+        node = [float_x, float_y, float_z, pitch, yaw, roll, scale, interval]
+    }
+
+    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
+        let float_x = floor(x)
+        let float_y = floor(y)
+        let float_z = floor(z)
+        boxes.append([float_x, float_y, float_z, r, g, b, alpha])
     }
 
     func removeBox(_ x: Double, _ y: Double, _ z: Double) {
-        let _x = floor(x)
-        let _y = floor(y)
-        let _z = floor(z)
+        let float_x = floor(x)
+        let float_y = floor(y)
+        let float_z = floor(z)
         for box in boxes {
-            if (box[0] == _x && box[1] == _y && box[2] == _z) {
+            if (box[0] == float_x && box[1] == float_y && box[2] == float_z) {
                 boxes.remove(at: boxes.firstIndex(of: box)!)
             }
         }
@@ -40,9 +57,24 @@ class BuildBox {
         buildInterval = interval
     }
 
-    func clearBoxes() {
+    func clearData() {
+        node = [0, 0, 0, 0, 0, 0, 0]
+        animation = [0, 0, 0, 0, 0, 0, 1, 0]
+        boxes = [[Double]]()
         boxes.removeAll()
+        sentences.removeAll()
         size = 1.0
+    }
+
+    func writeSentence(_ sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
+        let string_x = String(floor(x))
+        let string_y = String(floor(y))
+        let string_z = String(floor(z))
+        let string_r = String(r)
+        let string_g = String(g)
+        let string_b = String(b)
+        let string_alpha = String(alpha)
+        sentences.append([sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha])
     }
 
     func sendData() async throws {
@@ -51,7 +83,15 @@ class BuildBox {
         let date = Date()
         let dateFormatter = ISO8601DateFormatter()
         let dateString = dateFormatter.string(from: date)
-        let dataDict = ["boxes": boxes, "size": size, "interval": buildInterval, "date": dateString] as [String : Any]
+        let dataDict = [
+            "node": node,
+            "animation": animation,
+            "boxes": boxes,
+            "sentences": sentences,
+            "size": size,
+            "interval": buildInterval,
+            "date": dateString
+        ] as [String : Any]
 
         let jsonData = try JSONSerialization.data(withJSONObject: dataDict, options: [])
         guard let jsonString = String(data: jsonData, encoding: .utf8) else {

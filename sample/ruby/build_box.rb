@@ -55,7 +55,6 @@ class BuildBox
         puts "Joined room: #{@room_name}"
         ws.send(data_to_send)
         puts 'Sent data to server'
-        clear_boxes
         ws.close
         # EM.stop
       end

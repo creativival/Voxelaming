@@ -58,8 +58,6 @@ class BuildBox {
       console.log(`Joined room: ${this.roomName}`);
       this.ws.send(JSON.stringify(dataToSend));
 
-      this.clearData();
-
       // Close the WebSocket connection after sending data
       this.ws.close();
     });
