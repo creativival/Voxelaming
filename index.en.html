@@ -173,7 +173,7 @@
         <p>
             <a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3">Play
                 the sample project in Xcratch</a></p>
-        <p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="100%"/></p>
+        <p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_scratch3_en.png" alt="voxelaming_scratch3" width="100%"/></p>
         <h3 id="Python--3-6--">Python (3.6+)<a id="vditorAnchor-Python--3-6--" class="vditor-anchor"
                                                href="#Python--3-6--">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -322,43 +322,34 @@ build_box.send_data
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h4>
-        <pre><code class="language-swift">// Swift (リファクタリング中)
+        <pre><code class="language-swift">// Swift
 import Foundation
 
-let roomName = &quot;1000&quot;
-
-@available(iOS 15.0, macOS 12.0, *)
-func main() async {
-    do {
-        let buildBox = BuildBox(roomName)
-
-        buildBox.setSize(0.5)
-        buildBox.setBuildInterval(0.01)
-
-        for i in 0..&lt;100 {
-            buildBox.createBox(-1, Double(i), 0, 0, 1, 1)
-            buildBox.createBox(0, Double(i), 0, 1, 0, 0)
-            buildBox.createBox(1, Double(i), 0, 1, 1, 0)
-            buildBox.createBox(2, Double(i), 0, 0, 1, 1)
-        }
-
-        for i in 0..&lt;50 {
-            buildBox.removeBox(0, Double(i * 2), 0)
-            buildBox.removeBox(1, Double(i * 2 + 1), 0)
-        }
-        try await buildBox.sendData()
-    } catch {
-        print(&quot;An error occurred: \(error)&quot;)
-    }
-}
+let roomName = "1000"
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    Task.detached(priority: .userInitiated) {
-        await main()
+    let buildBox = BuildBox(roomName)
+
+    buildBox.setBoxSize(0.5)
+    buildBox.setBuildInterval(0.01)
+
+    for i in 0..<100 {
+        buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
+        buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
+        buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
+        buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
     }
+
+    for i in 0..<50 {
+        buildBox.removeBox(0, Double(i * 2), 0)
+        buildBox.removeBox(1, Double(i * 2 + 1), 0)
+    }
+
+    buildBox.sendData()
+
     RunLoop.main.run(until: Date(timeIntervalSinceNow: 10)) // Or longer depending on your needs
 } else {
-    fatalError(&quot;This script requires iOS 15.0 / macOS 12.0 or later.&quot;)
+    fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }
 </code></pre>
         <h4 id="Run-script---">Run script<a id="vditorAnchor-Run-script---" class="vditor-anchor" href="#Run-script---">
