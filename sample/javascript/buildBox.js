@@ -4,16 +4,33 @@ class BuildBox {
   constructor(roomName) {
     this.ws = new WebSocket('wss://render-nodejs-server.onrender.com');
     this.roomName = roomName;
+    this.node = [0, 0, 0, 0, 0, 0]
+    this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
+    this.sentences = []
     this.size = 1.0;
     this.buildInterval = 0.01;
   }
 
-  createBox(x, y, z, r, g, b) {
+  set_node(self, x, y, z, pitch=0, yaw=0, roll=0) {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
-    this.boxes.push([x, y, z, r, g, b]);
+    this.node = [x, y, z, pitch, yaw, roll]
+  }
+
+  animation_node(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
+    x = Math.floor(x);
+    y = Math.floor(y);
+    z = Math.floor(z);
+    this.animation = [x, y, z, pitch, yaw, roll, scale, interval]
+  }
+
+  createBox(x, y, z, r=1, g=1, b=1, alpha=1) {
+    x = Math.floor(x);
+    y = Math.floor(y);
+    z = Math.floor(z);
+    this.boxes.push([x, y, z, r, g, b, alpha]);
   }
 
   removeBox(x, y, z) {
@@ -43,11 +60,25 @@ class BuildBox {
     this.buildInterval = 0.01;
   }
 
+  write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
+    x = String(Math.floor(x));
+    y = String(Math.floor(y));
+    z = String(Math.floor(z));
+    r = String(r);
+    g = String(g);
+    b = String(b);
+    alpha = String(alpha);
+    self.sentences.append([sentence, x, y, z, r, g, b, alpha])
+  }
+
   sendData() {
     console.log('Sending data...');
     let date = new Date();
     let dataToSend = {
+      node: this.node,
+      animation: this.animation,
       boxes: this.boxes,
+      sentences: this.sentences,
       size: this.size,
       interval: this.buildInterval,
       date: date.toISOString()
