@@ -9,7 +9,7 @@ class BuildBox
     @node = [0, 0, 0, 0, 0, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
-    @sentences = []
+    @sentence = []
     @size = 1
     @build_interval = 0.01
   end
@@ -44,7 +44,7 @@ class BuildBox
     @node = [0, 0, 0, 0, 0, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
-    @sentences = []
+    @sentence = []
     @size = 1
     @build_interval = 0.01
   end
@@ -52,7 +52,7 @@ class BuildBox
   def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
     x, y, z = [x, y, z].map(&:floor).map(&:to_s)
     r, g, b, alpha =  [r, g, b, alpha].map(&:floor).map(&:to_s)
-    self.sentences.append([sentence, x, y, z, r, g, b, alpha])
+    self.sentence = [sentence, x, y, z, r, g, b, alpha]
 
   def send_data
     puts 'send_data'
@@ -61,7 +61,7 @@ class BuildBox
       "node": @node,
       "animation": @animation,
       "boxes": @boxes,
-      "sentences": @sentences,
+      "sentence": @sentence,
       "size": @size,
       "interval": @build_interval,
       "date": now.to_s

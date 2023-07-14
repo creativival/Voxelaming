@@ -6,12 +6,12 @@ class BuildBox {
     this.node = [0, 0, 0, 0, 0, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
-    this.sentences = []
+    this.sentence = []
     this.size = 1.0;
     this.buildInterval = 0.01;
   }
 
-  set_node(x, y, z, pitch=0, yaw=0, roll=0) {
+  setNode(x, y, z, pitch=0, yaw=0, roll=0) {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
@@ -54,7 +54,10 @@ class BuildBox {
   }
 
   clearData() {
+    this.node = [0, 0, 0, 0, 0, 0]
+    this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
+    this.sentence = []
     this.size = 1.0;
     this.buildInterval = 0.01;
   }
@@ -67,31 +70,8 @@ class BuildBox {
     g = String(g);
     b = String(b);
     alpha = String(alpha);
-    self.sentences.append([sentence, x, y, z, r, g, b, alpha])
+    this.sentence = [sentence, x, y, z, r, g, b, alpha];
   }
-
-  // sendData() {
-  //   console.log('Sending data...');
-  //   let date = new Date();
-  //   let dataToSend = {
-  //     node: this.node,
-  //     animation: this.animation,
-  //     boxes: this.boxes,
-  //     sentences: this.sentences,
-  //     size: this.size,
-  //     interval: this.buildInterval,
-  //     date: date.toISOString()
-  //   };
-  //
-  //   this.ws.on('open', () => {
-  //     this.ws.send(this.roomName);
-  //     console.log(`Joined room: ${this.roomName}`);
-  //     this.ws.send(JSON.stringify(dataToSend));
-  //
-  //     // Close the WebSocket connection after sending data
-  //     this.ws.close();
-  //   });
-  // }
 
   async sendData() {
     console.log('Sending data...');
@@ -101,7 +81,7 @@ class BuildBox {
       node: this.node,
       animation: this.animation,
       boxes: this.boxes,
-      sentences: this.sentences,
+      sentence: this.sentence,
       size: this.size,
       interval: this.buildInterval,
       date: date.toISOString()

@@ -8,7 +8,7 @@ class BuildBox {
     var node: [Double] = [0, 0, 0, 0, 0, 0, 0]
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
-    var sentences = [[String]]()
+    var sentence = [[String]]()
     var size: Double = 1.0
     var buildInterval = 0.01
 
@@ -62,7 +62,7 @@ class BuildBox {
         animation = [0, 0, 0, 0, 0, 0, 1, 0]
         boxes = [[Double]]()
         boxes.removeAll()
-        sentences.removeAll()
+        sentence.removeAll()
         size = 1.0
     }
 
@@ -74,7 +74,7 @@ class BuildBox {
         let string_g = String(g)
         let string_b = String(b)
         let string_alpha = String(alpha)
-        sentences.append([sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha])
+        sentence = [sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha]
     }
 
     func send() async throws {
@@ -87,7 +87,7 @@ class BuildBox {
             "node": node,
             "animation": animation,
             "boxes": boxes,
-            "sentences": sentences,
+            "sentence": sentence,
             "size": size,
             "interval": buildInterval,
             "date": dateString

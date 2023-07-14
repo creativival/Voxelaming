@@ -323,18 +323,19 @@ $ swift run
         <p align="center"><img src="https://creativival.github.io/Voxelaming/image/square_sample.png" alt="square" width="50%"/></p>
         <pre><code class="language-python">from build_box import BuildBox
 
-room_name = &quot;1000&quot;
-build_box = BuildBox(room_name)
+                   room_name = "1000"
+                   build_box = BuildBox(room_name)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-build_box.set_node(0, 10, 0, pitch=0, yaw=0, roll=0)
+                   radius = 11
 
-radius = 11
-for i in range(-radius, radius + 1):
-  for j in range(-radius, radius + 1):
-    for k in range(-radius, radius + 1):
-      if (radius -1 ) ** 2 &lt;= i ** 2 + j ** 2 + k ** 2 &lt; radius ** 2:
+                   build_box.set_box_size(0.5)
+                   build_box.set_build_interval(0.01)
+                   build_box.set_node(0, radius, 0, pitch=0, yaw=0, roll=0)
+
+                   for i in range(-radius, radius + 1):
+                   for j in range(-radius, radius + 1):
+                   for k in range(-radius, radius + 1):
+                   if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
         print(i, j, k)
         build_box.create_box(i, j, k, 0, 1, 1)
 
@@ -459,22 +460,20 @@ build_box.send_data()
         <pre><code class="language-python">import time
 from build_box import BuildBox
 
-room_name = &quot;1000&quot;
+room_name = "1000"
 build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
-build_box.write_sentence(&quot;Hello World&quot;, 0, 0, 0, r=1, g=0, b=0)
 
+build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0, alpha=1)
 build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
 build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.write_sentence(&quot;こんにちは&quot;, 0, 0, 0, r=0, g=1, b=0)
+build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
 
 build_box.send_data()
 </code></pre>

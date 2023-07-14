@@ -10,7 +10,7 @@ class BuildBox:
     self.node = [0, 0, 0, 0, 0, 0]
     self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
-    self.sentences = []
+    self.sentence = []
     self.size = 1
     self.build_interval = 0.01
 
@@ -47,14 +47,14 @@ class BuildBox:
     self.node = [0, 0, 0, 0, 0, 0]
     self.animatiion = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
-    self.sentences = []
+    self.sentence = []
     self.size = 1
     self.build_interval = 0.01
 
   def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
     x, y, z = map(str, map(floor, [x, y, z]))
     r, g, b, alpha = map(str, [r, g, b, alpha])
-    self.sentences.append([sentence, x, y, z, r, g, b, alpha])
+    self.sentence = [sentence, x, y, z, r, g, b, alpha]
 
   def send_data(self):
     now = datetime.datetime.now()
@@ -63,7 +63,7 @@ class BuildBox:
       "node": {self.node},
       "animation": {self.animation},
       "boxes": {self.boxes},
-      "sentences": {self.sentences},
+      "sentence": {self.sentence},
       "size": {self.size},
       "interval": {self.build_interval},
       "date": "{now}"
