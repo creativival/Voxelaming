@@ -235,11 +235,12 @@ from build_box import BuildBox
 room_name = "1000"
 build_box = BuildBox(room_name)
 
+radius = 11
+
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, 10, 0, pitch=0, yaw=0, roll=0)
+build_box.set_node(0, radius, 0, pitch=0, yaw=0, roll=0)
 
-radius = 11
 for i in range(-radius, radius + 1):
   for j in range(-radius, radius + 1):
     for k in range(-radius, radius + 1):
@@ -276,7 +277,6 @@ for i in range(5):
 
 for i in range(5):
   build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
-
   build_box.send_data()
   time.sleep(1)
 ```
@@ -313,12 +313,9 @@ for i in range(5):
   build_box.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
-  pitch = rotation[0]
-  yaw = rotation[1]
-  roll = rotation[2]
+  pitch, yaw, roll = rotation
 
   build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
-
   build_box.send_data()
   time.sleep(1)
 ```
@@ -369,18 +366,15 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
-build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0)
 
+build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0, alpha=1)
 build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
 build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0)
-
+build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
 build_box.send_data()
 ```
 
