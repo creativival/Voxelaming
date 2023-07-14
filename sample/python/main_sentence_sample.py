@@ -15,5 +15,4 @@ time.sleep(1)
 
 build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
-
 build_box.send_data()
