@@ -2,7 +2,6 @@ import WebSocket from 'ws';
 
 class BuildBox {
   constructor(roomName) {
-    this.ws = new WebSocket('wss://render-nodejs-server.onrender.com');
     this.roomName = roomName;
     this.node = [0, 0, 0, 0, 0, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
@@ -12,14 +11,14 @@ class BuildBox {
     this.buildInterval = 0.01;
   }
 
-  set_node(self, x, y, z, pitch=0, yaw=0, roll=0) {
+  set_node(x, y, z, pitch=0, yaw=0, roll=0) {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
     this.node = [x, y, z, pitch, yaw, roll]
   }
 
-  animation_node(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
+  animationNode(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
@@ -60,7 +59,7 @@ class BuildBox {
     this.buildInterval = 0.01;
   }
 
-  write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
+  writeSentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
     x = String(Math.floor(x));
     y = String(Math.floor(y));
     z = String(Math.floor(z));
@@ -71,10 +70,34 @@ class BuildBox {
     self.sentences.append([sentence, x, y, z, r, g, b, alpha])
   }
 
-  sendData() {
+  // sendData() {
+  //   console.log('Sending data...');
+  //   let date = new Date();
+  //   let dataToSend = {
+  //     node: this.node,
+  //     animation: this.animation,
+  //     boxes: this.boxes,
+  //     sentences: this.sentences,
+  //     size: this.size,
+  //     interval: this.buildInterval,
+  //     date: date.toISOString()
+  //   };
+  //
+  //   this.ws.on('open', () => {
+  //     this.ws.send(this.roomName);
+  //     console.log(`Joined room: ${this.roomName}`);
+  //     this.ws.send(JSON.stringify(dataToSend));
+  //
+  //     // Close the WebSocket connection after sending data
+  //     this.ws.close();
+  //   });
+  // }
+
+  async sendData() {
     console.log('Sending data...');
-    let date = new Date();
-    let dataToSend = {
+    const ws = new WebSocket('wss://render-nodejs-server.onrender.com');
+    const date = new Date();
+    const dataToSend = {
       node: this.node,
       animation: this.animation,
       boxes: this.boxes,
@@ -84,14 +107,31 @@ class BuildBox {
       date: date.toISOString()
     };
 
-    this.ws.on('open', () => {
-      this.ws.send(this.roomName);
-      console.log(`Joined room: ${this.roomName}`);
-      this.ws.send(JSON.stringify(dataToSend));
+    try {
+      await new Promise((resolve, reject) => {  ws.onopen = () => {
+          ws.send(this.roomName);
+          console.log(`Joined room: ${this.roomName}`);
+          ws.send(JSON.stringify(dataToSend));
+          console.log('Sent data to server');
+          setTimeout(() => {
+            ws.close();
+            resolve();
+          }, 1000); // 適切な時間を指定して自動的に接続を閉じる
+        };
 
-      // Close the WebSocket connection after sending data
-      this.ws.close();
-    });
+        ws.onerror = error => {
+          console.error(`WebSocket error: ${error}`);
+          reject(error);
+        };
+      });
+    } catch (error) {
+      console.error(`WebSocket connection failed: ${error}`);
+    }
+  }
+
+
+  async sleepSecond(s) {
+    await new Promise(resolve => setTimeout(resolve, s * 1000));
   }
 }
 
