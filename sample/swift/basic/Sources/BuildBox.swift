@@ -8,7 +8,7 @@ class BuildBox {
     var node: [Double] = [0, 0, 0, 0, 0, 0, 0]
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
-    var sentence = [[String]]()
+    var sentence = [String]()
     var size: Double = 1.0
     var buildInterval = 0.01
 
@@ -28,7 +28,7 @@ class BuildBox {
         let float_x = floor(x)
         let float_y = floor(y)
         let float_z = floor(z)
-        node = [float_x, float_y, float_z, pitch, yaw, roll, scale, interval]
+        animation = [float_x, float_y, float_z, pitch, yaw, roll, scale, interval]
     }
 
     func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
@@ -66,7 +66,7 @@ class BuildBox {
         size = 1.0
     }
 
-    func writeSentence(_ sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
+    func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
         let string_x = String(floor(x))
         let string_y = String(floor(y))
         let string_z = String(floor(z))
@@ -74,7 +74,7 @@ class BuildBox {
         let string_g = String(g)
         let string_b = String(b)
         let string_alpha = String(alpha)
-        sentence = [sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha]
+        sentence = [string_sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha]
     }
 
     func send() async throws {
