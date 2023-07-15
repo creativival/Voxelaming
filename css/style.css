@@ -1,5 +1,20 @@
-@media (max-width: 600px) {
+/* スマホの小さな画面用：幅480px以下 */
+@media (max-width: 480px) {
     .vditor-reset {
         font-size: 32px !important;
+    }
+}
+
+/* スマホの中くらいの画面用：幅481pxから600px */
+@media (min-width: 481px) and (max-width: 600px) {
+    .vditor-reset {
+        font-size: 24px !important;
+    }
+}
+
+/* タブレットサイズ：601px以上 */
+@media (min-width: 601px) {
+    .vditor-reset {
+        font-size: 16px !important;
     }
 }
