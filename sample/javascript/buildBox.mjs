@@ -92,6 +92,7 @@ class BuildBox {
           ws.send(this.roomName);
           console.log(`Joined room: ${this.roomName}`);
           ws.send(JSON.stringify(dataToSend));
+          console.log(dataToSend)
           console.log('Sent data to server');
           setTimeout(() => {
             ws.close();
