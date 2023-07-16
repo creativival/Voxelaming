@@ -413,6 +413,10 @@ build_box.send_data()
 
 画面右上の「Settings」ボタンから設定画面に移動できます。デバッグモードをオフにすると、画面の情報表示が無効になります。
 
+## ARワールドのリセット
+
+画面右下の「リセット」ボタンからARワールドをリセットできます。リセットすると、ユーザーが作成したボクセルは全て削除されます。
+
 ## ライセンス
 
 [MIT License](https://github.com/creativival/Voxelaming/blob/master/LICENSE)

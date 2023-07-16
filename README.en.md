@@ -415,6 +415,10 @@ TED
 
 You can navigate to the settings screen from the 'Settings' button in the top right corner of the screen. Turning off debug mode will disable the display of information on the screen.
 
+## Reset AR World
+
+You can reset the AR world by pressing the 'Reset' button in the top right corner of the screen.
+
 ## License
 
 [MIT License](https://github.com/creativival/Voxelaming/blob/master/LICENSE)
