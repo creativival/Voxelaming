@@ -45,7 +45,7 @@ class BuildBox:
 
   def clear_data(self):
     self.node = [0, 0, 0, 0, 0, 0]
-    self.animatiion = [0, 0, 0, 0, 0, 0, 1, 0]
+    self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
     self.sentence = []
     self.size = 1

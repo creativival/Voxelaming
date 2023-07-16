@@ -1,4 +1,6 @@
-def get_positions_from_ply(ply_file):
+from math import floor
+
+def get_boxes_from_ply(ply_file):
     box_positions = set()
     with open('../ply_file/' + ply_file, 'r') as f:
         lines = f.read()
@@ -18,6 +20,7 @@ def get_positions_from_ply(ply_file):
             r = float(vertex1[3]) / 255
             g = float(vertex1[4]) / 255
             b = float(vertex1[5]) / 255
+            alpha = 1
 
             # ボックスを置く方向を解析
             if vertex1[0] == vertex2[0] and vertex2[0] == vertex3[0]:  # y-z plane
@@ -34,9 +37,9 @@ def get_positions_from_ply(ply_file):
                     z -= step
 
             # minimum unit: 0.1
-            position_x = round(x * 10.0 / step) / 10.0
-            position_y = round(y * 10.0 / step) / 10.0
-            position_z = round(z * 10.0 / step) / 10.0
+            position_x = floor(round(x * 10.0 / step) / 10.0)
+            position_y = floor(round(y * 10.0 / step) / 10.0)
+            position_z = floor(round(z * 10.0 / step) / 10.0)
             box_positions.add(
                 (
                     position_x,
@@ -44,7 +47,8 @@ def get_positions_from_ply(ply_file):
                     -position_y,
                     r,
                     g,
-                    b
+                    b,
+                    alpha
                 )
             )
 
@@ -64,4 +68,4 @@ def is_included_six_numbers(_line):
 
 
 if __name__ == '__main__':
-    get_positions_from_ply('piyo.ply')
+    get_boxes_from_ply('piyo.ply')
