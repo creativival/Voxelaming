@@ -472,7 +472,7 @@ for i in range(50):
 build_box.send_data()
 ```
 
-### user Sharing
+### User Sharing
 
 TED
 
