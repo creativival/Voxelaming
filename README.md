@@ -376,6 +376,71 @@ build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
 build_box.send_data()
 ```
 
+### 地図
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="sentence" width="50%"/></p>
+
+```python
+from build_box import BuildBox
+from map_util import get_map_data_from_csv, get_box_color
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.1)
+build_box.set_build_interval(0.001)
+
+column_num, row_num = 257, 257
+csv_file = 'map_38_138_100km.csv'
+height_scale = 100
+high_color = (0.5, 0, 0)
+low_color = (0, 1, 0)
+map_data = get_map_data_from_csv(csv_file, height_scale)
+boxes = map_data['boxes']
+max_height = map_data['maxHeight']
+# skip = 1  # high power device
+skip = 2  # normal device
+# skip = 4  # low power device
+
+
+for j in range(row_num // skip):
+  for i in range(column_num // skip):
+    print(i, j)
+    x = i
+    z = j
+    y = boxes[j * skip][i * skip]
+
+    if y >= 0:
+      r, g, b = get_box_color(y, max_height, high_color, low_color)
+      build_box.create_box(x, y, z, r, g, b, 1)
+
+build_box.send_data()
+```
+
+### MagicaVoxelで作成したモデルの表示
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="sentence" width="50%"/></p>
+
+```python
+from build_box import BuildBox
+from ply_util import get_boxes_from_ply
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+
+ply_file_name = 'piyo.ply'
+
+boxes = get_boxes_from_ply(ply_file_name)
+
+for box in boxes:
+    build_box.create_box(*box)
+
+build_box.send_data()
+```
+
 ### 透明ボクセル
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
