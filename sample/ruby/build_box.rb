@@ -79,6 +79,7 @@ class BuildBox
         ws.send(@room_name)
         puts "Joined room: #{@room_name}"
         ws.send(data_to_send)
+        puts data_to_send
         puts 'Sent data to server'
 
         EM.add_timer(1) do

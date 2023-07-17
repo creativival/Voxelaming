@@ -2,11 +2,9 @@ import csv
 from math import ceil, floor, sin, cos, radians
 
 column_num, row_num = 257, 257
-low_color = (0, 127, 0)  # 低地の色
-high_color = (127, 0, 0)  # 高地の色
 
 
-def get_boxes_from_csv(csv_file, height_scale):
+def get_map_data_from_csv(csv_file, height_scale):
     # csvファイルから地図データを読み込み
     with open(f'../map_file/{csv_file}', 'r') as f:
       reader = csv.reader(f)
