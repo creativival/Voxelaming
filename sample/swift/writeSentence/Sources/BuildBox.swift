@@ -77,6 +77,42 @@ class BuildBox {
         sentence = [string_sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha]
     }
 
+    func drawLine(x1: Double, y1: Double, z1: Double, x2: Double, y2: Double, z2: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
+        let x1 = floor(x1)
+        let y1 = floor(y1)
+        let z1 = floor(z1)
+        let x2 = floor(x2)
+        let y2 = floor(y2)
+        let z2 = floor(z2)
+        let diff_x = x2 - x1
+        let diff_y = y2 - y1
+        let diff_z = z2 - z1
+
+        if diff_x == 0 && diff_y == 0 && diff_z == 0 {
+            return
+        }
+
+        if diff_x == max(diff_x, diff_y, diff_z) {
+            for x in Int(x1)...Int(x2) {
+                let y = y1 + (x - x1) * diff_y / diff_x
+                let z = z1 + (x - x1) * diff_z / diff_x
+                self.createBox(x: Double(x), y: y, z: z, red: r, green: g, blue: b, alpha: alpha)
+            }
+        } else if diff_y == max(diff_x, diff_y, diff_z) {
+            for y in Int(y1)...Int(y2) {
+                let x = x1 + (y - y1) * diff_x / diff_y
+                let z = z1 + (y - y1) * diff_z / diff_y
+                self.createBox(x: x, y: Double(y), z: z, red: r, green: g, blue: b, alpha: alpha)
+            }
+        } else if diff_z == max(diff_x, diff_y, diff_z) {
+            for z in Int(z1)...Int(z2) {
+                let x = x1 + (z - z1) * diff_x / diff_z
+                let y = y1 + (z - z1) * diff_y / diff_z
+                self.createBox(x: x, y: y, z: Double(z), red: r, green: g, blue: b, alpha: alpha)
+            }
+        }
+    }
+
     func send() async throws {
         self.webSocketTask.resume()
 

@@ -26,7 +26,6 @@ class BuildBox:
     x, y, z = map(floor, [x, y, z])
     self.boxes.append([x, y, z, r, g, b, alpha])
 
-
   def remove_box(self, x, y, z):
     x, y, z = [floor(val) for val in [x, y, z]]
     for box in self.boxes:
@@ -34,14 +33,11 @@ class BuildBox:
         self.boxes.remove(box)
         return True
 
-
   def set_box_size(self, box_size):
     self.size = box_size
 
-
   def set_build_interval(self, interval):
     self.build_interval = interval
-
 
   def clear_data(self):
     self.node = [0, 0, 0, 0, 0, 0]
@@ -55,6 +51,32 @@ class BuildBox:
     x, y, z = map(str, map(floor, [x, y, z]))
     r, g, b, alpha = map(str, [r, g, b, alpha])
     self.sentence = [sentence, x, y, z, r, g, b, alpha]
+
+  def draw_line(self, x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1):
+    x1, y1, z1 = map(floor, [x1, y1, z1])
+    x2, y2, z2 = map(floor, [x2, y2, z2])
+    diff_x = x2 - x1
+    diff_y = y2 - y1
+    diff_z = z2 - z1
+
+    if diff_x == 0 and diff_y == 0 and diff_z == 0:
+      return False
+
+    if diff_x == max(diff_x, diff_y, diff_z):
+      for x in range(x1, x2 + 1):
+        y = y1 + (x - x1) * diff_y / diff_x
+        z = z1 + (x - x1) * diff_z / diff_x
+        self.create_box(x, y, z, r, g, b, alpha)
+    elif diff_y == max(diff_x, diff_y, diff_z):
+      for y in range(y1, y2 + 1):
+        x = x1 + (y - y1) * diff_x / diff_y
+        z = z1 + (y - y1) * diff_z / diff_y
+        self.create_box(x, y, z, r, g, b, alpha)
+    elif diff_z == max(diff_x, diff_y, diff_z):
+      for z in range(z1, z2 + 1):
+        x = x1 + (z - z1) * diff_x / diff_z
+        y = y1 + (z - z1) * diff_y / diff_z
+        self.create_box(x, y, z, r, g, b, alpha)
 
   def send_data(self):
     now = datetime.datetime.now()

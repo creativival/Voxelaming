@@ -73,6 +73,43 @@ class BuildBox {
     this.sentence = [sentence, x, y, z, r, g, b, alpha];
   }
 
+  drawLine(x1, y1, z1, x2, y2, z2, r = 1, g = 1, b = 1, alpha = 1) {
+    x1 = Math.floor(x1);
+    y1 = Math.floor(y1);
+    z1 = Math.floor(z1);
+    x2 = Math.floor(x2);
+    y2 = Math.floor(y2);
+    z2 = Math.floor(z2);
+    const diff_x = x2 - x1;
+    const diff_y = y2 - y1;
+    const diff_z = z2 - z1;
+
+    if (diff_x === 0 && diff_y === 0 && diff_z === 0) {
+      return false;
+    }
+
+    if (diff_x === Math.max(diff_x, diff_y, diff_z)) {
+      for (let x = x1; x <= x2; x++) {
+        const y = y1 + (x - x1) * diff_y / diff_x;
+        const z = z1 + (x - x1) * diff_z / diff_x;
+        this.createBox(x, y, z, r, g, b, alpha);
+      }
+    } else if (diff_y === Math.max(diff_x, diff_y, diff_z)) {
+      for (let y = y1; y <= y2; y++) {
+        const x = x1 + (y - y1) * diff_x / diff_y;
+        const z = z1 + (y - y1) * diff_z / diff_y;
+        this.createBox(x, y, z, r, g, b, alpha);
+      }
+    } else if (diff_z === Math.max(diff_x, diff_y, diff_z)) {
+      for (let z = z1; z <= z2; z++) {
+        const x = x1 + (z - z1) * diff_x / diff_z;
+        const y = y1 + (z - z1) * diff_y / diff_z;
+        this.createBox(x, y, z, r, g, b, alpha);
+      }
+    }
+  }
+
+
   async sendData() {
     console.log('Sending data...');
     const ws = new WebSocket('wss://render-nodejs-server.onrender.com');
