@@ -1,10 +1,10 @@
 # ボクセラミング - ARKitを使ったプログラミング学習アプリ
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_ladder.png" alt="VoxelLadder" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
 
 [//]: # (<p align="center"><video width="1280" height="720" controls>)
 
-[//]: # (    <source src="video/voxelaming_top_video.mp4" type="video/mp4">)
+[//]: # (    <source src="video/voxelamming_top_video.mp4" type="video/mp4">)
 
 [//]: # (</video></p>)
 
@@ -58,15 +58,15 @@
 
 ## サンプルスクリプト
 
-[sampleフォルダー](https://github.com/creativival/Voxelaming/tree/main/sample)に、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、トップ画像のようなボクセルが設置されます。
+[sampleフォルダー](https://github.com/creativival/voxelamming/tree/main/sample)に、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、トップ画像のようなボクセルが設置されます。
 
 ### Scratch3 MOD
 
 ボクセラミング拡張機能を読み込んで、スクリプトを作成してください。
 
-[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
+[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3)
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3.png" alt="voxelamming_scratch3" width="100%"/></p>
 
 ### Python (3.6以上)
 
@@ -225,7 +225,7 @@ Pythonのみ例示します。他の言語は変換してください。
 
 ### 球体
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/square_sample.png" alt="square" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square" width="50%"/></p>
 
 ```python
 from build_box import BuildBox
@@ -251,7 +251,7 @@ build_box.send_data()
 
 ### ノードの移動
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/move_sample.png" alt="node_move" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="node_move" width="50%"/></p>
 
 ```python
 import time
@@ -281,7 +281,7 @@ for i in range(5):
 
 ### ノードの回転
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
 
 ```python
 import time
@@ -321,7 +321,7 @@ for rotation in rotations:
 
 ### ノードのアニメーション
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
 
 ```python
 import time
@@ -353,7 +353,7 @@ build_box.send_data()
 
 ### 文字表示
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
 
 ```python
 import time
@@ -378,7 +378,7 @@ build_box.send_data()
 
 ### 透明ボクセル
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
 
 ```python
 from build_box import BuildBox
@@ -419,7 +419,7 @@ build_box.send_data()
 
 ## ライセンス
 
-[MIT License](https://github.com/creativival/Voxelaming/blob/master/LICENSE)
+[MIT License](https://github.com/creativival/voxelamming/blob/master/LICENSE)
 
 ## 作者
 

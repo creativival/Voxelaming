@@ -1,21 +1,21 @@
-# Voxelaming - A Programming Learning App Using ARKit
+# Voxelamming - A Programming Learning App Using ARKit
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_ladder.png" alt="VoxelLadder" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
 
 [//]: # (<p align="center"><video width="1280" height="720" controls>)
 
-[//]: # (    <source src="video/voxelaming_top_video.mp4" type="video/mp4">)
+[//]: # (    <source src="video/voxelamming_top_video.mp4" type="video/mp4">)
 
 [//]: # (</video></p>)
 
 
 *Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
-## What is Voxelaming?
+## What is voxelamming?
 
-Voxelaming = Voxel + Programming
+voxelamming = Voxel + Programming
 
-Voxelaming is a programming learning app that uses ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
+voxelamming is a programming learning app that uses ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
 
 ## How to Use
 
@@ -25,7 +25,7 @@ Both Windows and Mac are supported. If the programming language (Python, Node.js
 
 ### Placing a Plane Anchor
 
-Launch the Voxelaming app. The first time you launch the app, it will ask for permission to use the camera, please grant it by selecting "Yes". Once the camera is launched, ARKit will automatically search for a real-world plane. When the plane detection marker (red-green-blue coordinate axes) appears, tap the screen to place a plane anchor. The plane anchor is made up of black and white tiles. With this, you are ready to place voxels.
+Launch the voxelamming app. The first time you launch the app, it will ask for permission to use the camera, please grant it by selecting "Yes". Once the camera is launched, ARKit will automatically search for a real-world plane. When the plane detection marker (red-green-blue coordinate axes) appears, tap the screen to place a plane anchor. The plane anchor is made up of black and white tiles. With this, you are ready to place voxels.
 
 ### Designing (Programming) Voxels
 
@@ -60,15 +60,15 @@ Please read snake_case as camelCase. (set_box_size -> setBoxSize)
 
 ## Script Examples
 
-You can try examples of scripts in [the sample folder](https://github.com/creativival/Voxelaming/tree/main/sample). When you run the following script, a voxel like the image will be placed.
+You can try examples of scripts in [the sample folder](https://github.com/creativival/voxelamming/tree/main/sample). When you run the following script, a voxel like the image will be placed.
 
 ### Scratch3 MOD
 
-Load the Voxelaming extension and create a script.
+Load the voxelamming extension and create a script.
 
-[Play the sample project in Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelaming-extension/projects/example.sb3)
+[Play the sample project in Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3)
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/voxelaming_scratch3.png" alt="voxelaming_scratch3" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3.png" alt="voxelamming_scratch3" width="100%"/></p>
 
 ### Python (3.6+)
 
@@ -227,7 +227,7 @@ Only Python is demonstrated. Please translate for other languages.
 
 ### Square
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/square_sample.png" alt="square" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square" width="50%"/></p>
 
 ```python
 from build_box import BuildBox
@@ -253,7 +253,7 @@ build_box.send_data()
 
 ### Node move
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/move_sample.png" alt="node_move" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="node_move" width="50%"/></p>
 
 ```python
 import time
@@ -283,7 +283,7 @@ for i in range(5):
 
 ### Node rotation
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
 
 ```python
 import time
@@ -323,7 +323,7 @@ for rotation in rotations:
 
 ### Node animation
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
 
 ```python
 import time
@@ -355,7 +355,7 @@ build_box.send_data()
 
 ### Write sentence
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
 
 ```python
 import time
@@ -380,7 +380,7 @@ build_box.send_data()
 
 ### Transparency
 
-<p align="center"><img src="https://creativival.github.io/Voxelaming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
 
 ```python
 from build_box import BuildBox
@@ -421,7 +421,7 @@ You can reset the AR world by pressing the 'Reset' button in the top right corne
 
 ## License
 
-[MIT License](https://github.com/creativival/Voxelaming/blob/master/LICENSE)
+[MIT License](https://github.com/creativival/voxelamming/blob/master/LICENSE)
 
 ## Author
 
