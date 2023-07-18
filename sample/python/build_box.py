@@ -60,25 +60,45 @@ class BuildBox:
     diff_x = x2 - x1
     diff_y = y2 - y1
     diff_z = z2 - z1
+    max_length = max(abs(diff_x), abs(diff_y), abs(diff_z))
+    print(x2, y2, z2)
 
     if diff_x == 0 and diff_y == 0 and diff_z == 0:
       return False
 
-    if diff_x == max(diff_x, diff_y, diff_z):
-      for x in range(x1, x2 + 1):
-        y = y1 + (x - x1) * diff_y / diff_x
-        z = z1 + (x - x1) * diff_z / diff_x
-        self.create_box(x, y, z, r, g, b, alpha)
-    elif diff_y == max(diff_x, diff_y, diff_z):
-      for y in range(y1, y2 + 1):
-        x = x1 + (y - y1) * diff_x / diff_y
-        z = z1 + (y - y1) * diff_z / diff_y
-        self.create_box(x, y, z, r, g, b, alpha)
-    elif diff_z == max(diff_x, diff_y, diff_z):
-      for z in range(z1, z2 + 1):
-        x = x1 + (z - z1) * diff_x / diff_z
-        y = y1 + (z - z1) * diff_y / diff_z
-        self.create_box(x, y, z, r, g, b, alpha)
+    if abs(diff_x) == max_length:
+      if x2 > x1:
+        for x in range(x1, x2 + 1):
+          y = y1 + (x - x1) * diff_y / diff_x
+          z = z1 + (x - x1) * diff_z / diff_x
+          self.create_box(x, y, z, r, g, b, alpha)
+      else:
+        for x in range(x1, x2 - 1, -1):
+          y = y1 + (x - x1) * diff_y / diff_x
+          z = z1 + (x - x1) * diff_z / diff_x
+          self.create_box(x, y, z, r, g, b, alpha)
+    elif abs(diff_y) == max_length:
+      if y2 > y1:
+        for y in range(y1, y2 + 1):
+          x = x1 + (y - y1) * diff_x / diff_y
+          z = z1 + (y - y1) * diff_z / diff_y
+          self.create_box(x, y, z, r, g, b, alpha)
+      else:
+        for y in range(y1, y2 - 1, -1):
+          x = x1 + (y - y1) * diff_x / diff_y
+          z = z1 + (y - y1) * diff_z / diff_y
+          self.create_box(x, y, z, r, g, b, alpha)
+    elif abs(diff_z) == max_length:
+      if z2 > z1:
+        for z in range(z1, z2 + 1):
+          x = x1 + (z - z1) * diff_x / diff_z
+          y = y1 + (z - z1) * diff_y / diff_z
+          self.create_box(x, y, z, r, g, b, alpha)
+      else:
+        for z in range(z1, z2 - 1, -1):
+          x = x1 + (z - z1) * diff_x / diff_z
+          y = y1 + (z - z1) * diff_y / diff_z
+          self.create_box(x, y, z, r, g, b, alpha)
 
   def change_shape(self, shape):
     self.shape = shape

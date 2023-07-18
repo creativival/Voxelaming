@@ -59,39 +59,62 @@ class BuildBox
     @sentence = [sentence, x, y, z, r, g, b, alpha]
   end
 
-  def draw_line(x1, y1, z1, x2, y2, z2, r = 1, g = 1, b = 1, alpha = 1)
-    x1 = x1.floor
-    y1 = y1.floor
-    z1 = z1.floor
-    x2 = x2.floor
-    y2 = y2.floor
-    z2 = z2.floor
+  def draw_line(x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1)
+    x1, y1, z1 = [x1, y1, z1].map(&:floor)
+    x2, y2, z2 = [x2, y2, z2].map(&:floor)
     diff_x = x2 - x1
     diff_y = y2 - y1
     diff_z = z2 - z1
+    max_length = [diff_x.abs, diff_y.abs, diff_z.abs].max
+    puts "#{x2}, #{y2}, #{z2}"
 
-    return false if diff_x.zero? && diff_y.zero? && diff_z.zero?
+    return false if diff_x == 0 && diff_y == 0 && diff_z == 0
 
-    if diff_x == [diff_x, diff_y, diff_z].max
-      (x1..x2).each do |x|
-        y = y1 + (x - x1) * diff_y.to_f / diff_x
-        z = z1 + (x - x1) * diff_z.to_f / diff_x
-        create_box(x, y, z, r, g, b, alpha)
+    if diff_x.abs == max_length
+      if x2 > x1
+        (x1..x2).each do |x|
+          y = y1 + (x - x1) * diff_y / diff_x
+          z = z1 + (x - x1) * diff_z / diff_x
+          self.create_box(x, y, z, r, g, b, alpha)
+        end
+      else
+        (x1).downto(x2 - 1) do |x|
+          y = y1 + (x - x1) * diff_y / diff_x
+          z = z1 + (x - x1) * diff_z / diff_x
+          self.create_box(x, y, z, r, g, b, alpha)
+        end
       end
-    elsif diff_y == [diff_x, diff_y, diff_z].max
-      (y1..y2).each do |y|
-        x = x1 + (y - y1) * diff_x.to_f / diff_y
-        z = z1 + (y - y1) * diff_z.to_f / diff_y
-        create_box(x, y, z, r, g, b, alpha)
+    elsif diff_y.abs == max_length
+      if y2 > y1
+        (y1..y2).each do |y|
+          x = x1 + (y - y1) * diff_x / diff_y
+          z = z1 + (y - y1) * diff_z / diff_y
+          self.create_box(x, y, z, r, g, b, alpha)
+        end
+      else
+        (y1).downto(y2 - 1) do |y|
+          x = x1 + (y - y1) * diff_x / diff_y
+          z = z1 + (y - y1) * diff_z / diff_y
+          self.create_box(x, y, z, r, g, b, alpha)
+        end
       end
-    elsif diff_z == [diff_x, diff_y, diff_z].max
-      (z1..z2).each do |z|
-        x = x1 + (z - z1) * diff_x.to_f / diff_z
-        y = y1 + (z - z1) * diff_y.to_f / diff_z
-        create_box(x, y, z, r, g, b, alpha)
+    elsif diff_z.abs == max_length
+      if z2 > z1
+        (z1..z2).each do |z|
+          x = x1 + (z - z1) * diff_x / diff_z
+          y = y1 + (z - z1) * diff_y / diff_z
+          self.create_box(x, y, z, r, g, b, alpha)
+        end
+      else
+        (z1).downto(z2 - 1) do |z|
+          x = x1 + (z - z1) * diff_x / diff_z
+          y = y1 + (z - z1) * diff_y / diff_z
+          self.create_box(x, y, z, r, g, b, alpha)
+        end
       end
     end
   end
+
 
   def change_shape(shape)
     @shape = shape

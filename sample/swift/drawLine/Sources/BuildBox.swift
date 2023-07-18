@@ -19,32 +19,32 @@ class BuildBox {
     }
 
     func setNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
-        let float_x = floor(x)
-        let float_y = floor(y)
-        let float_z = floor(z)
-        node = [float_x, float_y, float_z, pitch, yaw, roll]
+        let floatX = floor(x)
+        let floatY = floor(y)
+        let floatZ = floor(z)
+        node = [floatX, floatY, floatZ, pitch, yaw, roll]
     }
 
     func animationNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
-        let float_x = floor(x)
-        let float_y = floor(y)
-        let float_z = floor(z)
-        animation = [float_x, float_y, float_z, pitch, yaw, roll, scale, interval]
+        let floatX = floor(x)
+        let floatY = floor(y)
+        let floatZ = floor(z)
+        animation = [floatX, floatY, floatZ, pitch, yaw, roll, scale, interval]
     }
 
     func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
-        let float_x = floor(x)
-        let float_y = floor(y)
-        let float_z = floor(z)
-        boxes.append([float_x, float_y, float_z, r, g, b, alpha])
+        let floatX = floor(x)
+        let floatY = floor(y)
+        let floatZ = floor(z)
+        boxes.append([floatX, floatY, floatZ, r, g, b, alpha])
     }
 
     func removeBox(_ x: Double, _ y: Double, _ z: Double) {
-        let float_x = floor(x)
-        let float_y = floor(y)
-        let float_z = floor(z)
+        let floatX = floor(x)
+        let floatY = floor(y)
+        let floatZ = floor(z)
         for box in boxes {
-            if (box[0] == float_x && box[1] == float_y && box[2] == float_z) {
+            if (box[0] == floatX && box[1] == floatY && box[2] == floatZ) {
                 boxes.remove(at: boxes.firstIndex(of: box)!)
             }
         }
@@ -69,54 +69,78 @@ class BuildBox {
     }
 
     func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
-        let string_x = String(floor(x))
-        let string_y = String(floor(y))
-        let string_z = String(floor(z))
-        let string_r = String(r)
-        let string_g = String(g)
-        let string_b = String(b)
-        let string_alpha = String(alpha)
-        sentence = [string_sentence, string_x, string_y, string_z, string_r, string_g, string_b, string_alpha]
+        let stringX = String(floor(x))
+        let stringY = String(floor(y))
+        let stringZ = String(floor(z))
+        let stringR = String(r)
+        let stringG = String(g)
+        let stringB = String(b)
+        let stringAlpha = String(alpha)
+        sentence = [string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha]
     }
 
     func drawLine(_ x1: Double, _ y1: Double, _ z1: Double, _ x2: Double, _ y2: Double, _ z2: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
-        let x1: Double = floor(x1)
-        let y1: Double = floor(y1)
-        let z1: Double = floor(z1)
-        let x2: Double = floor(x2)
-        let y2: Double = floor(y2)
-        let z2: Double = floor(z2)
-        let diff_x = x2 - x1
-        let diff_y = y2 - y1
-        let diff_z = z2 - z1
+        let x1 = floor(x1)
+        let y1 = floor(y1)
+        let z1 = floor(z1)
+        let x2 = floor(x2)
+        let y2 = floor(y2)
+        let z2 = floor(z2)
+        let diffX = x2 - x1
+        let diffY = y2 - y1
+        let diffZ = z2 - z1
+        let maxLength = max(abs(diffX), abs(diffY), abs(diffZ))
+        print(x2, y2, z2)
 
-        if diff_x == 0 && diff_y == 0 && diff_z == 0 {
+        if diffX == 0 && diffY == 0 && diffZ == 0 {
             return
         }
 
-        if diff_x == max(diff_x, diff_y, diff_z) {
-            for x in Int(x1)...Int(x2) {
-                let double_x = Double(x)
-                let y = y1 + (double_x - x1) * diff_y / diff_x
-                let z = z1 + (double_x - x1) * diff_z / diff_x
-                self.createBox(double_x, y, z, r: r, g: g, b: b, alpha: alpha)
+        if abs(diffX) == maxLength {
+            if x2 > x1 {
+                for x in Int(x1)...Int(x2) {
+                    let y = y1 + (Double(x) - x1) * diffY / diffX
+                    let z = z1 + (Double(x) - x1) * diffZ / diffX
+                    createBox(Double(x), y, z, r: r, g: g, b: b, alpha: alpha)
+                }
+            } else {
+                for x in stride(from: Int(x1), through: Int(x2 + 1), by: -1) {
+                    let y = y1 + (Double(x) - x1) * diffY / diffX
+                    let z = z1 + (Double(x) - x1) * diffZ / diffX
+                    createBox(Double(x), y, z, r: r, g: g, b: b, alpha: alpha)
+                }
             }
-        } else if diff_y == max(diff_x, diff_y, diff_z) {
-            for y in Int(y1)...Int(y2) {
-                let double_y = Double(y)
-                let x = x1 + (double_y - y1) * diff_x / diff_y
-                let z = z1 + (double_y - y1) * diff_z / diff_y
-                self.createBox(x, double_y, z, r: r, g: g, b: b, alpha: alpha)
+        } else if abs(diffY) == maxLength {
+            if y2 > y1 {
+                for y in Int(y1)...Int(y2) {
+                    let x = x1 + (Double(y) - y1) * diffX / diffY
+                    let z = z1 + (Double(y) - y1) * diffZ / diffY
+                    createBox(x, Double(y), z, r: r, g: g, b: b, alpha: alpha)
+                }
+            } else {
+                for y in stride(from: Int(y1), through: Int(y2 + 1), by: -1) {
+                    let x = x1 + (Double(y) - y1) * diffX / diffY
+                    let z = z1 + (Double(y) - y1) * diffZ / diffY
+                    createBox(x, Double(y), z, r: r, g: g, b: b, alpha: alpha)
+                }
             }
-        } else if diff_z == max(diff_x, diff_y, diff_z) {
-            for z in Int(z1)...Int(z2) {
-                let double_z = Double(z)
-                let x = x1 + (double_z - z1) * diff_x / diff_z
-                let y = y1 + (double_z - z1) * diff_y / diff_z
-                self.createBox(x, y, double_z, r: r, g: g, b: b, alpha: alpha)
+        } else if abs(diffZ) == maxLength {
+            if z2 > z1 {
+                for z in Int(z1)...Int(z2) {
+                    let x = x1 + (Double(z) - z1) * diffX / diffZ
+                    let y = y1 + (Double(z) - z1) * diffY / diffZ
+                    createBox(x, y, Double(z), r: r, g: g, b: b, alpha: alpha)
+                }
+            } else {
+                for z in stride(from: Int(z1), through: Int(z2 + 1), by: -1) {
+                    let x = x1 + (Double(z) - z1) * diffX / diffZ
+                    let y = y1 + (Double(z) - z1) * diffY / diffZ
+                    createBox(x, y, Double(z), r: r, g: g, b: b, alpha: alpha)
+                }
             }
         }
     }
+
 
     func changeShape(_ shape: String) {
         self.shape = shape
