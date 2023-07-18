@@ -10,6 +10,7 @@ class BuildBox {
     var boxes = [[Double]]()
     var sentence = [String]()
     var size: Double = 1.0
+    var shape: String = "box"
     var buildInterval = 0.01
 
     init(_ roomName: String) {
@@ -64,6 +65,7 @@ class BuildBox {
         boxes.removeAll()
         sentence.removeAll()
         size = 1.0
+        shape = "box"
     }
 
     func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
@@ -94,23 +96,30 @@ class BuildBox {
 
         if diff_x == max(diff_x, diff_y, diff_z) {
             for x in Int(x1)...Int(x2) {
-                let y = y1 + (Double(x) - x1) * diff_y / diff_x
-                let z = z1 + (Double(x) - x1) * diff_z / diff_x
-                self.createBox(Double(x), y, z, r: r, g: g, b: b, alpha: alpha)
+                let double_x = Double(x)
+                let y = y1 + (double_x - x1) * diff_y / diff_x
+                let z = z1 + (double_x - x1) * diff_z / diff_x
+                self.createBox(double_x, y, z, r: r, g: g, b: b, alpha: alpha)
             }
         } else if diff_y == max(diff_x, diff_y, diff_z) {
             for y in Int(y1)...Int(y2) {
-                let x = x1 + (Double(y) - y1) * diff_x / diff_y
-                let z = z1 + (Double(y) - y1) * diff_z / diff_y
-                self.createBox(x, Double(y), z, r: r, g: g, b: b, alpha: alpha)
+                let double_y = Double(y)
+                let x = x1 + (double_y - y1) * diff_x / diff_y
+                let z = z1 + (double_y - y1) * diff_z / diff_y
+                self.createBox(x, double_y, z, r: r, g: g, b: b, alpha: alpha)
             }
         } else if diff_z == max(diff_x, diff_y, diff_z) {
             for z in Int(z1)...Int(z2) {
-                let x = x1 + (Double(z) - z1) * diff_x / diff_z
-                let y = y1 + (Double(z) - z1) * diff_y / diff_z
-                self.createBox(x, y, Double(z), r: r, g: g, b: b, alpha: alpha)
+                let double_z = Double(z)
+                let x = x1 + (double_z - z1) * diff_x / diff_z
+                let y = y1 + (double_z - z1) * diff_y / diff_z
+                self.createBox(x, y, double_z, r: r, g: g, b: b, alpha: alpha)
             }
         }
+    }
+
+    func changeShape(_ shape: String) {
+        self.shape = shape
     }
 
     func send() async throws {
@@ -125,6 +134,7 @@ class BuildBox {
             "boxes": boxes,
             "sentence": sentence,
             "size": size,
+            "shape": shape,
             "interval": buildInterval,
             "date": dateString
         ] as [String : Any]

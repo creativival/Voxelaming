@@ -8,6 +8,7 @@ class BuildBox {
     this.boxes = [];
     this.sentence = []
     this.size = 1.0;
+    this.shape = 'box'
     this.buildInterval = 0.01;
   }
 
@@ -59,6 +60,7 @@ class BuildBox {
     this.boxes = [];
     this.sentence = []
     this.size = 1.0;
+    this.shape = 'box'
     this.buildInterval = 0.01;
   }
 
@@ -109,6 +111,9 @@ class BuildBox {
     }
   }
 
+  changeShape(shape) {
+    this.shape = shape;
+  }
 
   async sendData() {
     console.log('Sending data...');
@@ -120,6 +125,7 @@ class BuildBox {
       boxes: this.boxes,
       sentence: this.sentence,
       size: this.size,
+      shape: this.shape,
       interval: this.buildInterval,
       date: date.toISOString()
     };

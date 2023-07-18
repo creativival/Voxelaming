@@ -12,6 +12,7 @@ class BuildBox:
     self.boxes = []
     self.sentence = []
     self.size = 1
+    self.shape = 'box'
     self.build_interval = 0.01
 
   def set_node(self, x, y, z, pitch=0, yaw=0, roll=0):
@@ -45,6 +46,7 @@ class BuildBox:
     self.boxes = []
     self.sentence = []
     self.size = 1
+    self.shape = 'box'
     self.build_interval = 0.01
 
   def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
@@ -78,6 +80,9 @@ class BuildBox:
         y = y1 + (z - z1) * diff_y / diff_z
         self.create_box(x, y, z, r, g, b, alpha)
 
+  def change_shape(self, shape):
+    self.shape = shape
+
   def send_data(self):
     now = datetime.datetime.now()
     data_to_send = f"""
@@ -87,6 +92,7 @@ class BuildBox:
       "boxes": {self.boxes},
       "sentence": {self.sentence},
       "size": {self.size},
+      "shape": "{self.shape}",
       "interval": {self.build_interval},
       "date": "{now}"
       }}

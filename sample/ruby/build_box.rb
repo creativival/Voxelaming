@@ -11,6 +11,7 @@ class BuildBox
     @boxes = []
     @sentence = []
     @size = 1
+    @shape = 'box'
     @build_interval = 0.01
   end
 
@@ -48,6 +49,7 @@ class BuildBox
     @boxes = []
     @sentence = []
     @size = 1
+    @shape = 'box'
     @build_interval = 0.01
   end
 
@@ -91,6 +93,9 @@ class BuildBox
     end
   end
 
+  def change_shape(shape)
+    @shape = shape
+  end
 
   def send_data
     puts 'send_data'
@@ -101,6 +106,7 @@ class BuildBox
       "boxes": @boxes,
       "sentence": @sentence,
       "size": @size,
+      "shape": @shape,
       "interval": @build_interval,
       "date": now.to_s
     }.to_json
