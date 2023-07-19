@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Privacy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!--    <script src="script.js"></script>-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <p style="text-align: center; margin: 40px auto">
+        お気軽にお問い合わせください。
+    </p>
+    <form
+            class="c-form"
+            action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeyvbLjDTtKvEUaYUr5-stgLKAJRx_SFW86035IOZQ1-L45UA/formResponse"
+            method="post"
+            target="hidden_iframe"
+            onsubmit="submitted=true;"
+    >
+        <div class=" c-form__item">
+            <label class="c-form__label" for="field-name"
+            >お名前（ニックネーム、匿名化）<span class="c-form__required">必須</span></label
+            >
+            <input
+                    name="entry.1480734956"
+                    class="c-form__input"
+                    id="field-name"
+                    placeholder="お名前"
+                    type="text"
+                    required="required"
+            />
+        </div>
+        <div class="c-form__item">
+            <label class="c-form__label" for="field-mail"
+            >メールアドレス<span class="c-form__required">必須</span></label
+            >
+            <input
+                    name="entry.1223294909"
+                    class="c-form__input"
+                    id="field-mail"
+                    placeholder="sample@gmail.com"
+                    type="email"
+                    required="required"
+            />
+        </div>
+        <div class="c-form__item">
+            <label class="c-form__label" for="field-message">お問合せ、ご意見、ご感想</label>
+            <textarea
+                    name="entry.2068286462"
+                    class="c-form__input"
+                    id="field-message"
+                    placeholder="お問い合わせ内容"
+            ></textarea>
+        </div>
+        <div class="c-form__submit">
+            <button type="submit">送信する</button>
+        </div>
+    </form>
+    <script type="text/javascript">
+      let submitted = false;
+    </script>
+    <iframe
+            name="hidden_iframe"
+            id="hidden_iframe"
+            style="display: none"
+            onload="if(submitted){window.location='thanks.html';}"
+    ></iframe>
+</div>
+</body>
+</html>
