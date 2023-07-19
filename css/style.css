@@ -133,3 +133,10 @@ textarea.c-form__input {
         width: 55%;
     }
 }
+
+/*Bootstrap*/
+.container-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 900px; //例えば
+}
