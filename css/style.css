@@ -138,5 +138,5 @@ textarea.c-form__input {
 .container-fluid {
     margin-right: auto;
     margin-left: auto;
-    max-width: 900px; //例えば
+    max-width: 900px;
 }
