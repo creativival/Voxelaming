@@ -1,4 +1,4 @@
-# Voxelamming - A Programming Learning App Using ARKit
+# Voxelamming - Programming Learning App Using ARKit
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
 

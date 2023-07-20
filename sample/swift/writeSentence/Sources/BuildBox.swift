@@ -19,34 +19,34 @@ class BuildBox {
     }
 
     func setNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
-        let floatX = floor(x)
-        let floatY = floor(y)
-        let floatZ = floor(z)
-        node = [floatX, floatY, floatZ, pitch, yaw, roll]
+        let floorX = floor(x)
+        let floorY = floor(y)
+        let floorZ = floor(z)
+        node = [floorX, floorY, floorZ, pitch, yaw, roll]
     }
 
     func animationNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
-        let floatX = floor(x)
-        let floatY = floor(y)
-        let floatZ = floor(z)
-        animation = [floatX, floatY, floatZ, pitch, yaw, roll, scale, interval]
+        let floorX = floor(x)
+        let floorY = floor(y)
+        let floorZ = floor(z)
+        animation = [floorX, floorY, floorZ, pitch, yaw, roll, scale, interval]
     }
 
     func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
-        let floatX = floor(x)
-        let floatY = floor(y)
-        let floatZ = floor(z)
+        let floorX = floor(x)
+        let floorY = floor(y)
+        let floorZ = floor(z)
         // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
-        removeBox(floatX, floatY, floatZ)
-        boxes.append([floatX, floatY, floatZ, r, g, b, alpha])
+        removeBox(floorX, floorY, floorZ)
+        boxes.append([floorX, floorY, floorZ, r, g, b, alpha])
     }
 
     func removeBox(_ x: Double, _ y: Double, _ z: Double) {
-        let floatX = floor(x)
-        let floatY = floor(y)
-        let floatZ = floor(z)
+        let floorX = floor(x)
+        let floorY = floor(y)
+        let floorZ = floor(z)
         for box in boxes {
-            if (box[0] == floatX && box[1] == floatY && box[2] == floatZ) {
+            if (box[0] == floorX && box[1] == floorY && box[2] == floorZ) {
                 boxes.remove(at: boxes.firstIndex(of: box)!)
             }
         }
