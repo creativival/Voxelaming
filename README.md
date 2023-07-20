@@ -549,4 +549,12 @@ build_box.send_data()
 
 creativival
 
+## コンタクト
+
+[Contact](https://creativival.github.io/voxelamming/contact.html)
+
+## プライバシーポリシー
+
+[Contact](https://creativival.github.io/voxelamming/privacy.html)
+
 

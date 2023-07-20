@@ -551,4 +551,12 @@ You can reset the AR world by pressing the 'Reset' button in the top right corne
 
 creativival
 
+## Contact
+
+[Contact](https://creativival.github.io/voxelamming/contact.en.html)
+
+## Privacy Policy
+
+[Contact](https://creativival.github.io/voxelamming/privacy.en.html)
+
 

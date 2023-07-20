@@ -27,6 +27,8 @@ class BuildBox
 
   def create_box(x, y, z, r = 1, g = 1, b = 1, alpha = 1)
     x, y, z = [x, y, z].map(&:floor)
+    # 重ねて置くことを防止するために、同じ座標の箱があれば削除する
+    self.remove_box(x, y, z)
     @boxes << [x, y, z, r, g, b, alpha]
   end
 

@@ -36,6 +36,8 @@ class BuildBox {
         let floatX = floor(x)
         let floatY = floor(y)
         let floatZ = floor(z)
+        // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
+        removeBox(floatX, floatY, floatZ)
         boxes.append([floatX, floatY, floatZ, r, g, b, alpha])
     }
 

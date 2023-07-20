@@ -30,6 +30,8 @@ class BuildBox {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
+    // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
+    this.removeBox(x, y, z);
     this.boxes.push([x, y, z, r, g, b, alpha]);
   }
 
