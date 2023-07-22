@@ -9,11 +9,13 @@ class BuildBox {
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
     var sentence = [String]()
+    var lights = [[Double]]()
+    var commands = [String]()
     var size: Double = 1.0
     var shape: String = "box"
     var buildInterval = 0.01
 
-    init(_ roomName: String) {
+    init(roomName: String) {
         self.roomName = roomName
         webSocketTask = URLSession.shared.webSocketTask(with: url)
     }
@@ -66,6 +68,8 @@ class BuildBox {
         boxes = [[Double]]()
         boxes.removeAll()
         sentence.removeAll()
+        lights.removeAll()
+        commands.removeAll()
         size = 1.0
         shape = "box"
     }
@@ -79,6 +83,17 @@ class BuildBox {
         let stringB = String(b)
         let stringAlpha = String(alpha)
         sentence = [string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha]
+    }
+
+    func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1) {
+        let floorX = floor(x)
+        let floorY = floor(y)
+        let floorZ = floor(z)
+        lights.append([floorX, floorY, floorZ, r, g, b, alpha, intensity, interval])
+    }
+
+    func setCommand(_ command: String) {
+        commands.append(command)
     }
 
     func drawLine(_ x1: Double, _ y1: Double, _ z1: Double, _ x2: Double, _ y2: Double, _ z2: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
@@ -159,6 +174,8 @@ class BuildBox {
             "animation": animation,
             "boxes": boxes,
             "sentence": sentence,
+            "lights": lights,
+            "commands": commands,
             "size": size,
             "shape": shape,
             "interval": buildInterval,

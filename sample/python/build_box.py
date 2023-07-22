@@ -11,6 +11,8 @@ class BuildBox:
     self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
     self.sentence = []
+    self.lights = []
+    self.commands = []
     self.size = 1
     self.shape = 'box'
     self.build_interval = 0.01
@@ -25,7 +27,7 @@ class BuildBox:
 
   def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1):
     x, y, z = map(floor, [x, y, z])
-    # 重ねて置くことを防止するために、同じ座標の箱があれば削除する
+    # 重ねておくことを防止
     self.remove_box(x, y, z)
     self.boxes.append([x, y, z, r, g, b, alpha])
 
@@ -34,7 +36,6 @@ class BuildBox:
     for box in self.boxes:
       if box[0] == x and box[1] == y and box[2] == z:
         self.boxes.remove(box)
-        return True
 
   def set_box_size(self, box_size):
     self.size = box_size
@@ -47,6 +48,8 @@ class BuildBox:
     self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
     self.sentence = []
+    self.lights = []
+    self.commands = []
     self.size = 1
     self.shape = 'box'
     self.build_interval = 0.01
@@ -55,6 +58,13 @@ class BuildBox:
     x, y, z = map(str, map(floor, [x, y, z]))
     r, g, b, alpha = map(str, [r, g, b, alpha])
     self.sentence = [sentence, x, y, z, r, g, b, alpha]
+
+  def set_light(self, x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1):
+    x, y, z = map(floor, [x, y, z])
+    self.lights.append([x, y, z, r, g, b, alpha, intensity, interval])
+
+  def set_command(self, command):
+    self.commands.append(command)
 
   def draw_line(self, x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1):
     x1, y1, z1 = map(floor, [x1, y1, z1])
@@ -113,6 +123,8 @@ class BuildBox:
       "animation": {self.animation},
       "boxes": {self.boxes},
       "sentence": {self.sentence},
+      "lights": {self.lights},
+      "commands": {self.commands},
       "size": {self.size},
       "shape": "{self.shape}",
       "interval": {self.build_interval},

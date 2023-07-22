@@ -10,6 +10,8 @@ class BuildBox
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
     @sentence = []
+    @lights = []
+    @commands = []
     @size = 1
     @shape = 'box'
     @build_interval = 0.01
@@ -50,6 +52,8 @@ class BuildBox
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
     @sentence = []
+    @lights = []
+    @commands = []
     @size = 1
     @shape = 'box'
     @build_interval = 0.01
@@ -59,6 +63,15 @@ class BuildBox
     x, y, z = [x, y, z].map(&:floor).map(&:to_s)
     r, g, b, alpha =  [r, g, b, alpha].map(&:floor).map(&:to_s)
     @sentence = [sentence, x, y, z, r, g, b, alpha]
+  end
+
+  def set_light(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1)
+    x, y, z = [x, y, z].map(&:floor)
+    @lights << [x, y, z, r, g, b, alpha, intensity, interval]
+  end
+
+  def set_command(command)
+    @commands << command
   end
 
   def draw_line(x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1)
@@ -130,6 +143,8 @@ class BuildBox
       "animation": @animation,
       "boxes": @boxes,
       "sentence": @sentence,
+      "lights": @lights,
+      "commands": @commands,
       "size": @size,
       "shape": @shape,
       "interval": @build_interval,

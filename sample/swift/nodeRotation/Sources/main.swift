@@ -2,7 +2,7 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
-    let buildBox = BuildBox(roomName)
+    let buildBox = BuildBox(roomName: roomName)
     let rotations = [
         [0, 0, 0],
         [30, 0, 0],

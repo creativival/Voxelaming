@@ -7,6 +7,8 @@ class BuildBox {
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.sentence = []
+    this.lights = []
+    this.commands = []
     this.size = 1.0;
     this.shape = 'box'
     this.buildInterval = 0.01;
@@ -61,6 +63,8 @@ class BuildBox {
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.sentence = []
+    this.lights = []
+    this.commands = []
     this.size = 1.0;
     this.shape = 'box'
     this.buildInterval = 0.01;
@@ -75,6 +79,17 @@ class BuildBox {
     b = String(b);
     alpha = String(alpha);
     this.sentence = [sentence, x, y, z, r, g, b, alpha];
+  }
+
+  setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1) {
+    x = Math.floor(x);
+    y = Math.floor(y);
+    z = Math.floor(z);
+    this.lights.push([x, y, z, r, g, b, alpha, intensity, interval]);
+  }
+
+  setCommand(command) {
+    this.commands.push(command);
   }
 
   drawLine(x1, y1, z1, x2, y2, z2, r = 1, g = 1, b = 1, alpha = 1) {
@@ -151,6 +166,8 @@ class BuildBox {
       animation: this.animation,
       boxes: this.boxes,
       sentence: this.sentence,
+      lights: this.lights,
+      commands: this.commands,
       size: this.size,
       shape: this.shape,
       interval: this.buildInterval,

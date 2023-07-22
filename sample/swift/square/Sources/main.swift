@@ -2,7 +2,7 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
-    let buildBox = BuildBox(roomName)
+    let buildBox = BuildBox(roomName: roomName)
 
     let radius = 11
 
