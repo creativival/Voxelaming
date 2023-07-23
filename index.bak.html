@@ -6,8 +6,7 @@
           href="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/index.css"/>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/js/i18n/en_US.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/method.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 <body>
@@ -21,11 +20,12 @@
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h1>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png"
-                               alt="VoxelLadder" width="100%"/></p>
-        <ul>
-            <li>Read this in other languages: <a href="index.en.md">English</a>, <a href="index.md">日本語</a>*</li>
-        </ul>
+<!--        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_ladder.jpeg" alt="VoxelLadder" width="50%"/></p>-->
+        <p align="center"><video width="1280" height="720" controls>
+            <source src="video/voxelamming_top_video.mp4" type="video/mp4">
+        </video></p>
+        <p><em>Read this in other languages: <a href="index.en.bak.html">English</a>, <a href="index.bak.html">日本語</a></em>
+        </p>
         <h2 id="ボクセラミングとは">ボクセラミングとは<a id="vditorAnchor-ボクセラミングとは" class="vditor-anchor" href="#ボクセラミングとは">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
@@ -58,8 +58,8 @@
         </a></h3>
         <p>
             ボクセラミングアプリを起動します。初回の起動時のみ、カメラの使用許可を求められるので「はい」で許可してください。ガメラが起動すると、ARKitが自動で現実世界の平面を探します。平面検知の印（赤緑青の座標軸）が出たら、画面をタップして平面アンカーを設置します。平面アンカーは白と黒のタイルで構成されています。以上でボクセルを設置する準備が整いました。</p>
-        <h3 id="ボクセルのモデリング-プログラミング-">ボクセルのモデリング（プログラミング）<a id="vditorAnchor-ボクセルのモデリング-プログラミング-" class="vditor-anchor"
-                                                           href="#ボクセルのモデリング-プログラミング-">
+        <h3 id="ボクセルの設計-プログラミング-">ボクセルの設計（プログラミング）<a id="vditorAnchor-ボクセルの設計-プログラミング-" class="vditor-anchor"
+                                                         href="#ボクセルの設計-プログラミング-">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
@@ -71,7 +71,7 @@
             スクリプトを作成しましょう。初めに、WebSocketサーバーのルームに接続するためにルームネームを設定します。ルームネームは、デバイス（iPhone、iPad）の画面中央に表示されている文字列です。変数room_name（roomName）にルームネームを代入します。</p>
         <p>
             次に、各言語の繰り返し文や条件式などを使って、ボクセルデータを作成します。ボクセルの位置は、平面アンカーを基準にして、x軸、y軸、z軸の値を指定します。x軸は左右、y軸は上下、z軸は奥行き（手前がプラス）を表します（単位はセンチメートル）。ボクセルの大きさは、1.0cmを基準にして小数で指定します。色はRGB値で0から1までの小数で指定します。そして、ボクセルを設置する間隔を秒で指定します。ボクセルを設置する間隔を指定することで、ボクセルが一気に設置されるのではなく、時間をかけて設置されるようになります。</p>
-        <h3 id="ARボクセルのビルド">ARボクセルのビルド<a id="vditorAnchor-ARボクセルのビルド" class="vditor-anchor" href="#ARボクセルのビルド">
+        <h3 id="ARボクセルの配置">ARボクセルのビルド<a id="vditorAnchor-ARボクセルの配置" class="vditor-anchor" href="#ARボクセルの配置">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
@@ -88,45 +88,28 @@
         </a></h2>
         <p>スクリプトで使用するメソッドを説明します。各言語のメソッド名は、以下の通りです。</p>
         <ul>
-            <li>
-                set_room_name(room_name)：デバイス（iPhone、iPad）と通信するためのルームネームを指定します。ルームネームはアプリを実行すると、画面中央に表示されます。同じルームネームを指定することで、デバイスとパソコンが通信できます。
-            </li>
             <li>set_box_size(size)：ボクセルの大きさを設定します。単位はセンチメートルです。デフォルトは1.0です。</li>
-            <li>
-                set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。ボクセルを一つずつ設置するアニメーションを表現できます。単位は秒です。デフォルトは0.01です。
-            </li>
-            <li>change_shape：ボクセルを形状を変更します。立方体（box）、球体（square）、平面（plane）が選べます。</li>
-            <li>create_box(x, y, z, r, g, b,
-                alpha)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGBA値で0から1までの小数で指定します。alphaは透明度を表し、0から1の小数で指定します。
+            <li>set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。単位は秒です。デフォルトは0.01です。</li>
+            <li>create_box(x, y, z, r, g, b)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGB値で0から1までの小数で指定します。
             </li>
             <li>remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）</li>
-            <li>write_sentence(sentence, x, y, z, r, g, b,
-                alpha)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGBA値で指定します。
+            <li>write_sentence(sentence, x, y, z, r, g,
+                b)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGB値で指定します。
             </li>
-            <li>set_light(x, y, z, r, g, b, alpha, intensity, interval)：ライトを配置します。ライトの位置（x, y, z）色（r, g, b,
-                alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）。
-            </li>
-            <li>set_command(command)：コマンドを設定します。コマンドは、&quot;axis&quot;（座標を表示する）、&quot;japaneseCastle&quot;（日本のお城を建築する）が実装されています。</li>
-            <li>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)：2点間を線で結びます。x1, y1, z1は始点、x2, y2,
-                z2は終点です。色はRGBA値で0から1までの小数で指定します。
-            </li>
-            <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。</li>
-            <li>clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。</li>
+            <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。</li>
+            <li>clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します。（送信後、ボクセルデータを初期化するとき実行してください。）</li>
             <li>set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。</li>
-            <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw,
-                roll）、拡大（scale）、設置する間隔（interval）を指定します。<br/>
-                `<br/>
+            <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval） </code><br/>
                 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -&gt; setBoxSize）
             </li>
         </ul>
-        <h2 id="サンプルスクリプト">サンプルスクリプト<a id="vditorAnchor-サンプルスクリプト" class="vditor-anchor" href="#サンプルスクリプト">
+        <h2 id="スクリプトの例">サンプルスクリプト<a id="vditorAnchor-スクリプトの例" class="vditor-anchor" href="#スクリプトの例">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h2>
-        <p><a href="https://github.com/creativival/voxelamming/tree/main/sample">sampleフォルダー</a>に、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、トップ画像のようなボクセルが設置されます。
-        </p>
+        <p><a href="https://github.com/creativival/voxelamming/tree/main/sample">sampleフォルダー</a>に、サンプルスクリプトを用意しました。以下のスクリプトを実行すると、画像のようなボクセルが設置されます。</p>
         <h3 id="Scratch3-MOD">Scratch3 MOD<a id="vditorAnchor-Scratch3-MOD" class="vditor-anchor" href="#Scratch3-MOD">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
@@ -137,8 +120,7 @@
         <p>
             <a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3">Xcratchで、サンプルプロジェクトを再生する</a>
         </p>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3.png"
-                               alt="voxelamming_scratch3" width="100%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3.png" alt="voxelamming_scratch3" width="100%"/></p>
         <h3 id="Python--3-6以上-">Python (3.6以上)<a id="vditorAnchor-Python--3-6以上-" class="vditor-anchor"
                                                      href="#Python--3-6以上-">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -181,8 +163,7 @@ build_box.send_data()
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h4>
-        <pre><code class="language-bash">$ sample/python
-$ python main.py
+        <pre><code class="language-bash">$ python main.py
 
 or
 
@@ -231,8 +212,7 @@ buildBox.sendData();
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h4>
-        <pre><code class="language-bash">$ sample/javascipt
-$ node main.mjs
+        <pre><code class="language-bash">$ node main.mjs
 </code></pre>
         <h3 id="Ruby">Ruby<a id="vditorAnchor-Ruby" class="vditor-anchor" href="#Ruby">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -275,8 +255,7 @@ build_box.send_data
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h4>
-        <pre><code class="language-bash">$ sample/ruby
-$ ruby main.rb
+        <pre><code class="language-bash">$ ruby main.rb
 </code></pre>
         <h3 id="Swift">Swift<a id="vditorAnchor-Swift" class="vditor-anchor" href="#Swift">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -293,7 +272,7 @@ $ ruby main.rb
         <pre><code class="language-swift">// Swift
 import Foundation
 
-let roomName = &quot;1000&quot;
+let roomName = "1000"
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let buildBox = BuildBox(roomName)
@@ -301,14 +280,14 @@ if #available(iOS 15.0, macOS 12.0, *) {
     buildBox.setBoxSize(0.5)
     buildBox.setBuildInterval(0.01)
 
-    for i in 0..&lt;100 {
+    for i in 0..<100 {
         buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
         buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
         buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
         buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
     }
 
-    for i in 0..&lt;50 {
+    for i in 0..<50 {
         buildBox.removeBox(0, Double(i * 2), 0)
         buildBox.removeBox(1, Double(i * 2 + 1), 0)
     }
@@ -317,7 +296,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
     RunLoop.main.run(until: Date(timeIntervalSinceNow: 10)) // Or longer depending on your needs
 } else {
-    fatalError(&quot;This script requires iOS 15.0 / macOS 12.0 or later.&quot;)
+    fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }
 </code></pre>
         <h4 id="実行方法---">実行方法<a id="vditorAnchor-実行方法---" class="vditor-anchor" href="#実行方法---">
@@ -326,7 +305,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h4>
-        <pre><code class="language-bash">$ cd sample/swift/basic
+        <pre><code class="language-bash">$ cd swift/Sources
 $ swift run
 </code></pre>
         <h2 id="ショーケース">ショーケース<a id="vditorAnchor-ショーケース" class="vditor-anchor" href="#ショーケース">
@@ -335,108 +314,324 @@ $ swift run
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h2>
+        <p>Pythonのみ例示します。他の言語は変換してください。</p>
         <h3 id="球体">球体<a id="vditorAnchor-球体" class="vditor-anchor" href="#球体">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png"
-                               alt="square_sample"
-                               width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square" width="50%"/></p>
+        <pre><code class="language-python">from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+radius = 11
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, radius, 0, pitch=0, yaw=0, roll=0)
+
+for i in range(-radius, radius + 1):
+  for j in range(-radius, radius + 1):
+    for k in range(-radius, radius + 1):
+      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
+        print(i, j, k)
+        build_box.create_box(i, j, k, 0, 1, 1)
+
+build_box.send_data()
+</code></pre>
         <h3 id="ノードの移動">ノードの移動<a id="vditorAnchor-ノードの移動" class="vditor-anchor" href="#ノードの移動">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample"
-                               width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="node_move" width="50%"/></p>
+        <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for i in range(5):
+  build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.send_data()
+  time.sleep(1)
+
+</code></pre>
         <h3 id="ノードの回転">ノードの回転<a id="vditorAnchor-ノードの回転" class="vditor-anchor" href="#ノードの回転">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png"
-                               alt="rotation_sample" width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
+        <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+rotations = [
+  [0, 0, 0],
+  [30, 0, 0],
+  [0, 30, 0],
+  [0, 0, 30],
+]
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for rotation in rotations:
+  pitch, yaw, roll = rotation
+
+  build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+  build_box.send_data()
+  time.sleep(1)
+</code></pre>
         <h3 id="ノードのアニメーション">ノードのアニメーション<a id="vditorAnchor-ノードのアニメーション" class="vditor-anchor" href="#ノードのアニメーション">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png"
-                               alt="animation_sample" width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
+        <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
+build_box.send_data()
+</code></pre>
         <h3 id="文字表示">文字表示<a id="vditorAnchor-文字表示" class="vditor-anchor" href="#文字表示">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png"
-                               alt="sentence_sample" width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
+        <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0, alpha=1)
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
+build_box.send_data()
+</code></pre>
         <h3 id="地図">地図<a id="vditorAnchor-地図" class="vditor-anchor" href="#地図">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map"
-                               width="50%"/></p>
-        <h3 id="MagicaVoxelで作成したモデルの表示">MagicaVoxelで作成したモデルの表示<a id="vditorAnchor-MagicaVoxelで作成したモデルの表示"
-                                                                         class="vditor-anchor"
-                                                                         href="#MagicaVoxelで作成したモデルの表示">
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="sentence" width="50%"/></p>
+        <pre><code class="language-python">from build_box import BuildBox
+from map_util import get_map_data_from_csv, get_box_color
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.1)
+build_box.set_build_interval(0.001)
+
+column_num, row_num = 257, 257
+csv_file = 'map_38_138_100km.csv'
+height_scale = 100
+high_color = (0.5, 0, 0)
+low_color = (0, 1, 0)
+map_data = get_map_data_from_csv(csv_file, height_scale)
+boxes = map_data['boxes']
+max_height = map_data['maxHeight']
+# skip = 1  # high power device
+skip = 2  # normal device
+# skip = 4  # low power device
+
+
+for j in range(row_num // skip):
+  for i in range(column_num // skip):
+    print(i, j)
+    x = i
+    z = j
+    y = boxes[j * skip][i * skip]
+
+    if y >= 0:
+      r, g, b = get_box_color(y, max_height, high_color, low_color)
+      build_box.create_box(x, y, z, r, g, b, 1)
+
+build_box.send_data()
+</code></pre>
+        <h3 id="MagicaVoxelで作成したモデルの表示">MagicaVoxelで作成したモデルの表示<a id="vditorAnchor-MagicaVoxelで作成したモデルの表示" class="vditor-anchor" href="#MagicaVoxelで作成したモデルの表示">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model"
-                               width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="sentence" width="50%"/></p>
+        <pre><code class="language-python">from build_box import BuildBox
+from ply_util import get_boxes_from_ply
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+
+ply_file_name = 'piyo.ply'
+
+boxes = get_boxes_from_ply(ply_file_name)
+
+for box in boxes:
+    build_box.create_box(*box)
+
+build_box.send_data()
+</code></pre>
         <h3 id="透明ボクセル">透明ボクセル<a id="vditorAnchor-透明ボクセル" class="vditor-anchor" href="#透明ボクセル">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png"
-                               alt="set_alpha_sample" width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
+        <pre><code class="language-python">from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.3)
+build_box.set_build_interval(0.01)
+build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animation_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 0)
+
+for i in range(100):
+  alpha = (100 - i) / 100
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
+
+for i in range(50):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+</code></pre>
         <h3 id="線を引く">線を引く<a id="vditorAnchor-線を引く" class="vditor-anchor" href="#線を引く">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line"
-                               width="50%"/></p>
-        <h3 id="形状を変更-立方体-球体-平面-">形状を変更（立方体、球体、平面）<a id="vditorAnchor-形状を変更-立方体-球体-平面-"
-                                                                           class="vditor-anchor"
-                                                                           href="#形状を変更-立方体-球体-平面-">
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="sentence" width="50%"/></p>
+        <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+build_box.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
+build_box.send_data()
+
+build_box.send_data()
+</code></pre>
+        </code></pre>
+        <h3 id="形状を変更（立方体、球体、平面）">形状を変更（立方体、球体、平面）<a id="vditorAnchor-形状を変更（立方体、球体、平面）" class="vditor-anchor" href="#形状を変更（立方体、球体、平面）">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape"
-                               width="50%"/></p>
-        <h3 id="ライト">ライト<a id="vditorAnchor-ライト" class="vditor-anchor" href="#ライト">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-            </svg>
-        </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample"
-                               width="50%"/></p>
-        <h3 id="コマンド">コマンド<a id="vditorAnchor-コマンド" class="vditor-anchor" href="#コマンド">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-            </svg>
-        </a></h3>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png"
-                               alt="command_sample"
-                               width="50%"/></p>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="sentence" width="50%"/></p>
+        <pre><code class="language-python">import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_node(10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.change_shape('sphere')
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.set_node(20, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.change_shape('plane')
+build_box.send_data()
+</code></pre>
         <h3 id="ユーザー共有">ユーザー共有<a id="vditorAnchor-ユーザー共有" class="vditor-anchor" href="#ユーザー共有">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
@@ -451,7 +646,7 @@ $ swift run
             </svg>
         </a></h2>
         <p>画面右上の「Settings」ボタンから設定画面に移動できます。デバッグモードをオフにすると、画面の情報表示が無効になります。</p>
-        <h2 id="ARワールドのリセット">ARワールドのリセット<a id="vditorAnchor-ARワールドのリセット" class="vditor-anchor" href="#ARワールドのリセット">
+        <h2 id="ARワールドのリセット">ARワールドのリセット<a id="vditorAnchor-ARワールドのリセット" class="vditor-anchor" href="#設定">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
@@ -472,87 +667,70 @@ $ swift run
             </svg>
         </a></h2>
         <p>creativival</p>
-        <h2 id="コンタクト">コンタクト<a id="vditorAnchor-コンタクト" class="vditor-anchor" href="#コンタクト">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-            </svg>
-        </a></h2>
-        <p><a href="https://creativival.github.io/voxelamming/contact.html">Contact</a></p>
-        <h2 id="プライバシーポリシー">プライバシーポリシー<a id="vditorAnchor-プライバシーポリシー" class="vditor-anchor" href="#プライバシーポリシー">
-            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                <path fill-rule="evenodd"
-                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-            </svg>
-        </a></h2>
-        <p><a href="https://creativival.github.io/voxelamming/privacy.html">Contact</a></p>
-    </div>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start mt5">
-        <!-- Grid container -->
-        <div class="container p-4">
-            <!--Grid row-->
-            <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Footer</h5>
+        <!-- Footer -->
+        <footer class="bg-light text-center text-lg-start mt5">
+            <!-- Grid container -->
+            <div class="container p-4">
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Footer</h5>
 
-                    <p>
-                        Voxelamming - ARKitを使ったプログラミング学習アプリ
-                    </p>
+                        <p>
+                            Voxelamming - ARKitを使ったプログラミング学習アプリ
+                        </p>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Links</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="contact.html" class="text-dark">コンタクト</a>
+                            </li>
+                            <li>
+                                <a href="privacy.html" class="text-dark">プライバシーポリシー</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-0">Links</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="https://github.com/creativival/voxelamming" class="text-dark">GitHub</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/creativival/voxelamming-extension" class="text-dark">Scratch3 MOD</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
                 </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Links</h5>
-
-                    <ul class="list-unstyled mb-0">
-                        <li>
-                            <a href="contact.html" class="text-dark">コンタクト</a>
-                        </li>
-                        <li>
-                            <a href="privacy.html" class="text-dark">プライバシーポリシー</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase mb-0">Links</h5>
-
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="https://github.com/creativival/voxelamming" class="text-dark">GitHub</a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/creativival/voxelamming-extension" class="text-dark">Scratch3
-                                MOD</a>
-                        </li>
-                    </ul>
-                </div>
-                <!--Grid column-->
+                <!--Grid row-->
             </div>
-            <!--Grid row-->
-        </div>
-        <!-- Grid container -->
+            <!-- Grid container -->
 
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-            <a class="text-dark" href="https://github.com/creativival/">creativival</a>
-        </div>
-    </footer>
-    <!-- Footer -->
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright:
+                <a class="text-dark" href="https://github.com/creativival/">creativival</a>
+            </div>
+        </footer>
+        <!-- Footer -->
+    </div>
 </div>
 <!-- Grid container -->
 
 <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 <script>    const previewElement = document.getElementById('preview');
 Vditor.setContentTheme('idea-light', 'https://cdn.jsdelivr.net/gh/shuzijun/markdown-editor@2.0.5/src/main/resources/vditor/dist/css/content-theme');
