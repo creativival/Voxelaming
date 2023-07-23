@@ -23,7 +23,8 @@ if #available(iOS 15.0, macOS 12.0, *) {
       [0, 0.5, 0],
       [0, 0, 0.5],
       [0.5, 0.5, 0],
-      [0.5, 0, 0.5]
+      [0.5, 0, 0.5],
+      [0, 0.5, 0.5]
     ]
 
     for (i, color) in colors.enumerated() {

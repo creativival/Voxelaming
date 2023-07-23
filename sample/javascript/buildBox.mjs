@@ -7,7 +7,7 @@ class BuildBox {
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.sentence = []
-    this.lights = []
+    this.lights = [];
     this.commands = []
     this.size = 1.0;
     this.shape = 'box'
@@ -63,7 +63,7 @@ class BuildBox {
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.sentence = []
-    this.lights = []
+    this.lights = [];
     this.commands = []
     this.size = 1.0;
     this.shape = 'box'
