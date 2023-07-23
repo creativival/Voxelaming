@@ -1,4 +1,4 @@
-# Voxelamming - Programming Learning App Using ARKit
+# Voxelamming - Programming Learning App with ARKit
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
 
@@ -9,11 +9,11 @@
 [//]: # (</video></p>)
 
 
-*Read this in other languages: [English](README.en.md), [日本語](README.md)*
+* Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
 ## What is voxelamming?
 
-voxelamming = Voxel + Programming
+Voxelamming = Voxel + Programming
 
 voxelamming is a programming learning app that uses ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
 
@@ -27,15 +27,15 @@ Both Windows and Mac are supported. If the programming language (Python, Node.js
 
 Launch the voxelamming app. The first time you launch the app, it will ask for permission to use the camera, please grant it by selecting "Yes". Once the camera is launched, ARKit will automatically search for a real-world plane. When the plane detection marker (red-green-blue coordinate axes) appears, tap the screen to place a plane anchor. The plane anchor is made up of black and white tiles. With this, you are ready to place voxels.
 
-### Designing (Programming) Voxels
+### Modeling (Programming) Voxels
 
-On your computer (Windows, Mac), program the "voxel data" for placing the voxels. The voxel data includes information such as "location, color, size, and placement interval". The supported languages are Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
+On your computer (Windows, Mac), program the "voxel data" for modeling the voxels. The voxel data includes information such as "location, color, size, and placement interval". The supported languages are Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
 
 Create a script. First, set the room name to connect to the WebSocket server room. The room name is the string displayed in the center of the device (iPhone, iPad) screen. Assign the room name to the variable room_name (roomName).
 
 Then, use the loop and conditional expressions of each language to create voxel data. The position of the voxel is specified by the x, y, and z axis values, with the plane anchor as the reference. The x-axis represents left and right, the y-axis represents up and down, and the z-axis represents depth (the front is positive) (the unit is centimeters). The size of the voxel is specified as a decimal based on 1.0 cm. The color is specified as a decimal from 0 to 1 in RGB values. Then, specify the interval at which voxels are placed in seconds. By specifying the interval at which voxels are placed, the voxels will be placed over time instead of all at once.
 
-### Placing AR Voxels
+### Build AR Voxels
 
 When you run the script, the voxel data is sent to the device (iPhone, iPad) via WebSocket communication. Once the data is received, AR voxels are placed based on the plane anchor on the device screen.
 
@@ -46,15 +46,20 @@ If the WebSocket server is on break, data transmission may fail. In that case, p
 I will explain the methods to use in the script. The method names for each language are as follows.
 
 * set_box_size(size): Sets the size of the voxel. The unit is centimeters. The default is 1.0.
-* set_build_interval(interval): Sets the interval (interval) for placing the voxel. The unit is seconds. The default is 0.01.
-* create_box(x, y, z, r, g, b): Places a voxel. Specify the x, y, and z axis positions and the color. The color is specified as a decimal from 0 to 1 in RGB values.
-* remove_box(x, y, z): Deletes a voxel. Specify the x, y, and z axis positions. (If there is no voxel at the specified position, nothing will be done)
-* write_sentence(sentence, x, y, z, r, g, b): Writes a single line sentence in voxel. Specify the x, y, and z axis positions and the color in RGB values. The color is specified as a decimal from 0 to 1 in RGB values.
-* send_data(): Sends the voxel data to the device (iPhone, iPad).
-* clear_data(): Initializes the voxel data. The size and interval are also reset. (After sending, the voxel data is
-  reset if you want.)
-* set_node(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups the voxels.
-* animate_node(x, y, z, pitch, yaw, roll, scale, interval): Animates the node. Specify movement (x, y, z), rotation (pitch, yaw, roll), enlargement (scale), and placement interval (interval).
+* set_room_name(room_name): Specifies the room name for communication with the device (iPhone, iPad). The room name is displayed in the center of the screen when the application is run. By specifying the same room name, communication between the device and the computer can be established.
+* set_box_size(size): Sets the size of the voxel. The unit is in centimeters. The default is 1.0.
+* set_build_interval(interval): Sets the interval for placing voxels. It can express the animation of placing voxels one by one. The unit is in seconds. The default is 0.01.
+* change_shape: Changes the shape of the voxel. You can choose from a cube (box), sphere (square), or plane (plane).
+* create_box(x, y, z, r, g, b, alpha): Places a voxel. Specifies the position on the x-axis, y-axis, z-axis, and color. Colors are specified as RGBA values from 0 to 1 in decimal. Alpha represents transparency, specified as a decimal from 0 to 1.
+* remove_box(x, y, z): Removes a voxel. Specifies the position on the x-axis, y-axis, z-axis. (If there is no voxel at the specified position, it does nothing)
+* write_sentence(sentence, x, y, z, r, g, b, alpha): Writes a sentence in voxels. Specifies the position on the x-axis, y-axis, z-axis, and color in RGBA values.
+* set_light(x, y, z, r, g, b, alpha, intensity, interval): Places a light. Specifies the position (x, y, z) and color (r, g, b, alpha) of the light. The default intensity is 1000. To make it blink, specify the interval in seconds (if it is 0, it does not blink).
+* set_command(command): Sets a command. Implemented commands include "axis" (displays coordinates), "japaneseCastle" (builds a Japanese castle).
+* draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha): Draws a line between two points. x1, y1, z1 are the starting points, x2, y2, z2 are the endpoints. The color is specified as RGBA values from 0 to 1 in decimal.
+* send_data(): Sends voxel data to the device (iPhone, iPad). Execute when placing AR voxels.
+* clear_data(): Initializes voxel data. It also initializes the size and interval (execute this when you want to initialize the voxel data after sending).
+* set_node(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups voxels.
+* animate_node(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval).
 
 Please read snake_case as camelCase. (set_box_size -> setBoxSize)
 
@@ -68,7 +73,7 @@ Load the voxelamming extension and create a script.
 
 [Play the sample project in Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3)
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3.png" alt="voxelamming_scratch3" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3_en.png" alt="voxelamming_scratch3_en" width="100%"/></p>
 
 ### Python (3.6+)
 
@@ -102,6 +107,7 @@ build_box.send_data()
 #### Run script
 
 ```bash
+$ sample/python
 $ python main.py
 
 or  
@@ -141,6 +147,7 @@ buildBox.sendData();
 #### Run script
 
 ```bash
+$ sample/javascipt
 $ node main.mjs
 ```
 
@@ -176,6 +183,7 @@ build_box.send_data
 #### Run script
 
 ```bash
+$ sample/ruby
 $ ruby main.rb
 ```
 
@@ -218,318 +226,59 @@ if #available(iOS 15.0, macOS 12.0, *) {
 #### Run script
 
 ```bash
-$ cd swift/Sources
+$ cd sample/swift/basic
 $ swift run
 ```
 ## Showcase
 
-Only Python is demonstrated. Please translate for other languages.
-
 ### Square
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square" width="50%"/></p>
-
-```python
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-radius = 11
-
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-build_box.set_node(0, radius, 0, pitch=0, yaw=0, roll=0)
-
-for i in range(-radius, radius + 1):
-  for j in range(-radius, radius + 1):
-    for k in range(-radius, radius + 1):
-      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
-        print(i, j, k)
-        build_box.create_box(i, j, k, 0, 1, 1)
-
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
 ### Node move
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="node_move" width="50%"/></p>
-
-```python
-import time
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
-for i in range(5):
-  build_box.set_node(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
-  build_box.send_data()
-  time.sleep(1)
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
 
 ### Node rotation
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="node_rotation" width="50%"/></p>
-
-```python
-import time
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-rotations = [
-  [0, 0, 0],
-  [30, 0, 0],
-  [0, 30, 0],
-  [0, 0, 30],
-]
-
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
-for rotation in rotations:
-  pitch, yaw, roll = rotation
-
-  build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
-  build_box.send_data()
-  time.sleep(1)
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
 
 
 ### Node animation
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="node_animation" width="50%"/></p>
-
-```python
-import time
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
-build_box.send_data()
-
-time.sleep(1)
-
-build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
 
 ### Write sentence
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence" width="50%"/></p>
-
-```python
-import time
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-
-build_box.set_node(0, 16, 0, pitch=0, yaw=0, roll=0)
-build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0, alpha=1)
-build_box.send_data()
-
-time.sleep(1)
-
-build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
 
 ### Map
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="sentence" width="50%"/></p>
-
-```python
-from build_box import BuildBox
-from map_util import get_map_data_from_csv, get_box_color
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(0.1)
-build_box.set_build_interval(0.001)
-
-column_num, row_num = 257, 257
-csv_file = 'map_38_138_100km.csv'
-height_scale = 100
-high_color = (0.5, 0, 0)
-low_color = (0, 1, 0)
-map_data = get_map_data_from_csv(csv_file, height_scale)
-boxes = map_data['boxes']
-max_height = map_data['maxHeight']
-# skip = 1  # high power device
-skip = 2  # normal device
-# skip = 4  # low power device
-
-
-for j in range(row_num // skip):
-  for i in range(column_num // skip):
-    print(i, j)
-    x = i
-    z = j
-    y = boxes[j * skip][i * skip]
-
-    if y >= 0:
-      r, g, b = get_box_color(y, max_height, high_color, low_color)
-      build_box.create_box(x, y, z, r, g, b, 1)
-
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 
 ### Model created by MagicaVoxel
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="sentence" width="50%"/></p>
-
-```python
-from build_box import BuildBox
-from ply_util import get_boxes_from_ply
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(1)
-build_box.set_build_interval(0.01)
-
-ply_file_name = 'piyo.ply'
-
-boxes = get_boxes_from_ply(ply_file_name)
-
-for box in boxes:
-    build_box.create_box(*box)
-
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
 
 ### Transparency
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="sentence" width="50%"/></p>
-
-```python
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(0.3)
-build_box.set_build_interval(0.01)
-build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.animation_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 0)
-
-for i in range(100):
-  alpha = (100 - i) / 100
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
-
-for i in range(50):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
 
 ### Draw line
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="sentence" width="50%"/></p>
-
-```python
-import time
-from build_box import BuildBox
-
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
-
-build_box.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
-build_box.send_data()
-
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
 
 ### Change shape (box, sphere, plane)
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="sentence" width="50%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
 
-```python
-import time
-from build_box import BuildBox
+### Light
 
-room_name = "1000"
-build_box = BuildBox(room_name)
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
+### Coomand
 
-for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
-
-for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
-
-build_box.send_data()
-
-time.sleep(1)
-
-build_box.set_node(10, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.change_shape('sphere')
-build_box.send_data()
-
-time.sleep(1)
-
-build_box.set_node(20, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.change_shape('plane')
-build_box.send_data()
-```
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
 
 ### User Sharing
 
