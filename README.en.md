@@ -306,6 +306,6 @@ creativival
 
 ## Privacy Policy
 
-[Contact](https://creativival.github.io/voxelamming/privacy.en.html)
+[Privacy Policy](https://creativival.github.io/voxelamming/privacy.en.html)
 
 

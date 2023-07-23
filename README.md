@@ -299,10 +299,10 @@ creativival
 
 ## コンタクト
 
-[Contact](https://creativival.github.io/voxelamming/contact.html)
+[コンタクト](https://creativival.github.io/voxelamming/contact.html)
 
 ## プライバシーポリシー
 
-[Contact](https://creativival.github.io/voxelamming/privacy.html)
+[プライバシーポリシー](https://creativival.github.io/voxelamming/privacy.html)
 
 
