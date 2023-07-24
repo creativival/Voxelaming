@@ -8,7 +8,6 @@ class Turtle {
     this.polarPhi = 0;
     this.drawable = true;
     this.color = [0, 0, 0, 1];
-    this.size = 1;
   }
 
   forward(length) {
@@ -75,7 +74,6 @@ class Turtle {
     this.polarPhi = 0;
     this.drawable = true;
     this.color = [0, 0, 0, 1];
-    this.size = 1;
   }
 
   degToRad(degrees) {
