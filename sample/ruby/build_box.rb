@@ -77,9 +77,9 @@ class BuildBox
   def draw_line(x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1)
     x1, y1, z1 = [x1, y1, z1].map(&:floor)
     x2, y2, z2 = [x2, y2, z2].map(&:floor)
-    diff_x = x2 - x1
-    diff_y = y2 - y1
-    diff_z = z2 - z1
+    diff_x = x2 - x1.to_f
+    diff_y = y2 - y1.to_f
+    diff_z = z2 - z1.to_f
     max_length = [diff_x.abs, diff_y.abs, diff_z.abs].max
     puts "#{x2}, #{y2}, #{z2}"
 
@@ -87,13 +87,13 @@ class BuildBox
 
     if diff_x.abs == max_length
       if x2 > x1
-        (x1..x2).each do |x|
+        (x1...x2).each do |x|
           y = y1 + (x - x1) * diff_y / diff_x
           z = z1 + (x - x1) * diff_z / diff_x
           self.create_box(x, y, z, r, g, b, alpha)
         end
       else
-        (x1).downto(x2 - 1) do |x|
+        (x1).downto(x2) do |x|
           y = y1 + (x - x1) * diff_y / diff_x
           z = z1 + (x - x1) * diff_z / diff_x
           self.create_box(x, y, z, r, g, b, alpha)
@@ -101,13 +101,13 @@ class BuildBox
       end
     elsif diff_y.abs == max_length
       if y2 > y1
-        (y1..y2).each do |y|
+        (y1...y2).each do |y|
           x = x1 + (y - y1) * diff_x / diff_y
           z = z1 + (y - y1) * diff_z / diff_y
           self.create_box(x, y, z, r, g, b, alpha)
         end
       else
-        (y1).downto(y2 - 1) do |y|
+        (y1).downto(y2) do |y|
           x = x1 + (y - y1) * diff_x / diff_y
           z = z1 + (y - y1) * diff_z / diff_y
           self.create_box(x, y, z, r, g, b, alpha)
@@ -115,13 +115,13 @@ class BuildBox
       end
     elsif diff_z.abs == max_length
       if z2 > z1
-        (z1..z2).each do |z|
+        (z1...z2).each do |z|
           x = x1 + (z - z1) * diff_x / diff_z
           y = y1 + (z - z1) * diff_y / diff_z
           self.create_box(x, y, z, r, g, b, alpha)
         end
       else
-        (z1).downto(z2 - 1) do |z|
+        (z1).downto(z2) do |z|
           x = x1 + (z - z1) * diff_x / diff_z
           y = y1 + (z - z1) * diff_y / diff_z
           self.create_box(x, y, z, r, g, b, alpha)
