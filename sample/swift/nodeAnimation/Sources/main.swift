@@ -22,7 +22,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
     buildBox.sendData()
     sleep(1)
 
-    buildBox.animationNode(10, 0, 0, pitch: 0, yaw: 30 , roll: 0, scale: 2, interval: 10)
+    buildBox.animateNode(10, 0, 0, pitch: 0, yaw: 30 , roll: 0, scale: 2, interval: 10)
     buildBox.sendData()
 
     RunLoop.main.run(until: Date(timeIntervalSinceNow: 10)) // Or longer depending on your needs

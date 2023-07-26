@@ -27,7 +27,7 @@ class BuildBox {
         node = [floorX, floorY, floorZ, pitch, yaw, roll]
     }
 
-    func animationNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+    func animateNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
         let floorX = floor(x)
         let floorY = floor(y)
         let floorZ = floor(z)

@@ -21,7 +21,7 @@ class BuildBox:
     x, y, z = map(floor, [x, y, z])
     self.node = [x, y, z, pitch, yaw, roll]
 
-  def animation_node(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
+  def animate_node(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
     x, y, z = map(floor, [x, y, z])
     self.animation = [x, y, z, pitch, yaw, roll, scale, interval]
 

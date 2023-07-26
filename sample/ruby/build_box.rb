@@ -22,7 +22,7 @@ class BuildBox
     @node = [x, y, z, pitch, yaw, roll]
   end
 
-  def animation_node(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
+  def animate_node(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
     x, y, z = [x, y, z].map(&:floor)
     @animation = [x, y, z, pitch, yaw, roll, scale, interval]
   end

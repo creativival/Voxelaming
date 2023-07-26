@@ -22,5 +22,5 @@ build_box.send_data()
 
 sleep(1)
 
-build_box.animation_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
+build_box.animate_node(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
 build_box.send_data()

@@ -21,7 +21,7 @@ class BuildBox {
     this.node = [x, y, z, pitch, yaw, roll]
   }
 
-  animationNode(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
+  animateNode(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
