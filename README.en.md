@@ -15,7 +15,7 @@
 
 Voxelamming = Voxel + Programming
 
-voxelamming is a programming learning app that uses ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
+voxelamming is a programming learning app withs ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
 
 ## How to Use
 
@@ -31,7 +31,7 @@ Launch the voxelamming app. The first time you launch the app, it will ask for p
 
 On your computer (Windows, Mac), program the "voxel data" for modeling the voxels. The voxel data includes information such as "location, color, size, and placement interval". The supported languages are Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
 
-Create a script. First, set the room name to connect to the WebSocket server room. The room name is the string displayed in the center of the device (iPhone, iPad) screen. Assign the room name to the variable room_name (roomName).
+Let's create a script. Please refer to the scripts in the sample folder. Don't forget to match the variable room_name (roomName) to the string displayed in the center of the device (iPhone, iPad) screen in order to connect to the WebSocket server's room.
 
 Then, use the loop and conditional expressions of each language to create voxel data. The position of the voxel is specified by the x, y, and z axis values, with the plane anchor as the reference. The x-axis represents left and right, the y-axis represents up and down, and the z-axis represents depth (the front is positive) (the unit is centimeters). The size of the voxel is specified as a decimal based on 1.0 cm. The color is specified as a decimal from 0 to 1 in RGB values. Then, specify the interval at which voxels are placed in seconds. By specifying the interval at which voxels are placed, the voxels will be placed over time instead of all at once.
 
