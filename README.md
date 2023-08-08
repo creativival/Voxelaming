@@ -246,13 +246,13 @@ $ swift run
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
 
-### グローバルの回転
-
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/global_rotation_sample.png" alt="rotation_sample" width="50%"/></p>
-
 ### ノードのアニメーション
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
+
+### グローバルのアニメーション
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
 
 ### 文字表示
 
