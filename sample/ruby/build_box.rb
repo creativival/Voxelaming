@@ -6,6 +6,7 @@ require 'date'
 class BuildBox
   def initialize(room_name)
     @room_name = room_name
+    @global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @node = [0, 0, 0, 0, 0, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
@@ -15,6 +16,14 @@ class BuildBox
     @size = 1
     @shape = 'box'
     @build_interval = 0.01
+  end
+
+  def animate_global(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
+    clear_data()
+    x = x.floor
+    y = y.floor
+    z = z.floor
+    @global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
   end
 
   def set_node(x, y, z, pitch=0, yaw=0, roll=0)
@@ -48,6 +57,7 @@ class BuildBox
   end
 
   def clear_data
+    @global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @node = [0, 0, 0, 0, 0, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
@@ -139,6 +149,7 @@ class BuildBox
     puts 'send_data'
     now = DateTime.now
     data_to_send = {
+      "globalAnimation": @global_animation,
       "node": @node,
       "animation": @animation,
       "boxes": @boxes,
@@ -152,7 +163,7 @@ class BuildBox
     }.to_json
 
     EM.run do
-      ws = Faye::WebSocket::Client.new('wss://render-nodejs-server.onrender.com')
+      ws = Faye::WebSocket::Client.new('wss://websocket.voxelamming.com')
 
       ws.on :open do |_event|
         p [:open]

@@ -1,5 +1,9 @@
 # Voxelamming - Programming Learning App with ARKit
 
+Voxelamming is a programming learning app with ARKit for programming beginners and generative artists.
+
+<a href="https://apps.apple.com/us/app/voxelamming/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
 
 [//]: # (<p align="center"><video width="1280" height="720" controls>)
@@ -11,11 +15,11 @@
 
 * Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
-## What is voxelamming?
+## What is Voxelamming?
 
 Voxelamming = Voxel + Programming
 
-voxelamming is a programming learning app withs ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
+Voxelamming is a programming learning app with ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
 
 ## How to Use
 
@@ -59,7 +63,8 @@ I will explain the methods to use in the script. The method names for each langu
 * send_data(): Sends voxel data to the device (iPhone, iPad). Execute when placing AR voxels.
 * clear_data(): Initializes voxel data. It also initializes the size and interval (execute this when you want to initialize the voxel data after sending).
 * set_node(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups voxels.
-* animate_node(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval).
+* animate_node(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
+* animate_global(x, y, z, pitch, yaw, roll, scale, interval): All voxels animation based on the base anchor. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
 
 Please read snake_case as camelCase. (set_box_size -> setBoxSize)
 
@@ -235,7 +240,7 @@ $ swift run
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
-### Node move
+### Node placement
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
 
@@ -247,6 +252,11 @@ $ swift run
 ### Node animation
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
+
+
+### Global animation
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
 
 ### Write sentence
 

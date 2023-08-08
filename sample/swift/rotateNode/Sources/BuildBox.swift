@@ -2,9 +2,10 @@ import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
 class BuildBox {
-    let url = URL(string: "wss://render-nodejs-server.onrender.com")!
+    let url = URL(string: "wss://websocket.voxelamming.com")!
     let webSocketTask: URLSessionWebSocketTask
     var roomName = ""
+    var globalAnimation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var node: [Double] = [0, 0, 0, 0, 0, 0, 0]
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
@@ -20,6 +21,13 @@ class BuildBox {
         webSocketTask = URLSession.shared.webSocketTask(with: url)
     }
 
+    func animateGlobal(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+        let floorX = floor(x)
+        let floorY = floor(y)
+        let floorZ = floor(z)
+        globalAnimation = [floorX, floorY, floorZ, pitch, yaw, roll, scale, interval]
+    }
+
     func setNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
         let floorX = floor(x)
         let floorY = floor(y)
@@ -28,6 +36,7 @@ class BuildBox {
     }
 
     func animateNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+        clearData()
         let floorX = floor(x)
         let floorY = floor(y)
         let floorZ = floor(z)
@@ -63,6 +72,7 @@ class BuildBox {
     }
 
     func clearData() {
+        globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
         node = [0, 0, 0, 0, 0, 0, 0]
         animation = [0, 0, 0, 0, 0, 0, 1, 0]
         boxes = [[Double]]()
@@ -170,6 +180,7 @@ class BuildBox {
         let dateFormatter = ISO8601DateFormatter()
         let dateString = dateFormatter.string(from: date)
         let dataDict = [
+            "globalAnimation": globalAnimation,
             "node": node,
             "animation": animation,
             "boxes": boxes,

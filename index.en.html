@@ -22,6 +22,8 @@
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h1>
+        <p>Voxelamming is a programming learning app with ARKit for programming beginners and generative artists.</p>
+        <p><a href="https://apps.apple.com/us/app/voxelamming/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a></p>
         <p align="center"><video width="443" height="960" controls>
             <source src="video/app_preview_voxelamming_886x1920.mp4" type="video/mp4">
         </video></p>
@@ -29,7 +31,7 @@
         <ul>
             <li>Read this in other languages: <a href="index.en.html">English</a>, <a href="index.html">日本語</a>*</li>
         </ul>
-        <h2 id="What-is-voxelamming-">What is voxelamming?<a id="vditorAnchor-What-is-voxelamming-"
+        <h2 id="What-is-voxelamming-">What is Voxelamming?<a id="vditorAnchor-What-is-voxelamming-"
                                                              class="vditor-anchor"
                                                              href="#What-is-voxelamming-">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
@@ -38,7 +40,7 @@
             </svg>
         </a></h2>
         <p>Voxelamming = Voxel + Programming</p>
-        <p>voxelamming is a programming learning app with ARKit. It can be used for free on ARKit-compatible
+        <p>Voxelamming is a programming learning app with ARKit. It can be used for free on ARKit-compatible
             iPhones
             and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to
             pixels) in a virtual space that you have programmed on your computer.</p>
@@ -176,8 +178,10 @@
                 node that groups voxels.
             </li>
             <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z),
-                rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval).
+                rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
             </li>
+            <li>animate_global(x, y, z, pitch, yaw, roll, scale, interval): All voxels animation based on the base anchor. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale),
+                and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)</li>
         </ul>
         <p>Please read snake_case as camelCase. (set_box_size -&gt; setBoxSize)</p>
         <h2 id="Script-Examples">Script Examples<a id="vditorAnchor-Script-Examples" class="vditor-anchor"
@@ -406,7 +410,7 @@ $ swift run
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png"
                                alt="square_sample"
                                width="50%"/></p>
-        <h3 id="Node-move">Node move<a id="vditorAnchor-Node-move" class="vditor-anchor" href="#Node-move">
+        <h3 id="Node-placement">Node placement<a id="vditorAnchor-Node-placement" class="vditor-anchor" href="#Node-placement">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
@@ -431,6 +435,15 @@ $ swift run
             </svg>
         </a></h3>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png"
+                               alt="animation_sample" width="50%"/></p>
+        <h3 id="Gloabl-animation">Gloabl animation<a id="vditorAnchor-Gloabl-animation" class="vditor-anchor"
+                                                 href="#Gloabl-animation">
+            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                <path fill-rule="evenodd"
+                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+            </svg>
+        </a></h3>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png"
                                alt="animation_sample" width="50%"/></p>
         <h3 id="Write-sentence">Write sentence<a id="vditorAnchor-Write-sentence" class="vditor-anchor"
                                                  href="#Write-sentence">

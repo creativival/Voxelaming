@@ -1,5 +1,9 @@
 # ボクセラミング - ARKitを使ったプログラミング学習アプリ
 
+ボクセラミングは、プログラミング初心者とジェネラティブアーティストのための、ARKitを使ったプログラミング学習アプリです。
+
+<a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
 
 [//]: # (<p align="center"><video width="1280" height="720" controls>)
@@ -57,8 +61,9 @@
 * send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。
 * clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。
 * set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
-* animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。
-`
+* animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
+* animate_global(x, y, z, pitch, yaw, roll, scale, interval):全てのボクセルの「ベースアンカーを基準にした」アニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
+
 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -> setBoxSize）
 
 ## サンプルスクリプト
@@ -233,13 +238,17 @@ $ swift run
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
-### ノードの移動
+### ノードの配置
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
 
 ### ノードの回転
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
+
+### グローバルの回転
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/global_rotation_sample.png" alt="rotation_sample" width="50%"/></p>
 
 ### ノードのアニメーション
 

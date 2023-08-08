@@ -2,11 +2,13 @@ from math import floor
 import asyncio
 import websockets
 import datetime
+import re
 
 
 class BuildBox:
   def __init__(self, room_name):
     self.room_name = room_name
+    self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.node = [0, 0, 0, 0, 0, 0]
     self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
@@ -16,6 +18,11 @@ class BuildBox:
     self.size = 1
     self.shape = 'box'
     self.build_interval = 0.01
+
+  def animate_global(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
+    self.clear_data()
+    x, y, z = map(floor, [x, y, z])
+    self.global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
 
   def set_node(self, x, y, z, pitch=0, yaw=0, roll=0):
     x, y, z = map(floor, [x, y, z])
@@ -44,6 +51,7 @@ class BuildBox:
     self.build_interval = interval
 
   def clear_data(self):
+    self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.node = [0, 0, 0, 0, 0, 0]
     self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     self.boxes = []
@@ -73,7 +81,7 @@ class BuildBox:
     diff_y = y2 - y1
     diff_z = z2 - z1
     max_length = max(abs(diff_x), abs(diff_y), abs(diff_z))
-    print(x2, y2, z2)
+    # print(x2, y2, z2)
 
     if diff_x == 0 and diff_y == 0 and diff_z == 0:
       return False
@@ -119,6 +127,7 @@ class BuildBox:
     now = datetime.datetime.now()
     data_to_send = f"""
       {{
+      "globalAnimation": {self.global_animation},
       "node": {self.node},
       "animation": {self.animation},
       "boxes": {self.boxes},
@@ -133,11 +142,12 @@ class BuildBox:
       """.replace("'", '"')
 
     async def sender(room_name):
-      async with websockets.connect('wss://render-nodejs-server.onrender.com') as websocket:
+      async with websockets.connect('wss://websocket.voxelamming.com') as websocket:
         await websocket.send(room_name)
         print(f"Joined room: {room_name}")
         await websocket.send(data_to_send)
-        print(data_to_send)
+        # print(data_to_send)
+#         print(re.sub(r'\n      ', ' ', data_to_send.replace('"', '\\"')))
         print("Sent data to server")
         # self.clear_data()
 

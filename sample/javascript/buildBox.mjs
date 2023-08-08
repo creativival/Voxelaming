@@ -3,6 +3,7 @@ import WebSocket from 'ws';
 class BuildBox {
   constructor(roomName) {
     this.roomName = roomName;
+    this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.node = [0, 0, 0, 0, 0, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
@@ -12,6 +13,14 @@ class BuildBox {
     this.size = 1.0;
     this.shape = 'box'
     this.buildInterval = 0.01;
+  }
+
+  animateGlobal(x, y, z, pitch = 0, yaw = 0, roll = 0, scale = 1, interval = 10) {
+    this.clearData();
+    x = Math.floor(x);
+    y = Math.floor(y);
+    z = Math.floor(z);
+    this.globalAnimation = [x, y, z, pitch, yaw, roll, scale, interval];
   }
 
   setNode(x, y, z, pitch=0, yaw=0, roll=0) {
@@ -59,6 +68,7 @@ class BuildBox {
   }
 
   clearData() {
+    this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.node = [0, 0, 0, 0, 0, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
@@ -159,9 +169,10 @@ class BuildBox {
 
   async sendData() {
     console.log('Sending data...');
-    const ws = new WebSocket('wss://render-nodejs-server.onrender.com');
+    const ws = new WebSocket('wss://websocket.voxelamming.com');
     const date = new Date();
     const dataToSend = {
+      globalAnimation: this.globalAnimation,
       node: this.node,
       animation: this.animation,
       boxes: this.boxes,

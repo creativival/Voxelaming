@@ -23,5 +23,3 @@ for i in 0...5
   build_box.send_data()
   sleep(1)
 end
-
-build_box.send_data
