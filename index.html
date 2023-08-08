@@ -120,7 +120,7 @@
             <li>set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。</li>
             <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw,
                 roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）</li>
-            <li>* animate_global(x, y, z, pitch, yaw, roll, scale, interval):全てのボクセルの「ベースアンカーを基準にした」アニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）</li>
+            <li>animate_global(x, y, z, pitch, yaw, roll, scale, interval):全てのボクセルの「ベースアンカーを基準にした」アニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）</li>
         </ul>
         <p> ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -&gt; setBoxSize）</p>
         <h2 id="サンプルスクリプト">サンプルスクリプト<a id="vditorAnchor-サンプルスクリプト" class="vditor-anchor" href="#サンプルスクリプト">
@@ -364,7 +364,6 @@ $ swift run
         </a></h3>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png"
                                alt="rotation_sample" width="50%"/></p>
-                               alt="global_rotation_sample" width="50%"/></p>
         <h3 id="ノードのアニメーション">ノードのアニメーション<a id="vditorAnchor-ノードのアニメーション" class="vditor-anchor" href="#ノードのアニメーション">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
                 <path fill-rule="evenodd"
