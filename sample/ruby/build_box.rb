@@ -15,6 +15,8 @@ class BuildBox
     @commands = []
     @size = 1
     @shape = 'box'
+    @is_metallic = 0
+    @roughness = 0.5
     @build_interval = 0.01
   end
 
@@ -66,6 +68,8 @@ class BuildBox
     @commands = []
     @size = 1
     @shape = 'box'
+    @is_metallic = 0
+    @roughness = 0.5
     @build_interval = 0.01
   end
 
@@ -75,9 +79,18 @@ class BuildBox
     @sentence = [sentence, x, y, z, r, g, b, alpha]
   end
 
-  def set_light(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1)
+  def set_light(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point')
     x, y, z = [x, y, z].map(&:floor)
-    @lights << [x, y, z, r, g, b, alpha, intensity, interval]
+    if light_type == 'point'
+      light_type = 1
+    elsif light_type == 'spot'
+      light_type = 2
+    elsif light_type == 'directional'
+      light_type = 3
+    else
+      light_type = 1
+    end
+    @lights << [x, y, z, r, g, b, alpha, intensity, interval, light_type]
   end
 
   def set_command(command)
@@ -145,6 +158,11 @@ class BuildBox
     @shape = shape
   end
 
+  def change_material(is_metallic=false, roughness=0.5)
+    @is_metallic = is_metallic ? 1 : 0
+    @roughness = roughness
+  end
+
   def send_data
     puts 'send_data'
     now = DateTime.now
@@ -158,6 +176,8 @@ class BuildBox
       "commands": @commands,
       "size": @size,
       "shape": @shape,
+      "isMetallic": @is_metallic,
+      "roughness": @roughness,
       "interval": @build_interval,
       "date": now.to_s
     }.to_json

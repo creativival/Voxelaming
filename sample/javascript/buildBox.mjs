@@ -12,6 +12,8 @@ class BuildBox {
     this.commands = []
     this.size = 1.0;
     this.shape = 'box'
+    this.isMetallic = 0
+    this.roughness = 0.5
     this.buildInterval = 0.01;
   }
 
@@ -77,6 +79,8 @@ class BuildBox {
     this.commands = []
     this.size = 1.0;
     this.shape = 'box'
+    this.isMetallic = 0
+    this.roughness = 0.5
     this.buildInterval = 0.01;
   }
 
@@ -91,11 +95,21 @@ class BuildBox {
     this.sentence = [sentence, x, y, z, r, g, b, alpha];
   }
 
-  setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1) {
+  setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, lightType='point') {
     x = Math.floor(x);
     y = Math.floor(y);
     z = Math.floor(z);
-    this.lights.push([x, y, z, r, g, b, alpha, intensity, interval]);
+
+    if (lightType === 'point') {
+      lightType = 1;
+    } else if (lightType === 'spot') {
+      lightType = 2;
+    } else if (lightType === 'directional') {
+      lightType = 3;
+    } else {
+      lightType = 1;
+    }
+    this.lights.push([x, y, z, r, g, b, alpha, intensity, interval, lightType]);
   }
 
   setCommand(command) {
@@ -167,6 +181,11 @@ class BuildBox {
     this.shape = shape;
   }
 
+  changeMaterial(isMetallic, roughness) {
+    this.isMetallic = isMetallic ? 1 : 0;
+    this.roughness = roughness;
+  }
+
   async sendData() {
     console.log('Sending data...');
     const ws = new WebSocket('wss://websocket.voxelamming.com');
@@ -181,6 +200,8 @@ class BuildBox {
       commands: this.commands,
       size: this.size,
       shape: this.shape,
+      isMetallic: this.isMetallic,
+      roughness: this.roughness,
       interval: this.buildInterval,
       date: date.toISOString()
     };

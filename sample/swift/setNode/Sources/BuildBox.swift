@@ -14,6 +14,8 @@ class BuildBox {
     var commands = [String]()
     var size: Double = 1.0
     var shape: String = "box"
+    var isMetallic: Int = 0
+    var roughness: Double = 0.5
     var buildInterval = 0.01
 
     init(roomName: String) {
@@ -81,6 +83,8 @@ class BuildBox {
         lights.removeAll()
         commands.removeAll()
         size = 1.0
+        isMetallic = 0
+        roughness = 0.5
         shape = "box"
     }
 
@@ -95,11 +99,22 @@ class BuildBox {
         sentence = [string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha]
     }
 
-    func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1) {
+    func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1, lightType: String = "point") {
         let floorX = floor(x)
         let floorY = floor(y)
         let floorZ = floor(z)
-        lights.append([floorX, floorY, floorZ, r, g, b, alpha, intensity, interval])
+        var doubleLightType: Double
+
+        if lightType == "point" {
+            doubleLightType = 1
+        } else if lightType == "spot" {
+            doubleLightType = 2
+        } else if lightType == "directional" {
+            doubleLightType = 3
+        } else {
+            doubleLightType = 1
+        }
+        lights.append([floorX, floorY, floorZ, r, g, b, alpha, intensity, interval, doubleLightType])
     }
 
     func setCommand(_ command: String) {
@@ -173,6 +188,11 @@ class BuildBox {
         self.shape = shape
     }
 
+    func changeMaterial(isMetallic: Bool = false, roughness: Double = 0.5) {
+        self.isMetallic = isMetallic ? 1 : 0
+        self.roughness = roughness
+    }
+
     func send() async throws {
         self.webSocketTask.resume()
 
@@ -189,6 +209,8 @@ class BuildBox {
             "commands": commands,
             "size": size,
             "shape": shape,
+            "isMetallic": isMetallic,
+            "roughness": roughness,
             "interval": buildInterval,
             "date": dateString
         ] as [String : Any]

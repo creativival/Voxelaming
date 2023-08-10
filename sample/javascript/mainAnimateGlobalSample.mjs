@@ -1,8 +1,8 @@
 import BuildBox from './buildBox.mjs';
 
 (async () => {
-  const room_name = "1000";
-  const buildBox = new BuildBox(room_name);
+  const roomName = "1000";
+  const buildBox = new BuildBox(roomName);
   
   buildBox.setBoxSize(0.3);
   buildBox.setBuildInterval(0.01);
