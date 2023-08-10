@@ -54,6 +54,7 @@ I will explain the methods to use in the script. The method names for each langu
 * set_box_size(size): Sets the size of the voxel. The unit is in centimeters. The default is 1.0.
 * set_build_interval(interval): Sets the interval for placing voxels. It can express the animation of placing voxels one by one. The unit is in seconds. The default is 0.01.
 * change_shape: Changes the shape of the voxel. You can choose from a cube (box), sphere (square), or plane (plane).
+* change_material(is_metallic, roughness): This function changes the material of the voxel. Setting is_metallic to "on" will make it metallic in appearance. roughness represents the roughness and should be specified as a decimal value between 0 and 1.
 * create_box(x, y, z, r, g, b, alpha): Places a voxel. Specifies the position on the x-axis, y-axis, z-axis, and color. Colors are specified as RGBA values from 0 to 1 in decimal. Alpha represents transparency, specified as a decimal from 0 to 1.
 * remove_box(x, y, z): Removes a voxel. Specifies the position on the x-axis, y-axis, z-axis. (If there is no voxel at the specified position, it does nothing)
 * write_sentence(sentence, x, y, z, r, g, b, alpha): Writes a sentence in voxels. Specifies the position on the x-axis, y-axis, z-axis, and color in RGBA values.
@@ -281,6 +282,10 @@ $ swift run
 ### Change shape (box, sphere, plane)
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
+
+### Change material
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
 ### Light
 

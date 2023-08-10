@@ -52,10 +52,11 @@
 * set_box_size(size)：ボクセルの大きさを設定します。単位はセンチメートルです。デフォルトは1.0です。
 * set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。ボクセルを一つずつ設置するアニメーションを表現できます。単位は秒です。デフォルトは0.01です。
 * change_shape：ボクセルを形状を変更します。立方体（box）、球体（square）、平面（plane）が選べます。
+* change_material(is_metallic, roughness)：ボクセルを材質を変更します。is_metallicを「オン」にすると金属調になります。roughnessは粗さを表し、0から1の小数で指定します。
 * create_box(x, y, z, r, g, b, alpha)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGBA値で0から1までの小数で指定します。alphaは透明度を表し、0から1の小数で指定します。
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
 * write_sentence(sentence, x, y, z, r, g, b, alpha)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGBA値で指定します。
-* set_light(x, y, z, r, g, b, alpha, intensity, interval)：ライトを配置します。ライトの位置（x, y, z）色（r, g, b, alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）。
+* set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)：ライトを配置します。ライトの位置（x, y, z）色（r, g, b, alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）light_typeは「ポイント、スポット、ディレクショナル」のいずれかを選びます。
 * set_command(command)：コマンドを設定します。コマンドは、"axis"（座標を表示する）、"japaneseCastle"（日本のお城を建築する）が実装されています。
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)：2点間を線で結びます。x1, y1, z1は始点、x2, y2, z2は終点です。色はRGBA値で0から1までの小数で指定します。
 * send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。
@@ -277,6 +278,10 @@ $ swift run
 ### 形状を変更（立方体、球体、平面）
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
+
+### マテリアル（材質）を変更
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
 ### ライト
 
