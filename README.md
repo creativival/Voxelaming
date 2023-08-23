@@ -291,6 +291,12 @@ $ swift run
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
 
+### リセットコマンド
+
+モデルの作成とリセットを交互に繰り返すことで、モデルのアニメーションを作成できます。
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
+
 ### ユーザー共有
 
 準備中

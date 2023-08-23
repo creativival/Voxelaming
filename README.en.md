@@ -291,9 +291,15 @@ $ swift run
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
-### Coomand
+### Command
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
+
+### Reset Command
+
+The model can be animated by alternately creating and resetting the model.
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
 
 ### User Sharing
 
