@@ -12,9 +12,9 @@ import { getBoxesFromPly } from './plyUtil.mjs';
 
   const boxes = getBoxesFromPly(plyFileName)
 
-  for (const b of boxes) {
+  for (const box of boxes) {
     // console.log(b)
-    buildBox.createBox(b[0], b[1], b[2], b[3], b[4], b[5], b[6])
+    buildBox.createBox(...box)
   }
 
   await buildBox.sendData();
