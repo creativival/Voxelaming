@@ -33,7 +33,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
         let y = position[1]
         let z = position[2]
         
-        buildBox.setNode(x, y, z, pitch: 0, yaw: 0, roll: 0)
+        buildBox.translate(x, y, z, pitch: 0, yaw: 0, roll: 0)
         buildBox.sendData()
         sleep(1)
     }

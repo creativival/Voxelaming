@@ -30,7 +30,7 @@ import BuildBox from './buildBox.mjs';
   ];
   
   for (const [x, y, z] of node_positions) {
-    buildBox.setNode(x, y, z, 0, 0, 0);
+    buildBox.translate(x, y, z, 0, 0, 0);
     buildBox.sendData();
     await buildBox.sleepSecond(1);
   }

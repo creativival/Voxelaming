@@ -20,28 +20,35 @@ class BuildBox:
     self.is_metallic = 0
     self.roughness = 0.5
     self.build_interval = 0.01
+    self.matrices = []
+    self.is_allowed_float = 0
+
+  def push_matrix(self):
+    self.matrices.append(self.node)
+
+  def pop_matrix(self):
+    self.node = self.matrices.pop()
 
   def animate_global(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
-    self.clear_data()
-    x, y, z = map(floor, [x, y, z])
+    x, y, z = self.round_numbers([x, y, z])
     self.global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
 
-  def set_node(self, x, y, z, pitch=0, yaw=0, roll=0):
-    x, y, z = map(floor, [x, y, z])
+  def translate(self, x, y, z, pitch=0, yaw=0, roll=0):
+    x, y, z = self.round_numbers([x, y, z])
     self.node = [x, y, z, pitch, yaw, roll]
 
-  def animate_node(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
-    x, y, z = map(floor, [x, y, z])
+  def animate(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
+    x, y, z = self.round_numbers([x, y, z])
     self.animation = [x, y, z, pitch, yaw, roll, scale, interval]
 
   def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1):
-    x, y, z = map(floor, [x, y, z])
+    x, y, z = self.round_numbers([x, y, z])
     # 重ねておくことを防止
     self.remove_box(x, y, z)
     self.boxes.append([x, y, z, r, g, b, alpha])
 
   def remove_box(self, x, y, z):
-    x, y, z = [floor(val) for val in [x, y, z]]
+    x, y, z = self.round_numbers([x, y, z])
     for box in self.boxes:
       if box[0] == x and box[1] == y and box[2] == z:
         self.boxes.remove(box)
@@ -64,15 +71,20 @@ class BuildBox:
     self.shape = 'box'
     self.is_metallic = 0
     self.roughness = 0.5
+    self.is_allowed_float = 0
     self.build_interval = 0.01
 
   def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
-    x, y, z = map(str, map(floor, [x, y, z]))
+    if self.is_allowed_float:
+      x, y, z = [round(val, 2) for val in [x, y, z]]
+    else:
+      x, y, z = map(floor, [x, y, z])
+    x, y, z = map(str, [x, y, z])
     r, g, b, alpha = map(str, [r, g, b, alpha])
     self.sentence = [sentence, x, y, z, r, g, b, alpha]
 
   def set_light(self, x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point'):
-    x, y, z = map(floor, [x, y, z])
+    x, y, z = self.round_numbers([x, y, z])
     if light_type == 'point':
       light_type = 1
     elif light_type == 'spot':
@@ -86,9 +98,11 @@ class BuildBox:
   def set_command(self, command):
     self.commands.append(command)
 
+    if command == 'float':
+      self.is_allowed_float = 1
+
   def draw_line(self, x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1):
-    x1, y1, z1 = map(floor, [x1, y1, z1])
-    x2, y2, z2 = map(floor, [x2, y2, z2])
+    x1, y1, z1, x2, y2, z2 = map(floor, [x1, y1, z1, x2, y2, z2])
     diff_x = x2 - x1
     diff_y = y2 - y1
     diff_z = z2 - z1
@@ -136,7 +150,10 @@ class BuildBox:
     self.shape = shape
 
   def change_material(self, is_metallic=False, roughness=0.5):
-    self.is_metallic = 1 if is_metallic else 0
+    if is_metallic:
+      self.is_metallic = 1
+    else:
+      self.is_metallic = 0
     self.roughness = roughness
 
   def send_data(self):
@@ -155,6 +172,7 @@ class BuildBox:
       "interval": {self.build_interval},
       "isMetallic": {self.is_metallic},
       "roughness": {self.roughness},
+      "isAllowedFloat": {self.is_allowed_float},
       "date": "{now}"
       }}
       """.replace("'", '"')
@@ -170,3 +188,9 @@ class BuildBox:
         # self.clear_data()
 
     asyncio.get_event_loop().run_until_complete(sender(self.room_name))
+
+  def round_numbers(self, num_list):
+    if self.is_allowed_float:
+      return [round(val, 2) for val in num_list]
+    else:
+      return map(floor, num_list)

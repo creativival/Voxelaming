@@ -7,7 +7,7 @@ radius = 11
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, radius, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
 
 for i in range(-radius, radius + 1):
   for j in range(-radius, radius + 1):

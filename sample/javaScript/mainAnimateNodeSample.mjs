@@ -23,7 +23,7 @@ import BuildBox from './buildBox.mjs';
 
   await buildBox.sleepSecond(1)
 
-  buildBox.animateNode(10, 0, 0, 0, 30, 0, 2, 10)
+  buildBox.animate(10, 0, 0, 0, 30, 0, 2, 10)
   buildBox.sendData()
 
 })().catch(error => {

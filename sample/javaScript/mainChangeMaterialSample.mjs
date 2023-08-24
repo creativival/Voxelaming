@@ -32,14 +32,14 @@ import BuildBox from './buildBox.mjs';
 
   for (let i = 0; i < 5; i++) {
     buildBox.changeMaterial(false, 0.25 * i);
-    buildBox.setNode(i, 0, 0,  0, 0, 0);
+    buildBox.translate(i, 0, 0,  0, 0, 0);
     await buildBox.sendData();
     await  buildBox.sleepSecond(1)
   }
 
   for (let i = 0; i < 5; i++) {
     buildBox.changeMaterial(true, 0.25 * i);
-    buildBox.setNode(5 + i, 0, 0, 0, 0, 0);
+    buildBox.translate(5 + i, 0, 0, 0, 0, 0);
     await buildBox.sendData();
     await  buildBox.sleepSecond(1)
   }

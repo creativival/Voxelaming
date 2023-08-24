@@ -14,44 +14,34 @@ class BuildBox {
     this.shape = 'box'
     this.isMetallic = 0
     this.roughness = 0.5
+    this.isAllowedFloat = 0
     this.buildInterval = 0.01;
   }
 
   animateGlobal(x, y, z, pitch = 0, yaw = 0, roll = 0, scale = 1, interval = 10) {
-    this.clearData();
-    x = Math.floor(x);
-    y = Math.floor(y);
-    z = Math.floor(z);
+    [x, y, z] = this.roundNumbers([x, y, z])
     this.globalAnimation = [x, y, z, pitch, yaw, roll, scale, interval];
   }
 
-  setNode(x, y, z, pitch=0, yaw=0, roll=0) {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    z = Math.floor(z);
+  translate(x, y, z, pitch=0, yaw=0, roll=0) {
+    [x, y, z] = this.roundNumbers([x, y, z])
     this.node = [x, y, z, pitch, yaw, roll]
   }
 
-  animateNode(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    z = Math.floor(z);
+  animate(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
+    [x, y, z] = this.roundNumbers([x, y, z])
     this.animation = [x, y, z, pitch, yaw, roll, scale, interval]
   }
 
   createBox(x, y, z, r=1, g=1, b=1, alpha=1) {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    z = Math.floor(z);
+    [x, y, z] = this.roundNumbers([x, y, z])
     // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
     this.removeBox(x, y, z);
     this.boxes.push([x, y, z, r, g, b, alpha]);
   }
 
   removeBox(x, y, z) {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    z = Math.floor(z);
+    [x, y, z] = this.roundNumbers([x, y, z])
     for (let i = 0; i < this.boxes.length; i++) {
       let box = this.boxes[i];
       if (box[0] === x && box[1] === y && box[2] === z) {
@@ -81,13 +71,13 @@ class BuildBox {
     this.shape = 'box'
     this.isMetallic = 0
     this.roughness = 0.5
+    this.isAllowedFloat = 0
     this.buildInterval = 0.01;
   }
 
   writeSentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
-    x = String(Math.floor(x));
-    y = String(Math.floor(y));
-    z = String(Math.floor(z));
+    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = [x, y, z].map(val => String(val))
     r = String(r);
     g = String(g);
     b = String(b);
@@ -96,9 +86,7 @@ class BuildBox {
   }
 
   setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, lightType='point') {
-    x = Math.floor(x);
-    y = Math.floor(y);
-    z = Math.floor(z);
+    [x, y, z] = this.roundNumbers([x, y, z])
 
     if (lightType === 'point') {
       lightType = 1;
@@ -114,15 +102,14 @@ class BuildBox {
 
   setCommand(command) {
     this.commands.push(command);
+
+    if (command === 'float') {
+      this.isAllowedFloat = 1;
+    }
   }
 
   drawLine(x1, y1, z1, x2, y2, z2, r = 1, g = 1, b = 1, alpha = 1) {
-    x1 = Math.floor(x1);
-    y1 = Math.floor(y1);
-    z1 = Math.floor(z1);
-    x2 = Math.floor(x2);
-    y2 = Math.floor(y2);
-    z2 = Math.floor(z2);
+    [x1, y1, z1, x2, y2, z2] = this.roundNumbers([x1, y1, z1, x2, y2, z2])
     const diff_x = x2 - x1;
     const diff_y = y2 - y1;
     const diff_z = z2 - z1;
@@ -203,6 +190,7 @@ class BuildBox {
       isMetallic: this.isMetallic,
       roughness: this.roughness,
       interval: this.buildInterval,
+      isAllowedFloat: this.isAllowedFloat,
       date: date.toISOString()
     };
 
@@ -232,6 +220,14 @@ class BuildBox {
 
   async sleepSecond(s) {
     await new Promise(resolve => setTimeout(resolve, s * 1000));
+  }
+
+  roundNumbers(num_list) {
+    if (this.isAllowedFloat) {
+      return num_list.map(val => parseFloat(val.toFixed(2)));
+    } else {
+      return num_list.map(val => Math.floor(val));
+    }
   }
 }
 

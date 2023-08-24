@@ -21,12 +21,12 @@ build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_node(10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(10, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.change_shape('sphere')
 build_box.send_data()
 
 time.sleep(1)
 
-build_box.set_node(20, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(20, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.change_shape('plane')
 build_box.send_data()

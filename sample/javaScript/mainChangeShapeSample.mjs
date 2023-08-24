@@ -23,13 +23,13 @@ import BuildBox from './buildBox.mjs';
 
   await buildBox.sleepSecond(1)
 
-  buildBox.setNode( 10, 0, 0, 0, 0, 0)
+  buildBox.translate( 10, 0, 0, 0, 0, 0)
   buildBox.changeShape('sphere')
   await buildBox.sendData();
 
   await buildBox.sleepSecond(1)
 
-  buildBox.setNode( 20, 0, 0, 0, 0, 0)
+  buildBox.translate( 20, 0, 0, 0, 0, 0)
   buildBox.changeShape('plane')
   await buildBox.sendData();
 

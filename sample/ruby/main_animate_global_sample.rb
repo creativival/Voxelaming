@@ -29,7 +29,7 @@ node_positions = [
 ]
 
 node_positions.each do |x, y, z|
-  build_box.set_node(x, y, z, pitch=0, yaw=0, roll=0)
+  build_box.translate(x, y, z, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   sleep(1)
 end

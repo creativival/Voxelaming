@@ -6,7 +6,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
     buildBox.setBoxSize(0.5)
     buildBox.setBuildInterval(0.01)
-    buildBox.setNode(0, 30, 0, pitch: 0, yaw: 0, roll: 0)
+    buildBox.translate(0, 30, 0, pitch: 0, yaw: 0, roll: 0)
 
     for _ in 0..<100 {
         let x = CGFloat.random(in: -30...30)

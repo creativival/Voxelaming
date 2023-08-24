@@ -49,7 +49,7 @@ class BuildBox(private val roomName: String) {
         globalAnimation = listOf(floor(x).toInt(), floor(y).toInt(), floor(z).toInt(), floor(pitch).toInt(), floor(yaw).toInt(), floor(roll).toInt(), scale.toInt(), interval)
     }
 
-    fun animateNode(x: Float, y: Float, z: Float, pitch: Float = 0f, yaw: Float = 0f, roll: Float = 0f, scale: Float = 1f, interval: Int = 10) {
+    fun animate(x: Float, y: Float, z: Float, pitch: Float = 0f, yaw: Float = 0f, roll: Float = 0f, scale: Float = 1f, interval: Int = 10) {
         node = listOf(floor(x).toInt(), floor(y).toInt(), floor(z).toInt(), floor(pitch).toInt(), floor(yaw).toInt(), floor(roll).toInt(), scale.toInt(), interval)
     }
 

@@ -52,7 +52,7 @@ import { getBoxesFromPly } from './plyUtil.mjs';
 
       buildBox.setBoxSize(0.5);
       buildBox.setBuildInterval(0);
-      buildBox.setNode(...position);
+      buildBox.translate(...position);
       await buildBox.sendData();
       await buildBox.sleepSecond(0.5)
 

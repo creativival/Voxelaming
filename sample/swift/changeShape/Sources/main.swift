@@ -23,13 +23,13 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
     sleep(1)
 
-    buildBox.setNode(10, 0, 0, pitch: 0, yaw: 0, roll: 0)
+    buildBox.translate(10, 0, 0, pitch: 0, yaw: 0, roll: 0)
     buildBox.changeShape("sphere")
     buildBox.sendData()
 
     sleep(1)
 
-    buildBox.setNode(20, 0, 0, pitch: 0, yaw: 0, roll: 0)
+    buildBox.translate(20, 0, 0, pitch: 0, yaw: 0, roll: 0)
     buildBox.changeShape("plane")
     buildBox.sendData()
 

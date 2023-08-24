@@ -61,8 +61,8 @@
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)：2点間を線で結びます。x1, y1, z1は始点、x2, y2, z2は終点です。色はRGBA値で0から1までの小数で指定します。
 * send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。
 * clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。
-* set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
-* animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
+* translate(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
+* animate(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
 * animate_global(x, y, z, pitch, yaw, roll, scale, interval):全てのボクセルの「ベースアンカーを基準にした」アニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
 
 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -> setBoxSize）
@@ -92,8 +92,8 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.animate_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
   build_box.create_box(-1, i, 0, r=0, g=1, b=1)

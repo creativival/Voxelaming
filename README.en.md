@@ -63,8 +63,8 @@ I will explain the methods to use in the script. The method names for each langu
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha): Draws a line between two points. x1, y1, z1 are the starting points, x2, y2, z2 are the endpoints. The color is specified as RGBA values from 0 to 1 in decimal.
 * send_data(): Sends voxel data to the device (iPhone, iPad). Execute when placing AR voxels.
 * clear_data(): Initializes voxel data. It also initializes the size and interval (execute this when you want to initialize the voxel data after sending).
-* set_node(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups voxels.
-* animate_node(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
+* translate(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups voxels.
+* animate(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
 * animate_global(x, y, z, pitch, yaw, roll, scale, interval): All voxels animation based on the base anchor. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
 
 Please read snake_case as camelCase. (set_box_size -> setBoxSize)
@@ -94,8 +94,8 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.animate_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
   build_box.create_box(-1, i, 0, r=0, g=1, b=1)

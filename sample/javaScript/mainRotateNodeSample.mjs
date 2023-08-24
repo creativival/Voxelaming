@@ -32,7 +32,7 @@ import BuildBox from './buildBox.mjs'
     const yaw = rotation[1]
     const roll = rotation[2]
 
-    buildBox.setNode(0, 0, 0, pitch, yaw, roll)
+    buildBox.translate(0, 0, 0, pitch, yaw, roll)
     await buildBox.sendData()
     await buildBox.sleepSecond(1)
     console.log('send data done')

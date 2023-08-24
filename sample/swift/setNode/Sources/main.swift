@@ -20,7 +20,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
     }
 
     for i in 0..<5 {
-      buildBox.setNode(Double(-25 + i * 10), 0, 0, pitch: 0, yaw: 0 , roll: 0)
+      buildBox.translate(Double(-25 + i * 10), 0, 0, pitch: 0, yaw: 0 , roll: 0)
       buildBox.sendData()
       sleep(1)
     }

@@ -29,7 +29,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
       let pitch = Double(rotation[0])
       let yaw = Double(rotation[1])
       let roll = Double(rotation[2])
-      buildBox.setNode(0, 0, 0, pitch: pitch, yaw: yaw , roll: roll)
+      buildBox.translate(0, 0, 0, pitch: pitch, yaw: yaw , roll: roll)
       buildBox.sendData()
       sleep(1)
     }

@@ -32,14 +32,14 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
     for i in 0..<5 {
         buildBox.changeMaterial(isMetallic: false, roughness: 0.25 * Double(i))
-        buildBox.setNode(Double(i), 0, 0, pitch: 0, yaw: 0, roll: 0)
+        buildBox.translate(Double(i), 0, 0, pitch: 0, yaw: 0, roll: 0)
         buildBox.sendData()
         sleep(1)
     }
 
     for i in 0..<5 {
         buildBox.changeMaterial(isMetallic: true, roughness: 0.25 * Double(i))
-        buildBox.setNode(Double(5 + i), 0, 0, pitch: 0, yaw: 0, roll: 0)
+        buildBox.translate(Double(5 + i), 0, 0, pitch: 0, yaw: 0, roll: 0)
         buildBox.sendData()
         sleep(1)
     }

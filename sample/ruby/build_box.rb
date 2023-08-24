@@ -17,36 +17,34 @@ class BuildBox
     @shape = 'box'
     @is_metallic = 0
     @roughness = 0.5
+    @is_allowed_float = 0
     @build_interval = 0.01
   end
 
   def animate_global(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
-    clear_data()
-    x = x.floor
-    y = y.floor
-    z = z.floor
+    x, y, z = self.round_numbers([x, y, z])
     @global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
   end
 
-  def set_node(x, y, z, pitch=0, yaw=0, roll=0)
-    x, y, z = [x, y, z].map(&:floor)
+  def translate(x, y, z, pitch=0, yaw=0, roll=0)
+    x, y, z = self.round_numbers([x, y, z])
     @node = [x, y, z, pitch, yaw, roll]
   end
 
-  def animate_node(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
-    x, y, z = [x, y, z].map(&:floor)
+  def animate(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
+    x, y, z = self.round_numbers([x, y, z])
     @animation = [x, y, z, pitch, yaw, roll, scale, interval]
   end
 
   def create_box(x, y, z, r = 1, g = 1, b = 1, alpha = 1)
-    x, y, z = [x, y, z].map(&:floor)
+    x, y, z = self.round_numbers([x, y, z])
     # 重ねて置くことを防止するために、同じ座標の箱があれば削除する
     self.remove_box(x, y, z)
     @boxes << [x, y, z, r, g, b, alpha]
   end
 
   def remove_box(x, y, z)
-    x, y, z = [x, y, z].map(&:floor)
+    x, y, z = self.round_numbers([x, y, z])
     @boxes.reject! { |box| box[0] == x && box[1] == y && box[2] == z }
   end
 
@@ -70,17 +68,18 @@ class BuildBox
     @shape = 'box'
     @is_metallic = 0
     @roughness = 0.5
+    @is_allowed_float = 0
     @build_interval = 0.01
   end
 
   def write_sentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1)
-    x, y, z = [x, y, z].map(&:floor).map(&:to_s)
+    x, y, z = self.round_numbers([x, y, z]).map(&:to_s)
     r, g, b, alpha =  [r, g, b, alpha].map(&:floor).map(&:to_s)
     @sentence = [sentence, x, y, z, r, g, b, alpha]
   end
 
   def set_light(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point')
-    x, y, z = [x, y, z].map(&:floor)
+    x, y, z = self.round_numbers([x, y, z])
     if light_type == 'point'
       light_type = 1
     elsif light_type == 'spot'
@@ -95,14 +94,17 @@ class BuildBox
 
   def set_command(command)
     @commands << command
+
+    if command == 'float'
+      @is_allowed_float = 1
+    end
   end
 
   def draw_line(x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1)
-    x1, y1, z1 = [x1, y1, z1].map(&:floor)
-    x2, y2, z2 = [x2, y2, z2].map(&:floor)
-    diff_x = x2 - x1.to_f
-    diff_y = y2 - y1.to_f
-    diff_z = z2 - z1.to_f
+    x1, y1, z1, x2, y2, z2 = [x1, y1, z1, x2, y2, z2].map(&:floor)
+    diff_x = x2 - x1
+    diff_y = y2 - y1
+    diff_z = z2 - z1
     max_length = [diff_x.abs, diff_y.abs, diff_z.abs].max
     puts "#{x2}, #{y2}, #{z2}"
 
@@ -179,6 +181,7 @@ class BuildBox
       "isMetallic": @is_metallic,
       "roughness": @roughness,
       "interval": @build_interval,
+      "isAllowedFloat": @is_allowed_float,
       "date": now.to_s
     }.to_json
 
@@ -209,6 +212,14 @@ class BuildBox
         puts 'WebSocket connection closed'
         EM.stop
       end
+    end
+  end
+
+  def round_numbers(num_list)
+    if @is_allowed_float == 1
+      num_list.map { |val| val.round(2) }
+    else
+      num_list.map { |val| val.floor }
     end
   end
 end

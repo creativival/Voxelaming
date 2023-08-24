@@ -20,7 +20,7 @@ import BuildBox from './buildBox.mjs';
   }
 
   for (let i = 0; i < 5; i++) {
-    buildBox.setNode(-25 + i * 10, 0, 0, 0, 0, 0);
+    buildBox.translate(-25 + i * 10, 0, 0, 0, 0, 0);
     await buildBox.sendData();
     await buildBox.sleepSecond(1)
     console.log('send data done')

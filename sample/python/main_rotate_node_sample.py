@@ -27,6 +27,6 @@ for i in range(5):
 for rotation in rotations:
   pitch, yaw, roll = rotation
 
-  build_box.set_node(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+  build_box.translate(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
   build_box.send_data()
   time.sleep(1)

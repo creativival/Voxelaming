@@ -30,14 +30,14 @@ class BuildBox {
         globalAnimation = [floorX, floorY, floorZ, pitch, yaw, roll, scale, interval]
     }
 
-    func setNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
+    func translate(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
         let floorX = floor(x)
         let floorY = floor(y)
         let floorZ = floor(z)
         node = [floorX, floorY, floorZ, pitch, yaw, roll]
     }
 
-    func animateNode(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+    func animate(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
         clearData()
         let floorX = floor(x)
         let floorY = floor(y)

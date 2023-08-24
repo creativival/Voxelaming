@@ -8,7 +8,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
     buildBox.setBoxSize(0.5)
     buildBox.setBuildInterval(0.01)
-    buildBox.setNode(0, Double(radius), 0)
+    buildBox.translate(0, Double(radius), 0)
 
     for i in -radius...radius {
       for j in -radius...radius {
