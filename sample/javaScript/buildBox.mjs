@@ -41,7 +41,6 @@ class BuildBox {
   translate(x, y, z, pitch = 0, yaw = 0, roll = 0) {
     if (this.isAllowedMatrix) {
       const matrix = this.savedMatrices[this.savedMatrices.length - 1];
-      console.log('before matrix: ', matrix);
       const basePosition = matrix.slice(0, 3);
 
       let baseRotationMatrix;
@@ -58,7 +57,6 @@ class BuildBox {
       const [addX, addY, addZ] = transformPointByRotationMatrix([x, y, z], transpose3x3(baseRotationMatrix));
 
       [x, y, z] = addVectors(basePosition, [addX, addY, addZ]);
-
       [x, y, z] = this.roundNumbers([x, y, z]);
 
       const translateRotationMatrix = getRotationMatrix(-pitch, -yaw, -roll);
@@ -72,24 +70,24 @@ class BuildBox {
   }
 
   animateGlobal(x, y, z, pitch = 0, yaw = 0, roll = 0, scale = 1, interval = 10) {
-    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = this.roundNumbers([x, y, z]);
     this.globalAnimation = [x, y, z, pitch, yaw, roll, scale, interval];
   }
 
   animate(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
-    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = this.roundNumbers([x, y, z]);
     this.animation = [x, y, z, pitch, yaw, roll, scale, interval]
   }
 
   createBox(x, y, z, r=1, g=1, b=1, alpha=1) {
-    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = this.roundNumbers([x, y, z]);
     // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
     this.removeBox(x, y, z);
     this.boxes.push([x, y, z, r, g, b, alpha]);
   }
 
   removeBox(x, y, z) {
-    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = this.roundNumbers([x, y, z]);
     for (let i = 0; i < this.boxes.length; i++) {
       let box = this.boxes[i];
       if (box[0] === x && box[1] === y && box[2] === z) {
@@ -124,7 +122,7 @@ class BuildBox {
   }
 
   writeSentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
-    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = this.roundNumbers([x, y, z]);
     [x, y, z] = [x, y, z].map(val => String(val))
     r = String(r);
     g = String(g);
@@ -134,7 +132,7 @@ class BuildBox {
   }
 
   setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, lightType='point') {
-    [x, y, z] = this.roundNumbers([x, y, z])
+    [x, y, z] = this.roundNumbers([x, y, z]);
 
     if (lightType === 'point') {
       lightType = 1;
@@ -264,7 +262,6 @@ class BuildBox {
       console.error(`WebSocket connection failed: ${error}`);
     }
   }
-
 
   async sleepSecond(s) {
     await new Promise(resolve => setTimeout(resolve, s * 1000));
