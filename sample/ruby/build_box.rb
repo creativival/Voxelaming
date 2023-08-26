@@ -2,12 +2,15 @@ require 'json'
 require 'faye/websocket'
 require 'eventmachine'
 require 'date'
+require_relative 'matrix_util'
 
 class BuildBox
   def initialize(room_name)
     @room_name = room_name
+    @is_allowed_matrix = 0
+    @saved_matrices = []
+    @translation = [0, 0, 0, 0, 0, 0]
     @global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
-    @node = [0, 0, 0, 0, 0, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
     @sentence = []
@@ -21,14 +24,46 @@ class BuildBox
     @build_interval = 0.01
   end
 
+  def push_matrix
+    @is_allowed_matrix += 1
+    @saved_matrices.push(@translation)
+  end
+
+  def pop_matrix
+    @is_allowed_matrix -= 1
+    @translation = @saved_matrices.pop
+  end
+
+  def translate(x, y, z, pitch: 0, yaw: 0, roll: 0)
+    if @is_allowed_matrix > 0
+      matrix = @saved_matrices.last
+      puts "before matrix: #{matrix}"
+      base_position = matrix[0..2]
+
+      if matrix.length == 6
+        base_rotation_matrix = get_rotation_matrix(matrix[3], matrix[4], matrix[5])
+      else
+        base_rotation_matrix = [matrix[3..5], matrix[6..8], matrix[9..11]]
+      end
+
+      # Compute the new position after translation
+      add_x, add_y, add_z = transform_point_by_rotation_matrix([x, y, z], transpose_3x3(base_rotation_matrix))
+      x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
+      x, y, z = round_numbers([x, y, z])
+
+      # Compute the rotation after translation
+      translate_rotation_matrix = get_rotation_matrix(-pitch, -yaw, -roll)
+      rotate_matrix = matrix_multiply(translate_rotation_matrix, base_rotation_matrix)
+      @translation = [x, y, z, *rotate_matrix[0], *rotate_matrix[1], *rotate_matrix[2]]
+    else
+      x, y, z = round_numbers([x, y, z])
+      @translation = [x, y, z, pitch, yaw, roll]
+    end
+  end
+
   def animate_global(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
     x, y, z = self.round_numbers([x, y, z])
     @global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
-  end
-
-  def translate(x, y, z, pitch=0, yaw=0, roll=0)
-    x, y, z = self.round_numbers([x, y, z])
-    @node = [x, y, z, pitch, yaw, roll]
   end
 
   def animate(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
@@ -57,8 +92,8 @@ class BuildBox
   end
 
   def clear_data
+    @translation = [0, 0, 0, 0, 0, 0]
     @global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
-    @node = [0, 0, 0, 0, 0, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
     @sentence = []
@@ -106,55 +141,53 @@ class BuildBox
     diff_y = y2 - y1
     diff_z = z2 - z1
     max_length = [diff_x.abs, diff_y.abs, diff_z.abs].max
-    puts "#{x2}, #{y2}, #{z2}"
 
     return false if diff_x == 0 && diff_y == 0 && diff_z == 0
 
     if diff_x.abs == max_length
       if x2 > x1
-        (x1...x2).each do |x|
-          y = y1 + (x - x1) * diff_y / diff_x
-          z = z1 + (x - x1) * diff_z / diff_x
-          self.create_box(x, y, z, r, g, b, alpha)
+        (x1..x2).each do |x|
+          y = y1 + (x - x1) * diff_y.to_f / diff_x
+          z = z1 + (x - x1) * diff_z.to_f / diff_x
+          create_box(x, y, z, r, g, b, alpha)
         end
       else
-        (x1).downto(x2) do |x|
-          y = y1 + (x - x1) * diff_y / diff_x
-          z = z1 + (x - x1) * diff_z / diff_x
-          self.create_box(x, y, z, r, g, b, alpha)
+        x1.downto(x2 + 1) do |x|
+          y = y1 + (x - x1) * diff_y.to_f / diff_x
+          z = z1 + (x - x1) * diff_z.to_f / diff_x
+          create_box(x, y, z, r, g, b, alpha)
         end
       end
     elsif diff_y.abs == max_length
       if y2 > y1
-        (y1...y2).each do |y|
-          x = x1 + (y - y1) * diff_x / diff_y
-          z = z1 + (y - y1) * diff_z / diff_y
-          self.create_box(x, y, z, r, g, b, alpha)
+        (y1..y2).each do |y|
+          x = x1 + (y - y1) * diff_x.to_f / diff_y
+          z = z1 + (y - y1) * diff_z.to_f / diff_y
+          create_box(x, y, z, r, g, b, alpha)
         end
       else
-        (y1).downto(y2) do |y|
-          x = x1 + (y - y1) * diff_x / diff_y
-          z = z1 + (y - y1) * diff_z / diff_y
-          self.create_box(x, y, z, r, g, b, alpha)
+        y1.downto(y2 + 1) do |y|
+          x = x1 + (y - y1) * diff_x.to_f / diff_y
+          z = z1 + (y - y1) * diff_z.to_f / diff_y
+          create_box(x, y, z, r, g, b, alpha)
         end
       end
     elsif diff_z.abs == max_length
       if z2 > z1
-        (z1...z2).each do |z|
-          x = x1 + (z - z1) * diff_x / diff_z
-          y = y1 + (z - z1) * diff_y / diff_z
-          self.create_box(x, y, z, r, g, b, alpha)
+        (z1..z2).each do |z|
+          x = x1 + (z - z1) * diff_x.to_f / diff_z
+          y = y1 + (z - z1) * diff_y.to_f / diff_z
+          create_box(x, y, z, r, g, b, alpha)
         end
       else
-        (z1).downto(z2) do |z|
-          x = x1 + (z - z1) * diff_x / diff_z
-          y = y1 + (z - z1) * diff_y / diff_z
-          self.create_box(x, y, z, r, g, b, alpha)
+        z1.downto(z2 + 1) do |z|
+          x = x1 + (z - z1) * diff_x.to_f / diff_z
+          y = y1 + (z - z1) * diff_y.to_f / diff_z
+          create_box(x, y, z, r, g, b, alpha)
         end
       end
     end
   end
-
 
   def change_shape(shape)
     @shape = shape
@@ -169,8 +202,8 @@ class BuildBox
     puts 'send_data'
     now = DateTime.now
     data_to_send = {
+      "translation": @translation,
       "globalAnimation": @global_animation,
-      "node": @node,
       "animation": @animation,
       "boxes": @boxes,
       "sentence": @sentence,
@@ -219,7 +252,7 @@ class BuildBox
     if @is_allowed_float == 1
       num_list.map { |val| val.round(2) }
     else
-      num_list.map { |val| val.floor }
+      num_list.map { |val| val.round(1).floor }
     end
   end
 end
