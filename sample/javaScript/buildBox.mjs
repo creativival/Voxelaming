@@ -1,10 +1,20 @@
 import WebSocket from 'ws';
+import {
+  getRotationMatrix,
+  matrixMultiply,
+  transformPointByRotationMatrix,
+  addVectors,
+  transpose3x3
+} from './matrixUtil.mjs'
+
 
 class BuildBox {
   constructor(roomName) {
     this.roomName = roomName;
+    this.isAllowedMatrix = 0;
+    this.savedMatrices = [];
+    this.translation = [0, 0, 0, 0, 0, 0];
     this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
-    this.node = [0, 0, 0, 0, 0, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.sentence = []
@@ -18,14 +28,52 @@ class BuildBox {
     this.buildInterval = 0.01;
   }
 
+  pushMatrix() {
+    this.isAllowedMatrix++;
+    this.savedMatrices.push(this.translation);
+  }
+
+  popMatrix() {
+    this.isAllowedMatrix--;
+    this.translation = this.savedMatrices.pop();
+  }
+
+  translate(x, y, z, pitch = 0, yaw = 0, roll = 0) {
+    if (this.isAllowedMatrix) {
+      const matrix = this.savedMatrices[this.savedMatrices.length - 1];
+      console.log('before matrix: ', matrix);
+      const basePosition = matrix.slice(0, 3);
+
+      let baseRotationMatrix;
+      if (matrix.length === 6) {
+        baseRotationMatrix = getRotationMatrix(...matrix.slice(3));
+      } else {
+        baseRotationMatrix = [
+          matrix.slice(3, 6),
+          matrix.slice(6, 9),
+          matrix.slice(9, 12)
+        ];
+      }
+
+      const [addX, addY, addZ] = transformPointByRotationMatrix([x, y, z], transpose3x3(baseRotationMatrix));
+
+      [x, y, z] = addVectors(basePosition, [addX, addY, addZ]);
+
+      [x, y, z] = this.roundNumbers([x, y, z]);
+
+      const translateRotationMatrix = getRotationMatrix(-pitch, -yaw, -roll);
+      const rotateMatrix = matrixMultiply(translateRotationMatrix, baseRotationMatrix);
+
+      this.translation = [x, y, z, ...rotateMatrix[0], ...rotateMatrix[1], ...rotateMatrix[2]];
+    } else {
+      [x, y, z] = this.roundNumbers([x, y, z]);
+      this.translation = [x, y, z, pitch, yaw, roll];
+    }
+  }
+
   animateGlobal(x, y, z, pitch = 0, yaw = 0, roll = 0, scale = 1, interval = 10) {
     [x, y, z] = this.roundNumbers([x, y, z])
     this.globalAnimation = [x, y, z, pitch, yaw, roll, scale, interval];
-  }
-
-  translate(x, y, z, pitch=0, yaw=0, roll=0) {
-    [x, y, z] = this.roundNumbers([x, y, z])
-    this.node = [x, y, z, pitch, yaw, roll]
   }
 
   animate(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10) {
@@ -60,8 +108,8 @@ class BuildBox {
   }
 
   clearData() {
+    this.translation = [0, 0, 0, 0, 0, 0];
     this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
-    this.node = [0, 0, 0, 0, 0, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.sentence = []
@@ -178,8 +226,8 @@ class BuildBox {
     const ws = new WebSocket('wss://websocket.voxelamming.com');
     const date = new Date();
     const dataToSend = {
+      translation: this.translation,
       globalAnimation: this.globalAnimation,
-      node: this.node,
       animation: this.animation,
       boxes: this.boxes,
       sentence: this.sentence,
@@ -226,7 +274,7 @@ class BuildBox {
     if (this.isAllowedFloat) {
       return num_list.map(val => parseFloat(val.toFixed(2)));
     } else {
-      return num_list.map(val => Math.floor(val));
+      return num_list.map(val => Math.floor(parseFloat(val.toFixed(1))));
     }
   }
 }
