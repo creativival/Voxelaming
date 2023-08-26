@@ -120,10 +120,12 @@
             </li>
             <li>send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。</li>
             <li>clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。</li>
-            <li>set_node(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。</li>
-            <li>animate_node(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw,
+            <li>translate(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。</li>
+            <li>animate(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw,
                 roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）</li>
             <li>animate_global(x, y, z, pitch, yaw, roll, scale, interval):全てのボクセルの「ベースアンカーを基準にした」アニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）</li>
+            <li>push_matrix(): 座標系を保存します。現在のノードの位置と角度をスタックに保存します。</li>
+            <li>pop_matrix(): 座標系を復元します。スタックに保存したノードの位置と角度を復元します。</li>
         </ul>
         <p> ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -&gt; setBoxSize）</p>
         <h2 id="サンプルスクリプト">サンプルスクリプト<a id="vditorAnchor-サンプルスクリプト" class="vditor-anchor" href="#サンプルスクリプト">
@@ -167,8 +169,8 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.set_node(0, 0, 0, pitch=0, yaw=0, roll=0)
-build_box.animate_node(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
   build_box.create_box(-1, i, 0, r=0, g=1, b=1)
@@ -471,6 +473,24 @@ $ swift run
         <p>モデルの作成とリセットを交互に繰り返すことで、モデルのアニメーションを作成できます。</p>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png"
                                alt="reset_command"
+                               width="50%"/></p>
+        <h3 id="フロートコマンド">フロートコマンド<a id="vditorAnchor-フロートコマンド" class="vditor-anchor" href="#フロートコマンド">
+            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                <path fill-rule="evenodd"
+                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+            </svg>
+        </a></h3>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png"
+                               alt="float_command"
+                               width="50%"/></p>
+        <h3 id="座標系の保存と復元">座標系の保存と復元<a id="vditorAnchor-座標系の保存と復元" class="vditor-anchor" href="#座標系の保存と復元">
+            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                <path fill-rule="evenodd"
+                      d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+            </svg>
+        </a></h3>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png"
+                               alt="push_matrix"
                                width="50%"/></p>
         <h3 id="ユーザー共有">ユーザー共有<a id="vditorAnchor-ユーザー共有" class="vditor-anchor" href="#ユーザー共有">
             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16">
