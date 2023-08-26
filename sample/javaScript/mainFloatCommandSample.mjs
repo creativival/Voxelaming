@@ -3,7 +3,7 @@ import BuildBox from './buildBox.mjs';
 (async () => {
   const roomName = "1000";
   const size = 1.0;
-  const radius = 1.5 * size;
+  const radius = 1.5;
   const repeatCount = 100;
 
   const buildBox = new BuildBox(roomName);

@@ -1,10 +1,10 @@
 from time import sleep
-from math import sin, cos, radians, pi
+from math import sin, cos, radians, pi, sqrt
 from build_box import BuildBox
 
 room_name = "1000"
-size = 1.0
-radius = 1.5 * size
+size = 1
+radius = 1.5
 repeat_count = 100
 
 build_box = BuildBox(room_name)

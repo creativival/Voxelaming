@@ -3,7 +3,7 @@ import Foundation
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
     let size: Double = 1.0
-    let radius = 1.5 * size
+    let radius = 1.5
     let repeatCount = 100
 
     let buildBox = BuildBox(roomName: roomName)

@@ -2,7 +2,7 @@ require_relative 'build_box'
 
 room_name = "1000"
 size = 1.0
-radius = 1.5 * size
+radius = 1.5
 repeat_count = 100
 
 build_box = BuildBox.new(room_name)
