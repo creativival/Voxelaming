@@ -98,5 +98,3 @@ class Turtle {
         size = 1
     }
 }
-
-// BuildBoxクラスの定義は提供されていないため省略
