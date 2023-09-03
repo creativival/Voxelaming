@@ -1,3 +1,5 @@
+class Constants {
+    let piyo = """
 ply
 format ascii 1.0
 comment : MagicaVoxel @ Ephtracy
@@ -1321,3 +1323,6 @@ end_header
 4 1036 1037 1038 1039
 4 1040 1041 1042 1043
 4 1044 1045 1046 1047
+
+"""
+}

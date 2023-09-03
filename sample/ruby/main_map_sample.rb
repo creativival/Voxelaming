@@ -6,6 +6,7 @@ build_box = BuildBox.new(room_name)
 
 build_box.set_box_size(0.1)
 build_box.set_build_interval(0.001)
+build_box.set_command('liteRender')
 
 column_num, row_num = 257, 257
 csv_file = 'map_38_138_100km.csv'
@@ -22,8 +23,8 @@ skip = 2  # normal device
 (row_num / skip).times do |j|
   (column_num / skip).times do |i|
 #     puts "#{i} #{j}"
-    x = i
-    z = j
+    x = i - column_num / (skip * 2).floor
+    z = j - row_num / (skip * 2).floor
     y = boxes[j * skip][i * skip]
 
     if y >= 0

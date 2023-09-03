@@ -7,6 +7,7 @@ import { getMapDataFromCSV, getBoxColor } from './mapUtil.mjs';
 
   buildBox.setBoxSize(0.1);
   buildBox.setBuildInterval(0.001);
+  buildBox.setCommand('liteRender');
 
   const columnNum = 257;
   const rowNum = 257;
@@ -23,8 +24,8 @@ import { getMapDataFromCSV, getBoxColor } from './mapUtil.mjs';
 
   for (let j = 0; j < rowNum / skip; j++) {
     for (let i = 0; i < columnNum / skip; i++) {
-      const x = i;
-      const z = j;
+      let x = i - Math.floor(columnNum / (skip * 2));
+      let z = j - Math.floor(rowNum / (skip * 2));
       const y = boxes[j * skip][i * skip];
       const [r, g, b] = getBoxColor(y, maxHeight, highColor, lowColor);
 

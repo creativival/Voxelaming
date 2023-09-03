@@ -56,6 +56,7 @@ import { getBoxesFromPly } from './plyUtil.mjs';
       await buildBox.sendData();
       await buildBox.sleepSecond(0.5)
 
+      buildBox.clearData();
       buildBox.setCommand('reset');
       await buildBox.sendData();
       buildBox.clearData();

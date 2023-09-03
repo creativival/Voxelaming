@@ -55,6 +55,7 @@ animation_settings = [
     build_box.send_data
     sleep(0.5)
 
+    build_box.clear_data
     build_box.set_command('reset')
     build_box.send_data
     build_box.clear_data
