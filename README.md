@@ -57,7 +57,7 @@
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
 * write_sentence(sentence, x, y, z, r, g, b, alpha)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGBA値で指定します。
 * set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)：ライトを配置します。ライトの位置（x, y, z）色（r, g, b, alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）light_typeは「ポイント、スポット、ディレクショナル」のいずれかを選びます。
-* set_command(command)：コマンドを設定します。コマンドは、"axis"（座標を表示する）、"japaneseCastle"（日本のお城を建築する）が実装されています。
+* set_command(command)：コマンドを設定します。コマンドは、"axis"（座標を表示する）、"japaneseCastle"（日本のお城を建築する）、"float"（小数点の位置にボクセルが置ける）、"liteRender"（描画を簡略化して処理を軽くする）が実装されています。
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)：2点間を線で結びます。x1, y1, z1は始点、x2, y2, z2は終点です。色はRGBA値で0から1までの小数で指定します。
 * send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。
 * clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。
@@ -262,6 +262,8 @@ $ swift run
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
 
 ### 地図
+
+liteRenderコマンドを使って、描画を軽くしています。
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 

@@ -59,7 +59,7 @@ I will explain the methods to use in the script. The method names for each langu
 * remove_box(x, y, z): Removes a voxel. Specifies the position on the x-axis, y-axis, z-axis. (If there is no voxel at the specified position, it does nothing)
 * write_sentence(sentence, x, y, z, r, g, b, alpha): Writes a sentence in voxels. Specifies the position on the x-axis, y-axis, z-axis, and color in RGBA values.
 * set_light(x, y, z, r, g, b, alpha, intensity, interval): Places a light. Specifies the position (x, y, z) and color (r, g, b, alpha) of the light. The default intensity is 1000. To make it blink, specify the interval in seconds (if it is 0, it does not blink).
-* set_command(command): Sets a command. Implemented commands include "axis" (displays coordinates), "japaneseCastle" (builds a Japanese castle).
+* set_command(command): Sets a command.The following commands are implemented: "axis" (to display coordinates), "japaneseCastle" (to build a Japanese castle), "float" (to place voxels at the decimal point), and "liteRender" (to simplify drawing and lighten processing).
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha): Draws a line between two points. x1, y1, z1 are the starting points, x2, y2, z2 are the endpoints. The color is specified as RGBA values from 0 to 1 in decimal.
 * send_data(): Sends voxel data to the device (iPhone, iPad). Execute when placing AR voxels.
 * clear_data(): Initializes voxel data. It also initializes the size and interval (execute this when you want to initialize the voxel data after sending).
@@ -266,6 +266,8 @@ $ swift run
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
 
 ### Map
+
+The liteRender command is used to lighten the drawing.
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 

@@ -114,7 +114,7 @@
                 ライトの位置（x, y, z）色（r, g, b, alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）
                 light_typeは「ポイント、スポット、ディレクショナル」のいずれかを選びます。
             </li>
-            <li>set_command(command)：コマンドを設定します。コマンドは、&quot;axis&quot;（座標を表示する）、&quot;japaneseCastle&quot;（日本のお城を建築する）が実装されています。</li>
+            <li>set_command(command)：コマンドを設定します。コマンドは、"axis"（座標を表示する）、"japaneseCastle"（日本のお城を建築する）、"float"（小数点の位置にボクセルが置ける）、"liteRender"（描画を簡略化して処理を軽くする）が実装されています。</li>
             <li>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)：2点間を線で結びます。x1, y1, z1は始点、x2, y2,
                 z2は終点です。色はRGBA値で0から1までの小数で指定します。
             </li>
@@ -391,6 +391,7 @@ $ swift run
                       d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
             </svg>
         </a></h3>
+        <p>liteRenderコマンドを使って、描画を軽くしています。</p>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png"
                                alt="sentence_sample" width="50%"/></p>
         <h3 id="地図">地図<a id="vditorAnchor-地図" class="vditor-anchor" href="#地図">
