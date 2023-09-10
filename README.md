@@ -232,7 +232,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 #### 実行方法
 
 ```bash
-$ cd sample/swift/basic
+$ cd sample/swift/main
 $ swift run
 ```
 ## ショーケース

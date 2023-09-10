@@ -14,7 +14,7 @@ build_box.translate(0, 30, 0)
   r = SecureRandom.rand
   g = SecureRandom.rand
   b = SecureRandom.rand
-  build_box.draw_line(0, 0, 0, x, y, z, r=r, g=g, b=b, alpha=1)
+  build_box.draw_line(0, 0, 0, x, y, z, r: r, g: g, b: b, alpha: 1)
 end
 
 build_box.send_data()

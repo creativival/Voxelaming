@@ -25,19 +25,19 @@ colors = [
 ]
 
 colors.each_with_index do |color, i|
-  build_box.create_box(0, i, 0, color[0], color[1], color[2], alpha=1)
+  build_box.create_box(0, i, 0, color[0], color[1], color[2], alpha: 1)
 end
 
 (0..4).each do |i|
-  build_box.change_material(is_metallic=false, roughness=0.25 * i)
-  build_box.translate(i, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.change_material(is_metallic: false, roughness: 0.25 * i)
+  build_box.translate(i, 0, 0, pitch: 0, yaw: 0, roll: 0)
   build_box.send_data()
   sleep(1)
 end
 
 (0..4).each do |i|
-  build_box.change_material(is_metallic=true, roughness=0.25 * i)
-  build_box.translate(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.change_material(is_metallic: true, roughness: 0.25 * i)
+  build_box.translate(5 + i, 0, 0, pitch: 0, yaw: 0, roll: 0)
   build_box.send_data()
   sleep(1)
 end

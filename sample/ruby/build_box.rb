@@ -5,6 +5,8 @@ require 'date'
 require_relative 'matrix_util'
 
 class BuildBox
+  @@texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
+
   def initialize(room_name)
     @room_name = room_name
     @is_allowed_matrix = 0
@@ -61,21 +63,27 @@ class BuildBox
     end
   end
 
-  def animate_global(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
+  def animate_global(x, y, z, pitch: 0, yaw: 0, roll: 0, scale: 1, interval: 10)
     x, y, z = self.round_numbers([x, y, z])
     @global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
   end
 
-  def animate(x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10)
+  def animate(x, y, z, pitch: 0, yaw: 0, roll: 0, scale: 1, interval: 10)
     x, y, z = self.round_numbers([x, y, z])
     @animation = [x, y, z, pitch, yaw, roll, scale, interval]
   end
 
-  def create_box(x, y, z, r = 1, g = 1, b = 1, alpha = 1)
-    x, y, z = self.round_numbers([x, y, z])
-    # 重ねて置くことを防止するために、同じ座標の箱があれば削除する
-    self.remove_box(x, y, z)
-    @boxes << [x, y, z, r, g, b, alpha]
+  def create_box(x, y, z, r: 1, g: 1, b: 1, alpha: 1, texture: nil)
+    x, y, z = round_numbers([x, y, z])
+    # 重ねておくことを防止
+    remove_box(x, y, z)
+    if texture.nil? || !@@texture_names.include?(texture)
+      texture_id = -1
+    else
+      texture_id = @@texture_names.index(texture)
+    end
+
+    @boxes.append([x, y, z, r, g, b, alpha, texture_id])
   end
 
   def remove_box(x, y, z)
@@ -107,13 +115,13 @@ class BuildBox
     @build_interval = 0.01
   end
 
-  def write_sentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1)
+  def write_sentence(sentence, x, y, z, r: 1, g: 1, b: 1, alpha: 1)
     x, y, z = self.round_numbers([x, y, z]).map(&:to_s)
     r, g, b, alpha =  [r, g, b, alpha].map(&:floor).map(&:to_s)
     @sentence = [sentence, x, y, z, r, g, b, alpha]
   end
 
-  def set_light(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point')
+  def set_light(x, y, z, r: 1, g: 1, b: 1, alpha: 1, intensity: 1000, interval: 1, light_type: 'point')
     x, y, z = self.round_numbers([x, y, z])
     if light_type == 'point'
       light_type = 1
@@ -135,7 +143,7 @@ class BuildBox
     end
   end
 
-  def draw_line(x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1)
+  def draw_line(x1, y1, z1, x2, y2, z2, r: 1, g: 1, b: 1, alpha: 1)
     x1, y1, z1, x2, y2, z2 = [x1, y1, z1, x2, y2, z2].map(&:floor)
     diff_x = x2 - x1
     diff_y = y2 - y1
@@ -193,7 +201,7 @@ class BuildBox
     @shape = shape
   end
 
-  def change_material(is_metallic=false, roughness=0.5)
+  def change_material(is_metallic: false, roughness: 0.5)
     @is_metallic = is_metallic ? 1 : 0
     @roughness = roughness
   end

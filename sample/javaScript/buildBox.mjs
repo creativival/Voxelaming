@@ -10,6 +10,7 @@ import {
 
 class BuildBox {
   constructor(roomName) {
+    this.textureNames = ["grass", "stone", "dirt", "planks", "bricks"];
     this.roomName = roomName;
     this.isAllowedMatrix = 0;
     this.savedMatrices = [];
@@ -79,11 +80,19 @@ class BuildBox {
     this.animation = [x, y, z, pitch, yaw, roll, scale, interval]
   }
 
-  createBox(x, y, z, r=1, g=1, b=1, alpha=1) {
+  createBox(x, y, z, r=1, g=1, b=1, alpha=1, texture=null) {
     [x, y, z] = this.roundNumbers([x, y, z]);
-    // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
+    // 重ねておくことを防止
     this.removeBox(x, y, z);
-    this.boxes.push([x, y, z, r, g, b, alpha]);
+
+    var textureId;
+    if (texture === null || !this.textureNames.includes(texture)) {
+      textureId = -1;
+    } else {
+      textureId = this.textureNames.indexOf(texture);
+    }
+
+    this.boxes.push([x, y, z, r, g, b, alpha, textureId]);
   }
 
   removeBox(x, y, z) {

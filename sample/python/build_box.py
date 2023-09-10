@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import re
 from math import floor
 
 import websockets
@@ -8,6 +9,8 @@ from matrix_util import *
 
 
 class BuildBox:
+    texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
+
     def __init__(self, room_name):
         self.room_name = room_name
         self.is_allowed_matrix = 0
@@ -52,6 +55,7 @@ class BuildBox:
 
             # 移動後の位置を計算する
             add_x, add_y, add_z = transform_point_by_rotation_matrix([x, y, z], transpose_3x3(base_rotation_matrix))  # 転置行列を使用
+            print('add_x, add_y, add_z: ', add_x, add_y, add_z)
             x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
             x, y, z = self.round_numbers([x, y, z])
 
@@ -71,11 +75,16 @@ class BuildBox:
         x, y, z = self.round_numbers([x, y, z])
         self.animation = [x, y, z, pitch, yaw, roll, scale, interval]
 
-    def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1):
+    def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1, texture=None):
         x, y, z = self.round_numbers([x, y, z])
         # 重ねておくことを防止
         self.remove_box(x, y, z)
-        self.boxes.append([x, y, z, r, g, b, alpha])
+        if texture is None or texture not in self.texture_names:
+            texture_id = -1
+        else:
+            texture_id = self.texture_names.index(texture)
+
+        self.boxes.append([x, y, z, r, g, b, alpha, texture_id])
 
     def remove_box(self, x, y, z):
         x, y, z = self.round_numbers([x, y, z])
@@ -179,7 +188,7 @@ class BuildBox:
     def change_shape(self, shape):
         self.shape = shape
 
-    def change_material(self, is_metallic=False, roughness=0.5):
+    def change_material(self, is_metallic=False, roughness: 0.5):
         if is_metallic:
             self.is_metallic = 1
         else:
@@ -213,7 +222,7 @@ class BuildBox:
                 # print(f"Joined room: {room_name}")
                 await websocket.send(data_to_send)
                 # print(data_to_send)
-                # print(re.sub(r'\n      ', ' ', data_to_send.replace('"', '\\"')))
+                print(re.sub(r'\n      ', ' ', data_to_send.replace('"', '\\"')))
                 # print("Sent data to server")
                 # self.clear_data()
 

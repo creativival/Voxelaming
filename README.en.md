@@ -234,7 +234,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 #### Run script
 
 ```bash
-$ cd sample/swift/basic
+$ cd sample/swift/main
 $ swift run
 ```
 ## Showcase

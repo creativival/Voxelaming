@@ -17,12 +17,12 @@ build_box.set_command('float')
   y = i
   z = radius * Math.sin(angle)
 
-  build_box.create_box(x, y, z, r=0, g=1, b=1, alpha=1)
-  build_box.create_box(-x, y, -z, r=0, g=1, b=1, alpha=1)
+  build_box.create_box(x, y, z, r: 0, g: 1, b: 1, alpha: 1)
+  build_box.create_box(-x, y, -z, r: 0, g: 1, b: 1, alpha: 1)
   if i.even?
-    build_box.create_box(x / 3, y, z / 3, r=1, g=0, b=0, alpha=1)
+    build_box.create_box(x / 3, y, z / 3, r: 1, g: 0, b: 0, alpha: 1)
   else
-    build_box.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
+    build_box.create_box(-x / 3, y, -z / 3, r: 1, g: 1, b: 0, alpha: 1)
   end
 end
 
