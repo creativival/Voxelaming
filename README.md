@@ -54,6 +54,7 @@
 * change_shape：ボクセルを形状を変更します。立方体（box）、球体（square）、平面（plane）が選べます。
 * change_material(is_metallic, roughness)：ボクセルを材質を変更します。is_metallicを「オン」にすると金属調になります。roughnessは粗さを表し、0から1の小数で指定します。
 * create_box(x, y, z, r, g, b, alpha)：ボクセルを設置します。x軸、y軸、z軸の位置と、色を指定します。色はRGBA値で0から1までの小数で指定します。alphaは透明度を表し、0から1の小数で指定します。
+* create_box(x, y, z, texture)：テクスチャー付きのボクセルを設置します。x軸、y軸、z軸の位置と、テクスチャーを指定します。grass, stone, dirt, planks, bricksから選びます。
 * remove_box(x, y, z)：ボクセルを削除します。x軸、y軸、z軸の位置を指定します。（指定位置にボクセルがないときは、何もしません）
 * write_sentence(sentence, x, y, z, r, g, b, alpha)：1行の文sentenceをボクセルで描きます。x軸、y軸、z軸の位置と、色をRGBA値で指定します。
 * set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)：ライトを配置します。ライトの位置（x, y, z）色（r, g, b, alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）light_typeは「ポイント、スポット、ディレクショナル」のいずれかを選びます。
@@ -308,6 +309,10 @@ liteRenderコマンドを使って、描画を軽くしています。
 ### 座標系の保存と復元
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
+
+### テクスチャー
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
 ### ユーザー共有
 

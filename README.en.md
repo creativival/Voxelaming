@@ -56,6 +56,7 @@ I will explain the methods to use in the script. The method names for each langu
 * change_shape: Changes the shape of the voxel. You can choose from a cube (box), sphere (square), or plane (plane).
 * change_material(is_metallic, roughness): This function changes the material of the voxel. Setting is_metallic to "on" will make it metallic in appearance. roughness represents the roughness and should be specified as a decimal value between 0 and 1.
 * create_box(x, y, z, r, g, b, alpha): Places a voxel. Specifies the position on the x-axis, y-axis, z-axis, and color. Colors are specified as RGBA values from 0 to 1 in decimal. Alpha represents transparency, specified as a decimal from 0 to 1.
+* create_box(x, y, z, texture)： Place a textured voxel, specifying the x-, y-, and z-axis positions and the texture: choose from grass, stone, dirt, planks, or bricks.
 * remove_box(x, y, z): Removes a voxel. Specifies the position on the x-axis, y-axis, z-axis. (If there is no voxel at the specified position, it does nothing)
 * write_sentence(sentence, x, y, z, r, g, b, alpha): Writes a sentence in voxels. Specifies the position on the x-axis, y-axis, z-axis, and color in RGBA values.
 * set_light(x, y, z, r, g, b, alpha, intensity, interval): Places a light. Specifies the position (x, y, z) and color (r, g, b, alpha) of the light. The default intensity is 1000. To make it blink, specify the interval in seconds (if it is 0, it does not blink).
@@ -312,6 +313,10 @@ The model can be animated by alternately creating and resetting the model.
 ### Push / Pop Matrix
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
+
+### Texture
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
 ### User Sharing
 
