@@ -264,7 +264,7 @@ class BuildBox {
         self.roughness = roughness
     }
 
-    func send() async throws {
+    func sendData() async throws {
         self.webSocketTask.resume()
 
         let date = Date()
@@ -297,16 +297,6 @@ class BuildBox {
         print("Joined room: \(roomName)")
         try await self.webSocketTask.send(.string(jsonString))
         print("Sent message: \(jsonString)")
-    }
-
-    func sendData() async {
-        Task.detached(priority: .userInitiated) {
-            do {
-                try await self.send()
-            } catch {
-                print("An error occurred: \(error)")
-            }
-        }
     }
 
     func roundNumbers(numList: [Double]) -> [Double] {

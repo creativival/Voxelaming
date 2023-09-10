@@ -2,13 +2,6 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    let constants = Constants()
-
-    buildBox.setBoxSize(0.1)
-    buildBox.setBuildInterval(0.001)
-    buildBox.setCommand("liteRender")
-
     let columnNum = 257
     let rowNum = 257
     let csvFile = constants.map_38_138_100km
@@ -21,26 +14,33 @@ if #available(iOS 15.0, macOS 12.0, *) {
 //     let skip = 1  // high power device
     let skip = 2  // normal
 //    let skip = 4  // low power device
+    let buildBox = BuildBox(roomName: roomName)
+    let constants = Constants()
+    buildBox.setBoxSize(0.1)
+    buildBox.setBuildInterval(0.001)
+    buildBox.setCommand("liteRender")
 
-    for j in 0..<(rowNum / skip) {
-        for i in 0..<(columnNum / skip) {
-            print(i, j)
-            let x = i - (columnNum / (skip * 2))
-            let z = j - (rowNum / (skip * 2))
-            let y = boxes[j * skip][i * skip]
-            let (r, g, b) = getBoxColor(height: y, maxHeight: maxHeight, highColor: highColor, lowColor: lowColor)
+    Task {
+        do {
+            for j in 0..<(rowNum / skip) {
+                for i in 0..<(columnNum / skip) {
+                    print(i, j)
+                    let x = i - (columnNum / (skip * 2))
+                    let z = j - (rowNum / (skip * 2))
+                    let y = boxes[j * skip][i * skip]
+                    let (r, g, b) = getBoxColor(height: y, maxHeight: maxHeight, highColor: highColor, lowColor: lowColor)
 
-            if y > 0 {
-                buildBox.createBox(Double(x), y, Double(z), r: r, g: g, b: b, alpha: 1.0)
+                    if y > 0 {
+                        buildBox.createBox(Double(x), y, Double(z), r: r, g: g, b: b, alpha: 1.0)
+                    }
+                }
             }
+
+            try await buildBox.sendData()
+        } catch {
+            print("An error occurred: \(error)")
         }
     }
-
-//     for i in 0..<100 {
-//         buildBox.createBox(Double(i), 0, 0)
-//     }
-
-    buildBox.sendData()
 
     RunLoop.main.run(until: Date(timeIntervalSinceNow: 10)) // Or longer depending on your needs
 } else {

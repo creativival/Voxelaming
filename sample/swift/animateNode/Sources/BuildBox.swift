@@ -4,6 +4,7 @@ import Foundation
 class BuildBox {
     let url = URL(string: "wss://websocket.voxelamming.com")!
     let webSocketTask: URLSessionWebSocketTask
+    let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
     var roomName = ""
     var isAllowedMatrix: Int = 0
     var savedMatrices: [[Double]] = []
@@ -95,14 +96,22 @@ class BuildBox {
         animation = [roundX, roundY, roundZ, pitch, yaw, roll, scale, interval]
     }
 
-    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
+    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String? = nil) {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
         // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
         removeBox(roundX, roundY, roundZ)
-        boxes.append([roundX, roundY, roundZ, r, g, b, alpha])
+
+        let textureId: Int
+        if let texture = texture, textureNames.contains(texture) {
+            textureId = textureNames.firstIndex(of: texture) ?? -1
+        } else {
+            textureId = -1
+        }
+
+        boxes.append([x, y, z, r, g, b, alpha, Double(textureId)])
     }
 
     func removeBox(_ x: Double, _ y: Double, _ z: Double) {
@@ -255,7 +264,7 @@ class BuildBox {
         self.roughness = roughness
     }
 
-    func send() async throws {
+    func sendData() async throws {
         self.webSocketTask.resume()
 
         let date = Date()
@@ -288,16 +297,6 @@ class BuildBox {
         print("Joined room: \(roomName)")
         try await self.webSocketTask.send(.string(jsonString))
         print("Sent message: \(jsonString)")
-    }
-
-    func sendData() {
-        Task.detached(priority: .userInitiated) {
-            do {
-                try await self.send()
-            } catch {
-                print("An error occurred: \(error)")
-            }
-        }
     }
 
     func roundNumbers(numList: [Double]) -> [Double] {
