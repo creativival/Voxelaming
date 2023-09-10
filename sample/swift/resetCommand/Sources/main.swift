@@ -2,6 +2,7 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
+    let constants = Constants()
     let animationSettings: [[String: Any]] = [
         ["model": constants.frog1, "position": [0, 0, 0, 0, 0, 0]],
         ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]],
@@ -12,7 +13,6 @@ if #available(iOS 15.0, macOS 12.0, *) {
         ["model": constants.frog3, "position": [0, 0, 0, 0, 0, 0]],
         ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]]
     ]
-    let constants = Constants()
     let buildBox = BuildBox(roomName: roomName)
 
     Task {
@@ -54,7 +54,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
         }
     }
 
-    RunLoop.main.run(until: Date(timeIntervalSinceNow: 10)) // Or longer depending on your needs
+    RunLoop.main.run(until: Date(timeIntervalSinceNow: 120)) // Or longer depending on your needs
 } else {
     fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }

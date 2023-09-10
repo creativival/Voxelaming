@@ -5,6 +5,8 @@ if #available(iOS 15.0, macOS 12.0, *) {
     let buildBox = BuildBox(roomName: roomName)
     buildBox.setBoxSize(0.5)
     buildBox.setBuildInterval(0.001)
+    buildBox.setCommand("liteRender")
+
     let t = Turtle(buildBox: buildBox)
     let colors: [[Double]] = [
         [0, 0, 0, 1],

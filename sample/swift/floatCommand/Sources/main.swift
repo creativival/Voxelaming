@@ -6,7 +6,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
     let buildBox = BuildBox(roomName: roomName)
     buildBox.setBuildInterval(0.01)
-    buildBox.setBoxSize(size)
+    buildBox.setBoxSize(1.0)
     buildBox.changeShape("sphere")
     buildBox.setCommand("float")
 

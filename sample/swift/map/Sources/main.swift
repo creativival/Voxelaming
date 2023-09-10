@@ -4,6 +4,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
     let columnNum = 257
     let rowNum = 257
+    let constants = Constants()
     let csvFile = constants.map_38_138_100km
     let heightScale = 100.0
     let highColor = (0.5, 0.0, 0.0)
@@ -15,7 +16,6 @@ if #available(iOS 15.0, macOS 12.0, *) {
     let skip = 2  // normal
 //    let skip = 4  // low power device
     let buildBox = BuildBox(roomName: roomName)
-    let constants = Constants()
     buildBox.setBoxSize(0.1)
     buildBox.setBuildInterval(0.001)
     buildBox.setCommand("liteRender")
