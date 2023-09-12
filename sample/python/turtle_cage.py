@@ -27,13 +27,13 @@ colors = [
   [0.5, 0.5, 0.5, 1],
 ]
 
-for j, color in enumerate(colors):
-  polar_phi = j * 180 / len(colors)
+for i, color in enumerate(colors):
+  polar_phi = i * 180 / len(colors)
   t.reset()
   t.set_color(*color)
   t.left(polar_phi)
 
-  for i in range(60):
+  for _ in range(60):
     t.forward(4)
     t.up(6)
 

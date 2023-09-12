@@ -23,6 +23,7 @@ import Turtle from './turtle.mjs';
   t.up(90);
   t.forward(10);
   t.down(90);
+
   t.forward(10);
   t.left(90);
   t.forward(10);
@@ -31,7 +32,7 @@ import Turtle from './turtle.mjs';
   t.left(90);
   t.forward(10);
 
-  buildBox.sendData();
+  await buildBox.sendData();
   console.log('send data done')
 })().catch(error => {
   console.error(error);

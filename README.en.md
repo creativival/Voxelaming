@@ -19,7 +19,7 @@ Voxelamming is a programming learning app with ARKit for programming beginners a
 
 Voxelamming = Voxel + Programming
 
-Voxelamming is a programming learning app with ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 13 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
+Voxelamming is a programming learning app with ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 16 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
 
 ## How to Use
 
@@ -83,6 +83,14 @@ Load the voxelamming extension and create a script.
 [Play the sample project in Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3)
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3_en.png" alt="voxelamming_scratch3_en" width="100%"/></p>
+
+### Scratch3 MOD (Turtle Programming)
+
+You can use Turtle Programming to set up voxels on Scratch3 MOD. It is recommended for beginners in programming, especially children, as it allows them to intuitively set up voxels.
+
+[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/example.sb3)
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_turtle_scratch3_en.png" alt="voxelamming_turtle_scratch3_en" width="100%"/></p>
 
 ### Python (3.6+)
 

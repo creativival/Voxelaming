@@ -26,10 +26,10 @@ colors = [
   [0.5, 0.5, 0.5, 1],
 ]
 
-colors.each_with_index do |color, j|
+colors.each_with_index do |color, i|
   t.reset
   t.set_color(*color)
-  t.set_pos(j, 0, 0)
+  t.set_pos(i, 0, 0)
   t.up(4)
 
   360.times do

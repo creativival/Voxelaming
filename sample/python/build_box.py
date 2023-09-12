@@ -188,7 +188,7 @@ class BuildBox:
     def change_shape(self, shape):
         self.shape = shape
 
-    def change_material(self, is_metallic=False, roughness: 0.5):
+    def change_material(self, is_metallic=False, roughness=0.5):
         if is_metallic:
             self.is_metallic = 1
         else:

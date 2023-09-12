@@ -40,7 +40,7 @@ import Turtle from './turtle.mjs';
     }
   }
 
-  buildBox.sendData();
+  await buildBox.sendData();
   console.log('send data done')
 })().catch(error => {
   console.error(error);

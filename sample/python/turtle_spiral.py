@@ -27,13 +27,13 @@ colors = [
 #   [0.5, 0.5, 0.5, 1],
 ]
 
-for j, color in enumerate(colors):
+for i, color in enumerate(colors):
   t.reset()
   t.set_color(*color)
-  t.set_pos(j, 0, 0)
+  t.set_pos(i, 0, 0)
   t.up(4)
 
-  for i in range(360):
+  for _ in range(360):
     t.forward(3)
     t.left(6)
 

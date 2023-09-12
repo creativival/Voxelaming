@@ -27,21 +27,21 @@ import Turtle from './turtle.mjs';
     // [0.5, 0.5, 0.5, 1],
   ];
 
-  for (let j = 0; j < colors.length; j++) {
-    const color = colors[j];
-    const polarPhi = (j * 180) / colors.length;
+  for (let i = 0; i < colors.length; i++) {
+    const color = colors[i];
+    const polarPhi = (i * 180) / colors.length;
     t.reset();
     t.setColor(...color);
-    t.setPos(j, 0, 0);
+    t.setPos(i, 0, 0);
     t.up(4);
 
-    for (let i = 0; i < 360; i++) {
+    for (let _ = 0; _ < 360; _++) {
       t.forward(3);
       t.left(6);
     }
   }
 
-  buildBox.sendData();
+  await buildBox.sendData();
   console.log('send data done')
 })().catch(error => {
   console.error(error);

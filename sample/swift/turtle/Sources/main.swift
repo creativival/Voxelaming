@@ -10,6 +10,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
     Task {
         do {
             t.setColor(1, 0, 0, 1)
+
             t.forward(10)
             t.left(90)
             t.forward(10)
@@ -22,6 +23,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             t.up(90)
             t.forward(10)
             t.down(90)
+
             t.forward(10)
             t.left(90)
             t.forward(10)

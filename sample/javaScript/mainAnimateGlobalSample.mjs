@@ -31,12 +31,12 @@ import BuildBox from './buildBox.mjs';
   
   for (const [x, y, z] of node_positions) {
     buildBox.translate(x, y, z, 0, 0, 0);
-    buildBox.sendData();
+    await buildBox.sendData();
     await buildBox.sleepSecond(1);
   }
   
   buildBox.animateGlobal(0, 0, 0, 0, 180, 0, 1, 100);
-  buildBox.sendData();
+  await buildBox.sendData();
 
 })().catch(error => {
   console.error(error);

@@ -10,7 +10,6 @@ t = Turtle(build_box)
 
 t.set_color(1, 0, 0, 1)
 
-
 t.forward(10)
 t.left(90)
 t.forward(10)
@@ -23,6 +22,7 @@ t.left(90)
 t.up(90)
 t.forward(10)
 t.down(90)
+
 t.forward(10)
 t.left(90)
 t.forward(10)
