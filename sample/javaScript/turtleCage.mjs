@@ -6,7 +6,8 @@ import Turtle from './turtle.mjs';
   const buildBox = new BuildBox(roomName);
 
   buildBox.setBoxSize(0.3);
-  buildBox.setBuildInterval(0.001);
+  buildBox.setBuildInterval(0.01);
+  buildBox.setCommand('liteRender')
   const t = new Turtle(buildBox);
 
   const colors = [
