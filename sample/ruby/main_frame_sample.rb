@@ -1,9 +1,8 @@
-from math import sin, cos, radians
-from build_box import BuildBox
+require_relative 'build_box'
 
-# ルームネームを設定
-room_name = "1000"
-build_box = BuildBox(room_name)
+room_name = '1000'
+build_box = BuildBox.new(room_name)
+
 build_box.set_box_size(0.15)
 # build_box.set_build_interval(0.01)
 build_box.set_command('float')
@@ -181,21 +180,28 @@ butterfly_list = [
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
-for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
-    build_box.frame_in()
-    build_box.translate(0, 100, 0, 30, 0, 0)
+angles = [30, 15, 0, -15, -30, -15, 0, 15]
 
-    for j, row in enumerate(butterfly_list):
-        color = rainbow_colors[j // 10]
+angles.each do |angle|
+  build_box.frame_in()
+  build_box.translate(0, 100, 0, pitch: 30, yaw: 0, roll: 0)
 
-        for i, dot in enumerate(row):
-            if dot != 0:
-                x = i * cos(radians(angle))
-                y = -j
-                z = i * sin(radians(angle))
-                build_box.create_box(x, y, z, color[0], color[1], color[2])
-                build_box.create_box(-x, y, z, color[0], color[1], color[2])
-    build_box.frame_out()
+  butterfly_list.each_with_index do |row, j|
+    color = rainbow_colors[j / 10]
+
+    row.each_with_index do |dot, i|
+      if dot != 0
+        x = i * Math.cos(Math::PI * angle / 180.0)
+        y = -j
+        z = i * Math.sin(Math::PI * angle / 180.0)
+        build_box.create_box(x, y, z, r: color[0], g: color[1], b: color[2])
+        build_box.create_box(-x, y, z, r: color[0], g: color[1], b: color[2])
+      end
+    end
+  end
+
+  build_box.frame_out()
+end
 
 # データを送信
 build_box.send_data()

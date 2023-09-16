@@ -11,7 +11,6 @@ function toRadians(degrees) {
 // buildBox.setBuildInterval(0.01);
   buildBox.setCommand('float');
 
-  const offset = [0, 100, 0];
   const rainbowColors = [
     [255, 0, 0],     // Red
     [255, 165, 0],   // Orange

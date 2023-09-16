@@ -113,7 +113,7 @@ class BuildBox {
     }
   }
 
-  createBox(x, y, z, r=1, g=1, b=1, alpha=1, texture=null) {
+  createBox(x, y, z, r=1, g=1, b=1, alpha=1, texture='') {
     if (this.isAllowedMatrix) {
       // 移動用のマトリックスにより位置を計算する
       const matrix = this.matrixTranslation;
@@ -139,7 +139,7 @@ class BuildBox {
     this.removeBox(x, y, z);
 
     let textureId;
-    if (texture === null || !this.textureNames.includes(texture)) {
+    if (!this.textureNames.includes(texture)) {
       textureId = -1;
     } else {
       textureId = this.textureNames.indexOf(texture);

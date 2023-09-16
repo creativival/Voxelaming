@@ -22,12 +22,12 @@ build_box.send_data
 
 sleep 1
 
-build_box.translate(10, 0, 0, 0, 0, 0)
+build_box.translate(10, 0, 0)
 build_box.change_shape('sphere')
 build_box.send_data
 
 sleep 1
 
-build_box.translate(20, 0, 0, 0, 0, 0)
+build_box.translate(20, 0, 0)
 build_box.change_shape('plane')
 build_box.send_data

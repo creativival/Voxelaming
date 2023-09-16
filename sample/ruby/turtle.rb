@@ -20,7 +20,7 @@ class Turtle
     x, y, z = x.round(3), y.round(3), z.round(3)
 
     if @drawable
-      @build_box.draw_line(@x, @y, @z, x, y, z, *@color)
+      @build_box.draw_line(@x, @y, @z, x, y, z, r: @color[0], g: @color[1], b: @color[2])
     end
 
     @x = x

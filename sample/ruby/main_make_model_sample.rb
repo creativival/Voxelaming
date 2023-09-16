@@ -12,8 +12,8 @@ ply_file_name = 'piyo.ply'
 boxes = get_boxes_from_ply(ply_file_name)
 # puts boxes
 
-boxes.each do |box|
-  build_box.create_box(*box)
+boxes.each do |b|
+  build_box.create_box(b[0], b[1], b[2], r: b[3], g: b[4], b: b[5])
 end
 
 build_box.send_data

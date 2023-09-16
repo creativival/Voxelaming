@@ -103,7 +103,7 @@ class BuildBox:
             else:
                 self.translation = [x, y, z, pitch, yaw, roll]
 
-    def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1, texture=None):
+    def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1, texture=''):
         if self.is_allowed_matrix:
             # 移動用のマトリックスにより位置を計算する
             matrix_translation = self.matrix_translation
@@ -126,7 +126,7 @@ class BuildBox:
         x, y, z = self.round_numbers([x, y, z])
         # 重ねておくことを防止
         self.remove_box(x, y, z)
-        if texture is None or texture not in self.texture_names:
+        if texture not in self.texture_names:
             texture_id = -1
         else:
             texture_id = self.texture_names.index(texture)

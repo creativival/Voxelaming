@@ -45,8 +45,8 @@ animation_settings = [
     position = setting[:position]
 
     boxes = get_boxes_from_ply(model)
-    boxes.each do |box|
-      build_box.create_box(*box)
+    boxes.each do |b|
+      build_box.create_box(b[0], b[1], b[2], r: b[3], g: b[4], b: b[5])
     end
 
     build_box.set_box_size(0.5)

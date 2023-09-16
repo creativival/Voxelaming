@@ -30,7 +30,7 @@ skip = 2  # normal device
     if y >= 0
       r, g, b = get_box_color(y, max_height, high_color, low_color)
 #       print("r: #{r}, g: #{g}, b: #{b}\n")
-      build_box.create_box(x, y, z, r, g, b, 1)
+      build_box.create_box(x, y, z, r: r, g: g, b: b)
     end
   end
 end

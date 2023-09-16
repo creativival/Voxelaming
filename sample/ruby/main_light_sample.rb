@@ -26,7 +26,7 @@ colors = [
 ]
 
 colors.each_with_index do |color, i|
-  build_box.create_box(0, i, 0, color[0], color[1], color[2], alpha: 1)
+  build_box.create_box(0, i, 0, r: color[0], g: color[1], b: color[2])
 end
 
 build_box.set_light(1, 1, 0, r: 1, g: 0, b: 0, alpha: 1, intensity: 20000, interval: 2, light_type: 'directional')

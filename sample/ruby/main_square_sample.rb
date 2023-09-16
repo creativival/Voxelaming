@@ -17,7 +17,7 @@ for i in -radius...radius + 1
     for k in -radius...radius + 1
       if ((radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2) and (i ** 2 + j ** 2 + k ** 2 < radius ** 2)
         puts i, j, k
-        build_box.create_box(i, j, k, 0, 1, 1)
+        build_box.create_box(i, j, k, r: 0, g: 1, b: 1)
       end
     end
   end
