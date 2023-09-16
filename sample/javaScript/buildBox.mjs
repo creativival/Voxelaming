@@ -15,9 +15,12 @@ class BuildBox {
     this.isAllowedMatrix = 0;
     this.savedMatrices = [];
     this.translation = [0, 0, 0, 0, 0, 0];
+    this.matrixTranslation = [0, 0, 0, 0, 0, 0];
+    this.frameTranslations = [];
     this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
+    this.frames = [];
     this.sentence = []
     this.lights = [];
     this.commands = []
@@ -27,20 +30,55 @@ class BuildBox {
     this.roughness = 0.5
     this.isAllowedFloat = 0
     this.buildInterval = 0.01;
+    this.isFraming = false;
+    this.frameId = 0;
+  }
+
+  clearData() {
+    this.isAllowedMatrix = 0;
+    this.savedMatrices = [];
+    this.translation = [0, 0, 0, 0, 0, 0];
+    this.matrixTranslation = [0, 0, 0, 0, 0, 0];
+    this.frameTranslations = [];
+    this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
+    this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
+    this.boxes = [];
+    this.frames = [];
+    this.sentence = []
+    this.lights = [];
+    this.commands = []
+    this.size = 1.0;
+    this.shape = 'box'
+    this.isMetallic = 0
+    this.roughness = 0.5
+    this.isAllowedFloat = 0
+    this.buildInterval = 0.01;
+    this.isFraming = false;
+    this.frameId = 0;
+  }
+
+  frameIn() {
+    this.isFraming = true;
+  }
+
+  frameOut() {
+    this.isFraming = false;
+    this.frameId++;
   }
 
   pushMatrix() {
     this.isAllowedMatrix++;
-    this.savedMatrices.push(this.translation);
+    this.savedMatrices.push(this.matrixTranslation);
   }
 
   popMatrix() {
     this.isAllowedMatrix--;
-    this.translation = this.savedMatrices.pop();
+    this.matrixTranslation = this.savedMatrices.pop();
   }
 
   translate(x, y, z, pitch = 0, yaw = 0, roll = 0) {
     if (this.isAllowedMatrix) {
+      // 移動用のマトリックスを計算する
       const matrix = this.savedMatrices[this.savedMatrices.length - 1];
       const basePosition = matrix.slice(0, 3);
 
@@ -63,10 +101,76 @@ class BuildBox {
       const translateRotationMatrix = getRotationMatrix(-pitch, -yaw, -roll);
       const rotateMatrix = matrixMultiply(translateRotationMatrix, baseRotationMatrix);
 
-      this.translation = [x, y, z, ...rotateMatrix[0], ...rotateMatrix[1], ...rotateMatrix[2]];
+      this.matrixTranslation = [x, y, z, ...rotateMatrix[0], ...rotateMatrix[1], ...rotateMatrix[2]];
     } else {
       [x, y, z] = this.roundNumbers([x, y, z]);
-      this.translation = [x, y, z, pitch, yaw, roll];
+
+      if (this.isFraming) {
+        this.frameTranslations.push([x, y, z, pitch, yaw, roll, this.frameId]);
+      } else {
+        this.translation = [x, y, z, pitch, yaw, roll];
+      }
+    }
+  }
+
+  createBox(x, y, z, r=1, g=1, b=1, alpha=1, texture=null) {
+    if (this.isAllowedMatrix) {
+      // 移動用のマトリックスにより位置を計算する
+      const matrix = this.matrixTranslation;
+      const basePosition = matrix.slice(0, 3);
+
+      let baseRotationMatrix;
+      if (matrix.length === 6) {
+        baseRotationMatrix = getRotationMatrix(...matrix.slice(3));
+      } else {
+        baseRotationMatrix = [
+          matrix.slice(3, 6),
+          matrix.slice(6, 9),
+          matrix.slice(9, 12)
+        ];
+      }
+
+      const [addX, addY, addZ] = transformPointByRotationMatrix([x, y, z], transpose3x3(baseRotationMatrix));
+      [x, y, z] = addVectors(basePosition, [addX, addY, addZ]);
+    }
+
+    [x, y, z] = this.roundNumbers([x, y, z]);
+    // 重ねておくことを防止
+    this.removeBox(x, y, z);
+
+    let textureId;
+    if (texture === null || !this.textureNames.includes(texture)) {
+      textureId = -1;
+    } else {
+      textureId = this.textureNames.indexOf(texture);
+    }
+
+    if (this.isFraming) {
+      this.frames.push([x, y, z, r, g, b, alpha, textureId, this.frameId]);
+    } else {
+      this.boxes.push([x, y, z, r, g, b, alpha, textureId]);
+    }
+  }
+
+  removeBox(x, y, z) {
+    [x, y, z] = this.roundNumbers([x, y, z]);
+
+    if (this.isFraming) {
+      for (let i = 0; i < this.frames.length; i++) {
+        let box = this.frames[i];
+        if (box[0] === x && box[1] === y && box[2] === z && box[8] === this.frameId) {
+          this.frames.splice(i, 1);
+          break;
+        }
+      }
+    } else {
+      for (let i = 0; i < this.boxes.length; i++) {
+        let box = this.boxes[i];
+        if (box[0] === x && box[1] === y && box[2] === z) {
+          this.boxes.splice(i, 1);
+          break;
+        }
+      }
     }
   }
 
@@ -80,54 +184,12 @@ class BuildBox {
     this.animation = [x, y, z, pitch, yaw, roll, scale, interval]
   }
 
-  createBox(x, y, z, r=1, g=1, b=1, alpha=1, texture=null) {
-    [x, y, z] = this.roundNumbers([x, y, z]);
-    // 重ねておくことを防止
-    this.removeBox(x, y, z);
-
-    var textureId;
-    if (texture === null || !this.textureNames.includes(texture)) {
-      textureId = -1;
-    } else {
-      textureId = this.textureNames.indexOf(texture);
-    }
-
-    this.boxes.push([x, y, z, r, g, b, alpha, textureId]);
-  }
-
-  removeBox(x, y, z) {
-    [x, y, z] = this.roundNumbers([x, y, z]);
-    for (let i = 0; i < this.boxes.length; i++) {
-      let box = this.boxes[i];
-      if (box[0] === x && box[1] === y && box[2] === z) {
-        this.boxes.splice(i, 1);
-        break;
-      }
-    }
-  }
-
   setBoxSize(boxSize) {
     this.size = boxSize;
   }
 
   setBuildInterval(interval) {
     this.buildInterval = interval;
-  }
-
-  clearData() {
-    this.translation = [0, 0, 0, 0, 0, 0];
-    this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
-    this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
-    this.boxes = [];
-    this.sentence = []
-    this.lights = [];
-    this.commands = []
-    this.size = 1.0;
-    this.shape = 'box'
-    this.isMetallic = 0
-    this.roughness = 0.5
-    this.isAllowedFloat = 0
-    this.buildInterval = 0.01;
   }
 
   writeSentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
@@ -234,17 +296,19 @@ class BuildBox {
     const date = new Date();
     const dataToSend = {
       translation: this.translation,
+      frameTranslations: this.frameTranslations,
       globalAnimation: this.globalAnimation,
       animation: this.animation,
       boxes: this.boxes,
+      frames: this.frames,
       sentence: this.sentence,
       lights: this.lights,
       commands: this.commands,
       size: this.size,
       shape: this.shape,
+      interval: this.buildInterval,
       isMetallic: this.isMetallic,
       roughness: this.roughness,
-      interval: this.buildInterval,
       isAllowedFloat: this.isAllowedFloat,
       date: date.toISOString()
     };
