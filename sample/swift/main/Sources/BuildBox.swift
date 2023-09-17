@@ -9,9 +9,12 @@ class BuildBox {
     var isAllowedMatrix: Int = 0
     var savedMatrices: [[Double]] = []
     var translation: [Double] = [0, 0, 0, 0, 0, 0]
+    var matrixTranslation: [Double] = [0, 0, 0, 0, 0, 0]
+    var frameTranslations: [[Double]] = []
     var globalAnimation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
+    var frames = [[Double]]()
     var sentence = [String]()
     var lights = [[Double]]()
     var commands = [String]()
@@ -21,27 +24,60 @@ class BuildBox {
     var roughness: Double = 0.5
     var isAllowedFloat: Int = 0
     var buildInterval = 0.01
+    var isFraming = false
+    var frameId: Int = 0
 
     init(roomName: String) {
         self.roomName = roomName
         webSocketTask = URLSession.shared.webSocketTask(with: url)
     }
 
+    func clearData() {
+        isAllowedMatrix = 0
+        savedMatrices = []
+        translation = [0, 0, 0, 0, 0, 0]
+        matrixTranslation = [0, 0, 0, 0, 0, 0]
+        frameTranslations = []
+        globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
+        animation = [0, 0, 0, 0, 0, 0, 1, 0]
+        boxes = []
+        frames = []
+        sentence = []
+        lights = []
+        commands = []
+        size = 1.0
+        shape = "box"
+        isMetallic = 0
+        roughness = 0.5
+        isAllowedFloat = 0
+        buildInterval = 0.01
+        isFraming = false
+        frameId = 0
+    }
+
+    func frameIn() {
+        isFraming = true
+    }
+
+    func frameOut() {
+        isFraming = false
+        frameId += 1
+    }
+
     func pushMatrix() {
         self.isAllowedMatrix += 1
-        self.savedMatrices.append(self.translation)
+        self.savedMatrices.append(matrixTranslation)
     }
 
     func popMatrix() {
         self.isAllowedMatrix -= 1
-        self.translation = self.savedMatrices.popLast()!
+        matrixTranslation = self.savedMatrices.popLast()!
     }
 
     func translate(_ x: Double, _ y: Double, _ z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
         if self.isAllowedMatrix > 0 {
             // Retrieve the saved matrix
             let matrix = self.savedMatrices.last!
-            print("before matrix: ", matrix)
             let basePosition = Array(matrix[0...2])
 
             let baseRotationMatrix: [[Double]]
@@ -67,16 +103,89 @@ class BuildBox {
             let roundZ = roundNumList[2]
 
             // Calculate the rotation after the move
-            let translateRotationMatrix = getRotationMatrix(pitch: -pitch, yaw: -yaw, roll: -roll) // inverse rotation
+            // inverse rotation
+            let translateRotationMatrix = getRotationMatrix(pitch: -pitch, yaw: -yaw, roll: -roll)
             let rotatedMatrix = matrixMultiply(A: translateRotationMatrix, B: baseRotationMatrix)
 
-            self.translation = [roundX, roundY, roundZ] + rotatedMatrix.flatMap { $0 }
+            matrixTranslation = [roundX, roundY, roundZ] + rotatedMatrix.flatMap { $0 }
         } else {
             let roundNumList = roundNumbers(numList: [x, y, z])
             let roundX = roundNumList[0]
             let roundY = roundNumList[1]
             let roundZ = roundNumList[2]
-            self.translation = [roundX, roundY, roundZ, pitch, yaw, roll]
+
+            if isFraming {
+                frameTranslations.append([roundX, roundY, roundZ, pitch, yaw, roll, Double(frameId)])
+            } else {
+                self.translation = [roundX, roundY, roundZ, pitch, yaw, roll]
+            }
+        }
+    }
+
+    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String? = nil) {
+        var x = x
+        var y = y
+        var z = z
+
+        if self.isAllowedMatrix > 0 {
+            // Retrieve the saved matrix
+            let matrix = matrixTranslation
+            let basePosition = Array(matrix[0...2])
+
+            let baseRotationMatrix: [[Double]]
+            if matrix.count == 6 {
+                baseRotationMatrix = getRotationMatrix(pitch: matrix[3], yaw: matrix[4], roll: matrix[5])
+            } else {
+                baseRotationMatrix = [
+                    Array(matrix[3...5]),
+                    Array(matrix[6...8]),
+                    Array(matrix[9...11])
+                ]
+            }
+
+            // Calculate the position after the move
+            let (addX, addY, addZ) = transformPointByRotationMatrix(point: (Double(x), Double(y), Double(z)), R: transpose3x3(matrix: baseRotationMatrix))
+            let addedVectorList = addVectors(vector1: basePosition, vector2: [Double(addX), Double(addY), Double(addZ)])
+            x = addedVectorList[0]
+            y = addedVectorList[1]
+            z = addedVectorList[2]
+        }
+
+        let roundNumList = roundNumbers(numList: [x, y, z])
+        let roundX = roundNumList[0]
+        let roundY = roundNumList[1]
+        let roundZ = roundNumList[2]
+        // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
+        removeBox(roundX, roundY, roundZ)
+
+        let textureId: Int
+        if let texture = texture, textureNames.contains(texture) {
+            textureId = textureNames.firstIndex(of: texture) ?? -1
+        } else {
+            textureId = -1
+        }
+
+        if isFraming {
+            frames.append([roundX, roundY, roundZ, r, g, b, alpha, Double(textureId), Double(frameId)])
+        } else {
+            boxes.append([x, y, z, r, g, b, alpha, Double(textureId)])
+        }
+    }
+
+    func removeBox(_ x: Double, _ y: Double, _ z: Double) {
+        let roundNumList = roundNumbers(numList: [x, y, z])
+        let roundX = roundNumList[0]
+        let roundY = roundNumList[1]
+        let roundZ = roundNumList[2]
+
+        if isFraming {
+            frames.removeAll { frame in
+                frame[0] == roundX && frame[1] == roundY && frame[2] == roundZ && frame[8] == Double(frameId)
+            }
+        } else {
+            boxes.removeAll { box in
+                box[0] == roundX && box[1] == roundY && box[2] == roundZ
+            }
         }
     }
 
@@ -96,58 +205,12 @@ class BuildBox {
         animation = [roundX, roundY, roundZ, pitch, yaw, roll, scale, interval]
     }
 
-    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String? = nil) {
-        let roundNumList = roundNumbers(numList: [x, y, z])
-        let roundX = roundNumList[0]
-        let roundY = roundNumList[1]
-        let roundZ = roundNumList[2]
-        // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
-        removeBox(roundX, roundY, roundZ)
-
-        let textureId: Int
-        if let texture = texture, textureNames.contains(texture) {
-            textureId = textureNames.firstIndex(of: texture) ?? -1
-        } else {
-            textureId = -1
-        }
-
-        boxes.append([x, y, z, r, g, b, alpha, Double(textureId)])
-    }
-
-    func removeBox(_ x: Double, _ y: Double, _ z: Double) {
-        let roundNumList = roundNumbers(numList: [x, y, z])
-        let roundX = roundNumList[0]
-        let roundY = roundNumList[1]
-        let roundZ = roundNumList[2]
-        for box in boxes {
-            if (box[0] == roundX && box[1] == roundY && box[2] == roundZ) {
-                boxes.remove(at: boxes.firstIndex(of: box)!)
-            }
-        }
-    }
-
     func setBoxSize(_ boxSize: Double) {
         size = boxSize
     }
 
     func setBuildInterval(_ interval: Double) {
         buildInterval = interval
-    }
-
-    func clearData() {
-        translation = [0, 0, 0, 0, 0, 0]
-        globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
-        animation = [0, 0, 0, 0, 0, 0, 1, 0]
-        boxes = [[Double]]()
-        sentence = [String]()
-        lights = [[Double]]()
-        commands = [String]()
-        size = 1.0
-        shape = "box"
-        isMetallic = 0
-        roughness = 0.5
-        isAllowedFloat = 0
-        buildInterval = 0.01
     }
 
     func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
@@ -203,7 +266,6 @@ class BuildBox {
         let diffY = y2 - y1
         let diffZ = z2 - z1
         let maxLength = max(abs(diffX), abs(diffY), abs(diffZ))
-        print(x2, y2, z2)
 
         if diffX == 0 && diffY == 0 && diffZ == 0 {
             return
@@ -272,17 +334,19 @@ class BuildBox {
         let dateString = dateFormatter.string(from: date)
         let dataDict = [
             "translation": translation,
+            "frameTranslations": frameTranslations,
             "globalAnimation": globalAnimation,
             "animation": animation,
             "boxes": boxes,
+            "frames": frames,
             "sentence": sentence,
             "lights": lights,
             "commands": commands,
             "size": size,
             "shape": shape,
+            "interval": buildInterval,
             "isMetallic": isMetallic,
             "roughness": roughness,
-            "interval": buildInterval,
             "isAllowedFloat": isAllowedFloat,
             "date": dateString
         ] as [String : Any]

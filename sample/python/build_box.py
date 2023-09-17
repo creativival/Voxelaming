@@ -38,6 +38,7 @@ class BuildBox:
         self.is_allowed_matrix = 0
         self.saved_matrices = []
         self.translation = [0, 0, 0, 0, 0, 0]
+        self.matrix_translation = [0, 0, 0, 0, 0, 0]
         self.frame_translations = []
         self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
@@ -52,6 +53,8 @@ class BuildBox:
         self.roughness = 0.5
         self.is_allowed_float = 0
         self.build_interval = 0.01
+        self.is_framing = False
+        self.frame_id = 0
 
     def frame_in(self):
         self.is_framing = True
