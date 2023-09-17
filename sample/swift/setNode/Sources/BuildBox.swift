@@ -122,7 +122,7 @@ class BuildBox {
         }
     }
 
-    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String? = nil) {
+    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String = "") {
         var x = x
         var y = y
         var z = z
@@ -159,7 +159,7 @@ class BuildBox {
         removeBox(roundX, roundY, roundZ)
 
         let textureId: Int
-        if let texture = texture, textureNames.contains(texture) {
+        if textureNames.contains(texture) {
             textureId = textureNames.firstIndex(of: texture) ?? -1
         } else {
             textureId = -1

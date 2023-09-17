@@ -3,7 +3,7 @@ import Foundation
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
     let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
+    buildBox.setBoxSize(0.15)
 //     buildBox.setBuildInterval(0.01)
     buildBox.setCommand("float")
 
