@@ -71,6 +71,8 @@ I will explain the methods to use in the script. The method names for each langu
 * pop_matrix(): Restores the matrix saved by push_matrix(). Restores the position and angle of a node saved in the stack.
 * frame_in(): Starts taking frame. Run this before placing voxels. Frames can be played back as an animation.
 * frame_out(): Finish shooting the frame. Execute after placing voxels.
+* set_frame_fps(fps): sets the frame rate. Default is 2.
+* set_frame_repeats(repeats): Sets the number of times a frame is replayed. Default is 10.
 
 Please read snake_case as camelCase. (set_box_size -> setBoxSize)
 
