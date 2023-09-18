@@ -199,8 +199,11 @@ function toRadians(degrees) {
           const x = i * Math.cos(toRadians(angle));
           const y = -j;
           const z = i * Math.sin(toRadians(angle));
-          buildBox.createBox(x, y, z, color[0], color[1], color[2]);
-          buildBox.createBox(-x, y, z, color[0], color[1], color[2]);
+          const r = color[0] / 255;
+          const g = color[1] / 255;
+          const b = color[2] / 255;
+          buildBox.createBox(x, y, z, r, g, b);
+          buildBox.createBox(-x, y, z, r, g, b);
         }
       }
     }

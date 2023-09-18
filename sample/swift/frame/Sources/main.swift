@@ -196,8 +196,11 @@ if #available(iOS 15.0, macOS 12.0, *) {
                             let x = Double(i) * cos(Double(angle) * .pi / 180.0)
                             let y = Double(-j)
                             let z = Double(i) * sin(Double(angle) * .pi / 180.0)
-                            buildBox.createBox(x, y, z, r: Double(color[0]), g: Double(color[1]), b: Double(color[2]))
-                            buildBox.createBox(-x, y, z, r: Double(color[0]), g: Double(color[1]), b: Double(color[2]))
+                            let r = Double(color[0]) / 255.0
+                            let g = Double(color[1]) / 255.0
+                            let b = Double(color[2]) / 255.0
+                            buildBox.createBox(x, y, z, r: r, g: g, b: b)
+                            buildBox.createBox(-x, y, z, r: r, g: g, b: b)
                         }
                     }
                 }

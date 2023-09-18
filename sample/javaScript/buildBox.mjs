@@ -135,6 +135,7 @@ class BuildBox {
     }
 
     [x, y, z] = this.roundNumbers([x, y, z]);
+    [r, g, b, alpha] = this.roundColors([r, g, b, alpha]);
     // 重ねておくことを防止
     this.removeBox(x, y, z);
 
@@ -194,16 +195,15 @@ class BuildBox {
 
   writeSentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
     [x, y, z] = this.roundNumbers([x, y, z]);
-    [x, y, z] = [x, y, z].map(val => String(val))
-    r = String(r);
-    g = String(g);
-    b = String(b);
-    alpha = String(alpha);
+    [r, g, b, alpha] = this.roundColors([r, g, b, alpha]);
+    [x, y, z] = [x, y, z].map(val => String(val));
+    [r, g, b, alpha] = [r, g, b, alpha].map(val => String(val));
     this.sentence = [sentence, x, y, z, r, g, b, alpha];
   }
 
   setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, lightType='point') {
     [x, y, z] = this.roundNumbers([x, y, z]);
+    [r, g, b, alpha] = this.roundColors([r, g, b, alpha]);
 
     if (lightType === 'point') {
       lightType = 1;
@@ -346,6 +346,10 @@ class BuildBox {
     } else {
       return num_list.map(val => Math.floor(parseFloat(val.toFixed(1))));
     }
+  }
+
+  roundColors(num_list) {
+    return num_list.map(val => parseFloat(val.toFixed(2)));
   }
 }
 

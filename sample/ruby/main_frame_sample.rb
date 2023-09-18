@@ -194,8 +194,11 @@ angles.each do |angle|
         x = i * Math.cos(Math::PI * angle / 180.0)
         y = -j
         z = i * Math.sin(Math::PI * angle / 180.0)
-        build_box.create_box(x, y, z, r: color[0], g: color[1], b: color[2])
-        build_box.create_box(-x, y, z, r: color[0], g: color[1], b: color[2])
+        r = color[0] / 255.0
+        g = color[1] / 255.0
+        b = color[2] / 255.0
+        build_box.create_box(x, y, z, r: r, g: g, b: b)
+        build_box.create_box(-x, y, z, r: r, g: g, b: b)
       end
     end
   end

@@ -155,6 +155,12 @@ class BuildBox {
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
+        let roundColorList = roundColors(numList: [r, g, b, alpha])
+        let roundR = roundColorList[0]
+        let roundG = roundColorList[1]
+        let roundB = roundColorList[2]
+        let roundAlpha = roundColorList[3]
+
         // 重ねて置くことを防止するために、同じ座標の箱があれば削除する
         removeBox(roundX, roundY, roundZ)
 
@@ -166,7 +172,7 @@ class BuildBox {
         }
 
         if isFraming {
-            frames.append([roundX, roundY, roundZ, r, g, b, alpha, Double(textureId), Double(frameId)])
+            frames.append([roundX, roundY, roundZ, roundR, roundG, roundB, roundAlpha, Double(textureId), Double(frameId)])
         } else {
             boxes.append([x, y, z, r, g, b, alpha, Double(textureId)])
         }
@@ -218,12 +224,16 @@ class BuildBox {
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
+        let roundColorList = roundColors(numList: [r, g, b, alpha])
+        let roundR = roundColorList[0]
+        let roundG = roundColorList[1]
+        let roundB = roundColorList[2]
         let stringX = String(roundX)
         let stringY = String(roundY)
         let stringZ = String(roundZ)
-        let stringR = String(r)
-        let stringG = String(g)
-        let stringB = String(b)
+        let stringR = String(roundR)
+        let stringG = String(roundG)
+        let stringB = String(roundB)
         let stringAlpha = String(alpha)
         sentence = [string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha]
     }
@@ -233,6 +243,11 @@ class BuildBox {
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
+        let roundColorList = roundColors(numList: [r, g, b, alpha])
+        let roundR = roundColorList[0]
+        let roundG = roundColorList[1]
+        let roundB = roundColorList[2]
+        let roundAlpha = roundColorList[3]
         var doubleLightType: Double
 
         if lightType == "point" {
@@ -244,7 +259,7 @@ class BuildBox {
         } else {
             doubleLightType = 1
         }
-        lights.append([roundX, roundY, roundZ, r, g, b, alpha, intensity, interval, doubleLightType])
+        lights.append([roundX, roundY, roundZ, roundR, roundG, roundB, roundAlpha, intensity, interval, doubleLightType])
     }
 
     func setCommand(_ command: String) {
@@ -363,12 +378,16 @@ class BuildBox {
         print("Sent message: \(jsonString)")
     }
 
-    func roundNumbers(numList: [Double]) -> [Double] {
+    private func roundNumbers(numList: [Double]) -> [Double] {
         if isAllowedFloat == 1 {
             return numList.map { round($0 * 100) / 100 }
         } else {
             return numList.map { round($0 * 10) / 10 }.map { floor($0) }
         }
+    }
+
+    private func roundColors(numList: [Double]) -> [Double] {
+        return numList.map { round($0 * 100) / 100 }
     }
 }
 

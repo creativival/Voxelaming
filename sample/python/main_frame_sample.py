@@ -193,8 +193,11 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
                 x = i * cos(radians(angle))
                 y = -j
                 z = i * sin(radians(angle))
-                build_box.create_box(x, y, z, color[0], color[1], color[2])
-                build_box.create_box(-x, y, z, color[0], color[1], color[2])
+                r = color[0] / 255
+                g = color[1] / 255
+                b = color[2] / 255
+                build_box.create_box(x, y, z, r, g, b)
+                build_box.create_box(-x, y, z, r, g, b)
     build_box.frame_out()
 
 # データを送信

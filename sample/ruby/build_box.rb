@@ -125,6 +125,8 @@ class BuildBox
     end
 
     x, y, z = round_numbers([x, y, z])
+    r, g, b, alpha = round_colors([r, g, b, alpha])
+
     # 重ねておくことを防止
     remove_box(x, y, z)
     if !@@texture_names.include?(texture)
@@ -170,12 +172,15 @@ class BuildBox
 
   def write_sentence(sentence, x, y, z, r: 1, g: 1, b: 1, alpha: 1)
     x, y, z = round_numbers([x, y, z]).map(&:to_s)
+    r, g, b, alpha = round_colors([r, g, b, alpha])
     r, g, b, alpha =  [r, g, b, alpha].map(&:floor).map(&:to_s)
     @sentence = [sentence, x, y, z, r, g, b, alpha]
   end
 
   def set_light(x, y, z, r: 1, g: 1, b: 1, alpha: 1, intensity: 1000, interval: 1, light_type: 'point')
     x, y, z = round_numbers([x, y, z])
+    r, g, b, alpha = round_colors([r, g, b, alpha])
+
     if light_type == 'point'
       light_type = 1
     elsif light_type == 'spot'
@@ -317,5 +322,9 @@ class BuildBox
     else
       num_list.map { |val| val.round(1).floor }
     end
+  end
+
+  def round_colors(num_list)
+    num_list.map { |val| val.round(2) }
   end
 end

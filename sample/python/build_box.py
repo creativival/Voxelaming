@@ -127,6 +127,8 @@ class BuildBox:
             x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
 
         x, y, z = self.round_numbers([x, y, z])
+        r, g, b, alpha = self.round_colors([r, g, b, alpha])
+
         # 重ねておくことを防止
         self.remove_box(x, y, z)
         if texture not in self.texture_names:
@@ -166,16 +168,16 @@ class BuildBox:
         self.build_interval = interval
 
     def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
-        if self.is_allowed_float:
-            x, y, z = [round(val, 2) for val in [x, y, z]]
-        else:
-            x, y, z = map(floor, [x, y, z])
+        x, y, z = self.round_numbers([x, y, z])
+        r, g, b, alpha = self.round_colors([r, g, b, alpha])
         x, y, z = map(str, [x, y, z])
         r, g, b, alpha = map(str, [r, g, b, alpha])
         self.sentence = [sentence, x, y, z, r, g, b, alpha]
 
     def set_light(self, x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point'):
         x, y, z = self.round_numbers([x, y, z])
+        r, g, b, alpha = self.round_colors([r, g, b, alpha])
+
         if light_type == 'point':
             light_type = 1
         elif light_type == 'spot':
@@ -287,3 +289,6 @@ class BuildBox:
             return [round(val, 2) for val in num_list]
         else:
             return map(floor, [round(val, 1) for val in num_list])
+
+    def round_colors(self, num_list):
+         return [round(val, 2) for val in num_list]
