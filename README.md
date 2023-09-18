@@ -67,6 +67,8 @@
 * animate_global(x, y, z, pitch, yaw, roll, scale, interval):全てのボクセルの「ベースアンカーを基準にした」アニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
 * push_matrix(): 座標系を保存します。現在のノードの位置と角度をスタックに保存します。
 * pop_matrix(): 座標系を復元します。スタックに保存したノードの位置と角度を復元します。
+* frame_in(): フレームの撮影を開始します。ボクセルを設置する前に実行してください。フレームはアニメーションとして再生できます。
+* frame_out(): フレームの撮影を終了します。ボクセルを設置した後に実行してください。
 
 ＊ スネークケースとキャメルケースは読み替えてください。（set_box_size -> setBoxSize）
 
@@ -326,6 +328,12 @@ liteRenderコマンドを使って、描画を軽くしています。
 ### テクスチャー
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
+
+### フレームアニメーション
+
+羽ばたく蝶々がフレームアニメーションとして再生されます。
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
 
 ### ユーザー共有
 

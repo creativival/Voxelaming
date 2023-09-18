@@ -69,6 +69,8 @@ I will explain the methods to use in the script. The method names for each langu
 * animate_global(x, y, z, pitch, yaw, roll, scale, interval): All voxels animation based on the base anchor. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
 * push_matrix(): Saves the current matrix. Stores the current node position and angle on the stack.
 * pop_matrix(): Restores the matrix saved by push_matrix(). Restores the position and angle of a node saved in the stack.
+* frame_in(): Starts taking frame. Run this before placing voxels. Frames can be played back as an animation.
+* frame_out(): Finish shooting the frame. Execute after placing voxels.
 
 Please read snake_case as camelCase. (set_box_size -> setBoxSize)
 
@@ -329,6 +331,12 @@ The model can be animated by alternately creating and resetting the model.
 ### Texture
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
+
+### Frame Animation
+
+A fluttering butterfly is created by frame animation.
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
 
 ### User Sharing
 
