@@ -5,12 +5,6 @@ function toRadians(degrees) {
 }
 
 (async () => {
-  const roomName = "1000";
-  const buildBox = new BuildBox(roomName);
-  buildBox.setBoxSize(0.15);
-// buildBox.setBuildInterval(0.01);
-  buildBox.setCommand('float');
-
   const rainbowColors = [
     [255, 0, 0],     // Red
     [255, 165, 0],   // Orange
@@ -184,6 +178,13 @@ function toRadians(degrees) {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
+  const roomName = "1000";
+  const buildBox = new BuildBox(roomName);
+  buildBox.setBoxSize(0.15);
+// buildBox.setBuildInterval(0.01);
+  buildBox.setCommand('float');
+  buildBox.setFrameFPS(2);
+  buildBox.setFrameRepeats(10)
 
   for (let angle of [30, 15, 0, -15, -30, -15, 0, 15]) {
     buildBox.frameIn();

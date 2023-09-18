@@ -56,6 +56,12 @@ class BuildBox:
         self.is_framing = False
         self.frame_id = 0
 
+    def set_frame_fps(self, fps=2):
+        self.commands.append(f'fps {fps}')
+
+    def set_frame_repeats(self, repeats=10):
+        self.commands.append(f'repeats {repeats}')
+
     def frame_in(self):
         self.is_framing = True
 

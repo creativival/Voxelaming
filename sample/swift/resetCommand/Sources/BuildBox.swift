@@ -55,6 +55,14 @@ class BuildBox {
         frameId = 0
     }
 
+    func setFrameFPS(_ fps: Int = 2) {
+        commands.append("fps \(fps)")
+    }
+
+    func setFrameRepeats(_ repeats: Int = 10) {
+        commands.append("repeats \(repeats)")
+    }
+
     func frameIn() {
         isFraming = true
     }

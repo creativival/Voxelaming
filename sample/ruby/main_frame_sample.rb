@@ -1,12 +1,5 @@
 require_relative 'build_box'
 
-room_name = '1000'
-build_box = BuildBox.new(room_name)
-
-build_box.set_box_size(0.15)
-# build_box.set_build_interval(0.01)
-build_box.set_command('float')
-
 rainbow_colors = [
     [255, 0, 0],     # 赤
     [255, 165, 0],   # オレンジ
@@ -179,8 +172,15 @@ butterfly_list = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
-
 angles = [30, 15, 0, -15, -30, -15, 0, 15]
+
+room_name = '1000'
+build_box = BuildBox.new(room_name)
+build_box.set_box_size(0.15)
+# build_box.set_build_interval(0.01)
+build_box.set_command('float')
+build_box.set_frame_fps(2)
+build_box.set_frame_repeats(10)
 
 angles.each do |angle|
   build_box.frame_in()

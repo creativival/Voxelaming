@@ -55,6 +55,14 @@ class BuildBox
     @frame_id = 0
   end
 
+  def set_frame_fps(fps = 2)
+    @commands << "fps #{fps}"
+  end
+
+  def set_frame_repeats(repeats = 10)
+    @commands << "repeats #{repeats}"
+  end
+
   def frame_in
     @is_framing = true
   end

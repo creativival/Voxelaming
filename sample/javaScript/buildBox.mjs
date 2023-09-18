@@ -57,6 +57,14 @@ class BuildBox {
     this.frameId = 0;
   }
 
+  setFrameFPS(fps = 2) {
+    this.commands.push(`fps ${fps}`);
+  }
+
+  setFrameRepeats(repeats = 10) {
+    this.commands.push(`repeats ${repeats}`);
+  }
+
   frameIn() {
     this.isFraming = true;
   }

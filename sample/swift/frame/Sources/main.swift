@@ -1,12 +1,6 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.15)
-//     buildBox.setBuildInterval(0.01)
-    buildBox.setCommand("float")
-
     let rainbowColors = [
         [255, 0, 0],     // Red
         [255, 165, 0],   // Orange
@@ -179,6 +173,14 @@ if #available(iOS 15.0, macOS 12.0, *) {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
+
+    let roomName = "1000"
+    let buildBox = BuildBox(roomName: roomName)
+    buildBox.setBoxSize(0.15)
+//     buildBox.setBuildInterval(0.01)
+    buildBox.setCommand("float")
+    buildBox.setFrameFPS(2)
+    buildBox.setFrameRepeats(10)
 
     Task {
         do {

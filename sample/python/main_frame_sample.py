@@ -1,13 +1,6 @@
 from math import sin, cos, radians
 from build_box import BuildBox
 
-# ルームネームを設定
-room_name = "1000"
-build_box = BuildBox(room_name)
-build_box.set_box_size(0.15)
-# build_box.set_build_interval(0.01)
-build_box.set_command('float')
-
 rainbow_colors = [
     [255, 0, 0],     # 赤
     [255, 165, 0],   # オレンジ
@@ -180,6 +173,15 @@ butterfly_list = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
+
+# ルームネームを設定
+room_name = "1000"
+build_box = BuildBox(room_name)
+build_box.set_box_size(0.15)
+# build_box.set_build_interval(0.01)
+build_box.set_command('float')
+build_box.set_frame_fps(2)
+build_box.set_frame_repeats(10)
 
 for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
     build_box.frame_in()
