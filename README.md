@@ -1,6 +1,8 @@
-# ボクセラミング - ARKitを使ったプログラミング学習アプリ
+# ボクセラミング - ARを使ったプログラミング学習アプリ
 
-ボクセラミングは、プログラミング初心者とジェネラティブアーティストのための、ARKitを使ったプログラミング学習アプリです。
+ボクセラミングは、プログラミング初心者とジェネラティブアーティストのための、iOSに対応したARを使ったプログラミング学習アプリです。
+
+ボクセラミング・ビジョンは、Apple Vision Proに対応した新バージョンです。操作はボクセラミングとほぼ同じですが、一部機能制限があります。
 
 <a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
@@ -18,29 +20,34 @@
 
 ボクセラミング = ボクセル + プログラミング
 
-ボクセラミングは、ARKitを使ったプログラミング学習アプリです。ARKitに対応したiPhone、iPad（iOS 16以上）で無料で使用できます。パソコンでプログラムしたボクセル（ピクセルと同様に3D空間における最小単位の立方体）を仮想空間上に配置して遊ぶことができます。
+ボクセラミングは、ARを使ったプログラミング学習アプリです。ARに対応したiPhone、iPad（iOS 16以上）とApple Vision Proで無料で使用できます。パソコンでプログラムしたボクセル（ピクセルと同様に3D空間における最小単位の立方体）を仮想空間上に配置して遊ぶことができます。
 
 ## 使い方
 
 ### パソコンの準備
 
-パソコンは、Windows、Macの両対応です。お使いのパソコンに、プログラミング言語（Python、Node.js、Ruby、Swift）がインストールされていないときは、使いたい言語をインストールしてください。パソコンとデバイス（iPhone、iPad）のデータ通信はインターネット回線を使います（同じ回線に繋がなくてもよい）。以上で、パソコンの準備ができました。
+パソコンは、Windows、Macの両対応です。お使いのパソコンに、プログラミング言語（Python、Node.js、Ruby、Swift）がインストールされていないときは、使いたい言語をインストールしてください。パソコンとデバイス（iPhone、iPad、Apple Vision Pro）のデータ通信はインターネット回線を使います（同じ回線に繋がなくてもよい）。以上で、パソコンの準備ができました。
 
 ### 平面アンカーの設置
 
-ボクセラミングアプリを起動します。初回の起動時のみ、カメラの使用許可を求められるので「はい」で許可してください。ガメラが起動すると、ARKitが自動で現実世界の平面を探します。平面検知の印（赤緑青の座標軸）が出たら、画面をタップして平面アンカーを設置します。平面アンカーは白と黒のタイルで構成されています。以上でボクセルを設置する準備が整いました。
+#### iPhone、iPad
+ボクセラミングアプリを起動します。初回の起動時のみ、カメラの使用許可を求められるので「はい」で許可してください。ガメラが起動すると、ARが自動で現実世界の平面を探します。平面検知の印（赤緑青の座標軸）が出たら、画面をタップして平面アンカーを設置します。平面アンカーは白と黒のタイルで構成されています。以上でボクセルを設置する準備が整いました。
+
+#### Apple Vision Pro
+
+ボクセラミング・ビジョンアプリを起動します。「Set Base Anchor」ボタンをタップして、ベースアンカーを設置します。ベースアンカーは白と黒のタイルで構成されています。以上でボクセルを設置する準備が整いました。なお、ベースアンカーはドラッグして移動できます。
 
 ### ボクセルのモデリング（プログラミング）
 
 パソコン（Windows、Mac）でボクセルを設置するための「ボクセルデータ」をプログラミングします。ボクセルデータには、「位置、色、サイズ、設置する間隔など」の情報が含まれます。対応の言語は、Scratch3 MOD、Python、JavaScript (Node.js)、Ruby、Swiftです。
 
-スクリプトを作成しましょう。[sampleフォルダー](https://github.com/creativival/voxelamming/tree/main/sample) のスクリプトを参考にしてください。WebSocketサーバーのルームに接続するために、変数room_name（roomName）をデバイス（iPhone、iPad）の画面中央に表示されている文字列に合わせることを忘れないようにしてください。
+スクリプトを作成しましょう。[sampleフォルダー](https://github.com/creativival/voxelamming/tree/main/sample) のスクリプトを参考にしてください。WebSocketサーバーのルームに接続するために、変数room_name（roomName）をデバイス（iPhone、iPad、Apple Vision Pro）の画面中央に表示されている文字列に合わせることを忘れないようにしてください。
 
 次に、各言語の繰り返し文や条件式などを使って、ボクセルデータを作成します。ボクセルの位置は、平面アンカーを基準にして、x軸、y軸、z軸の値を指定します。x軸は左右、y軸は上下、z軸は奥行き（手前がプラス）を表します（単位はセンチメートル）。ボクセルの大きさは、1.0cmを基準にして小数で指定します。色はRGB値で0から1までの小数で指定します。そして、ボクセルを設置する間隔を秒で指定します。ボクセルを設置する間隔を指定することで、ボクセルが一気に設置されるのではなく、時間をかけて設置されるようになります。
 
 ### ARボクセルのビルド
 
-スクリプトを実行すると、WebSocket通信でボクセルデータがデバイス（iPhone、iPad）に送信されます。データが受信できたら、デバイス画面の平面アンカーを基準にして、ARボクセルが設置されます。
+スクリプトを実行すると、WebSocket通信でボクセルデータがデバイス（iPhone、iPad、Apple Vision Pro）に送信されます。データが受信できたら、デバイス画面の平面アンカーを基準にして、ARボクセルが設置されます。
 
 ＊ WebSocketサーバーが休止しているとき、データ送信が失敗する場合があります。そのときは、しばらく待ってから再度実行してください。
 
@@ -48,7 +55,7 @@
 
 スクリプトで使用するメソッドを説明します。各言語のメソッド名は、以下の通りです。
 
-* set_room_name(room_name)：デバイス（iPhone、iPad）と通信するためのルームネームを指定します。ルームネームはアプリを実行すると、画面中央に表示されます。同じルームネームを指定することで、デバイスとパソコンが通信できます。
+* set_room_name(room_name)：デバイス（iPhone、iPad、Apple Vision Pro）と通信するためのルームネームを指定します。ルームネームはアプリを実行すると、画面中央に表示されます。同じルームネームを指定することで、デバイスとパソコンが通信できます。
 * set_box_size(size)：ボクセルの大きさを設定します。単位はセンチメートルです。デフォルトは1.0です。
 * set_build_interval(interval)：ボクセルを設置する間隔（インターバル）を設定します。ボクセルを一つずつ設置するアニメーションを表現できます。単位は秒です。デフォルトは0.01です。
 * change_shape：ボクセルを形状を変更します。立方体（box）、球体（square）、平面（plane）が選べます。
@@ -60,7 +67,7 @@
 * set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)：ライトを配置します。ライトの位置（x, y, z）色（r, g, b, alpha）を指定します。強さ（intensity）のデフォルトは1000です。点滅させるには間隔（interval）を秒で指定します（0にすると点滅しない）light_typeは「ポイント、スポット、ディレクショナル」のいずれかを選びます。
 * set_command(command)：コマンドを設定します。コマンドは、"axis"（座標を表示する）、"japaneseCastle"（日本のお城を建築する）、"float"（小数点の位置にボクセルが置ける）、"liteRender"（描画を簡略化して処理を軽くする）が実装されています。
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)：2点間を線で結びます。x1, y1, z1は始点、x2, y2, z2は終点です。色はRGBA値で0から1までの小数で指定します。
-* send_data()：ボクセルデータをデバイス（iPhone、iPad）に送信します。ARボクセルを設置するとき実行します。
+* send_data()：ボクセルデータをデバイス（iPhone、iPad、Apple Vision Pro）に送信します。ARボクセルを設置するとき実行します。
 * clear_data()：ボクセルデータを初期化します。サイズ、インターバルも初期化します（送信後、ボクセルデータを初期化したいときに実行してください。）。
 * translate(x, y, z, pitch, yaw, roll):ボクセルをまとめるノードの位置（x, y, z）と角度（pitch, yaw, roll）を指定します。
 * animate(x, y, z, pitch, yaw, roll, scale, interval):ノードのアニメーション。移動（x, y, z）、回転（pitch, yaw, roll）、拡大（scale）、設置する間隔（interval）を指定します。（RealityKitの制限のため、回転角度は180度以下にしてください）
@@ -305,7 +312,7 @@ liteRenderコマンドを使って、描画を軽くしています。
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
-### ライト
+### ライト（iOSのみ）
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 

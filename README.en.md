@@ -1,6 +1,8 @@
-# Voxelamming - Programming Learning App with ARKit
+# Voxelamming - Programming Learning App with AR
 
-Voxelamming is a programming learning app with ARKit for programming beginners and generative artists.
+Voxelamming is an iOS compatible AR-based programming learning app for programming beginners and generative artists.
+
+Voxelamming Vision is a new version that supports Apple Vision Pro. Operation is almost the same as Voxelamming, but some functions are limited.
 
 <a href="https://apps.apple.com/us/app/voxelamming/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
@@ -19,29 +21,35 @@ Voxelamming is a programming learning app with ARKit for programming beginners a
 
 Voxelamming = Voxel + Programming
 
-Voxelamming is a programming learning app with ARKit. It can be used for free on ARKit-compatible iPhones and iPads (iOS 16 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
+Voxelamming is a programming learning app with AR. It can be used for free on AR-compatible iPhones and iPads (iOS 16 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
 
 ## How to Use
 
 ### Preparing Your Computer
 
-Both Windows and Mac are supported. If the programming language (Python, Node.js, Ruby, Swift) is not installed on your computer, please install the language you want to use. Data communication between the computer and the device (iPhone, iPad) uses an Internet connection (they do not need to be connected to the same network). Once this is done, your computer is ready.
+Both Windows and Mac are supported. If the programming language (Python, Node.js, Ruby, Swift) is not installed on your computer, please install the language you want to use. Data communication between the computer and the device (iPhone, iPad, Apple Vision Pro) uses an Internet connection (they do not need to be connected to the same network). Once this is done, your computer is ready.
 
 ### Placing a Plane Anchor
 
+#### iPhone, iPad
+
 Launch the voxelamming app. The first time you launch the app, it will ask for permission to use the camera, please grant it by selecting "Yes". Once the camera is launched, ARKit will automatically search for a real-world plane. When the plane detection marker (red-green-blue coordinate axes) appears, tap the screen to place a plane anchor. The plane anchor is made up of black and white tiles. With this, you are ready to place voxels.
+
+#### Apple Vision Pro
+
+Launch the voxelamming vision application. Tap the "Set Base Anchor" button to place the base anchor. The base anchor consists of white and black tiles. Now you are ready to place voxels. Note that the base anchor can be moved by dragging.
 
 ### Modeling (Programming) Voxels
 
 On your computer (Windows, Mac), program the "voxel data" for modeling the voxels. The voxel data includes information such as "location, color, size, and placement interval". The supported languages are Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
 
-Let's create a script. Please refer to the scripts in the sample folder. Don't forget to match the variable room_name (roomName) to the string displayed in the center of the device (iPhone, iPad) screen in order to connect to the WebSocket server's room.
+Let's create a script. Please refer to the scripts in the sample folder. Don't forget to match the variable room_name (roomName) to the string displayed in the center of the device (iPhone, iPad, Apple Vision Pro) screen in order to connect to the WebSocket server's room.
 
 Then, use the loop and conditional expressions of each language to create voxel data. The position of the voxel is specified by the x, y, and z axis values, with the plane anchor as the reference. The x-axis represents left and right, the y-axis represents up and down, and the z-axis represents depth (the front is positive) (the unit is centimeters). The size of the voxel is specified as a decimal based on 1.0 cm. The color is specified as a decimal from 0 to 1 in RGB values. Then, specify the interval at which voxels are placed in seconds. By specifying the interval at which voxels are placed, the voxels will be placed over time instead of all at once.
 
 ### Build AR Voxels
 
-When you run the script, the voxel data is sent to the device (iPhone, iPad) via WebSocket communication. Once the data is received, AR voxels are placed based on the plane anchor on the device screen.
+When you run the script, the voxel data is sent to the device (iPhone, iPad, Apple Vision Pro) via WebSocket communication. Once the data is received, AR voxels are placed based on the plane anchor on the device screen.
 
 If the WebSocket server is on break, data transmission may fail. In that case, please wait for a while and try again.
 
@@ -50,7 +58,7 @@ If the WebSocket server is on break, data transmission may fail. In that case, p
 I will explain the methods to use in the script. The method names for each language are as follows.
 
 * set_box_size(size): Sets the size of the voxel. The unit is centimeters. The default is 1.0.
-* set_room_name(room_name): Specifies the room name for communication with the device (iPhone, iPad). The room name is displayed in the center of the screen when the application is run. By specifying the same room name, communication between the device and the computer can be established.
+* set_room_name(room_name): Specifies the room name for communication with the device (iPhone, iPad, Apple Vision Pro). The room name is displayed in the center of the screen when the application is run. By specifying the same room name, communication between the device and the computer can be established.
 * set_box_size(size): Sets the size of the voxel. The unit is in centimeters. The default is 1.0.
 * set_build_interval(interval): Sets the interval for placing voxels. It can express the animation of placing voxels one by one. The unit is in seconds. The default is 0.01.
 * change_shape: Changes the shape of the voxel. You can choose from a cube (box), sphere (square), or plane (plane).
@@ -62,7 +70,7 @@ I will explain the methods to use in the script. The method names for each langu
 * set_light(x, y, z, r, g, b, alpha, intensity, interval): Places a light. Specifies the position (x, y, z) and color (r, g, b, alpha) of the light. The default intensity is 1000. To make it blink, specify the interval in seconds (if it is 0, it does not blink).
 * set_command(command): Sets a command.The following commands are implemented: "axis" (to display coordinates), "japaneseCastle" (to build a Japanese castle), "float" (to place voxels at the decimal point), and "liteRender" (to simplify drawing and lighten processing).
 * draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha): Draws a line between two points. x1, y1, z1 are the starting points, x2, y2, z2 are the endpoints. The color is specified as RGBA values from 0 to 1 in decimal.
-* send_data(): Sends voxel data to the device (iPhone, iPad). Execute when placing AR voxels.
+* send_data(): Sends voxel data to the device (iPhone, iPad, Apple Vision Pro). Execute when placing AR voxels.
 * clear_data(): Initializes voxel data. It also initializes the size and interval (execute this when you want to initialize the voxel data after sending).
 * translate(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups voxels.
 * animate(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
@@ -308,7 +316,7 @@ The liteRender command is used to lighten the drawing.
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
-### Lighting
+### Lighting (Only iOS)
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
