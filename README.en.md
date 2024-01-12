@@ -2,7 +2,7 @@
 
 Voxelamming is an iOS compatible AR-based programming learning app for programming beginners and generative artists.
 
-Voxelamming Vision is a new version that supports Apple Vision Pro. Operation is almost the same as Voxelamming, but some functions are limited.
+Voxelamming Studio is a new version that supports Apple Vision Pro. Operation is almost the same as Voxelamming, but some functions are limited.
 
 <a href="https://apps.apple.com/us/app/voxelamming/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
@@ -27,7 +27,7 @@ Voxelamming is a programming learning app with AR. It can be used for free on AR
 
 ### Preparing Your Computer
 
-Both Windows and Mac are supported. If the programming language (Python, Node.js, Ruby, Swift) is not installed on your computer, please install the language you want to use. Data communication between the computer and the device (iPhone, iPad, Apple Vision Pro) uses an Internet connection (they do not need to be connected to the same network). Once this is done, your computer is ready.
+Both Windows and Mac are supported. If the programming language (Python, Node.js, Ruby, Swift, Scratch3 MOD) is not installed on your computer, please install the language you want to use. Data communication between the computer and the device (iPhone, iPad, Apple Vision Pro) uses an Internet connection (they do not need to be connected to the same network). Once this is done, your computer is ready.
 
 ### Placing a Plane Anchor
 

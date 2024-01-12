@@ -2,7 +2,7 @@
 
 ボクセラミングは、プログラミング初心者とジェネラティブアーティストのための、iOSに対応したARを使ったプログラミング学習アプリです。
 
-ボクセラミング・ビジョンは、Apple Vision Proに対応した新バージョンです。操作はボクセラミングとほぼ同じですが、一部機能制限があります。
+ボクセラミング・スタジオは、Apple Vision Proに対応した新バージョンです。操作はボクセラミングとほぼ同じですが、一部機能制限があります。
 
 <a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
@@ -35,7 +35,7 @@
 
 #### Apple Vision Pro
 
-ボクセラミング・ビジョンアプリを起動します。「Set Base Anchor」ボタンをタップして、ベースアンカーを設置します。ベースアンカーは白と黒のタイルで構成されています。以上でボクセルを設置する準備が整いました。なお、ベースアンカーはドラッグして移動できます。
+ボクセラミング・スタジオアプリを起動します。「Set Base Anchor」ボタンをタップして、ベースアンカーを設置します。ベースアンカーは白と黒のタイルで構成されています。以上でボクセルを設置する準備が整いました。なお、ベースアンカーはドラッグして移動できます。
 
 ### ボクセルのモデリング（プログラミング）
 
