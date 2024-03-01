@@ -1,11 +1,11 @@
 from build_box import BuildBox
 
-room_name = "1000"
+room_name = "1475"
 build_box = BuildBox(room_name)
 
 radius = 11
 
-build_box.set_box_size(0.5)
+build_box.set_box_size(2)
 build_box.set_build_interval(0.01)
 build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
 
