@@ -1,19 +1,12 @@
-# Voxelamming - Programming Learning App with AR
+# **Voxelamming - AR Programming Learning App**
 
-Voxelamming is an iOS compatible AR-based programming learning app for programming beginners and generative artists.
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_icon.png" alt="Voxelamming Logo" width="200"/></p>
 
-Voxelamming Studio is a new version that supports Apple Vision Pro. Operation is almost the same as Voxelamming, but some functions are limited.
+Voxelamming is an AR programming learning app. Even programming beginners can learn programming visually and enjoyably. Voxelamming supports iPhones and iPads with iOS 16 or later, and Apple Vision Pro.
 
-<a href="https://apps.apple.com/us/app/voxelamming/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+<a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="100%"/></p>
-
-[//]: # (<p align="center"><video width="1280" height="720" controls>)
-
-[//]: # (    <source src="video/voxelamming_top_video.mp4" type="video/mp4">)
-
-[//]: # (</video></p>)
-
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
 
 * Read this in other languages: [English](README.en.md), [日本語](README.md)*
 
@@ -21,90 +14,136 @@ Voxelamming Studio is a new version that supports Apple Vision Pro. Operation is
 
 Voxelamming = Voxel + Programming
 
-Voxelamming is a programming learning app with AR. It can be used for free on AR-compatible iPhones and iPads (iOS 16 and above). You can have fun placing voxels (the smallest units in 3D space, similar to pixels) in a virtual space that you have programmed on your computer.
+Voxelamming is an app that allows you to learn programming using AR technology. You can place voxels (the smallest unit cube in 3D space) with code and create interactive 3D works.
+
+**Target users:**
+
+* Programming beginners: You can learn the basics of programming while getting visual feedback.
+* Generative artists: You can create creative 3D artworks using code.
+
+## Features
+
+* **Intuitive operation with AR:** Placing voxels in the real world enhances spatial awareness while learning programming.
+* **Various programming languages:** Supports Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
+* **Cross-platform:** Works on Windows, Mac, and iOS (iPhone, iPad, Apple Vision Pro).
+* **Free:** It is free to download and use.
 
 ## How to Use
 
-### Preparing Your Computer
+To use Voxelamming, you need to follow these three steps:
 
-Both Windows and Mac are supported. If the programming language (Python, Node.js, Ruby, Swift, Scratch3 MOD) is not installed on your computer, please install the language you want to use. Data communication between the computer and the device (iPhone, iPad, Apple Vision Pro) uses an Internet connection (they do not need to be connected to the same network). Once this is done, your computer is ready.
+1. **Prepare your device:** You need an iPhone or iPad with iOS 16 or later, or an Apple Vision Pro.
+2. **Set the plane anchor:** Launch the app and follow the on-screen instructions to place an anchor on a real-world plane.
+3. **Voxel modeling:** Use your computer to create code that specifies the position, color, size, etc. of the voxels and send it to the app.
 
-### Placing a Plane Anchor
+### 1. Prepare your device
 
-#### iPhone, iPad
+Download and install the Voxelamming app from the App Store.
 
-Launch the voxelamming app. The first time you launch the app, it will ask for permission to use the camera, please grant it by selecting "Yes". Once the camera is launched, ARKit will automatically search for a real-world plane. When the plane detection marker (red-green-blue coordinate axes) appears, tap the screen to place a plane anchor. The plane anchor is made up of black and white tiles. With this, you are ready to place voxels.
+* iPhone/iPad version: [App Store](https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_link&itscg=30200)
+* Apple Vision Pro version: [App Store](https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%AA/id6475821648)
 
-#### Apple Vision Pro
+### 2. Set the plane anchor
 
-Launch the voxelamming vision application. Tap the "Set Base Anchor" button to place the base anchor. The base anchor consists of white and black tiles. Now you are ready to place voxels. Note that the base anchor can be moved by dragging.
+#### For iPhone/iPad:
 
-### Modeling (Programming) Voxels
+1. Launch the Voxelamming app.
+2. Upon the first launch, you will be asked for permission to use the camera. Tap "Yes" to allow it.
+3. When the camera starts up, AR automatically searches for a real-world plane. When the plane detection mark (red, green, and blue coordinate axes) appears, tap the screen to place the plane anchor. The plane anchor is composed of white and black tiles.
 
-On your computer (Windows, Mac), program the "voxel data" for modeling the voxels. The voxel data includes information such as "location, color, size, and placement interval". The supported languages are Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
+#### For Apple Vision Pro:
 
-Let's create a script. Please refer to the scripts in the sample folder. Don't forget to match the variable room_name (roomName) to the string displayed in the center of the device (iPhone, iPad, Apple Vision Pro) screen in order to connect to the WebSocket server's room.
+1. Launch the Voxelamming Studio app.
+2. Tap the "Set Base Anchor" button to set the base anchor. The base anchor is composed of white and black tiles.
+3. You can drag the base anchor to move it.
 
-Then, use the loop and conditional expressions of each language to create voxel data. The position of the voxel is specified by the x, y, and z axis values, with the plane anchor as the reference. The x-axis represents left and right, the y-axis represents up and down, and the z-axis represents depth (the front is positive) (the unit is centimeters). The size of the voxel is specified as a decimal based on 1.0 cm. The color is specified as a decimal from 0 to 1 in RGB values. Then, specify the interval at which voxels are placed in seconds. By specifying the interval at which voxels are placed, the voxels will be placed over time instead of all at once.
+### 3. Voxel modeling (programming)
 
-### Build AR Voxels
+Create code to place voxels using your computer (Windows or Mac).
 
-When you run the script, the voxel data is sent to the device (iPhone, iPad, Apple Vision Pro) via WebSocket communication. Once the data is received, AR voxels are placed based on the plane anchor on the device screen.
+1. **Choose a programming language:** You can choose from Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
+2. **Check the room name of the WebSocket server:** Launch the Voxelamming app on your device and check the room name displayed in the center of the screen.
+3. **Refer to the sample code:** Create your own code by referring to the sample code in the [sample folder](https://github.com/creativival/voxelamming/tree/main/sample).
 
-If the WebSocket server is on break, data transmission may fail. In that case, please wait for a while and try again.
+#### Voxel data
 
-## Explanation of Methods
+Voxel data is data that specifies the position, color, size, etc. of voxels.
 
-I will explain the methods to use in the script. The method names for each language are as follows.
+* **Position:** Specified by the values of the x, y, and z axes based on the plane anchor (unit is centimeters).
+    * x-axis: left and right
+    * y-axis: up and down
+    * z-axis: depth (front is positive)
+* **Size:** Specified as a decimal based on 1.0cm.
+* **Color:** Specified by RGB values, as decimals between 0 and 1.
+* **Placement interval:** Specifies the interval at which voxels are placed in seconds. Voxels are placed at 0.01 second intervals by default.
 
-* set_box_size(size): Sets the size of the voxel. The unit is centimeters. The default is 1.0.
-* set_room_name(room_name): Specifies the room name for communication with the device (iPhone, iPad, Apple Vision Pro). The room name is displayed in the center of the screen when the application is run. By specifying the same room name, communication between the device and the computer can be established.
-* set_box_size(size): Sets the size of the voxel. The unit is in centimeters. The default is 1.0.
-* set_build_interval(interval): Sets the interval for placing voxels. It can express the animation of placing voxels one by one. The unit is in seconds. The default is 0.01.
-* change_shape: Changes the shape of the voxel. You can choose from a cube (box), sphere (square), or plane (plane).
-* change_material(is_metallic, roughness): This function changes the material of the voxel. Setting is_metallic to "on" will make it metallic in appearance. roughness represents the roughness and should be specified as a decimal value between 0 and 1.
-* create_box(x, y, z, r, g, b, alpha): Places a voxel. Specifies the position on the x-axis, y-axis, z-axis, and color. Colors are specified as RGBA values from 0 to 1 in decimal. Alpha represents transparency, specified as a decimal from 0 to 1.
-* create_box(x, y, z, texture)： Place a textured voxel, specifying the x-, y-, and z-axis positions and the texture: choose from grass, stone, dirt, planks, or bricks.
-* remove_box(x, y, z): Removes a voxel. Specifies the position on the x-axis, y-axis, z-axis. (If there is no voxel at the specified position, it does nothing)
-* write_sentence(sentence, x, y, z, r, g, b, alpha): Writes a sentence in voxels. Specifies the position on the x-axis, y-axis, z-axis, and color in RGBA values.
-* set_light(x, y, z, r, g, b, alpha, intensity, interval): Places a light. Specifies the position (x, y, z) and color (r, g, b, alpha) of the light. The default intensity is 1000. To make it blink, specify the interval in seconds (if it is 0, it does not blink).
-* set_command(command): Sets a command.The following commands are implemented: "axis" (to display coordinates), "japaneseCastle" (to build a Japanese castle), "float" (to place voxels at the decimal point), and "liteRender" (to simplify drawing and lighten processing).
-* draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha): Draws a line between two points. x1, y1, z1 are the starting points, x2, y2, z2 are the endpoints. The color is specified as RGBA values from 0 to 1 in decimal.
-* send_data(): Sends voxel data to the device (iPhone, iPad, Apple Vision Pro). Execute when placing AR voxels.
-* clear_data(): Initializes voxel data. It also initializes the size and interval (execute this when you want to initialize the voxel data after sending).
-* translate(x, y, z, pitch, yaw, roll): Specifies the position (x, y, z) and angle (pitch, yaw, roll) of the node that groups voxels.
-* animate(x, y, z, pitch, yaw, roll, scale, interval): Node animation. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
-* animate_global(x, y, z, pitch, yaw, roll, scale, interval): All voxels animation based on the base anchor. Specifies movement (x, y, z), rotation (pitch, yaw, roll), magnification (scale), and placement interval (interval). (Due to RealityKit limitations, rotational angle must be less than 180 degrees)
-* push_matrix(): Saves the current matrix. Stores the current node position and angle on the stack.
-* pop_matrix(): Restores the matrix saved by push_matrix(). Restores the position and angle of a node saved in the stack.
-* frame_in(): Starts taking frame. Run this before placing voxels. Frames can be played back as an animation.
-* frame_out(): Finish shooting the frame. Execute after placing voxels.
-* set_frame_fps(fps): sets the frame rate. Default is 2.
-* set_frame_repeats(repeats): Sets the number of times a frame is replayed. Default is 10.
+**Example: Place a red voxel at the position (x: 10, y: 5, z: -2) with double size.**
 
-Please read snake_case as camelCase. (set_box_size -> setBoxSize)
+```python
+# Python
+build_box.set_box_size(2.0)  # Set size to double
+build_box.create_box(10, 5, -2, 1, 0, 0)  # Place a red voxel
+build_box.send_data() # Send data
+```
 
-## Script Examples
+#### Method description
 
-You can try examples of scripts in [the sample folder](https://github.com/creativival/voxelamming/tree/main/sample). When you run the following script, a voxel like the image will be placed.
+| Method name | Description | Arguments |
+|---|---|---|
+| `set_room_name(room_name)` | Sets the room name for communicating with the device. | `room_name`: Room name (string) |
+| `set_box_size(size)` | Sets the size of the voxel (default: 1.0). | `size`: Size (float) |
+| `set_build_interval(interval)` | Sets the placement interval of the voxels (default: 0.01 seconds). | `interval`: Interval (float) |
+| `change_shape(shape)` | Changes the shape of the voxel. | `shape`: Shape ("box", "square", "plane") |
+| `change_material(is_metallic, roughness)` | Changes the material of the voxel. | `is_metallic`: Whether to make it metallic (boolean), `roughness`: Roughness (float) |
+| `create_box(x, y, z, r, g, b, alpha)` | Places a voxel. | `x`, `y`, `z`: Position (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1) |
+| `create_box(x, y, z, texture)` | Places a voxel with texture. | `x`, `y`, `z`: Position (float), `texture`: Texture name (string) |
+| `remove_box(x, y, z)` | Removes a voxel. | `x`, `y`, `z`: Position (float) |
+| `write_sentence(sentence, x, y, z, r, g, b, alpha)` | Draws a string with voxels. | `sentence`: String (string), `x`, `y`, `z`: Position (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1) |
+| `set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)` | Places a light. | `x`, `y`, `z`: Position (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1), `intensity`: Intensity (float), `interval`: Blinking interval (float), `light_type`: Type of light ("point", "spot", "directional") |
+| `set_command(command)` | Executes a command. | `command`: Command ("axis", "japaneseCastle", "float", "liteRender") |
+| `draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)` | Draws a line between two points. | `x1`, `y1`, `z1`: Starting point (float), `x2`, `y2`, `z2`: Ending point (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1) |
+| `send_data()` | Sends voxel data to the device. | |
+| `clear_data()` | Initializes voxel data. | |
+| `translate(x, y, z, pitch, yaw, roll)` | Moves and rotates the coordinate system of the voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float) |
+| `animate(x, y, z, pitch, yaw, roll, scale, interval)` | Animates a voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float), `scale`: Scale (float), `interval`: Interval (float) |
+| `animate_global(x, y, z, pitch, yaw, roll, scale, interval)` | Animates all voxels. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float), `scale`: Scale (float), `interval`: Interval (float) |
+| `push_matrix()` | Saves the current coordinate system to the stack. | |
+| `pop_matrix()` | Restores the coordinate system from the stack. | |
+| `frame_in()` | Starts recording a frame. | |
+| `frame_out()` | Ends recording a frame. | |
+| `set_frame_fps(fps)` | Sets the frame rate (default: 2). | `fps`: Frame rate (int) |
+| `set_frame_repeats(repeats)` | Sets the number of frame repetitions (default: 10). | `repeats`: Number of repetitions (int) |
+
+**Notes:**
+
+* The method names above are examples in Python. Method names may differ in other languages.
+* Please refer to the sample code for each language for more details.
+
+### 4. Run and check
+
+When you run the code you created, the voxel data is sent to the device and the voxels are built in AR space.
+
+## Sample Script
+
+We have prepared sample scripts in the [sample folder](https://github.com/creativival/voxelamming/tree/main/sample). If you run the following script, voxels like the top image will be placed.
 
 ### Scratch3 MOD
 
-Load the voxelamming extension and create a script.
+Please load the Voxelamming extension and create a script.
 
-[Play the sample project in Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3)
+[Play the sample project with Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3)
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3_en.png" alt="voxelamming_scratch3_en" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3_en.png" alt="voxelamming_scratch3" width="100%"/></p>
 
 ### Scratch3 MOD (Turtle Programming)
 
-You can use Turtle Programming to set up voxels on Scratch3 MOD. It is recommended for beginners in programming, especially children, as it allows them to intuitively set up voxels.
+You can use Scratch3 MOD's turtle programming to place voxels. Since you can intuitively place voxels, it is recommended for programming beginners, especially children.
 
-[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/example.sb3)
+[Play the sample project with Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/example.sb3)
 
-<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_turtle_scratch3_en.png" alt="voxelamming_turtle_scratch3_en" width="100%"/></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_turtle_scratch3_en.png" alt="voxelamming_turtle_scratch3" width="100%"/></p>
 
-### Python (3.6+)
+### Python (3.6 or higher)
 
 #### Script
 
@@ -133,7 +172,7 @@ for i in range(50):
 build_box.send_data()
 ```
 
-#### Run script
+#### How to run
 
 ```bash
 $ sample/python
@@ -173,7 +212,7 @@ for (let i = 0; i < 50; i++) {
 buildBox.sendData();
 ```
 
-#### Run script
+#### How to run
 
 ```bash
 $ sample/javascipt
@@ -209,7 +248,7 @@ end
 build_box.send_data
 ```
 
-#### Run script
+#### How to run
 
 ```bash
 $ sample/ruby
@@ -254,9 +293,10 @@ if #available(iOS 15.0, macOS 12.0, *) {
 } else {
     fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }
+
 ```
 
-#### Run script
+#### How to run
 
 ```bash
 $ cd sample/swift/main
@@ -264,101 +304,871 @@ $ swift run
 ```
 ## Showcase
 
-### Square
+Here are some examples of works that can be created with Voxelamming.
 
+### Sphere
+
+```python
+# Python
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+radius = 11
+
+build_box.set_box_size(2)
+build_box.set_build_interval(0.01)
+build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+
+for i in range(-radius, radius + 1):
+  for j in range(-radius, radius + 1):
+    for k in range(-radius, radius + 1):
+      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
+        print(i, j, k)
+        build_box.create_box(i, j, k, 0, 1, 1)
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
-### Node placement
+### Node Placement
+
+```python
+# Python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for i in range(5):
+  build_box.translate(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.send_data()
+  time.sleep(1)
+```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
 
-### Node rotation
+### Node Rotation
 
+```python
+# Python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+rotations = [
+  [0, 0, 0],
+  [30, 0, 0],
+  [0, 30, 0],
+  [0, 0, 30],
+]
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+for rotation in rotations:
+  pitch, yaw, roll = rotation
+
+  build_box.translate(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+  build_box.send_data()
+  time.sleep(1)
+
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
 
+### Node Animation
 
-### Node animation
+```python
+# Python
+import time
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
 
+### Global Animation
 
-### Global animation
+```python
+# Python
+from time import sleep
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.3)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+node_positions = [
+  [0, 0, 0],
+  [-10, 0, 0],
+  [10, 0, 0],
+  [0, -20, 0],
+  [0, 20, 0],
+  [0, 0, -10],
+  [0, 0, 10]
+
+]
+
+for x, y, z in node_positions:
+  build_box.translate(x, y, z, pitch=0, yaw=0, roll=0)
+  build_box.send_data()
+  sleep(1)
+
+build_box.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
 
-### Write sentence
+### Text Display
 
+```python
+# Python
+import time
+from build_box import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+build_box.translate(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0, alpha=1)
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1)
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
 
 ### Map
 
-The liteRender command is used to lighten the drawing.
+```python
+# Python
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+radius = 11
+
+build_box.set_box_size(2)
+build_box.set_build_interval(0.01)
+build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+
+for i in range(-radius, radius + 1):
+  for j in range(-radius, radius + 1):
+    for k in range(-radius, radius + 1):
+      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
+        print(i, j, k)
+        build_box.create_box(i, j, k, 0, 1, 1)
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 
-### Model created by MagicaVoxel
 
+### Displaying Models Created with MagicaVoxel
+
+You can export your MagicaVoxel voxel art in PLY format and import it into Voxelamming.
+
+```python
+# Python
+from build_box import BuildBox
+from ply_util import get_boxes_from_ply
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+
+ply_file_name = 'piyo.ply'
+
+boxes = get_boxes_from_ply(ply_file_name)
+
+for box in boxes:
+    build_box.create_box(*box)
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
 
-### Transparency
+### Transparent Voxel
+```python
+# Python
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.3)
+build_box.set_build_interval(0.01)
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 0)
+
+for i in range(100):
+  alpha = (100 - i) / 100
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
+
+for i in range(50):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
 
-### Draw line
+### Drawing a line
+```python
+# Python
+import time
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+# build_box.set_command('float')
+
+build_box.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
+build_box.send_data()
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
 
-### Change shape (box, sphere, plane)
+### Changing the shape (cube, sphere, plane)
+```python
+# Python
+import time
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(0.5)
+build_box.set_build_interval(0.01)
+
+for i in range(10):
+  build_box.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+  build_box.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+  build_box.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+  build_box.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+
+for i in range(5):
+  build_box.remove_box(0, i * 2 + 1, 0)
+  build_box.remove_box(1, i * 2, 0)
+
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.translate(10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.change_shape('sphere')
+build_box.send_data()
+
+time.sleep(1)
+
+build_box.translate(20, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.change_shape('plane')
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
 
-### Change material
+### Changing the material (texture)
+```python
+# Python
+from time import sleep
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+
+colors = [
+  [0, 0, 0],
+  [1, 0, 0],
+  [0, 1, 0],
+  [0, 0, 1],
+  [1, 1, 0],
+  [1, 0, 1],
+  [0, 1, 1],
+  [1, 1, 1],
+  [0.5, 0.5, 0.5],
+  [0.5, 0, 0],
+  [0, 0.5, 0],
+  [0, 0, 0.5],
+  [0.5, 0.5, 0],
+  [0.5, 0, 0.5],
+]
+
+for i, color in enumerate(colors):
+  build_box.create_box(0, i, 0, *color, alpha=1)
+
+for i in range(5):
+  build_box.change_material(is_metallic=False, roughness=0.25 * i)
+  build_box.translate(i, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.send_data()
+  sleep(1)
+
+
+for i in range(5):
+  build_box.change_material(is_metallic=True, roughness=0.25 * i)
+  build_box.translate(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.send_data()
+  sleep(1)
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
-### Lighting (Only iOS)
+### Light (iOS only)
+```python
+# Python
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_command('axis')
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+
+colors = [
+  [0, 0, 0],
+  [1, 0, 0],
+  [0, 1, 0],
+  [0, 0, 1],
+  [1, 1, 0],
+  [1, 0, 1],
+  [0, 1, 1],
+  [1, 1, 1],
+  [0.5, 0.5, 0.5],
+  [0.5, 0, 0],
+  [0, 0.5, 0],
+  [0, 0, 0.5],
+  [0.5, 0.5, 0],
+  [0.5, 0, 0.5],
+]
+
+for i, color in enumerate(colors):
+  build_box.create_box(0, i, 0, *color, alpha=1)
+
+build_box.set_light(1, 1, 0, r=1, g=0, b=0, alpha=1, intensity=20000, interval=2, light_type='directional')
+build_box.set_light(0, 1, 1, r=0, g=1, b=0, alpha=1, intensity=20000, interval=3, light_type='spot')
+build_box.set_light(-1, 1, 0, r=0, g=0, b=1, alpha=1, intensity=20000, interval=5, light_type='point')
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
 ### Command
+```python
+# Python
+from build_box import BuildBox
 
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_command('japaneseCastle')
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
 
 ### Reset Command
 
-The model can be animated by alternately creating and resetting the model.
+By alternately repeating the creation and reset of the model, you can create an animation of the model.
 
+```python
+# Python
+from time import sleep
+from build_box import BuildBox
+from ply_util import get_boxes_from_ply
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+
+animation_settings = [
+    {
+        'model': 'frog1.ply',
+        'position': [0, 0, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog2.ply',
+        'position': [0, 0, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog3.ply',
+        'position': [0, 0, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog4.ply',
+        'position': [0, 5, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog5.ply',
+        'position': [0, 10, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog4.ply',
+        'position': [0, 5, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog3.ply',
+        'position': [0, 0, 0, 0, 0, 0],
+    },
+    {
+        'model': 'frog2.ply',
+        'position': [0, 0, 0, 0, 0, 0],
+    },
+]
+
+for _ in range(3):
+    for i in range(len(animation_settings)):
+        model = animation_settings[i]['model']
+        position = animation_settings[i]['position']
+
+        for box in get_boxes_from_ply(model):
+            build_box.create_box(*box)
+
+        build_box.set_box_size(0.5)
+        build_box.set_build_interval(0)
+        build_box.translate(*position)
+        build_box.send_data()
+        sleep(0.5)
+
+        build_box.clear_data()
+        build_box.set_command('reset')
+        build_box.send_data()
+        build_box.clear_data()
+        sleep(0.5)
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
 
 ### Float Command
+```python
+# Python
+from time import sleep
+from math import sin, cos, radians, pi, sqrt
+from build_box import BuildBox
 
+room_name = "1000"
+size = 1
+radius = 1.5
+repeat_count = 100
+
+build_box = BuildBox(room_name)
+build_box.set_build_interval(0.01)
+build_box.set_box_size(size)
+build_box.change_shape("sphere")
+build_box.set_command('float')
+
+for i in range(repeat_count):
+  angle = radians(i * 720 / repeat_count)
+  x = radius * cos(angle)
+  y = i
+  z = radius * sin(angle)
+
+  build_box.create_box(x, y, z, r=0, g=1, b=1, alpha=1)
+  build_box.create_box(-x, y, -z, r=0, g=1, b=1, alpha=1)
+  if i % 2 == 0:
+    build_box.create_box(x / 3, y, z / 3, r=1, g=0, b=0, alpha=1)
+  else:
+    build_box.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
+
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
 
-### Push / Pop Matrix
+### Saving and Restoring the Coordinate System
+```python
+# Python
+from time import sleep
 
+from build_box import BuildBox
+
+
+def draw_three_branches(count, branch_length):
+    count -= 1
+    if count < 0:
+        return
+
+    # draw branches
+    shorted_branch_length = branch_length * length_ratio
+    print('push_matrix')
+    build_box.push_matrix()
+
+    # first branch
+    build_box.translate(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
+    build_box.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
+    draw_three_branches(count, shorted_branch_length)
+
+    # second branch
+    build_box.translate(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
+    build_box.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
+    draw_three_branches(count, shorted_branch_length)
+
+    # third branch
+    build_box.translate(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
+    build_box.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
+    draw_three_branches(count, shorted_branch_length)
+
+    print('pop_matrix')
+    build_box.pop_matrix()
+
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+initial_length = 10
+repeat_count = 5
+angle_to_open = 30
+length_ratio = 0.8
+
+build_box.change_shape('sphere')
+build_box.set_command('float')
+build_box.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
+
+draw_three_branches(repeat_count, initial_length)
+build_box.send_data()
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
 
 ### Texture
+```python
+# Python
+from time import sleep
+from build_box import BuildBox
 
+texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+
+for i, texture in enumerate(texture_names):
+    build_box.create_box(0, len(texture_names) - i - 1, 0, texture=texture)
+
+build_box.send_data()
+build_box.clear_data()
+sleep(1)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+build_box.change_shape('sphere')
+for i, texture in enumerate(texture_names):
+    build_box.create_box(1, len(texture_names) - i - 1, 0, texture=texture)
+
+build_box.send_data()
+build_box.clear_data()
+sleep(1)
+
+build_box.set_box_size(1)
+build_box.set_build_interval(0.01)
+build_box.change_shape('plane')
+for i, texture in enumerate(texture_names):
+    build_box.create_box(2, len(texture_names) - i - 1, 0, texture=texture)
+
+build_box.send_data()
+build_box.clear_data()
+
+```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
 ### Frame Animation
+```python
+# Python
+from math import sin, cos, radians
+from build_box import BuildBox
 
-A fluttering butterfly is created by frame animation.
+rainbow_colors = [
+    [255, 0, 0],     # 赤
+    [255, 165, 0],   # オレンジ
+    [255, 255, 0],   # 黄色
+    [0, 128, 0],     # 緑
+    [0, 255, 255],   # 水色
+    [0, 0, 255],     # 青
+    [128, 0, 128],    # 紫
+    [128, 0, 128]    # 紫
+]
+butterfly_list = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+     0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+     0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+     0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+     0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+     0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+     0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+     0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+     0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+     0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+     0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]
+
+# ルームネームを設定
+room_name = "1000"
+build_box = BuildBox(room_name)
+build_box.set_box_size(0.15)
+# build_box.set_build_interval(0.01)
+build_box.set_command('float')
+build_box.set_frame_fps(2)
+build_box.set_frame_repeats(10)
+
+for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
+    build_box.frame_in()
+    build_box.translate(0, 100, 0, 30, 0, 0)
+
+    for j, row in enumerate(butterfly_list):
+        color = rainbow_colors[j // 10]
+
+        for i, dot in enumerate(row):
+            if dot != 0:
+                x = i * cos(radians(angle))
+                y = -j
+                z = i * sin(radians(angle))
+                r = color[0] / 255
+                g = color[1] / 255
+                b = color[2] / 255
+                build_box.create_box(x, y, z, r, g, b)
+                build_box.create_box(-x, y, z, r, g, b)
+    build_box.frame_out()
+
+# データを送信
+build_box.send_data()
+```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
 
-### User Sharing
-
-TED
-
 ## Settings
 
-You can navigate to the settings screen from the 'Settings' button in the top right corner of the screen. Turning off debug mode will disable the display of information on the screen.
+You can open the settings screen from the "Settings" button at the top right of the app. Turning off debug mode will disable information display on the screen.
 
-## Reset AR World
+## Resetting the AR World
 
-You can reset the AR world by pressing the 'Reset' button in the top right corner of the screen.
+You can reset the AR world from the "Reset" button at the bottom right of the app.  Resetting will delete all voxels.
+
+## User Sharing
+
+Coming soon
 
 ## License
 
@@ -370,10 +1180,10 @@ creativival
 
 ## Contact
 
-[Contact](https://creativival.github.io/voxelamming/contact.en.html)
+[Contact](https://creativival.github.io/voxelamming/contact.html)
 
 ## Privacy Policy
 
-[Privacy Policy](https://creativival.github.io/voxelamming/privacy.en.html)
+[Privacy Policy](https://creativival.github.io/voxelamming/privacy.html)
 
 
