@@ -310,6 +310,8 @@ $ swift run
 
 ### 球体
 
+ボクセルで球体を作成します。radius変数を変更することで、球体の大きさを調整できます。
+
 ```python
 # Python
 from build_box import BuildBox
@@ -335,6 +337,10 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
 ### ノードの配置
+
+ボクセラミングは、ノードを配置することで、3D空間に構造を作成することができます。
+
+ノードには、位置情報を指定することができます。
 
 ```python
 # Python
@@ -366,6 +372,8 @@ for i in range(5):
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
 
 ### ノードの回転
+
+ボクセラミングは、ノードを回転させることができます。pitch、yaw、rollの値を変更することで、X軸、Y軸、Z軸を中心に回転します。
 
 ```python
 # Python
@@ -407,6 +415,8 @@ for rotation in rotations:
 
 ### ノードのアニメーション
 
+ノードのアニメーションは、位置やサイズ、回転を実行できます。アニメーションの間隔（interval）を変更することで、アニメーションの速度を調整できます。
+
 ```python
 # Python
 import time
@@ -438,6 +448,8 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
 
 ### グローバルアニメーション
+
+グローバルアニメーションは、全てのノードをアニメーションさせます。位置、回転、スケール、アニメーションの間隔（interval）を指定することができます。
 
 ```python
 # Python
@@ -483,6 +495,8 @@ build_box.send_data()
 
 ### 文字表示
 
+ボクセルで文字を表示します。文字列、位置、色、透明度を指定することができます。フォントは、日本語、英語、数字に対応しています。
+
 ```python
 # Python
 import time
@@ -508,34 +522,52 @@ build_box.send_data()
 
 ### 地図
 
+ボクセルで地図を作成します。地図データは、地理院地図の標高データを使用しています。地図データは、CSVファイルから読み込んで、ボクセルに変換します。
+
 ```python
-# Python
 from build_box import BuildBox
+from map_util import get_map_data_from_csv, get_box_color
 
 room_name = "1000"
 build_box = BuildBox(room_name)
 
-radius = 11
+build_box.set_box_size(1)
+build_box.set_build_interval(0.001)
+build_box.set_command('liteRender')
 
-build_box.set_box_size(2)
-build_box.set_build_interval(0.01)
-build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+column_num, row_num = 257, 257
+csv_file = 'map_38_138_100km.csv'
+height_scale = 100
+high_color = (0.5, 0, 0)
+low_color = (0, 1, 0)
+map_data = get_map_data_from_csv(csv_file, height_scale)
+boxes = map_data['boxes']
+max_height = map_data['maxHeight']
+# skip = 1  # high power device
+skip = 2  # normal
+# skip = 4  # low power device
 
-for i in range(-radius, radius + 1):
-  for j in range(-radius, radius + 1):
-    for k in range(-radius, radius + 1):
-      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
-        print(i, j, k)
-        build_box.create_box(i, j, k, 0, 1, 1)
+
+for j in range(row_num // skip):
+  for i in range(column_num // skip):
+    print(i, j)
+    x = i - column_num // (skip * 2)
+    z = j - row_num // (skip * 2)
+    y = boxes[j * skip][i * skip]
+    r, g, b = get_box_color(y, max_height, high_color, low_color)
+
+    if y > 0:
+        build_box.create_box(x, y, z, r, g, b, 1)
 
 build_box.send_data()
+
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 
 
 ### MagicaVoxelで作成したモデルの表示
 
-MagicaVoxelで作成したボクセルアートをPLY形式で出力して、読み込みます。
+MagicaVoxelで作成したボクセルアートをインポートできます。PLY形式でMagicaVoxelのボクセルアートをエクスポートし、ボクセラミングにインポートします。
 
 ```python
 # Python
@@ -560,6 +592,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
 
 ### 透明ボクセル
+
+ボクセルの透明度を設定することができます。透明度は、0から1までの値で指定します。
+
 ```python
 # Python
 from build_box import BuildBox
@@ -588,6 +623,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
 
 ### 線を引く
+
+2つの点を指定することで、線分を引きます。線の色を指定できます。floatコマンドを使用することで、滑らかな線を引くことができます。
+
 ```python
 # Python
 import time
@@ -608,6 +646,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
 
 ### 形状を変更（立方体、球体、平面）
+
+ボクセルの形状を変更することができます。形状は、立方体、球体、平面に対応しています。
+
 ```python
 # Python
 import time
@@ -646,6 +687,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
 
 ### マテリアル（材質）を変更
+
+マテリアルは、金属のような光沢感や、粗さを設定することができます。金属感（is_metallic）をtrueにすると、鏡のように環境を反射します。粗さ（roughness）は、表面の粗さを0から１で設定します。
+
 ```python
 # Python
 from time import sleep
@@ -693,6 +737,9 @@ for i in range(5):
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
 ### ライト (iOSのみ)
+
+光源（ライト）を配置できます。ライトの位置、色、強度、光の種類（directional, spot, point）を設定できます。
+
 ```python
 # Python
 from build_box import BuildBox
@@ -733,6 +780,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
 ### コマンド
+
+コマンドは、特定のアクションを実行するための指示です。コマンドを使用することで、特定のアクションを実行できます。japaneseCastleコマンドは、日本の城を建築できます。
+
 ```python
 # Python
 from build_box import BuildBox
@@ -748,7 +798,7 @@ build_box.send_data()
 
 ### リセットコマンド
 
-モデルの作成とリセットを交互に繰り返すことで、モデルのアニメーションを作成できます。
+リセットコマンドは、ボクセルをすべて削除します。モデルの作成とリセットを交互に繰り返すことで、モデルのアニメーションを作成できます。
 
 ```python
 # Python
@@ -818,6 +868,9 @@ for _ in range(3):
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
 
 ### フロートコマンド
+
+フロートコマンドは、、ボクセルの配置位置を0.01単位で精密に配置できるようになります（通常は1単位）。
+
 ```python
 # Python
 from time import sleep
@@ -853,6 +906,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
 
 ### 座標系の保存と復元
+
+座標系（マトリックス）を保存し、復元することができます。push_matrixコマンドで座標系を保存し、pop_matrixコマンドで座標系を復元します。この例は、マトリックスを使って、再起的にフラクタルツリーを作成しています。
+
 ```python
 # Python
 from time import sleep
@@ -906,6 +962,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
 
 ### テクスチャー
+
+ボクセルのテクスチャーを設定できます、テクスチャーは、画像を指定することで、ボクセルに貼り付けることができます。"grass", "stone", "dirt", "planks", "bricks"のテクスチャーが用意されています。
+
 ```python
 # Python
 from time import sleep
@@ -948,6 +1007,8 @@ build_box.clear_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
 ### フレームアニメーション
+
+複数のフレームを記録して、アニメーションを実行できます。アニメーションのFPSと繰り返し回数を指定できます。
 
 ```python
 # Python

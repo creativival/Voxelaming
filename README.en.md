@@ -308,6 +308,8 @@ Here are some examples of works that can be created with Voxelamming.
 
 ### Sphere
 
+create a sphere in voxels; the size of the sphere can be adjusted by changing the radius variable.
+
 ```python
 # Python
 from build_box import BuildBox
@@ -333,6 +335,10 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
 ### Node Placement
+
+Voxelamming allows structures to be created in 3D space by placing nodes.
+
+Location information can be specified for the nodes.
 
 ```python
 # Python
@@ -364,6 +370,8 @@ for i in range(5):
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
 
 ### Node Rotation
+
+Voxelamming allows nodes to be rotated around the x-, y- and z-axes by changing the values of pitch, yaw and roll.
 
 ```python
 # Python
@@ -405,6 +413,8 @@ for rotation in rotations:
 
 ### Node Animation
 
+Node animations can be positioned, sized and rotated. The speed of the animation can be adjusted by changing the animation interval (interval).
+
 ```python
 # Python
 import time
@@ -436,6 +446,8 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
 
 ### Global Animation
+
+Global animation animates all nodes. You can specify position, rotation, scale and animation interval (interval).
 
 ```python
 # Python
@@ -481,6 +493,8 @@ build_box.send_data()
 
 ### Text Display
 
+Displays text in voxels. The text, position, colour and transparency can be specified. Fonts are available in Japanese, English and numbers.
+
 ```python
 # Python
 import time
@@ -506,34 +520,53 @@ build_box.send_data()
 
 ### Map
 
+The map is created in voxel. The map data uses elevation data from Geographical Survey Institute maps. The map data is read from a CSV file and converted to voxels.
+
 ```python
 # Python
 from build_box import BuildBox
+from map_util import get_map_data_from_csv, get_box_color
 
 room_name = "1000"
 build_box = BuildBox(room_name)
 
-radius = 11
+build_box.set_box_size(1)
+build_box.set_build_interval(0.001)
+build_box.set_command('liteRender')
 
-build_box.set_box_size(2)
-build_box.set_build_interval(0.01)
-build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+column_num, row_num = 257, 257
+csv_file = 'map_38_138_100km.csv'
+height_scale = 100
+high_color = (0.5, 0, 0)
+low_color = (0, 1, 0)
+map_data = get_map_data_from_csv(csv_file, height_scale)
+boxes = map_data['boxes']
+max_height = map_data['maxHeight']
+# skip = 1  # high power device
+skip = 2  # normal
+# skip = 4  # low power device
 
-for i in range(-radius, radius + 1):
-  for j in range(-radius, radius + 1):
-    for k in range(-radius, radius + 1):
-      if (radius -1 ) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
-        print(i, j, k)
-        build_box.create_box(i, j, k, 0, 1, 1)
+
+for j in range(row_num // skip):
+  for i in range(column_num // skip):
+    print(i, j)
+    x = i - column_num // (skip * 2)
+    z = j - row_num // (skip * 2)
+    y = boxes[j * skip][i * skip]
+    r, g, b = get_box_color(y, max_height, high_color, low_color)
+
+    if y > 0:
+        build_box.create_box(x, y, z, r, g, b, 1)
 
 build_box.send_data()
+
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 
 
 ### Displaying Models Created with MagicaVoxel
 
-You can export your MagicaVoxel voxel art in PLY format and import it into Voxelamming.
+Import voxel art created in MagicaVoxel Export MagicaVoxel voxel art in PLY format and import it into Voxelamming.
 
 ```python
 # Python
@@ -558,6 +591,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
 
 ### Transparent Voxel
+
+The transparency of the voxel can be set. The transparency is specified by a value between 0 and 1.
+
 ```python
 # Python
 from build_box import BuildBox
@@ -586,6 +622,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
 
 ### Drawing a line
+
+Draw a line segment by specifying two points. You can specify the colour of the line; use the float command to draw a smooth line.
+
 ```python
 # Python
 import time
@@ -606,6 +645,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
 
 ### Changing the shape (cube, sphere, plane)
+
+The shape of the voxel can be changed. Shapes are available for cubes, spheres and planes.
+
 ```python
 # Python
 import time
@@ -644,6 +686,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
 
 ### Changing the material (texture)
+
+The material can be set to have a metallic sheen or a roughness. If metallicness (is_metallic) is set to true, the material reflects the environment like a mirror. Roughness sets the surface roughness from 0 to 1.
+
 ```python
 # Python
 from time import sleep
@@ -691,6 +736,9 @@ for i in range(5):
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
 
 ### Light (iOS only)
+
+Light sources (lights) can be placed. You can set the position, colour, intensity and type of light (directional, spot, point) of the light.
+
 ```python
 # Python
 from build_box import BuildBox
@@ -731,6 +779,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
 ### Command
+
+A command is an instruction to perform a specific action. Commands can be used to perform specific actions. japaneseCastle command allows you to build a castle in Japan.
+
 ```python
 # Python
 from build_box import BuildBox
@@ -746,7 +797,7 @@ build_box.send_data()
 
 ### Reset Command
 
-By alternately repeating the creation and reset of the model, you can create an animation of the model.
+The Reset command deletes all voxels. The model can be animated by alternately creating and resetting the model.
 
 ```python
 # Python
@@ -816,6 +867,9 @@ for _ in range(3):
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
 
 ### Float Command
+
+The Float command allows voxels to be positioned precisely in 0.01 units (normally 1 unit).
+
 ```python
 # Python
 from time import sleep
@@ -851,6 +905,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
 
 ### Saving and Restoring the Coordinate System
+
+Coordinate systems (matrices) can be saved and restored with the push_matrix command and the pop_matrix command. This example uses a matrix to recursively create a fractal tree.
+
 ```python
 # Python
 from time import sleep
@@ -904,6 +961,9 @@ build_box.send_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
 
 ### Texture
+
+Voxel textures can be set, textures can be pasted onto voxels by specifying an image." Textures for "grass", "stone", "dirt", "planks" and "bricks" are available.
+
 ```python
 # Python
 from time import sleep
@@ -946,6 +1006,9 @@ build_box.clear_data()
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
 ### Frame Animation
+
+Multiple frames can be recorded and animated. The FPS and number of repetitions of the animation can be specified.
+
 ```python
 # Python
 from math import sin, cos, radians
