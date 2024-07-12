@@ -5,7 +5,7 @@ import { getMapDataFromCSV, getBoxColor } from './mapUtil.mjs';
   const roomName = "1000";
   const buildBox = new BuildBox(roomName);
 
-  buildBox.setBoxSize(0.1);
+  buildBox.setBoxSize(0.5);
   buildBox.setBuildInterval(0.001);
   buildBox.setCommand('liteRender');
 
@@ -35,7 +35,7 @@ import { getMapDataFromCSV, getBoxColor } from './mapUtil.mjs';
     }
   }
 
-  await buildBox.sendData();
+  await buildBox.sendData("mainMapSample");
 })().catch(error => {
   console.error(error);
 });

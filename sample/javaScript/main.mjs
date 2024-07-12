@@ -19,7 +19,7 @@ import BuildBox from './buildBox.mjs';
     buildBox.removeBox(1, i * 2 + 1, 0);
   }
 
-  await buildBox.sendData();
+  await buildBox.sendData("main");
   console.log('send data done')
 })().catch(error => {
   console.error(error);

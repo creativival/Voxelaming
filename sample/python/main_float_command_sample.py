@@ -1,6 +1,6 @@
 from time import sleep
 from math import sin, cos, radians, pi, sqrt
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 size = 1
@@ -26,4 +26,4 @@ for i in range(repeat_count):
   else:
     build_box.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
 
-build_box.send_data()
+build_box.send_data("main_float_command_sample")

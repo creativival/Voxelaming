@@ -1,6 +1,6 @@
-from build_box import BuildBox
+from voxelamming import BuildBox
 
-room_name = "1475"
+room_name = "1000"
 build_box = BuildBox(room_name)
 
 radius = 11
@@ -16,4 +16,4 @@ for i in range(-radius, radius + 1):
         print(i, j, k)
         build_box.create_box(i, j, k, 0, 1, 1)
 
-build_box.send_data()
+build_box.send_data("main_square_sample")

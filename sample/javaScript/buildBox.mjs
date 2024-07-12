@@ -298,7 +298,7 @@ class BuildBox {
     this.roughness = roughness;
   }
 
-  async sendData() {
+  async sendData(name= '') {
     console.log('Sending data...');
     const ws = new WebSocket('wss://websocket.voxelamming.com');
     const date = new Date();
@@ -318,6 +318,7 @@ class BuildBox {
       isMetallic: this.isMetallic,
       roughness: this.roughness,
       isAllowedFloat: this.isAllowedFloat,
+      name: name,
       date: date.toISOString()
     };
 

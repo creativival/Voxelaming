@@ -1,5 +1,5 @@
 from math import pi
-from build_box import BuildBox
+from voxelamming import BuildBox
 from turtle import Turtle
 
 room_name = "1000"
@@ -38,4 +38,4 @@ for i, color in enumerate(colors):
     t.forward(3)
     t.left(6)
 
-build_box.send_data()
+build_box.send_data("turtle_spiral")

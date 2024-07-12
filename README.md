@@ -102,7 +102,7 @@ build_box.send_data() # データ送信
 | `set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)` | ライトを設置します。 | `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1), `intensity`: 強さ (float), `interval`: 点滅間隔 (float), `light_type`: ライトの種類 ("point", "spot", "directional") |
 | `set_command(command)` | コマンドを実行します。 | `command`: コマンド ("axis", "japaneseCastle", "float", "liteRender") |
 | `draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)` | 2点間に線を描画します。 | `x1`, `y1`, `z1`: 始点 (float), `x2`, `y2`, `z2`: 終点 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1) |
-| `send_data()` | ボクセルデータをデバイスに送信します。 | |
+| `send_data(name)` | ボクセルデータをデバイスに送信します。name引数を設定すると、ボクセルデータを履歴として保存して、再現することができます。 | |
 | `clear_data()` | ボクセルデータを初期化します。 | |
 | `translate(x, y, z, pitch, yaw, roll)` | ボクセルの座標系を移動・回転します。 | `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float) |
 | `animate(x, y, z, pitch, yaw, roll, scale, interval)` | ボクセルをアニメーションさせます。 | `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float), `scale`: スケール (float), `interval`: 間隔 (float) |
@@ -150,7 +150,7 @@ Scratch3 MODのタートルプログラミングを使って、ボクセルを�
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -176,6 +176,7 @@ build_box.send_data()
 #### 実行方法
 
 ```bash
+$ pip install voxelamming
 $ sample/python
 $ python main.py
 
@@ -216,7 +217,8 @@ buildBox.sendData();
 #### 実行方法
 
 ```bash
-$ sample/javascipt
+$ sample/javaScript
+$ npm install
 $ node main.mjs
 ```
 
@@ -253,6 +255,7 @@ build_box.send_data
 
 ```bash
 $ sample/ruby
+$ bundle install
 $ ruby main.rb
 ```
 
@@ -314,7 +317,7 @@ $ swift run
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -345,7 +348,7 @@ build_box.send_data()
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -378,7 +381,7 @@ for i in range(5):
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -420,7 +423,7 @@ for rotation in rotations:
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -454,7 +457,7 @@ build_box.send_data()
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -500,7 +503,7 @@ build_box.send_data()
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -525,7 +528,7 @@ build_box.send_data()
 ボクセルで地図を作成します。地図データは、地理院地図の標高データを使用しています。地図データは、CSVファイルから読み込んで、ボクセルに変換します。
 
 ```python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from map_util import get_map_data_from_csv, get_box_color
 
 room_name = "1000"
@@ -571,7 +574,7 @@ MagicaVoxelで作成したボクセルアートをインポートできます。
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = "1000"
@@ -597,7 +600,7 @@ build_box.send_data()
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -629,7 +632,7 @@ build_box.send_data()
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -652,7 +655,7 @@ build_box.send_data()
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -693,7 +696,7 @@ build_box.send_data()
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -742,7 +745,7 @@ for i in range(5):
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -785,7 +788,7 @@ build_box.send_data()
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -803,7 +806,7 @@ build_box.send_data()
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = "1000"
@@ -875,7 +878,7 @@ for _ in range(3):
 # Python
 from time import sleep
 from math import sin, cos, radians, pi, sqrt
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 size = 1
@@ -913,7 +916,7 @@ build_box.send_data()
 # Python
 from time import sleep
 
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 
 def draw_three_branches(count, branch_length):
@@ -968,7 +971,7 @@ build_box.send_data()
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 room_name = "1000"
@@ -1013,7 +1016,7 @@ build_box.clear_data()
 ```python
 # Python
 from math import sin, cos, radians
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 rainbow_colors = [
     [255, 0, 0],     # 赤

@@ -1,5 +1,5 @@
 from math import sin, cos, radians
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 rainbow_colors = [
     [255, 0, 0],     # 赤
@@ -203,4 +203,4 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
     build_box.frame_out()
 
 # データを送信
-build_box.send_data()
+build_box.send_data('main_frame_sample')

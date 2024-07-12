@@ -1,5 +1,5 @@
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -22,4 +22,4 @@ build_box.send_data()
 time.sleep(1)
 
 build_box.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
-build_box.send_data()
+build_box.send_data("main_animate_node_sample")

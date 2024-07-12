@@ -1,5 +1,5 @@
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)

@@ -2,7 +2,6 @@ import asyncio
 import datetime
 import re
 from math import floor
-
 import websockets
 
 from matrix_util import *
@@ -255,7 +254,7 @@ class BuildBox:
             self.is_metallic = 0
         self.roughness = roughness
 
-    def send_data(self):
+    def send_data(self, name=''):
         now = datetime.datetime.now()
         data_to_send = f"""
       {{
@@ -274,6 +273,7 @@ class BuildBox:
       "isMetallic": {self.is_metallic},
       "roughness": {self.roughness},
       "isAllowedFloat": {self.is_allowed_float},
+      "name": "{name}",
       "date": "{now}"
       }}
       """.replace("'", '"')

@@ -150,7 +150,7 @@ build_box.send_data() # データ送信
         <h3>Python (3.6以上)</h3>
         <h4>スクリプト</h4>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -173,7 +173,8 @@ for i in range(50):
 build_box.send_data()
 </code></pre>
         <h4>実行方法</h4>
-        <pre><code class="bash">$ sample/python
+        <pre><code class="bash">$ pip install voxelamming
+$ sample/python
 $ python main.py
 
 or
@@ -206,7 +207,8 @@ for (let i = 0; i &lt; 50; i++) {
 buildBox.sendData();
 </code></pre>
         <h4>実行方法</h4>
-        <pre><code class="bash">$ sample/javascipt
+        <pre><code class="bash">$ sample/javaScript
+$ npm install
 $ node main.mjs
 </code></pre>
         <h3>Ruby</h3>
@@ -236,6 +238,7 @@ build_box.send_data
 </code></pre>
         <h4>実行方法</h4>
         <pre><code class="bash">$ sample/ruby
+$ bundle install
 $ ruby main.rb
 </code></pre>
         <h3>Swift</h3>
@@ -284,7 +287,7 @@ $ swift run
         <h3>球体</h3>
         <p>ボクセルで球体を作成します。radius変数を変更することで、球体の大きさを調整できます。</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -310,7 +313,7 @@ build_box.send_data()
         <p>ノードには、位置情報を指定することができます。</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -338,7 +341,7 @@ for i in range(5):
         <p>ボクセラミングは、ノードを回転させることができます。pitch、yaw、rollの値を変更することで、X軸、Y軸、Z軸を中心に回転します。</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -376,7 +379,7 @@ for rotation in rotations:
         <p>ノードのアニメーションは、位置やサイズ、回転を実行できます。アニメーションの間隔（interval）を変更することで、アニメーションの速度を調整できます。</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -406,7 +409,7 @@ build_box.send_data()
         <p>グローバルアニメーションは、全てのノードをアニメーションさせます。位置、回転、スケール、アニメーションの間隔（interval）を指定することができます。</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -448,7 +451,7 @@ build_box.send_data()
         <p>ボクセルで文字を表示します。文字列、位置、色、透明度を指定することができます。フォントは、日本語、英語、数字に対応しています。</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -469,7 +472,7 @@ build_box.send_data()
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
         <h3>地図</h3>
         <p>ボクセルで地図を作成します。地図データは、地理院地図の標高データを使用しています。地図データは、CSVファイルから読み込んで、ボクセルに変換します。</p>
-        <pre><code class="python">from build_box import BuildBox
+        <pre><code class="python">from voxelamming import BuildBox
 from map_util import get_map_data_from_csv, get_box_color
 
 room_name = &quot;1000&quot;
@@ -510,7 +513,7 @@ build_box.send_data()
         <h3>MagicaVoxelで作成したモデルの表示</h3>
         <p>MagicaVoxelで作成したボクセルアートをインポートできます。PLY形式でMagicaVoxelのボクセルアートをエクスポートし、ボクセラミングにインポートします。</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = &quot;1000&quot;
@@ -532,7 +535,7 @@ build_box.send_data()
         <h3>透明ボクセル</h3>
         <p>ボクセルの透明度を設定することができます。透明度は、0から1までの値で指定します。</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -560,7 +563,7 @@ build_box.send_data()
         <p>2つの点を指定することで、線分を引きます。線の色を指定できます。floatコマンドを使用することで、滑らかな線を引くことができます。</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -579,7 +582,7 @@ build_box.send_data()
         <p>ボクセルの形状を変更することができます。形状は、立方体、球体、平面に対応しています。</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -616,7 +619,7 @@ build_box.send_data()
         <p>マテリアルは、金属のような光沢感や、粗さを設定することができます。金属感（is_metallic）をtrueにすると、鏡のように環境を反射します。粗さ（roughness）は、表面の粗さを0から１で設定します。</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -661,7 +664,7 @@ for i in range(5):
         <h3>ライト (iOSのみ)</h3>
         <p>光源（ライト）を配置できます。ライトの位置、色、強度、光の種類（directional, spot, point）を設定できます。</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -700,7 +703,7 @@ build_box.send_data()
         <h3>コマンド</h3>
         <p>コマンドは、特定のアクションを実行するための指示です。コマンドを使用することで、特定のアクションを実行できます。japaneseCastleコマンドは、日本の城を建築できます。</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -714,7 +717,7 @@ build_box.send_data()
         <p>リセットコマンドは、ボクセルをすべて削除します。モデルの作成とリセットを交互に繰り返すことで、モデルのアニメーションを作成できます。</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = &quot;1000&quot;
@@ -782,7 +785,7 @@ for _ in range(3):
         <pre><code class="python"># Python
 from time import sleep
 from math import sin, cos, radians, pi, sqrt
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 size = 1
@@ -816,7 +819,7 @@ build_box.send_data()
         <pre><code class="python"># Python
 from time import sleep
 
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 
 def draw_three_branches(count, branch_length):
@@ -867,7 +870,7 @@ build_box.send_data()
         <p>ボクセルのテクスチャーを設定できます、テクスチャーは、画像を指定することで、ボクセルに貼り付けることができます。&quot;grass&quot;, &quot;stone&quot;, &quot;dirt&quot;, &quot;planks&quot;, &quot;bricks&quot;のテクスチャーが用意されています。</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 texture_names = [&quot;grass&quot;, &quot;stone&quot;, &quot;dirt&quot;, &quot;planks&quot;, &quot;bricks&quot;]
 room_name = &quot;1000&quot;
@@ -908,7 +911,7 @@ build_box.clear_data()
         <p>複数のフレームを記録して、アニメーションを実行できます。アニメーションのFPSと繰り返し回数を指定できます。</p>
         <pre><code class="python"># Python
 from math import sin, cos, radians
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 rainbow_colors = [
     [255, 0, 0],     # 赤

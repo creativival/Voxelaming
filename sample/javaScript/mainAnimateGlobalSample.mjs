@@ -36,7 +36,7 @@ import BuildBox from './buildBox.mjs';
   }
   
   buildBox.animateGlobal(0, 0, 0, 0, 180, 0, 1, 100);
-  await buildBox.sendData();
+  await buildBox.sendData("mainAnimateGlobalSample");
 
 })().catch(error => {
   console.error(error);

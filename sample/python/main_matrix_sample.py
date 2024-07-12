@@ -1,6 +1,6 @@
 from time import sleep
 
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 
 def draw_three_branches(count, branch_length):
@@ -44,4 +44,4 @@ build_box.set_command('float')
 build_box.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
 
 draw_three_branches(repeat_count, initial_length)
-build_box.send_data()
+build_box.send_data("main_matrix_sample")

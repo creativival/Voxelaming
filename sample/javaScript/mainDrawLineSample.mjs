@@ -9,7 +9,7 @@ import BuildBox from './buildBox.mjs';
 
   buildBox.drawLine(0, 0, 0, 5, 10, 20, 1, 0, 0, 1)
 
-  await buildBox.sendData();
+  await buildBox.sendData('mainDrawLineSample');
   console.log('send data done')
 })().catch(error => {
   console.error(error);

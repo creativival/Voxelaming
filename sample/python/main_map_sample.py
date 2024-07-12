@@ -1,4 +1,4 @@
-from build_box import BuildBox
+from voxelamming import BuildBox
 from map_util import get_map_data_from_csv, get_box_color
 
 room_name = "1000"
@@ -32,4 +32,4 @@ for j in range(row_num // skip):
     if y > 0:
         build_box.create_box(x, y, z, r, g, b, 1)
 
-build_box.send_data()
+build_box.send_data("main_map_sample")

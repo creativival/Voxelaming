@@ -1,5 +1,5 @@
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -34,4 +34,4 @@ for x, y, z in node_positions:
   sleep(1)
 
 build_box.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
-build_box.send_data()
+build_box.send_data("main_animate_global_sample")

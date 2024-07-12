@@ -1,5 +1,5 @@
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = "1000"

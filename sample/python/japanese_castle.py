@@ -1,5 +1,5 @@
 from math import floor
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 stone_base = [
   [1, 33, 36],
@@ -91,10 +91,12 @@ def draw_square(build_box, w, d, h, r, g, b):
 
 
 def main():
-  room_name = "1518"
+  room_name = "1000"
   build_box = BuildBox(room_name)
   build_box.set_box_size(0.3)
   build_box.set_build_interval(0.001)
+
+#   build_box.set_command('japaneseCastle')
 
   for key in castle:
     color = castle[key]["color"]
@@ -112,7 +114,7 @@ def main():
     build_box.remove_box(p[1], p[0] - 1, p[2])
     build_box.create_box(p[1], p[0], p[2], r=1, g=0, b=0, alpha=1)
 
-  build_box.send_data()
+  build_box.send_data("japanese_castle")
 
 
 main()

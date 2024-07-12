@@ -1,5 +1,5 @@
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 room_name = "1000"

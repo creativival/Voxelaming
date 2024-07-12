@@ -1,5 +1,5 @@
 from random import random, uniform
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -17,4 +17,4 @@ for i in range(100):
   b = random()
   build_box.draw_line(0, 0, 0, x, y, z, r=r, g=g, b=b, alpha=1)
 
-build_box.send_data()
+build_box.send_data("random_lines")

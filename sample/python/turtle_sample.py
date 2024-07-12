@@ -1,4 +1,4 @@
-from build_box import BuildBox
+from voxelamming import BuildBox
 from turtle import Turtle
 
 room_name = "1000"
@@ -31,4 +31,4 @@ t.forward(10)
 t.left(90)
 t.forward(10)
 
-build_box.send_data()
+build_box.send_data("turtle_sample")

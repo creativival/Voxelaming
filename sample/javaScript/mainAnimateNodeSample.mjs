@@ -24,7 +24,7 @@ import BuildBox from './buildBox.mjs';
   await buildBox.sleepSecond(1)
 
   buildBox.animate(10, 0, 0, 0, 30, 0, 2, 10)
-  buildBox.sendData()
+  buildBox.sendData("mainAnimateNodeSample")
 
 })().catch(error => {
   console.error(error);

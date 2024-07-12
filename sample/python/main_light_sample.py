@@ -1,4 +1,4 @@
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -31,4 +31,4 @@ build_box.set_light(1, 1, 0, r=1, g=0, b=0, alpha=1, intensity=20000, interval=2
 build_box.set_light(0, 1, 1, r=0, g=1, b=0, alpha=1, intensity=20000, interval=3, light_type='spot')
 build_box.set_light(-1, 1, 0, r=0, g=0, b=1, alpha=1, intensity=20000, interval=5, light_type='point')
 
-build_box.send_data()
+build_box.send_data("main_light_sample")

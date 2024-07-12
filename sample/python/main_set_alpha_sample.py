@@ -1,4 +1,4 @@
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -19,4 +19,4 @@ for i in range(50):
   build_box.remove_box(0, i * 2 + 1, 0)
   build_box.remove_box(1, i * 2, 0)
 
-build_box.send_data()
+build_box.send_data("main_set_alpha_sample")

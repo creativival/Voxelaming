@@ -102,7 +102,7 @@ build_box.send_data() # Send data
 | `set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)` | Places a light. | `x`, `y`, `z`: Position (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1), `intensity`: Intensity (float), `interval`: Blinking interval (float), `light_type`: Type of light ("point", "spot", "directional") |
 | `set_command(command)` | Executes a command. | `command`: Command ("axis", "japaneseCastle", "float", "liteRender") |
 | `draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)` | Draws a line between two points. | `x1`, `y1`, `z1`: Starting point (float), `x2`, `y2`, `z2`: Ending point (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1) |
-| `send_data()` | Sends voxel data to the device. | |
+| `send_data(name)` | Sends voxel data to the device; if the name argument is set, the voxel data can be stored and reproduced as history. | |
 | `clear_data()` | Initializes voxel data. | |
 | `translate(x, y, z, pitch, yaw, roll)` | Moves and rotates the coordinate system of the voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float) |
 | `animate(x, y, z, pitch, yaw, roll, scale, interval)` | Animates a voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float), `scale`: Scale (float), `interval`: Interval (float) |
@@ -149,7 +149,7 @@ You can use Scratch3 MOD's turtle programming to place voxels. Since you can int
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -175,6 +175,7 @@ build_box.send_data()
 #### How to run
 
 ```bash
+$ pip install voxelamming
 $ sample/python
 $ python main.py
 
@@ -215,7 +216,8 @@ buildBox.sendData();
 #### How to run
 
 ```bash
-$ sample/javascipt
+$ sample/javaScript
+$ npm install
 $ node main.mjs
 ```
 
@@ -252,6 +254,7 @@ build_box.send_data
 
 ```bash
 $ sample/ruby
+$ bundle install
 $ ruby main.rb
 ```
 
@@ -312,7 +315,7 @@ create a sphere in voxels; the size of the sphere can be adjusted by changing th
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -343,7 +346,7 @@ Location information can be specified for the nodes.
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -376,7 +379,7 @@ Voxelamming allows nodes to be rotated around the x-, y- and z-axes by changing 
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -418,7 +421,7 @@ Node animations can be positioned, sized and rotated. The speed of the animation
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -452,7 +455,7 @@ Global animation animates all nodes. You can specify position, rotation, scale a
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -498,7 +501,7 @@ Displays text in voxels. The text, position, colour and transparency can be spec
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -524,7 +527,7 @@ The map is created in voxel. The map data uses elevation data from Geographical 
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from map_util import get_map_data_from_csv, get_box_color
 
 room_name = "1000"
@@ -570,7 +573,7 @@ Import voxel art created in MagicaVoxel Export MagicaVoxel voxel art in PLY form
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = "1000"
@@ -596,7 +599,7 @@ The transparency of the voxel can be set. The transparency is specified by a val
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -628,7 +631,7 @@ Draw a line segment by specifying two points. You can specify the colour of the 
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -651,7 +654,7 @@ The shape of the voxel can be changed. Shapes are available for cubes, spheres a
 ```python
 # Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -692,7 +695,7 @@ The material can be set to have a metallic sheen or a roughness. If metallicness
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -741,7 +744,7 @@ Light sources (lights) can be placed. You can set the position, colour, intensit
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -784,7 +787,7 @@ A command is an instruction to perform a specific action. Commands can be used t
 
 ```python
 # Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 build_box = BuildBox(room_name)
@@ -802,7 +805,7 @@ The Reset command deletes all voxels. The model can be animated by alternately c
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = "1000"
@@ -874,7 +877,7 @@ The Float command allows voxels to be positioned precisely in 0.01 units (normal
 # Python
 from time import sleep
 from math import sin, cos, radians, pi, sqrt
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = "1000"
 size = 1
@@ -912,7 +915,7 @@ Coordinate systems (matrices) can be saved and restored with the push_matrix com
 # Python
 from time import sleep
 
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 
 def draw_three_branches(count, branch_length):
@@ -967,7 +970,7 @@ Voxel textures can be set, textures can be pasted onto voxels by specifying an i
 ```python
 # Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 room_name = "1000"
@@ -1012,7 +1015,7 @@ Multiple frames can be recorded and animated. The FPS and number of repetitions 
 ```python
 # Python
 from math import sin, cos, radians
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 rainbow_colors = [
     [255, 0, 0],     # 赤
