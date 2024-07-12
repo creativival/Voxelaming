@@ -145,7 +145,7 @@ build_box.send_data() # Send data
         <h3>Python (3.6 or higher)</h3>
         <h4>Script</h4>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -169,6 +169,7 @@ build_box.send_data()
 </code></pre>
         <h4>How to run</h4>
         <pre><code class="bash">$ sample/python
+$ pip install voxelamming
 $ python main.py
 
 or
@@ -279,7 +280,7 @@ $ swift run
         <h3>Sphere</h3>
         <p>create a sphere in voxels; the size of the sphere can be adjusted by changing the radius variable.</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -305,7 +306,7 @@ build_box.send_data()
         <p>Location information can be specified for the nodes.</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -333,7 +334,7 @@ for i in range(5):
         <p>Voxelamming allows nodes to be rotated around the x-, y- and z-axes by changing the values of pitch, yaw and roll.</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -371,7 +372,7 @@ for rotation in rotations:
         <p>Node animations can be positioned, sized and rotated. The speed of the animation can be adjusted by changing the animation interval (interval).</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -401,7 +402,7 @@ build_box.send_data()
         <p>Global animation animates all nodes. You can specify position, rotation, scale and animation interval (interval).</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -443,7 +444,7 @@ build_box.send_data()
         <p>Displays text in voxels. The text, position, colour and transparency can be specified. Fonts are available in Japanese, English and numbers.</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -465,7 +466,7 @@ build_box.send_data()
         <h3>Map</h3>
         <p>The map is created in voxel. The map data uses elevation data from Geographical Survey Institute maps. The map data is read from a CSV file and converted to voxels.</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from map_util import get_map_data_from_csv, get_box_color
 
 room_name = &quot;1000&quot;
@@ -506,7 +507,7 @@ build_box.send_data()
         <h3>Displaying Models Created with MagicaVoxel</h3>
         <p>Import voxel art created in MagicaVoxel Export MagicaVoxel voxel art in PLY format and import it into Voxelamming.</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = &quot;1000&quot;
@@ -528,7 +529,7 @@ build_box.send_data()
         <h3>Transparent Voxel</h3>
         <p>The transparency of the voxel can be set. The transparency is specified by a value between 0 and 1.</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -556,7 +557,7 @@ build_box.send_data()
         <p>Draw a line segment by specifying two points. You can specify the colour of the line; use the float command to draw a smooth line.</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -575,7 +576,7 @@ build_box.send_data()
         <p>The shape of the voxel can be changed. Shapes are available for cubes, spheres and planes.</p>
         <pre><code class="python"># Python
 import time
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -612,7 +613,7 @@ build_box.send_data()
         <p>The material can be set to have a metallic sheen or a roughness. If metallicness (is_metallic) is set to true, the material reflects the environment like a mirror. Roughness sets the surface roughness from 0 to 1.</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -657,7 +658,7 @@ for i in range(5):
         <h3>Light (iOS only)</h3>
         <p>Light sources (lights) can be placed. You can set the position, colour, intensity and type of light (directional, spot, point) of the light.</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -696,7 +697,7 @@ build_box.send_data()
         <h3>Command</h3>
         <p>A command is an instruction to perform a specific action. Commands can be used to perform specific actions. japaneseCastle command allows you to build a castle in Japan.</p>
         <pre><code class="python"># Python
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 build_box = BuildBox(room_name)
@@ -710,7 +711,7 @@ build_box.send_data()
         <p>The Reset command deletes all voxels. The model can be animated by alternately creating and resetting the model.</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
 room_name = &quot;1000&quot;
@@ -778,7 +779,7 @@ for _ in range(3):
         <pre><code class="python"># Python
 from time import sleep
 from math import sin, cos, radians, pi, sqrt
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 room_name = &quot;1000&quot;
 size = 1
@@ -812,7 +813,7 @@ build_box.send_data()
         <pre><code class="python"># Python
 from time import sleep
 
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 
 def draw_three_branches(count, branch_length):
@@ -863,7 +864,7 @@ build_box.send_data()
         <p>Voxel textures can be set, textures can be pasted onto voxels by specifying an image.&quot; Textures for &quot;grass&quot;, &quot;stone&quot;, &quot;dirt&quot;, &quot;planks&quot; and &quot;bricks&quot; are available.</p>
         <pre><code class="python"># Python
 from time import sleep
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 texture_names = [&quot;grass&quot;, &quot;stone&quot;, &quot;dirt&quot;, &quot;planks&quot;, &quot;bricks&quot;]
 room_name = &quot;1000&quot;
@@ -904,7 +905,7 @@ build_box.clear_data()
         <p>Multiple frames can be recorded and animated. The FPS and number of repetitions of the animation can be specified.</p>
         <pre><code class="python"># Python
 from math import sin, cos, radians
-from build_box import BuildBox
+from voxelamming import BuildBox
 
 rainbow_colors = [
     [255, 0, 0],     # 赤
