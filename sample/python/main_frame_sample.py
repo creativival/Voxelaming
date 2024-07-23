@@ -1,15 +1,16 @@
 from math import sin, cos, radians
+# voxelammingパッケージからBuildBoxクラスをインポートします
 from voxelamming import BuildBox
 
 rainbow_colors = [
-    [255, 0, 0],     # 赤
-    [255, 165, 0],   # オレンジ
-    [255, 255, 0],   # 黄色
-    [0, 128, 0],     # 緑
-    [0, 255, 255],   # 水色
-    [0, 0, 255],     # 青
-    [128, 0, 128],    # 紫
-    [128, 0, 128]    # 紫
+    [255, 0, 0],  # 赤
+    [255, 165, 0],  # オレンジ
+    [255, 255, 0],  # 黄色
+    [0, 128, 0],  # 緑
+    [0, 255, 255],  # 水色
+    [0, 0, 255],  # 青
+    [128, 0, 128],  # 紫
+    [128, 0, 128]  # 紫
 ]
 butterfly_list = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -174,15 +175,18 @@ butterfly_list = [
      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
 
-# ルームネームを設定
+# Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
+# BuildBoxクラスのインスタンスを生成します
 build_box = BuildBox(room_name)
+# ボクセルの設定を行います
 build_box.set_box_size(0.15)
 # build_box.set_build_interval(0.01)
 build_box.set_command('float')
 build_box.set_frame_fps(2)
 build_box.set_frame_repeats(10)
 
+# ボクセルを配置するため、位置と色を設定します
 for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
     build_box.frame_in()
     build_box.translate(0, 100, 0, 30, 0, 0)
@@ -202,5 +206,5 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
                 build_box.create_box(-x, y, z, r, g, b)
     build_box.frame_out()
 
-# データを送信
+# ボクセルデータをアプリに送信します。
 build_box.send_data('main_frame_sample')

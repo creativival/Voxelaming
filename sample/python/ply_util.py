@@ -1,5 +1,6 @@
 from math import floor
 
+
 def get_boxes_from_ply(ply_file):
     box_positions = set()
     with open('../ply_file/' + ply_file, 'r') as f:

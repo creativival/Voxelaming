@@ -1,8 +1,8 @@
-from time import sleep
-
+# voxelammingパッケージからBuildBoxクラスをインポートします
 from voxelamming import BuildBox
 
 
+# 三分木を描画する関数
 def draw_three_branches(count, branch_length):
     count -= 1
     if count < 0:
@@ -31,13 +31,16 @@ def draw_three_branches(count, branch_length):
     print('pop_matrix')
     build_box.pop_matrix()
 
-
-room_name = "1000"
-build_box = BuildBox(room_name)
+# 変数の設定
 initial_length = 10
 repeat_count = 5
 angle_to_open = 30
 length_ratio = 0.8
+
+# Voxelammingアプリに表示されている部屋名を指定してください
+room_name = "1000"
+# BuildBoxクラスのインスタンスを生成します
+build_box = BuildBox(room_name)
 
 build_box.change_shape('sphere')
 build_box.set_command('float')

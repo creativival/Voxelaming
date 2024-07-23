@@ -7,18 +7,19 @@ column_num, row_num = 257, 257
 def get_map_data_from_csv(csv_file, height_scale):
     # csvファイルから地図データを読み込み
     with open(f'../map_file/{csv_file}', 'r') as f:
-      reader = csv.reader(f)
-      # 標高データ
-      heights = [floor(float(h) * height_scale) if h != '0' else -1 for h in next(reader)]
-      # 高さによって色を変えるため、最大高さを求める
-      max_height = floor(max(heights))
-      print('max', max_height)
-      # キューブの標高を２次元のリストに変換
-      box_positions = [[heights[j + column_num * i] for j in range(column_num)] for i in range(row_num)]
-#       print(cube_positions[0])
-      map_data = { 'boxes': box_positions, 'maxHeight': max_height }
+        reader = csv.reader(f)
+        # 標高データ
+        heights = [floor(float(h) * height_scale) if h != '0' else -1 for h in next(reader)]
+        # 高さによって色を変えるため、最大高さを求める
+        max_height = floor(max(heights))
+        print('max', max_height)
+        # キューブの標高を２次元のリストに変換
+        box_positions = [[heights[j + column_num * i] for j in range(column_num)] for i in range(row_num)]
+        #       print(cube_positions[0])
+        map_data = {'boxes': box_positions, 'maxHeight': max_height}
 
-      return map_data
+        return map_data
+
 
 def get_box_color(height, max_height, high_color, low_color):
     # 高さによって色を変える
@@ -28,7 +29,8 @@ def get_box_color(height, max_height, high_color, low_color):
 
     return r, g, b
 
+
 if __name__ == '__main__':
-  CSV_FILE = '../map_file/map_38_138_100km.csv'
-  HEIGHT_SCALE = 100
-  get_boxes_from_csv(CSV_FILE, HEIGHT_SCALE)
+    CSV_FILE = '../map_file/map_38_138_100km.csv'
+    HEIGHT_SCALE = 100
+    get_boxes_from_csv(CSV_FILE, HEIGHT_SCALE)

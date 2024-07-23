@@ -1,11 +1,9 @@
 from time import sleep
+# voxelammingパッケージからBuildBoxクラスをインポートします
 from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
-room_name = "1000"
-build_box = BuildBox(room_name)
-
-
+# 変数の設定
 animation_settings = [
     {
         'model': 'frog1.ply',
@@ -40,6 +38,11 @@ animation_settings = [
         'position': [0, 0, 0, 0, 0, 0],
     },
 ]
+
+# Voxelammingアプリに表示されている部屋名を指定してください
+room_name = "1000"
+# BuildBoxクラスのインスタンスを生成します
+build_box = BuildBox(room_name)
 
 for _ in range(3):
     for i in range(len(animation_settings)):
