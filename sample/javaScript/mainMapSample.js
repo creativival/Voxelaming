@@ -1,5 +1,4 @@
-import BuildBox from './buildBox.mjs';
-import { getMapDataFromCSV, getBoxColor } from './mapUtil.mjs';
+const { BuildBox, getMapDataFromCSV, getBoxColor } = require('voxelamming-node');
 
 (async () => {
   const roomName = "1000";
@@ -11,7 +10,7 @@ import { getMapDataFromCSV, getBoxColor } from './mapUtil.mjs';
 
   const columnNum = 257;
   const rowNum = 257;
-  const csvFile = 'map_38_138_100km.csv';
+  const csvFile = '../map_file/map_38_138_100km.csv';
   const heightScale = 100;
   const highColor = [0.5, 0, 0];
   const lowColor = [0, 1, 0];

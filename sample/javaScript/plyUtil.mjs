@@ -2,7 +2,7 @@ import fs from 'fs';
 
 export function getBoxesFromPly(plyFile) {
   const boxPositions = new Set();
-  const lines = fs.readFileSync('../ply_file/' + plyFile, 'utf8');
+  const lines = fs.readFileSync(plyFile, 'utf8');
   const positions = lines
     .replace(/\r\n/g, '\n')
     .trim()

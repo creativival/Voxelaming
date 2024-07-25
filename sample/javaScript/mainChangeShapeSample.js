@@ -1,4 +1,4 @@
-import BuildBox from './buildBox.mjs';
+const { BuildBox } = require('voxelamming-node');
 
 (async () => {
   const roomName = '1000';
@@ -19,12 +19,21 @@ import BuildBox from './buildBox.mjs';
     buildBox.removeBox(1, i * 2 + 1, 0);
   }
 
-  for (let i = 0; i < 5; i++) {
-    buildBox.translate(-25 + i * 10, 0, 0, 0, 0, 0);
-    await buildBox.sendData();
-    await buildBox.sleepSecond(1)
-    console.log('send data done')
-  }
+  await buildBox.sendData();
+
+  await buildBox.sleepSecond(1)
+
+  buildBox.translate( 10, 0, 0, 0, 0, 0)
+  buildBox.changeShape('sphere')
+  await buildBox.sendData();
+
+  await buildBox.sleepSecond(1)
+
+  buildBox.translate( 20, 0, 0, 0, 0, 0)
+  buildBox.changeShape('plane')
+  await buildBox.sendData();
+
+  console.log('send data done')
 })().catch(error => {
   console.error(error);
 });

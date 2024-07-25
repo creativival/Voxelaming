@@ -4,7 +4,7 @@ const columnNum = 257;
 const rowNum = 257;
 
 export function getMapDataFromCSV(csvFile, heightScale) {
-  const data = fs.readFileSync(`../map_file/${csvFile}`, 'utf8');
+  const data = fs.readFileSync(csvFile, 'utf8');
   const lines = data.split('\n');
 
   const heights = lines[0].split(',').map(h => {

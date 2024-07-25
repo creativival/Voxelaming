@@ -1,5 +1,4 @@
-import BuildBox from './buildBox.mjs';
-import { getBoxesFromPly } from './plyUtil.mjs';
+const { BuildBox, getBoxesFromPly } = require('voxelamming-node');
 
 (async () => {
   const roomName = '1000';

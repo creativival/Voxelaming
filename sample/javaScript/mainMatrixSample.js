@@ -1,4 +1,4 @@
-import BuildBox from './buildBox.mjs';
+const { BuildBox } = require('voxelamming-node');
 
 const roomName = "1000";
 const buildBox = new BuildBox(roomName);

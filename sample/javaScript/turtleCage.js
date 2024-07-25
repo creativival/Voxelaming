@@ -1,5 +1,4 @@
-import BuildBox from './buildBox.mjs';
-import Turtle from './turtle.mjs';
+const { BuildBox, Turtle } = require('voxelamming-node');
 
 (async () => {
   const roomName = "1000";
