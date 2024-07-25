@@ -1,8 +1,8 @@
-require_relative 'build_box'
+require 'voxelamming_gem'
 
 texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 room_name = "1000"
-build_box = BuildBox.new(room_name)
+build_box = VoxelammingGem::BuildBox.new(room_name)
 
 build_box.set_box_size(1)
 build_box.set_build_interval(0.01)

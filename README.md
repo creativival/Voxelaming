@@ -228,10 +228,10 @@ $ node main.mjs
 
 ```ruby
 # Ruby
-require_relative 'build_box'
+require 'voxelamming_gem'
 
 room_name = '1000'
-build_box = BuildBox.new(room_name)
+build_box = VoxelammingGem::BuildBox.new(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
@@ -255,7 +255,7 @@ build_box.send_data
 
 ```bash
 $ sample/ruby
-$ bundle install
+$ gem install voxelamming_gem
 $ ruby main.rb
 ```
 

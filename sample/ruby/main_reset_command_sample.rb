@@ -1,8 +1,8 @@
-require_relative 'build_box'
+require 'voxelamming_gem'
 require_relative 'ply_util'
 
 room_name = "1000"
-build_box = BuildBox.new(room_name)
+build_box = VoxelammingGem::BuildBox.new(room_name)
 
 animation_settings = [
     {

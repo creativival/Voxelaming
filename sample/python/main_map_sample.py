@@ -4,7 +4,7 @@ from map_util import get_map_data_from_csv, get_box_color
 
 # 変数の設定
 column_num, row_num = 257, 257
-csv_file = 'map_38_138_100km.csv'
+csv_file = '../map_file/map_38_138_100km.csv'
 height_scale = 100
 high_color = (0.5, 0, 0)
 low_color = (0, 1, 0)

@@ -1,12 +1,12 @@
-require_relative 'build_box'
+require 'voxelamming_gem'
 require_relative 'turtle'
 
 room_name = "1000"
-build_box = BuildBox.new(room_name)
+build_box = VoxelammingGem::BuildBox.new(room_name)
 
 build_box.set_box_size(0.3)
 build_box.set_build_interval(0.01)
-t = Turtle.new(build_box)
+t = VoxelammingGem::Turtle.new(build_box)
 
 t.set_color(1, 1, 0, 1)
 

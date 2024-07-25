@@ -2,7 +2,7 @@
 from voxelamming import BuildBox
 from ply_util import get_boxes_from_ply
 
-ply_file_name = 'piyo.ply'
+ply_file_name = '../ply_file/piyo.ply'
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"

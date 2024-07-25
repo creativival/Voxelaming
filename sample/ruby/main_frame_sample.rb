@@ -1,4 +1,4 @@
-require_relative 'build_box'
+require 'voxelamming_gem'
 
 rainbow_colors = [
     [255, 0, 0],     # 赤
@@ -175,7 +175,7 @@ butterfly_list = [
 angles = [30, 15, 0, -15, -30, -15, 0, 15]
 
 room_name = '1000'
-build_box = BuildBox.new(room_name)
+build_box = VoxelammingGem::BuildBox.new(room_name)
 build_box.set_box_size(0.15)
 # build_box.set_build_interval(0.01)
 build_box.set_command('float')

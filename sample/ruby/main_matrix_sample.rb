@@ -1,4 +1,4 @@
-require_relative 'build_box'
+require 'voxelamming_gem'
 
 def draw_three_branches(count, branch_length)
   count -= 1
@@ -28,7 +28,7 @@ def draw_three_branches(count, branch_length)
 end
 
 room_name = "1000"
-$build_box = BuildBox.new(room_name)
+$build_box = VoxelammingGem::BuildBox.new(room_name)
 initial_length = 10
 $repeat_count = 5
 $angle_to_open = 30
