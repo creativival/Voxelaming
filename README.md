@@ -93,7 +93,7 @@ build_box.send_data() # データ送信
 | `set_room_name(room_name)` | デバイスと通信するためのルーム名を設定します。 | `room_name`: ルーム名 (string) |
 | `set_box_size(size)` | ボクセルのサイズを設定します (デフォルト: 1.0)。 | `size`: サイズ (float) |
 | `set_build_interval(interval)` | ボクセルの設置間隔を設定します (デフォルト: 0.01秒)。 | `interval`: 間隔 (float) |
-| `change_shape(shape)` | ボクセルの形状を変更します。 | `shape`: 形状 ("box", "square", "plane") |
+| `change_shape(shape)` | ボクセルの形状を変更します。 | `shape`: 形状 ("box", "sphere", "plane") |
 | `change_material(is_metallic, roughness)` | ボクセルの材質を変更します。 | `is_metallic`: 金属にするかどうか (boolean), `roughness`: 粗さ (float) |
 | `create_box(x, y, z, r, g, b, alpha)` | ボクセルを設置します。 | `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1) |
 | `create_box(x, y, z, texture)` | テクスチャ付きのボクセルを設置します。 | `x`, `y`, `z`: 位置 (float), `texture`: テクスチャ名 (string) |

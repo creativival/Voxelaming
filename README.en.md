@@ -93,7 +93,7 @@ build_box.send_data() # Send data
 | `set_room_name(room_name)` | Sets the room name for communicating with the device. | `room_name`: Room name (string) |
 | `set_box_size(size)` | Sets the size of the voxel (default: 1.0). | `size`: Size (float) |
 | `set_build_interval(interval)` | Sets the placement interval of the voxels (default: 0.01 seconds). | `interval`: Interval (float) |
-| `change_shape(shape)` | Changes the shape of the voxel. | `shape`: Shape ("box", "square", "plane") |
+| `change_shape(shape)` | Changes the shape of the voxel. | `shape`: Shape ("box", "sphere", "plane") |
 | `change_material(is_metallic, roughness)` | Changes the material of the voxel. | `is_metallic`: Whether to make it metallic (boolean), `roughness`: Roughness (float) |
 | `create_box(x, y, z, r, g, b, alpha)` | Places a voxel. | `x`, `y`, `z`: Position (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1) |
 | `create_box(x, y, z, texture)` | Places a voxel with texture. | `x`, `y`, `z`: Position (float), `texture`: Texture name (string) |

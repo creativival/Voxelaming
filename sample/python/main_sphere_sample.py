@@ -22,4 +22,4 @@ for i in range(-radius, radius + 1):
                 build_box.create_box(i, j, k, 0, 1, 1)
 
 # ボクセルデータをアプリに送信します。
-build_box.send_data("main_square_sample")
+build_box.send_data("main_sphere_sample")
