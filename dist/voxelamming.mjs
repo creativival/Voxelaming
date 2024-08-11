@@ -316,7 +316,7 @@ var ja = {
 	"voxelamming.setLight": "ライトを配置する x: [X] y: [Y] z: [Z] 色 r: [R] g: [G] b: [B] alpha: [ALPHA] 強さ: [INTENSITY] 点滅: [INTERVAL] 秒 タイプ: [LIGHT_TYPE]",
 	"voxelamming.setCommand": "コマンドをセットする [COMMAND]",
 	"voxelamming.drawLine": "線を引く x1: [X1] y1: [Y1] z1: [Z1] x2: [X2] y2: [Y2] z2: [Z2] r: [R] g: [G] b: [B] alpha: [ALPHA]",
-	"voxelamming.makeModel": "モデルを作成する [LIST_NAME] x: [X] y: [Y] z: [Z] 回転 pitch: [PITCH] yaw: [YAW] roll: [ROLL]",
+	"voxelamming.makeModel": "@PLYモデルを作成する [LIST_NAME] x: [X] y: [Y] z: [Z] 回転 pitch: [PITCH] yaw: [YAW] roll: [ROLL]",
 	"voxelamming.buildPlyModel": "PLYモデルを作成する [LIST_NAME] x: [X] y: [Y] z: [Z] 回転 pitch: [PITCH] yaw: [YAW] roll: [ROLL]",
 	"voxelamming.changeShape": "形状を変更する [SHAPE]",
 	"voxelamming.changeMaterial": "マテリアルを変更する: メタリック: [IS_METALLIC] 表面荒さ: [ROUGHNESS]",
