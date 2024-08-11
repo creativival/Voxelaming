@@ -1043,7 +1043,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           text: formatMessage({
             id: 'voxelamming.buildPlyModel',
             default: ' Build a ply model [LIST_NAME] at x: [X] y: [Y] z: [Z] pitch: [PITCH] yaw: [YAW] roll: [ROLL]',
-            description: 'make model'
+            description: 'build a ply model'
           }),
           arguments: {
             LIST_NAME: {
