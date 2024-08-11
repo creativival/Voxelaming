@@ -1,11 +1,11 @@
-require 'voxelamming_gem'
+require 'voxelamming'
 
 room_name = "1000"
 size = 1.0
 radius = 1.5
 repeat_count = 100
 
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 build_box.set_build_interval(0.01)
 build_box.set_box_size(size)
 build_box.change_shape("sphere")

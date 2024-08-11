@@ -189,7 +189,7 @@ build_box.set_frame_repeats(10)
 # ボクセルを配置するため、位置と色を設定します
 for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
     build_box.frame_in()
-    build_box.translate(0, 100, 0, 30, 0, 0)
+    build_box.transform(0, 100, 0, 30, 0, 0)
 
     for j, row in enumerate(butterfly_list):
         color = rainbow_colors[j // 10]

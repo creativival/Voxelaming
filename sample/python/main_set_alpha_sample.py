@@ -9,7 +9,7 @@ build_box = BuildBox(room_name)
 # ボクセルの設定を行います
 build_box.set_box_size(0.3)
 build_box.set_build_interval(0.01)
-build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval=0)
 
 # ボクセルを配置するため、位置と色を設定します

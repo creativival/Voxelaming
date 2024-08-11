@@ -9,14 +9,16 @@ from matrix_util import *
 
 class BuildBox:
     texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
+    model_names = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
+    "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
 
     def __init__(self, room_name):
         self.room_name = room_name
         self.is_allowed_matrix = 0
         self.saved_matrices = []
-        self.translation = [0, 0, 0, 0, 0, 0]
-        self.matrix_translation = [0, 0, 0, 0, 0, 0]
-        self.frame_translations = []
+        self.node_transform = [0, 0, 0, 0, 0, 0]
+        self.matrix_transform = [0, 0, 0, 0, 0, 0]
+        self.frame_transforms = []
         self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.boxes = []
@@ -24,6 +26,8 @@ class BuildBox:
         self.sentence = []
         self.lights = []
         self.commands = []
+        self.models = []
+        self.model_moves = []
         self.size = 1
         self.shape = 'box'
         self.is_metallic = 0
@@ -36,9 +40,9 @@ class BuildBox:
     def clear_data(self):
         self.is_allowed_matrix = 0
         self.saved_matrices = []
-        self.translation = [0, 0, 0, 0, 0, 0]
-        self.matrix_translation = [0, 0, 0, 0, 0, 0]
-        self.frame_translations = []
+        self.node_transform = [0, 0, 0, 0, 0, 0]
+        self.matrix_transform = [0, 0, 0, 0, 0, 0]
+        self.frame_transforms = []
         self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.boxes = []
@@ -46,6 +50,8 @@ class BuildBox:
         self.sentence = []
         self.lights = []
         self.commands = []
+        self.models = []
+        self.model_moves = []
         self.size = 1
         self.shape = 'box'
         self.is_metallic = 0
@@ -70,13 +76,13 @@ class BuildBox:
 
     def push_matrix(self):
         self.is_allowed_matrix += 1
-        self.saved_matrices.append(self.matrix_translation)
+        self.saved_matrices.append(self.matrix_transform)
 
     def pop_matrix(self):
         self.is_allowed_matrix -= 1
-        self.matrix_translation = self.saved_matrices.pop()
+        self.matrix_transform = self.saved_matrices.pop()
 
-    def translate(self, x, y, z, pitch=0, yaw=0, roll=0):
+    def transform(self, x, y, z, pitch=0, yaw=0, roll=0):
         if self.is_allowed_matrix:
             # 移動用のマトリックスを計算する
             matrix = self.saved_matrices[-1]
@@ -99,31 +105,31 @@ class BuildBox:
             x, y, z = self.round_numbers([x, y, z])
 
             # 移動後の回転を計算する
-            translate_rotation_matrix = get_rotation_matrix(-pitch, -yaw, -roll)  # 逆回転
-            rotate_matrix = matrix_multiply(translate_rotation_matrix, base_rotation_matrix)
+            transform_rotation_matrix = get_rotation_matrix(-pitch, -yaw, -roll)  # 逆回転
+            rotate_matrix = matrix_multiply(transform_rotation_matrix, base_rotation_matrix)
 
-            self.matrix_translation = [x, y, z, *rotate_matrix[0], *rotate_matrix[1], *rotate_matrix[2]]
+            self.matrix_transform = [x, y, z, *rotate_matrix[0], *rotate_matrix[1], *rotate_matrix[2]]
         else:
             x, y, z = self.round_numbers([x, y, z])
 
             if self.is_framing:
-                self.frame_translations.append([x, y, z, pitch, yaw, roll, self.frame_id])
+                self.frame_transforms.append([x, y, z, pitch, yaw, roll, self.frame_id])
             else:
-                self.translation = [x, y, z, pitch, yaw, roll]
+                self.node_transform = [x, y, z, pitch, yaw, roll]
 
     def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1, texture=''):
         if self.is_allowed_matrix:
             # 移動用のマトリックスにより位置を計算する
-            matrix_translation = self.matrix_translation
-            base_position = matrix_translation[:3]
+            matrix_transform = self.matrix_transform
+            base_position = matrix_transform[:3]
 
-            if len(matrix_translation) == 6:
-                base_rotation_matrix = get_rotation_matrix(*matrix_translation[3:])
+            if len(matrix_transform) == 6:
+                base_rotation_matrix = get_rotation_matrix(*matrix_transform[3:])
             else:
                 base_rotation_matrix = [
-                    matrix_translation[3:6],
-                    matrix_translation[6:9],
-                    matrix_translation[9:12]
+                    matrix_transform[3:6],
+                    matrix_transform[6:9],
+                    matrix_transform[9:12]
                 ]
 
             # 移動後の位置を計算する
@@ -132,7 +138,7 @@ class BuildBox:
             x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
 
         x, y, z = self.round_numbers([x, y, z])
-        r, g, b, alpha = self.round_colors([r, g, b, alpha])
+        r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
 
         # 重ねておくことを防止
         self.remove_box(x, y, z)
@@ -174,14 +180,14 @@ class BuildBox:
 
     def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
         x, y, z = self.round_numbers([x, y, z])
-        r, g, b, alpha = self.round_colors([r, g, b, alpha])
+        r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
         x, y, z = map(str, [x, y, z])
         r, g, b, alpha = map(str, [r, g, b, alpha])
         self.sentence = [sentence, x, y, z, r, g, b, alpha]
 
     def set_light(self, x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point'):
         x, y, z = self.round_numbers([x, y, z])
-        r, g, b, alpha = self.round_colors([r, g, b, alpha])
+        r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
 
         if light_type == 'point':
             light_type = 1
@@ -254,47 +260,64 @@ class BuildBox:
             self.is_metallic = 0
         self.roughness = roughness
 
+    def create_model(self, model_name, x=0, y=0, z=0, pitch=0, yaw=0, roll=0, scale=1, entity_name=''):
+        if model_name in self.model_names:
+            print(f'Find model name: {model_name}')
+            x, y, z, pitch, yaw, roll, scale = self.round_two_decimals([x, y, z, pitch, yaw, roll, scale])
+            x, y, z, pitch, yaw, roll, scale = map(str, [x, y, z, pitch, yaw, roll, scale])
+
+            self.models.append([model_name, x, y, z, pitch, yaw, roll, scale, entity_name])
+        else:
+            print(f'No model name: {model_name}')
+
+    def move_model(self, entity_name, x=0, y=0, z=0, pitch=0, yaw=0, roll=0, scale=1):
+        x, y, z, pitch, yaw, roll, scale = self.round_two_decimals([x, y, z, pitch, yaw, roll, scale])
+        x, y, z, pitch, yaw, roll, scale = map(str, [x, y, z, pitch, yaw, roll, scale])
+
+        self.model_moves.append([entity_name, x, y, z, pitch, yaw, roll, scale])
+
     def send_data(self, name=''):
+        print('send data')
         now = datetime.datetime.now()
         data_to_send = f"""
-      {{
-      "translation": {self.translation},
-      "frameTranslations": {self.frame_translations},
-      "globalAnimation": {self.global_animation},
-      "animation": {self.animation},
-      "boxes": {self.boxes},
-      "frames": {self.frames},
-      "sentence": {self.sentence},
-      "lights": {self.lights},
-      "commands": {self.commands},
-      "size": {self.size},
-      "shape": "{self.shape}",
-      "interval": {self.build_interval},
-      "isMetallic": {self.is_metallic},
-      "roughness": {self.roughness},
-      "isAllowedFloat": {self.is_allowed_float},
-      "name": "{name}",
-      "date": "{now}"
-      }}
-      """.replace("'", '"')
+        {{
+        "nodeTransform": {self.node_transform},
+        "frameTransforms": {self.frame_transforms},
+        "globalAnimation": {self.global_animation},
+        "animation": {self.animation},
+        "boxes": {self.boxes},
+        "frames": {self.frames},
+        "sentence": {self.sentence},
+        "lights": {self.lights},
+        "commands": {self.commands},
+        "models": {self.models},
+        "modelMoves": {self.model_moves},
+        "size": {self.size},
+        "shape": "{self.shape}",
+        "interval": {self.build_interval},
+        "isMetallic": {self.is_metallic},
+        "roughness": {self.roughness},
+        "isAllowedFloat": {self.is_allowed_float},
+        "name": "{name}",
+        "date": "{now}"
+        }}
+        """.replace("'", '"')
 
         async def sender(room_name):
             async with websockets.connect('wss://websocket.voxelamming.com') as websocket:
                 await websocket.send(room_name)
-                # print(f"Joined room: {room_name}")
                 await websocket.send(data_to_send)
-                # print(data_to_send)
-                print(re.sub(r'\n      ', ' ', data_to_send.replace('"', '\\"')))
-                # print("Sent data to server")
-                # self.clear_data()
+                print(re.sub(r'\n    ', ' ', data_to_send.replace('"', '\\"')))
 
-        asyncio.get_event_loop().run_until_complete(sender(self.room_name))
+        # asyncio.runを使って非同期関数を実行する
+        asyncio.run(sender(self.room_name))
+
 
     def round_numbers(self, num_list):
         if self.is_allowed_float:
-            return [round(val, 2) for val in num_list]
+            return self.round_two_decimals(num_list)
         else:
             return map(floor, [round(val, 1) for val in num_list])
 
-    def round_colors(self, num_list):
+    def round_two_decimals(self, num_list):
          return [round(val, 2) for val in num_list]

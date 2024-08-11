@@ -13,7 +13,7 @@ build_box.set_box_size(0.3)
 build_box.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
-build_box.translate(0, 30, 0)
+build_box.transform(0, 30, 0)
 
 for i in range(100):
     x = uniform(-line_length, line_length)

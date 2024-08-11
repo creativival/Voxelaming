@@ -1,7 +1,7 @@
-require 'voxelamming_gem'
+require 'voxelamming'
 
 room_name = "1000"
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 
 build_box.set_command('axis')
 build_box.set_box_size(1)

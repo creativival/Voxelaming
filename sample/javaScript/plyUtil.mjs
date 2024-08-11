@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export function getBoxesFromPly(plyFile) {
+function getBoxesFromPly(plyFile) {
   const boxPositions = new Set();
   const lines = fs.readFileSync(plyFile, 'utf8');
   const positions = lines
@@ -68,3 +68,5 @@ function isIncludedSixNumbers(line) {
   }
   return true;
 }
+
+modulte.exports = getBoxesFromPly;

@@ -1,11 +1,11 @@
-require 'voxelamming_gem'
+require 'voxelamming'
 
 room_name = '1000'
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 
 build_box.set_box_size(0.3)
 build_box.set_build_interval(0.01)
-build_box.translate(0, 30, 0)
+build_box.transform(0, 30, 0)
 
 100.times do
   x = SecureRandom.random_number(-30..30)

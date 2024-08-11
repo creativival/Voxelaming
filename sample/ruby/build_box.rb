@@ -6,14 +6,16 @@ require_relative 'matrix_util'
 
 class BuildBox
   @@texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
+  @@model_names = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
+    "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
 
   def initialize(room_name)
     @room_name = room_name
     @is_allowed_matrix = 0
     @saved_matrices = []
-    @translation = [0, 0, 0, 0, 0, 0]
-    @matrix_translation = [0, 0, 0, 0, 0, 0]
-    @frame_translations = []
+    @node_transform = [0, 0, 0, 0, 0, 0]
+    @matrix_transform = [0, 0, 0, 0, 0, 0]
+    @frame_transforms = []
     @global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
@@ -21,6 +23,8 @@ class BuildBox
     @sentence = []
     @lights = []
     @commands = []
+    @models = []
+    @model_moves = []
     @size = 1
     @shape = 'box'
     @is_metallic = 0
@@ -32,12 +36,11 @@ class BuildBox
   end
 
   def clear_data
-    @translation = [0, 0, 0, 0, 0, 0]
     @is_allowed_matrix = 0
     @saved_matrices = []
-    @translation = [0, 0, 0, 0, 0, 0]
-    @matrix_translation = [0, 0, 0, 0, 0, 0]
-    @frame_translations = []
+    @node_transform = [0, 0, 0, 0, 0, 0]
+    @matrix_transform = [0, 0, 0, 0, 0, 0]
+    @frame_transforms = []
     @global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @animation = [0, 0, 0, 0, 0, 0, 1, 0]
     @boxes = []
@@ -45,6 +48,8 @@ class BuildBox
     @sentence = []
     @lights = []
     @commands = []
+    @models = []
+    @model_moves = []
     @size = 1
     @shape = 'box'
     @is_metallic = 0
@@ -74,15 +79,15 @@ class BuildBox
 
   def push_matrix
     @is_allowed_matrix += 1
-    @saved_matrices.push(@matrix_translation)
+    @saved_matrices.push(@matrix_transform)
   end
 
   def pop_matrix
     @is_allowed_matrix -= 1
-    @matrix_translation = @saved_matrices.pop
+    @matrix_transform = @saved_matrices.pop
   end
 
-  def translate(x, y, z, pitch: 0, yaw: 0, roll: 0)
+  def transform(x, y, z, pitch: 0, yaw: 0, roll: 0)
     if @is_allowed_matrix > 0
       # 移動用のマトリックスを計算する
       matrix = @saved_matrices.last
@@ -95,22 +100,22 @@ class BuildBox
         base_rotation_matrix = [matrix[3..5], matrix[6..8], matrix[9..11]]
       end
 
-      # Compute the new position after translation
+      # Compute the new position after transform
       add_x, add_y, add_z = transform_point_by_rotation_matrix([x, y, z], transpose_3x3(base_rotation_matrix))
       x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
       x, y, z = round_numbers([x, y, z])
 
-      # Compute the rotation after translation
-      translate_rotation_matrix = get_rotation_matrix(-pitch, -yaw, -roll)
-      rotate_matrix = matrix_multiply(translate_rotation_matrix, base_rotation_matrix)
-      @matrix_translation = [x, y, z, *rotate_matrix[0], *rotate_matrix[1], *rotate_matrix[2]]
+      # Compute the rotation after transform
+      transform_rotation_matrix = get_rotation_matrix(-pitch, -yaw, -roll)
+      rotate_matrix = matrix_multiply(transform_rotation_matrix, base_rotation_matrix)
+      @matrix_transform = [x, y, z, *rotate_matrix[0], *rotate_matrix[1], *rotate_matrix[2]]
     else
       x, y, z = round_numbers([x, y, z])
 
       if @is_framing
-        @frame_translations.append([x, y, z, pitch, yaw, roll, @frame_id])
+        @frame_transforms.append([x, y, z, pitch, yaw, roll, @frame_id])
       else
-        @translation = [x, y, z, pitch, yaw, roll]
+        @node_transform = [x, y, z, pitch, yaw, roll]
       end
     end
   end
@@ -118,7 +123,7 @@ class BuildBox
   def create_box(x, y, z, r: 1, g: 1, b: 1, alpha: 1, texture: '')
     if @is_allowed_matrix > 0
       # 移動用のマトリックスにより位置を計算する
-      matrix = @matrix_translation
+      matrix = @matrix_transform
       base_position = matrix[0..2]
 
       if matrix.length == 6
@@ -127,13 +132,13 @@ class BuildBox
         base_rotation_matrix = [matrix[3..5], matrix[6..8], matrix[9..11]]
       end
 
-      # Compute the new position after translation
+      # Compute the new position after transform
       add_x, add_y, add_z = transform_point_by_rotation_matrix([x, y, z], transpose_3x3(base_rotation_matrix))
       x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
     end
 
     x, y, z = round_numbers([x, y, z])
-    r, g, b, alpha = round_colors([r, g, b, alpha])
+    r, g, b, alpha = round_two_decimals([r, g, b, alpha])
 
     # 重ねておくことを防止
     remove_box(x, y, z)
@@ -180,14 +185,14 @@ class BuildBox
 
   def write_sentence(sentence, x, y, z, r: 1, g: 1, b: 1, alpha: 1)
     x, y, z = round_numbers([x, y, z]).map(&:to_s)
-    r, g, b, alpha = round_colors([r, g, b, alpha])
+    r, g, b, alpha = round_two_decimals([r, g, b, alpha])
     r, g, b, alpha =  [r, g, b, alpha].map(&:floor).map(&:to_s)
     @sentence = [sentence, x, y, z, r, g, b, alpha]
   end
 
   def set_light(x, y, z, r: 1, g: 1, b: 1, alpha: 1, intensity: 1000, interval: 1, light_type: 'point')
     x, y, z = round_numbers([x, y, z])
-    r, g, b, alpha = round_colors([r, g, b, alpha])
+    r, g, b, alpha = round_two_decimals([r, g, b, alpha])
 
     if light_type == 'point'
       light_type = 1
@@ -272,12 +277,31 @@ class BuildBox
     @roughness = roughness
   end
 
-  def send_data
+  def create_model(model_name, x: 0, y: 0, z: 0, pitch: 0, yaw: 0, roll: 0, scale: 1, entity_name: '')
+    if @@model_names.include?(model_name)
+      x, y, z, pitch, yaw, roll, scale = round_two_decimals([x, y, z, pitch, yaw, roll, scale])
+      x, y, z, pitch, yaw, roll, scale = [x, y, z, pitch, yaw, roll, scale].map(&:to_s)
+
+      @models << [model_name, x, y, z, pitch, yaw, roll, scale, entity_name]
+    else
+      puts "No model name: #{model_name}"
+    end
+  end
+
+  def move_model(entity_name, x: 0, y: 0, z: 0, pitch: 0, yaw: 0, roll: 0, scale: 1)
+    x, y, z, pitch, yaw, roll, scale = round_two_decimals([x, y, z, pitch, yaw, roll, scale])
+    x, y, z, pitch, yaw, roll, scale = [x, y, z, pitch, yaw, roll, scale].map(&:to_s)
+
+    @model_moves << [entity_name, x, y, z, pitch, yaw, roll, scale]
+  end
+
+
+  def send_data(name: '')
     puts 'send_data'
     now = DateTime.now
     data_to_send = {
-      "translation": @translation,
-      "frameTranslations": @frame_translations,
+      "nodeTransform": @node_transform,
+      "frameTransforms": @frame_transforms,
       "globalAnimation": @global_animation,
       "animation": @animation,
       "boxes": @boxes,
@@ -285,12 +309,15 @@ class BuildBox
       "sentence": @sentence,
       "lights": @lights,
       "commands": @commands,
+      "models": @models,
+      "modelMoves": @model_moves,
       "size": @size,
       "shape": @shape,
       "interval": @build_interval,
       "isMetallic": @is_metallic,
       "roughness": @roughness,
       "isAllowedFloat": @is_allowed_float,
+      "name": name,
       "date": now.to_s
     }.to_json
 
@@ -326,13 +353,13 @@ class BuildBox
 
   def round_numbers(num_list)
     if @is_allowed_float == 1
-      num_list.map { |val| val.round(2) }
+      round_two_decimals(num_list)
     else
       num_list.map { |val| val.round(1).floor }
     end
   end
 
-  def round_colors(num_list)
+  def round_two_decimals(num_list)
     num_list.map { |val| val.round(2) }
   end
 end

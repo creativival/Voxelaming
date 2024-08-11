@@ -32,7 +32,7 @@ for i in range(5):
 for rotation in rotations:
     pitch, yaw, roll = rotation
 
-    build_box.translate(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+    build_box.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
     # ボクセルデータをアプリに送信します。
     build_box.send_data()
     time.sleep(1)

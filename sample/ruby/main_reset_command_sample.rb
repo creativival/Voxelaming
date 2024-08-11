@@ -1,8 +1,8 @@
-require 'voxelamming_gem'
+require 'voxelamming'
 require_relative 'ply_util'
 
 room_name = "1000"
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 
 animation_settings = [
     {
@@ -51,7 +51,7 @@ animation_settings = [
 
     build_box.set_box_size(0.5)
     build_box.set_build_interval(0)
-    build_box.translate(*position)
+    build_box.transform(*position)
     build_box.send_data
     sleep(0.5)
 

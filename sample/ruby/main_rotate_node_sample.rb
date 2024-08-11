@@ -1,7 +1,7 @@
-require 'voxelamming_gem'
+require 'voxelamming'
 
 room_name = '1000'
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 
 rotations = [
   [0, 0, 0],
@@ -30,7 +30,7 @@ for rotation in rotations
   yaw = rotation[1]
   roll = rotation[2]
 
-  build_box.translate(0, 0, 0, pitch: pitch, yaw: yaw, roll: roll)
+  build_box.transform(0, 0, 0, pitch: pitch, yaw: yaw, roll: roll)
   build_box.send_data()
   sleep(1)
 end

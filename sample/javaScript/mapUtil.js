@@ -3,7 +3,7 @@ import fs from 'fs';
 const columnNum = 257;
 const rowNum = 257;
 
-export function getMapDataFromCSV(csvFile, heightScale) {
+function getMapDataFromCSV(csvFile, heightScale) {
   const data = fs.readFileSync(csvFile, 'utf8');
   const lines = data.split('\n');
 
@@ -32,10 +32,12 @@ export function getMapDataFromCSV(csvFile, heightScale) {
   return mapData;
 }
 
-export function getBoxColor(height, maxHeight, highColor, lowColor) {
+function getBoxColor(height, maxHeight, highColor, lowColor) {
   const r = (highColor[0] - lowColor[0]) * height / maxHeight + lowColor[0];
   const g = (highColor[1] - lowColor[1]) * height / maxHeight + lowColor[1];
   const b = (highColor[2] - lowColor[2]) * height / maxHeight + lowColor[2];
 
   return [r, g, b];
 }
+
+modeule.exports = { getMapDataFromCSV, getBoxColor };

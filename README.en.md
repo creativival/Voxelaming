@@ -190,41 +190,36 @@ $ python3 main.py
 
 ```javascript
 // JavaScript (Node.js)
-const { BuildBox } = require('voxelamming-node');
+import { BuildBox } from 'voxelamming';
 
-(async () => {
-  const roomName = '1000';
-  const buildBox = new BuildBox(roomName);
+const roomName = '1000';
+const buildBox = new BuildBox(roomName);
 
-  buildBox.setBoxSize(0.5);
-  buildBox.setBuildInterval(0.01);
+buildBox.setBoxSize(0.5);
+buildBox.setBuildInterval(0.01);
 
-  for (let i = 0; i < 100; i++) {
-    buildBox.createBox(-1, i, 0, 0, 1, 1);
-    buildBox.createBox(0, i, 0, 1, 0, 0);
-    buildBox.createBox(1, i, 0, 1, 1, 0);
-    buildBox.createBox(2, i, 0, 0, 1, 1);
-  }
+for (let i = 0; i < 100; i++) {
+  buildBox.createBox(-1, i, 0, 0, 1, 1);
+  buildBox.createBox(0, i, 0, 1, 0, 0);
+  buildBox.createBox(1, i, 0, 1, 1, 0);
+  buildBox.createBox(2, i, 0, 0, 1, 1);
+}
 
-  for (let i = 0; i < 50; i++) {
-    buildBox.removeBox(0, i * 2, 0);
-    buildBox.removeBox(1, i * 2 + 1, 0);
-  }
+for (let i = 0; i < 50; i++) {
+  buildBox.removeBox(0, i * 2, 0);
+  buildBox.removeBox(1, i * 2 + 1, 0);
+}
 
-  await buildBox.sendData("main");
-  console.log('send data done')
-})().catch(error => {
-  console.error(error);
-});
-
+await buildBox.sendData("main");
+console.log('send data done')
 ```
 
 #### How to run
 
 ```bash
 $ sample/javaScript
-$ npm install voxelamming-node
-$ node main.js
+$ npm install voxelamming
+$ node main.mjs
 ```
 
 ### Ruby
@@ -233,19 +228,19 @@ $ node main.js
 
 ```ruby
 # Ruby
-require 'voxelamming_gem'
+require 'voxelamming'
 
 room_name = '1000'
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
 for i in 0...100
-  build_box.create_box(-1, i, 0, 0, 1, 1)
-  build_box.create_box(0, i, 0, 1, 0, 0)
-  build_box.create_box(1, i, 0, 1, 1, 0)
-  build_box.create_box(2, i, 0, 0, 1, 1)
+  build_box.create_box(-1, i, 0, r: 0, g: 1, b: 1)
+  build_box.create_box(0, i, 0, r: 1, g: 0, b: 0)
+  build_box.create_box(1, i, 0, r: 1, g: 1, b: 0)
+  build_box.create_box(2, i, 0, r: 0, g: 1, b: 1)
 end
 
 for i in 0...50
@@ -260,7 +255,7 @@ build_box.send_data
 
 ```bash
 $ sample/ruby
-$ gem install voxelamming_gem
+$ gem install voxelamming
 $ ruby main.rb
 ```
 

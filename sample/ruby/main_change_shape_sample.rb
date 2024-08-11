@@ -1,7 +1,7 @@
-require 'voxelamming_gem'
+require 'voxelamming'
 
 room_name = '1000'
-build_box = VoxelammingGem::BuildBox.new(room_name)
+build_box = Voxelamming::BuildBox.new(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
@@ -22,12 +22,12 @@ build_box.send_data
 
 sleep 1
 
-build_box.translate(10, 0, 0)
+build_box.transform(10, 0, 0)
 build_box.change_shape('sphere')
 build_box.send_data
 
 sleep 1
 
-build_box.translate(20, 0, 0)
+build_box.transform(20, 0, 0)
 build_box.change_shape('plane')
 build_box.send_data

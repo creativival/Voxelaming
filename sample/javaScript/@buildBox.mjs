@@ -5,25 +5,28 @@ import {
   transformPointByRotationMatrix,
   addVectors,
   transpose3x3
-} from './matrixUtil.mjs'
-
+} from './@matrixUtil.mjs'
 
 class BuildBox {
   constructor(roomName) {
     this.textureNames = ["grass", "stone", "dirt", "planks", "bricks"];
+    this.modelNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
+      "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"];
     this.roomName = roomName;
     this.isAllowedMatrix = 0;
     this.savedMatrices = [];
-    this.translation = [0, 0, 0, 0, 0, 0];
-    this.matrixTranslation = [0, 0, 0, 0, 0, 0];
-    this.frameTranslations = [];
+    this.transform = [0, 0, 0, 0, 0, 0];
+    this.matrixTransform = [0, 0, 0, 0, 0, 0];
+    this.frameTransforms = [];
     this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.frames = [];
     this.sentence = []
     this.lights = [];
-    this.commands = []
+    this.commands = [];
+    this.models = [];
+    this.modelMoves = [];
     this.size = 1.0;
     this.shape = 'box'
     this.isMetallic = 0
@@ -37,16 +40,18 @@ class BuildBox {
   clearData() {
     this.isAllowedMatrix = 0;
     this.savedMatrices = [];
-    this.translation = [0, 0, 0, 0, 0, 0];
-    this.matrixTranslation = [0, 0, 0, 0, 0, 0];
-    this.frameTranslations = [];
+    this.transform = [0, 0, 0, 0, 0, 0];
+    this.matrixTransform = [0, 0, 0, 0, 0, 0];
+    this.frameTransforms = [];
     this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
     this.boxes = [];
     this.frames = [];
     this.sentence = []
     this.lights = [];
-    this.commands = []
+    this.commands = [];
+    this.models = [];
+    this.modelMoves = [];
     this.size = 1.0;
     this.shape = 'box'
     this.isMetallic = 0
@@ -76,15 +81,15 @@ class BuildBox {
 
   pushMatrix() {
     this.isAllowedMatrix++;
-    this.savedMatrices.push(this.matrixTranslation);
+    this.savedMatrices.push(this.matrixTransform);
   }
 
   popMatrix() {
     this.isAllowedMatrix--;
-    this.matrixTranslation = this.savedMatrices.pop();
+    this.matrixTransform = this.savedMatrices.pop();
   }
 
-  translate(x, y, z, pitch = 0, yaw = 0, roll = 0) {
+  transform(x, y, z, pitch = 0, yaw = 0, roll = 0) {
     if (this.isAllowedMatrix) {
       // 移動用のマトリックスを計算する
       const matrix = this.savedMatrices[this.savedMatrices.length - 1];
@@ -106,17 +111,17 @@ class BuildBox {
       [x, y, z] = addVectors(basePosition, [addX, addY, addZ]);
       [x, y, z] = this.roundNumbers([x, y, z]);
 
-      const translateRotationMatrix = getRotationMatrix(-pitch, -yaw, -roll);
-      const rotateMatrix = matrixMultiply(translateRotationMatrix, baseRotationMatrix);
+      const transformRotationMatrix = getRotationMatrix(-pitch, -yaw, -roll);
+      const rotateMatrix = matrixMultiply(transformRotationMatrix, baseRotationMatrix);
 
-      this.matrixTranslation = [x, y, z, ...rotateMatrix[0], ...rotateMatrix[1], ...rotateMatrix[2]];
+      this.matrixTransform = [x, y, z, ...rotateMatrix[0], ...rotateMatrix[1], ...rotateMatrix[2]];
     } else {
       [x, y, z] = this.roundNumbers([x, y, z]);
 
       if (this.isFraming) {
-        this.frameTranslations.push([x, y, z, pitch, yaw, roll, this.frameId]);
+        this.frameTransforms.push([x, y, z, pitch, yaw, roll, this.frameId]);
       } else {
-        this.translation = [x, y, z, pitch, yaw, roll];
+        this.transform = [x, y, z, pitch, yaw, roll];
       }
     }
   }
@@ -124,7 +129,7 @@ class BuildBox {
   createBox(x, y, z, r=1, g=1, b=1, alpha=1, texture='') {
     if (this.isAllowedMatrix) {
       // 移動用のマトリックスにより位置を計算する
-      const matrix = this.matrixTranslation;
+      const matrix = this.matrixTransform;
       const basePosition = matrix.slice(0, 3);
 
       let baseRotationMatrix;
@@ -143,7 +148,7 @@ class BuildBox {
     }
 
     [x, y, z] = this.roundNumbers([x, y, z]);
-    [r, g, b, alpha] = this.roundColors([r, g, b, alpha]);
+    [r, g, b, alpha] = this.roundTwoDecimals([r, g, b, alpha]);
     // 重ねておくことを防止
     this.removeBox(x, y, z);
 
@@ -203,7 +208,7 @@ class BuildBox {
 
   writeSentence(sentence, x, y, z, r=1, g=1, b=1, alpha=1) {
     [x, y, z] = this.roundNumbers([x, y, z]);
-    [r, g, b, alpha] = this.roundColors([r, g, b, alpha]);
+    [r, g, b, alpha] = this.roundTwoDecimals([r, g, b, alpha]);
     [x, y, z] = [x, y, z].map(val => String(val));
     [r, g, b, alpha] = [r, g, b, alpha].map(val => String(val));
     this.sentence = [sentence, x, y, z, r, g, b, alpha];
@@ -211,7 +216,7 @@ class BuildBox {
 
   setLight(x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, lightType='point') {
     [x, y, z] = this.roundNumbers([x, y, z]);
-    [r, g, b, alpha] = this.roundColors([r, g, b, alpha]);
+    [r, g, b, alpha] = this.roundTwoDecimals([r, g, b, alpha]);
 
     if (lightType === 'point') {
       lightType = 1;
@@ -298,13 +303,33 @@ class BuildBox {
     this.roughness = roughness;
   }
 
+  createModel(modelName, x = 0, y = 0, z = 0,
+              pitch = 0, yaw = 0, roll = 0, scale = 1, entityName = '') {
+    if (this.modelNames.includes(modelName)) {
+      [x, y, z, pitch, yaw, roll, scale] = this.roundTwoDecimals([x, y, z, pitch, yaw, roll, scale]);
+      [x, y, z, pitch, yaw, roll, scale] = [x, y, z, pitch, yaw, roll, scale].map(String);
+
+      this.models.push([modelName, x, y, z, pitch, yaw, roll, scale, entityName]);
+    } else {
+      console.log(`No model name: ${modelName}`);
+    }
+  }
+
+  moveModel(entityName, x = 0, y = 0, z = 0,
+            pitch = 0, yaw = 0, roll = 0, scale = 1) {
+    [x, y, z, pitch, yaw, roll, scale] = this.roundTwoDecimals([x, y, z, pitch, yaw, roll, scale]);
+    [x, y, z, pitch, yaw, roll, scale] = [x, y, z, pitch, yaw, roll, scale].map(String);
+
+    this.modelMoves.push([entityName, x, y, z, pitch, yaw, roll, scale]);
+  }
+
   async sendData(name= '') {
     console.log('Sending data...');
     const ws = new WebSocket('wss://websocket.voxelamming.com');
     const date = new Date();
     const dataToSend = {
-      translation: this.translation,
-      frameTranslations: this.frameTranslations,
+      transform: this.transform,
+      frameTransforms: this.frameTransforms,
       globalAnimation: this.globalAnimation,
       animation: this.animation,
       boxes: this.boxes,
@@ -312,6 +337,8 @@ class BuildBox {
       sentence: this.sentence,
       lights: this.lights,
       commands: this.commands,
+      models: this.models,
+      modelMoves: this.modelMoves,
       size: this.size,
       shape: this.shape,
       interval: this.buildInterval,
@@ -324,16 +351,16 @@ class BuildBox {
 
     try {
       await new Promise((resolve, reject) => {  ws.onopen = () => {
-          ws.send(this.roomName);
-          console.log(`Joined room: ${this.roomName}`);
-          ws.send(JSON.stringify(dataToSend));
-          console.log(dataToSend)
-          console.log('Sent data to server');
-          setTimeout(() => {
-            ws.close();
-            resolve();
-          }, 1000); // 適切な時間を指定して自動的に接続を閉じる
-        };
+        ws.send(this.roomName);
+        console.log(`Joined room: ${this.roomName}`);
+        ws.send(JSON.stringify(dataToSend));
+        console.log(dataToSend)
+        console.log('Sent data to server');
+        setTimeout(() => {
+          ws.close();
+          resolve();
+        }, 1000); // 適切な時間を指定して自動的に接続を閉じる
+      };
 
         ws.onerror = error => {
           console.error(`WebSocket error: ${error}`);
@@ -351,13 +378,13 @@ class BuildBox {
 
   roundNumbers(num_list) {
     if (this.isAllowedFloat) {
-      return num_list.map(val => parseFloat(val.toFixed(2)));
+      return this.roundTwoDecimals(num_list);
     } else {
       return num_list.map(val => Math.floor(parseFloat(val.toFixed(1))));
     }
   }
 
-  roundColors(num_list) {
+  roundTwoDecimals(num_list) {
     return num_list.map(val => parseFloat(val.toFixed(2)));
   }
 }
