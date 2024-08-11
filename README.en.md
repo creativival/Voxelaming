@@ -102,9 +102,11 @@ build_box.send_data() # Send data
 | `set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)` | Places a light. | `x`, `y`, `z`: Position (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1), `intensity`: Intensity (float), `interval`: Blinking interval (float), `light_type`: Type of light ("point", "spot", "directional") |
 | `set_command(command)` | Executes a command. | `command`: Command ("axis", "japaneseCastle", "float", "liteRender") |
 | `draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)` | Draws a line between two points. | `x1`, `y1`, `z1`: Starting point (float), `x2`, `y2`, `z2`: Ending point (float), `r`, `g`, `b`, `alpha`: Color (float, 0-1) |
+| `create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)` | Creates a built-in model (USDZ). |  `model_name`: Name of the model (string), `x`, `y`, `z`: Translation values (float), `pitch`, `yaw`, `roll`: Rotation values (float), `scale`: Scale (float), `entity_name`: Name assigned to the created model (string) |
+| `move_model(entity_name, x, y, z, pitch, yaw, roll, scale)` | Moves the created model (USDZ). |  `entity_name`: Name assigned to the created model (string), `x`, `y`, `z`: Translation values (float), `pitch`, `yaw`, `roll`: Rotation values (float), `scale`: Scale (float) |
 | `send_data(name)` | Sends voxel data to the device; if the name argument is set, the voxel data can be stored and reproduced as history. | |
 | `clear_data()` | Initializes voxel data. | |
-| `translate(x, y, z, pitch, yaw, roll)` | Moves and rotates the coordinate system of the voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float) |
+| `transform(x, y, z, pitch, yaw, roll)` | Moves and rotates the coordinate system of the voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float) |
 | `animate(x, y, z, pitch, yaw, roll, scale, interval)` | Animates a voxel. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float), `scale`: Scale (float), `interval`: Interval (float) |
 | `animate_global(x, y, z, pitch, yaw, roll, scale, interval)` | Animates all voxels. | `x`, `y`, `z`: Translation amount (float), `pitch`, `yaw`, `roll`: Rotation amount (float), `scale`: Scale (float), `interval`: Interval (float) |
 | `push_matrix()` | Saves the current coordinate system to the stack. | |
@@ -156,7 +158,7 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
@@ -325,7 +327,7 @@ radius = 11
 
 build_box.set_box_size(2)
 build_box.set_build_interval(0.01)
-build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, radius, 0, pitch=0, yaw=0, roll=0)
 
 for i in range(-radius, radius + 1):
   for j in range(-radius, radius + 1):
@@ -366,7 +368,7 @@ for i in range(5):
   build_box.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.translate(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   time.sleep(1)
 ```
@@ -408,7 +410,7 @@ for i in range(5):
 for rotation in rotations:
   pitch, yaw, roll = rotation
 
-  build_box.translate(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+  build_box.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
   build_box.send_data()
   time.sleep(1)
 

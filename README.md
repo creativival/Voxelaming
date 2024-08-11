@@ -102,9 +102,11 @@ build_box.send_data() # データ送信
 | `set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)` | ライトを設置します。 | `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1), `intensity`: 強さ (float), `interval`: 点滅間隔 (float), `light_type`: ライトの種類 ("point", "spot", "directional") |
 | `set_command(command)` | コマンドを実行します。 | `command`: コマンド ("axis", "japaneseCastle", "float", "liteRender") |
 | `draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)` | 2点間に線を描画します。 | `x1`, `y1`, `z1`: 始点 (float), `x2`, `y2`, `z2`: 終点 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1) |
+| `create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)` | 内蔵のモデル（USDZ）を作成します。 | `model_name`: モデル名 (string), `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float) ,  `scale`: スケール (float), `entity_name`: 作成したモデルにつける名前 (string)|
+| `move_model(entity_name, x, y, z, pitch, yaw, roll, scale)` | 作成したモデル（USDZ）を移動します。 | `entity_name`: 作成したモデルにつける名前 (string), `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float) ,  `scale`: スケール (float)|
 | `send_data(name)` | ボクセルデータをデバイスに送信します。name引数を設定すると、ボクセルデータを履歴として保存して、再現することができます。 | |
 | `clear_data()` | ボクセルデータを初期化します。 | |
-| `translate(x, y, z, pitch, yaw, roll)` | ボクセルの座標系を移動・回転します。 | `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float) |
+| `transform(x, y, z, pitch, yaw, roll)` | ボクセルの座標系を移動・回転します。 | `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float) |
 | `animate(x, y, z, pitch, yaw, roll, scale, interval)` | ボクセルをアニメーションさせます。 | `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float), `scale`: スケール (float), `interval`: 間隔 (float) |
 | `animate_global(x, y, z, pitch, yaw, roll, scale, interval)` | 全てのボクセルをアニメーションさせます。 | `x`, `y`, `z`: 移動量 (float), `pitch`, `yaw`, `roll`: 回転量 (float), `scale`: スケール (float), `interval`: 間隔 (float) |
 | `push_matrix()` | 現在の座標系をスタックに保存します。 | |
@@ -157,7 +159,7 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
@@ -327,7 +329,7 @@ radius = 11
 
 build_box.set_box_size(2)
 build_box.set_build_interval(0.01)
-build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, radius, 0, pitch=0, yaw=0, roll=0)
 
 for i in range(-radius, radius + 1):
   for j in range(-radius, radius + 1):
@@ -368,7 +370,7 @@ for i in range(5):
   build_box.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.translate(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   time.sleep(1)
 ```
@@ -410,7 +412,7 @@ for i in range(5):
 for rotation in rotations:
   pitch, yaw, roll = rotation
 
-  build_box.translate(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+  build_box.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
   build_box.send_data()
   time.sleep(1)
 
@@ -488,7 +490,7 @@ node_positions = [
 ]
 
 for x, y, z in node_positions:
-  build_box.translate(x, y, z, pitch=0, yaw=0, roll=0)
+  build_box.transform(x, y, z, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   sleep(1)
 
@@ -512,7 +514,7 @@ build_box = BuildBox(room_name)
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
-build_box.translate(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, 16, 0, pitch=0, yaw=0, roll=0)
 build_box.write_sentence("Hello World", 0, 0, 0, r=1, g=0, b=0, alpha=1)
 build_box.send_data()
 

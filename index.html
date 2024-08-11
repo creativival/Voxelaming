@@ -117,9 +117,11 @@ build_box.send_data() # データ送信
             <tr><td> <code>set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)</code> </td><td> ライトを設置します。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 位置 (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: 色 (float, 0-1), <code>intensity</code>: 強さ (float), <code>interval</code>: 点滅間隔 (float), <code>light_type</code>: ライトの種類 (&quot;point&quot;, &quot;spot&quot;, &quot;directional&quot;) </td></tr>
             <tr><td> <code>set_command(command)</code> </td><td> コマンドを実行します。 </td><td> <code>command</code>: コマンド (&quot;axis&quot;, &quot;japaneseCastle&quot;, &quot;float&quot;, &quot;liteRender&quot;) </td></tr>
             <tr><td> <code>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)</code> </td><td> 2点間に線を描画します。 </td><td> <code>x1</code>, <code>y1</code>, <code>z1</code>: 始点 (float), <code>x2</code>, <code>y2</code>, <code>z2</code>: 終点 (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: 色 (float, 0-1) </td></tr>
+            <tr><td> <code>create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)</code> </td><td> 内蔵のモデル（USDZ）を作成します。 </td><td> <code>model_name</code>: モデル名 (string), <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) ,  <code>scale</code>: スケール (float), <code>entity_name</code>: 作成したモデルにつける名前 (string)</td></tr>
+            <tr><td> <code>move_model(entity_name, x, y, z, pitch, yaw, roll, scale)</code> </td><td> 作成したモデル（USDZ）を移動します。 </td><td> <code>entity_name</code>: 作成したモデルにつける名前 (string), <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) ,  <code>scale</code>: スケール (float)</td></tr>
             <tr><td> <code>send_data()</code> </td><td> ボクセルデータをデバイスに送信します。 </td><td> </td></tr>
             <tr><td> <code>clear_data()</code> </td><td> ボクセルデータを初期化します。 </td><td> </td></tr>
-            <tr><td> <code>translate(x, y, z, pitch, yaw, roll)</code> </td><td> ボクセルの座標系を移動・回転します。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) </td></tr>
+            <tr><td> <code>transform(x, y, z, pitch, yaw, roll)</code> </td><td> ボクセルの座標系を移動・回転します。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) </td></tr>
             <tr><td> <code>animate(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> ボクセルをアニメーションさせます。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float), <code>scale</code>: スケール (float), <code>interval</code>: 間隔 (float) </td></tr>
             <tr><td> <code>animate_global(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> 全てのボクセルをアニメーションさせます。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float), <code>scale</code>: スケール (float), <code>interval</code>: 間隔 (float) </td></tr>
             <tr><td> <code>push_matrix()</code> </td><td> 現在の座標系をスタックに保存します。 </td><td> </td></tr>
@@ -157,7 +159,7 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
-build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 10)
 
 for i in range(100):
@@ -297,7 +299,7 @@ radius = 11
 
 build_box.set_box_size(2)
 build_box.set_build_interval(0.01)
-build_box.translate(0, radius, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, radius, 0, pitch=0, yaw=0, roll=0)
 
 for i in range(-radius, radius + 1):
   for j in range(-radius, radius + 1):
@@ -333,7 +335,7 @@ for i in range(5):
   build_box.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.translate(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   time.sleep(1)
 </code></pre>
@@ -370,7 +372,7 @@ for i in range(5):
 for rotation in rotations:
   pitch, yaw, roll = rotation
 
-  build_box.translate(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+  build_box.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
   build_box.send_data()
   time.sleep(1)
 
