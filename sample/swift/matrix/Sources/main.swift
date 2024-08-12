@@ -1,6 +1,7 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
+    // Edit outer code here.
     let roomName = "1000"
     let angleToOpen = 30.0
     let lengthRatio = 0.8
@@ -12,11 +13,13 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
     Task {
         do {
+            // Edit code here.
             buildBox.drawLine(0, 0, 0, 0, initialLength, 0, r: 0, g: 1, b: 1)
 
             drawThreeBranches(count: repeatCount, branchLength: initialLength)
 
             try await buildBox.sendData()
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }
@@ -35,23 +38,24 @@ if #available(iOS 15.0, macOS 12.0, *) {
         buildBox.pushMatrix()
 
         // First branch
-        buildBox.translate(0, branchLength, 0, pitch: angleToOpen, yaw: 0, roll: 0)
+        buildBox.transform(0, branchLength, 0, pitch: angleToOpen, yaw: 0, roll: 0)
         buildBox.drawLine(0, 0, 0, 0, shortedBranchLength, 0, r: 1, g: 0, b: 1)
         drawThreeBranches(count: count, branchLength: shortedBranchLength)
 
         // Second branch
-        buildBox.translate(0, branchLength, 0, pitch: angleToOpen, yaw: 120, roll: 0)
+        buildBox.transform(0, branchLength, 0, pitch: angleToOpen, yaw: 120, roll: 0)
         buildBox.drawLine(0, 0, 0, 0, shortedBranchLength, 0, r: 1, g: 0, b: 0)
         drawThreeBranches(count: count, branchLength: shortedBranchLength)
 
         // Third branch
-        buildBox.translate(0, branchLength, 0, pitch: angleToOpen, yaw: 240, roll: 0)
+        buildBox.transform(0, branchLength, 0, pitch: angleToOpen, yaw: 240, roll: 0)
         buildBox.drawLine(0, 0, 0, 0, shortedBranchLength, 0, r: 1, g: 1, b: 0)
         drawThreeBranches(count: count, branchLength: shortedBranchLength)
 
 //         print("pop_matrix")
         buildBox.popMatrix()
     }
+    // Edit outer code here.
 } else {
     fatalError("This script requires iOS 15.0 / macOS 12.0 or later.")
 }

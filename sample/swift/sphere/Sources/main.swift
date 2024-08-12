@@ -1,15 +1,16 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let radius = 11
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
-    buildBox.translate(0, Double(radius), 0)
-
     Task {
         do {
+            // Edit code here.
+            let roomName = "1000"
+            let radius = 20
+            let buildBox = BuildBox(roomName: roomName)
+            buildBox.setBoxSize(0.5)
+            buildBox.setBuildInterval(0.01)
+            buildBox.transform(0, Double(radius), 0)
+
             for i in -radius...radius {
               for j in -radius...radius {
                 for k in -radius...radius {
@@ -21,7 +22,8 @@ if #available(iOS 15.0, macOS 12.0, *) {
               }
             }
 
-            try await buildBox.sendData()
+            try await buildBox.sendData(name: "sphere")
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

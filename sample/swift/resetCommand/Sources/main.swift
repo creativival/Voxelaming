@@ -1,22 +1,23 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let constants = Constants()
-    let animationSettings: [[String: Any]] = [
-        ["model": constants.frog1, "position": [0, 0, 0, 0, 0, 0]],
-        ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]],
-        ["model": constants.frog3, "position": [0, 0, 0, 0, 0, 0]],
-        ["model": constants.frog4, "position": [0, 5, 0, 0, 0, 0]],
-        ["model": constants.frog5, "position": [0, 10, 0, 0, 0, 0]],
-        ["model": constants.frog4, "position": [0, 5, 0, 0, 0, 0]],
-        ["model": constants.frog3, "position": [0, 0, 0, 0, 0, 0]],
-        ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]]
-    ]
-    let buildBox = BuildBox(roomName: roomName)
-
     Task {
         do {
+            // Edit code here.
+            let roomName = "1000"
+            let constants = Constants()
+            let animationSettings: [[String: Any]] = [
+                ["model": constants.frog1, "position": [0, 0, 0, 0, 0, 0]],
+                ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]],
+                ["model": constants.frog3, "position": [0, 0, 0, 0, 0, 0]],
+                ["model": constants.frog4, "position": [0, 5, 0, 0, 0, 0]],
+                ["model": constants.frog5, "position": [0, 10, 0, 0, 0, 0]],
+                ["model": constants.frog4, "position": [0, 5, 0, 0, 0, 0]],
+                ["model": constants.frog3, "position": [0, 0, 0, 0, 0, 0]],
+                ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]]
+            ]
+            let buildBox = BuildBox(roomName: roomName)
+
             for _ in 0..<3 {
                 for setting in animationSettings {
                     guard let plyFile = setting["model"] as? String,
@@ -36,7 +37,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
                     let pitch = Double(position[3])
                     let yaw = Double(position[4])
                     let roll = Double(position[5])
-                    buildBox.translate(x, y, z, pitch: pitch, yaw: yaw , roll: roll)
+                    buildBox.transform(x, y, z, pitch: pitch, yaw: yaw , roll: roll)
                     try await buildBox.sendData()
                     sleep(1)
 
@@ -49,6 +50,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
                     sleep(1)
                 }
             }
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

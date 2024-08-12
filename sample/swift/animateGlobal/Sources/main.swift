@@ -1,12 +1,13 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.3)
-    buildBox.setBuildInterval(0.01)
-
     Task {
+            // Edit code here.
+        let roomName = "1000"
+        let buildBox = BuildBox(roomName: roomName)
+        buildBox.setBoxSize(0.3)
+        buildBox.setBuildInterval(0.01)
+
         do {
             for i in 0..<10 {
                 buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1, alpha: 1)
@@ -35,13 +36,15 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 let y = position[1]
                 let z = position[2]
 
-                buildBox.translate(x, y, z, pitch: 0, yaw: 0, roll: 0)
+                buildBox.transform(x, y, z, pitch: 0, yaw: 0, roll: 0)
                 try await buildBox.sendData()
                 sleep(1)
             }
 
+            buildBox.clearData()
             buildBox.animateGlobal(0, 0, 0, pitch: 0, yaw: 180, roll: 0, scale: 1, interval: 100)
             try await buildBox.sendData()
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

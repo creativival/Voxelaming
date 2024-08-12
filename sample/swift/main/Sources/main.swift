@@ -1,13 +1,14 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
-
     Task {
         do {
+            // Edit code here.
+            let roomName = "1000"
+            let buildBox = BuildBox(roomName: roomName)
+            buildBox.setBoxSize(0.5)
+            buildBox.setBuildInterval(0.01)
+
             for i in 0..<100 {
                 buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
                 buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
@@ -20,7 +21,8 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 buildBox.removeBox(1, Double(i * 2 + 1), 0)
             }
 
-            try await buildBox.sendData()
+            try await buildBox.sendData(name: "main")
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

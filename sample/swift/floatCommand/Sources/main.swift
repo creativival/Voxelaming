@@ -1,17 +1,18 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let radius = 1.5
-    let repeatCount = 100
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBuildInterval(0.01)
-    buildBox.setBoxSize(1.0)
-    buildBox.changeShape("sphere")
-    buildBox.setCommand("float")
-
     Task {
         do {
+            // Edit code here.
+            let radius = 1.5
+            let repeatCount = 100
+            let roomName = "1000"
+            let buildBox = BuildBox(roomName: roomName)
+            buildBox.setBuildInterval(0.01)
+            buildBox.setBoxSize(1.0)
+            buildBox.changeShape("sphere")
+            buildBox.setCommand("float")
+
             for i in 0..<repeatCount {
                 let angle = Double(i) * 720.0 / Double(repeatCount) * .pi / 180.0
                 let x = radius * cos(angle)
@@ -28,6 +29,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             }
 
             try await buildBox.sendData()
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

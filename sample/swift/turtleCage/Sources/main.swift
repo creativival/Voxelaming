@@ -1,33 +1,34 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
-    buildBox.setCommand("liteRender")
-
-    let t = Turtle(buildBox: buildBox)
-    let colors: [[Double]] = [
-        [0, 0, 0, 1],
-        [1, 0, 0, 1],
-        [0, 1, 0, 1],
-        [0, 0, 1, 1],
-        [1, 1, 0, 1],
-        [0, 1, 1, 1],
-        [1, 0, 1, 1],
-        [1, 1, 1, 1],
-        [0.5, 0, 0, 1],
-        [0, 0.5, 0, 1],
-        [0, 0, 0.5, 1],
-        [0.5, 0.5, 0, 1],
-        [0, 0.5, 0.5, 1],
-        [0.5, 0, 0.5, 1],
-        [0.5, 0.5, 0.5, 1]
-    ]
-
     Task {
         do {
+            // Edit code here.
+            let roomName = "1000"
+            let buildBox = BuildBox(roomName: roomName)
+            buildBox.setBoxSize(0.5)
+            buildBox.setBuildInterval(0.01)
+            buildBox.setCommand("liteRender")
+
+            let t = Turtle(buildBox: buildBox)
+            let colors: [[Double]] = [
+                [0, 0, 0, 1],
+                [1, 0, 0, 1],
+                [0, 1, 0, 1],
+                [0, 0, 1, 1],
+                [1, 1, 0, 1],
+                [0, 1, 1, 1],
+                [1, 0, 1, 1],
+                [1, 1, 1, 1],
+                [0.5, 0, 0, 1],
+                [0, 0.5, 0, 1],
+                [0, 0, 0.5, 1],
+                [0.5, 0.5, 0, 1],
+                [0, 0.5, 0.5, 1],
+                [0.5, 0, 0.5, 1],
+                [0.5, 0.5, 0.5, 1]
+            ]
+
             for (j, color) in colors.enumerated() {
                 let polarPhi = Double(j) * 180.0 / Double(colors.count)
                 t.reset()
@@ -41,7 +42,8 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 }
             }
 
-            try await buildBox.sendData()
+            try await buildBox.sendData(name: "turtleCage")
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

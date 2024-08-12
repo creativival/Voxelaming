@@ -1,14 +1,15 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setCommand("axis")
-    buildBox.setBoxSize(1)
-    buildBox.setBuildInterval(0.01)
-
     Task {
         do {
+            // Edit code here.
+            let roomName = "1000"
+            let buildBox = BuildBox(roomName: roomName)
+            buildBox.setCommand("axis")
+            buildBox.setBoxSize(1)
+            buildBox.setBuildInterval(0.01)
+
             let colors: [[Double]] = [
               [0, 0, 0],
               [1, 0, 0],
@@ -35,7 +36,8 @@ if #available(iOS 15.0, macOS 12.0, *) {
             buildBox.setLight(0, 1, 1, r: 0, g: 1, b: 0, alpha: 1, intensity: 20000, interval: 3, lightType: "spot")
             buildBox.setLight(-1, 1, 0, r: 0, g: 0, b: 1, alpha: 1, intensity: 20000, interval: 5, lightType: "point")
 
-            try await buildBox.sendData()
+            try await buildBox.sendData(name: "light")
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

@@ -1,12 +1,13 @@
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
-    let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
-    let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-
     Task {
         do {
+            // Edit code here.
+            let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
+            let roomName = "1000"
+            let buildBox = BuildBox(roomName: roomName)
+
             buildBox.setBoxSize(1)
             buildBox.setBuildInterval(0.01)
             for (i, texture) in textureNames.enumerated() {
@@ -34,6 +35,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             }
             try await buildBox.sendData()
             buildBox.clearData()
+            // Edit code here.
         } catch {
             print("An error occurred: \(error)")
         }

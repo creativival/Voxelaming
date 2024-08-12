@@ -5,12 +5,14 @@ class BuildBox {
     let url = URL(string: "wss://websocket.voxelamming.com")!
     let webSocketTask: URLSessionWebSocketTask
     let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
+    let modelNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
+            "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
     var roomName = ""
     var isAllowedMatrix: Int = 0
     var savedMatrices: [[Double]] = []
-    var translation: [Double] = [0, 0, 0, 0, 0, 0]
-    var matrixTranslation: [Double] = [0, 0, 0, 0, 0, 0]
-    var frameTranslations: [[Double]] = []
+    var nodeTransform: [Double] = [0, 0, 0, 0, 0, 0]
+    var matrixTransform: [Double] = [0, 0, 0, 0, 0, 0]
+    var frameTransforms: [[Double]] = []
     var globalAnimation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
@@ -18,6 +20,8 @@ class BuildBox {
     var sentence = [String]()
     var lights = [[Double]]()
     var commands = [String]()
+    var models = [[String]]()
+    var modelMoves = [[String]]()
     var size: Double = 1.0
     var shape: String = "box"
     var isMetallic: Int = 0
@@ -35,9 +39,9 @@ class BuildBox {
     func clearData() {
         isAllowedMatrix = 0
         savedMatrices = []
-        translation = [0, 0, 0, 0, 0, 0]
-        matrixTranslation = [0, 0, 0, 0, 0, 0]
-        frameTranslations = []
+        nodeTransform = [0, 0, 0, 0, 0, 0]
+        matrixTransform = [0, 0, 0, 0, 0, 0]
+        frameTransforms = []
         globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
         animation = [0, 0, 0, 0, 0, 0, 1, 0]
         boxes = []
@@ -45,6 +49,8 @@ class BuildBox {
         sentence = []
         lights = []
         commands = []
+        models = []
+        modelMoves = []
         size = 1.0
         shape = "box"
         isMetallic = 0
@@ -74,15 +80,15 @@ class BuildBox {
 
     func pushMatrix() {
         self.isAllowedMatrix += 1
-        self.savedMatrices.append(matrixTranslation)
+        self.savedMatrices.append(matrixTransform)
     }
 
     func popMatrix() {
         self.isAllowedMatrix -= 1
-        matrixTranslation = self.savedMatrices.popLast()!
+        matrixTransform = self.savedMatrices.popLast()!
     }
 
-    func translate(_ x: Double, _ y: Double, _ z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
+    func transform(_ x: Double, _ y: Double, _ z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
         if self.isAllowedMatrix > 0 {
             // Retrieve the saved matrix
             let matrix = self.savedMatrices.last!
@@ -115,7 +121,7 @@ class BuildBox {
             let translateRotationMatrix = getRotationMatrix(pitch: -pitch, yaw: -yaw, roll: -roll)
             let rotatedMatrix = matrixMultiply(A: translateRotationMatrix, B: baseRotationMatrix)
 
-            matrixTranslation = [roundX, roundY, roundZ] + rotatedMatrix.flatMap { $0 }
+            matrixTransform = [roundX, roundY, roundZ] + rotatedMatrix.flatMap { $0 }
         } else {
             let roundNumList = roundNumbers(numList: [x, y, z])
             let roundX = roundNumList[0]
@@ -123,9 +129,9 @@ class BuildBox {
             let roundZ = roundNumList[2]
 
             if isFraming {
-                frameTranslations.append([roundX, roundY, roundZ, pitch, yaw, roll, Double(frameId)])
+                frameTransforms.append([roundX, roundY, roundZ, pitch, yaw, roll, Double(frameId)])
             } else {
-                self.translation = [roundX, roundY, roundZ, pitch, yaw, roll]
+                self.nodeTransform = [roundX, roundY, roundZ, pitch, yaw, roll]
             }
         }
     }
@@ -137,7 +143,7 @@ class BuildBox {
 
         if self.isAllowedMatrix > 0 {
             // Retrieve the saved matrix
-            let matrix = matrixTranslation
+            let matrix = matrixTransform
             let basePosition = Array(matrix[0...2])
 
             let baseRotationMatrix: [[Double]]
@@ -163,7 +169,7 @@ class BuildBox {
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
-        let roundColorList = roundColors(numList: [r, g, b, alpha])
+        let roundColorList = roundTwoDecimals(numList: [r, g, b, alpha])
         let roundR = roundColorList[0]
         let roundG = roundColorList[1]
         let roundB = roundColorList[2]
@@ -232,7 +238,7 @@ class BuildBox {
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
-        let roundColorList = roundColors(numList: [r, g, b, alpha])
+        let roundColorList = roundTwoDecimals(numList: [r, g, b, alpha])
         let roundR = roundColorList[0]
         let roundG = roundColorList[1]
         let roundB = roundColorList[2]
@@ -251,7 +257,7 @@ class BuildBox {
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
-        let roundColorList = roundColors(numList: [r, g, b, alpha])
+        let roundColorList = roundTwoDecimals(numList: [r, g, b, alpha])
         let roundR = roundColorList[0]
         let roundG = roundColorList[1]
         let roundB = roundColorList[2]
@@ -339,6 +345,26 @@ class BuildBox {
         }
     }
 
+    func createModel(modelName: String, x: Double = 0, y: Double = 0, z: Double = 0, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, entityName: String = "") {
+        if modelNames.contains(modelName) {
+            print("Find model name: \(modelName)")
+            let roundedValues = roundTwoDecimals(numList: [x, y, z, pitch, yaw, roll, scale])
+            let stringValues = roundedValues.map { String($0) }
+
+            let modelEntry = [modelName] + stringValues + [entityName]
+            models.append(modelEntry)
+        } else {
+            print("No model name: \(modelName)")
+        }
+    }
+
+    func moveModel(entityName: String, x: Double = 0, y: Double = 0, z: Double = 0, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1) {
+        let roundedValues = roundTwoDecimals(numList: [x, y, z, pitch, yaw, roll, scale])
+        let stringValues = roundedValues.map { String($0) }
+
+        let moveEntry = [entityName] + stringValues
+        modelMoves.append(moveEntry)
+    }
 
     func changeShape(_ shape: String) {
         self.shape = shape
@@ -349,15 +375,15 @@ class BuildBox {
         self.roughness = roughness
     }
 
-    func sendData() async throws {
+    func sendData(name: String = "") async throws {
         self.webSocketTask.resume()
 
         let date = Date()
         let dateFormatter = ISO8601DateFormatter()
         let dateString = dateFormatter.string(from: date)
         let dataDict = [
-            "translation": translation,
-            "frameTranslations": frameTranslations,
+            "nodeTransform": nodeTransform,
+            "frameTransforms": frameTransforms,
             "globalAnimation": globalAnimation,
             "animation": animation,
             "boxes": boxes,
@@ -365,12 +391,15 @@ class BuildBox {
             "sentence": sentence,
             "lights": lights,
             "commands": commands,
+            "models": models,
+            "modelMoves": modelMoves,
             "size": size,
             "shape": shape,
             "interval": buildInterval,
             "isMetallic": isMetallic,
             "roughness": roughness,
             "isAllowedFloat": isAllowedFloat,
+            "name": name,
             "date": dateString
         ] as [String : Any]
 
@@ -394,7 +423,7 @@ class BuildBox {
         }
     }
 
-    private func roundColors(numList: [Double]) -> [Double] {
+    private func roundTwoDecimals(numList: [Double]) -> [Double] {
         return numList.map { round($0 * 100) / 100 }
     }
 }
