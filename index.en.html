@@ -18,13 +18,15 @@
 
 
 
+
+
         <h1><strong>Voxelamming - AR Programming Learning App</strong></h1>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_icon.png" alt="Voxelamming Logo" width="200"/></p>
         <p>Voxelamming is an AR programming learning app. Even programming beginners can learn programming visually and enjoyably. Voxelamming supports iPhones and iPads with iOS 16 or later, and Apple Vision Pro.</p>
         <p><a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a></p>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
         <ul>
-            <li>Read this in other languages: <a href="README.en.md">English</a>, <a href="README.md">日本語</a>*</li>
+            <li>Read this in other languages: <a href="https://creativival.github.io/voxelamming/index.en">English</a>, <a href="https://creativival.github.io/voxelamming/">日本語</a>*</li>
         </ul>
         <h2>What is Voxelamming?</h2>
         <p>Voxelamming = Voxel + Programming</p>
@@ -114,7 +116,7 @@ build_box.send_data() # Send data
             <tr><td> <code>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)</code> </td><td> Draws a line between two points. </td><td> <code>x1</code>, <code>y1</code>, <code>z1</code>: Starting point (float), <code>x2</code>, <code>y2</code>, <code>z2</code>: Ending point (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1) </td></tr>
             <tr><td> <code>create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)</code> </td><td> Creates a built-in model (USDZ). </td><td>  <code>model_name</code>: Name of the model (string), <code>x</code>, <code>y</code>, <code>z</code>: Translation values (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation values (float), <code>scale</code>: Scale (float), <code>entity_name</code>: Name assigned to the created model (string) </td></tr>
             <tr><td> <code>move_model(entity_name, x, y, z, pitch, yaw, roll, scale)</code> </td><td> Moves the created model (USDZ). </td><td>  <code>entity_name</code>: Name assigned to the created model (string), <code>x</code>, <code>y</code>, <code>z</code>: Translation values (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation values (float), <code>scale</code>: Scale (float) </td></tr>
-            <tr><td> <code>send_data()</code> </td><td> Sends voxel data to the device. </td><td> </td></tr>
+            <tr><td> <code>send_data(name)</code> </td><td> Sends voxel data to the device; if the name argument is set, the voxel data can be stored and reproduced as history. </td><td> </td></tr>
             <tr><td> <code>clear_data()</code> </td><td> Initializes voxel data. </td><td> </td></tr>
             <tr><td> <code>transform(x, y, z, pitch, yaw, roll)</code> </td><td> Moves and rotates the coordinate system of the voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float) </td></tr>
             <tr><td> <code>animate(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> Animates a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float), <code>scale</code>: Scale (float), <code>interval</code>: Interval (float) </td></tr>
@@ -189,19 +191,19 @@ const buildBox = new BuildBox(roomName);
 buildBox.setBoxSize(0.5);
 buildBox.setBuildInterval(0.01);
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i &lt; 100; i++) {
   buildBox.createBox(-1, i, 0, 0, 1, 1);
   buildBox.createBox(0, i, 0, 1, 0, 0);
   buildBox.createBox(1, i, 0, 1, 1, 0);
   buildBox.createBox(2, i, 0, 0, 1, 1);
 }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i &lt; 50; i++) {
   buildBox.removeBox(0, i * 2, 0);
   buildBox.removeBox(1, i * 2 + 1, 0);
 }
 
-await buildBox.sendData("main");
+await buildBox.sendData(&quot;main&quot;);
 console.log('send data done')
 </code></pre>
         <h4>How to run</h4>
@@ -437,7 +439,7 @@ node_positions = [
 ]
 
 for x, y, z in node_positions:
-  build_box.transform(x, y, z, pitch=0, yaw=0, roll=0)
+  build_box.translate(x, y, z, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   sleep(1)
 
@@ -457,13 +459,13 @@ build_box = BuildBox(room_name)
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
-build_box.transform(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(0, 16, 0, pitch=0, yaw=0, roll=0)
 build_box.write_sentence(&quot;Hello World&quot;, 0, 0, 0, r=1, g=0, b=0, alpha=1)
 build_box.send_data()
 
 time.sleep(1)
 
-build_box.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.write_sentence(&quot;こんにちは&quot;, 0, 0, 0, r=0, g=1, b=0, alpha=1)
 build_box.send_data()
 </code></pre>
@@ -541,7 +543,7 @@ build_box = BuildBox(room_name)
 
 build_box.set_box_size(0.3)
 build_box.set_build_interval(0.01)
-build_box.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(0, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval= 0)
 
 for i in range(100):
@@ -603,7 +605,7 @@ build_box.send_data()
 
 time.sleep(1)
 
-build_box.transform(10, 0, 0, pitch=0, yaw=0, roll=0)
+build_box.translate(10, 0, 0, pitch=0, yaw=0, roll=0)
 build_box.change_shape('sphere')
 build_box.send_data()
 
@@ -1117,6 +1119,88 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
 build_box.send_data()
 </code></pre>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
+        <h3>Displaying Default Models</h3>
+        <p>You can display the default models built into Voxelamming. Currently, there are 19 models to choose from. By specifying an entity name, you can move the model using the <code>move_model</code> method.</p>
+        <p>List of built-in models:</p>
+        <ul>
+            <li>Mercury</li>
+            <li>Venus</li>
+            <li>Earth</li>
+            <li>Mars</li>
+            <li>Jupiter</li>
+            <li>Saturn</li>
+            <li>Uranus</li>
+            <li>Neptune</li>
+            <li>Pluto</li>
+            <li>Sun</li>
+            <li>Moon</li>
+            <li>ToyBiplane</li>
+            <li>ToyCar</li>
+            <li>Drummer</li>
+            <li>Robot</li>
+            <li>ToyRocket</li>
+            <li>RocketToy1</li>
+            <li>RocketToy2</li>
+            <li>Skull</li>
+        </ul>
+        <pre><code class="python"># Python
+from voxelamming import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(10)
+build_box.set_build_interval(0.01)
+build_box.set_command('axis')
+
+build_box.change_shape('sphere')
+build_box.create_box(0, 0, 0, 1, 0, 0, 1)
+build_box.create_model('Earth', 0, 2, 0)
+build_box.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
+build_box.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
+build_box.create_model('Robot', 0, 8, 0, 0, 0, 90)
+build_box.create_model('Skull', 0, 10, 0, 0, 0, 90)
+build_box.create_model('Skull', 0, 12, 0, 90, 0, 0)
+build_box.create_model('Skull', 0, 14, 0, 90, 0, 90)
+
+build_box.send_data(&quot;createModel&quot;)
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;https://creativival.github.io/voxelamming/image/create_model.png&quot; alt=&quot;create_model&quot; width=&quot;50%&quot;/&gt;&lt;/p&gt;
+Moving Default Models
+After displaying a default model built into Voxelamming with an entity name, you can move the model using the move_model method.
+</code></pre>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
+        <h2>Moving Default Models</h2>
+        <p>After displaying a default model built into Voxelamming with an entity name, you can move the model using the move_model method.</p>
+        <pre><code># Python
+from voxelamming import BuildBox
+import time
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+box_size = 10
+build_box.set_box_size(box_size)
+build_box.set_build_interval(0.01)
+build_box.set_command('axis')
+
+build_box.change_shape('sphere')
+build_box.create_box(0, 0, 0, 1, 0, 0, 1)
+build_box.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
+build_box.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
+build_box.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
+
+build_box.send_data(&quot;Skulls&quot;)
+build_box.clear_data()
+
+for i in range(20):
+    time.sleep(1)
+    build_box.set_box_size(box_size)
+    build_box.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
+    build_box.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
+    build_box.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
+    build_box.send_data()
+</code></pre>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>
         <h2>Settings</h2>
         <p>You can open the settings screen from the &quot;Settings&quot; button at the top right of the app. Turning off debug mode will disable information display on the screen.</p>
         <h2>Resetting the AR World</h2>
@@ -1131,7 +1215,6 @@ build_box.send_data()
         <p><a href="https://creativival.github.io/voxelamming/contact.html">Contact</a></p>
         <h2>Privacy Policy</h2>
         <p><a href="https://creativival.github.io/voxelamming/privacy.html">Privacy Policy</a></p>
-
 
 
 

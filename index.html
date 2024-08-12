@@ -22,14 +22,13 @@
 
 
 
-
         <h1><strong>ボクセラミング - ARプログラミング学習アプリ</strong></h1>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_icon.png" alt="Voxelamming Logo" width="200"/></p>
         <p>ボクセラミングは、ARを用いたプログラミング学習アプリです。プログラミング初心者でも、視覚的に楽しくプログラミングを学ぶことができます。ボクセラミングは、iOS 16以上のiPhoneとiPad、そしてApple Vision Proに対応しています。</p>
         <p><a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a></p>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
         <ul>
-            <li>別の言語で読む: <a href="README.en.md">English</a>, <a href="README.md">日本語</a>*</li>
+            <li>別の言語で読む: <a href="https://creativival.github.io/voxelamming/index.en">English</a>, <a href="https://creativival.github.io/voxelamming/">日本語</a>*</li>
         </ul>
         <h2>ボクセラミングとは</h2>
         <p>Voxelamming = ボクセル + プログラミング</p>
@@ -119,7 +118,7 @@ build_box.send_data() # データ送信
             <tr><td> <code>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)</code> </td><td> 2点間に線を描画します。 </td><td> <code>x1</code>, <code>y1</code>, <code>z1</code>: 始点 (float), <code>x2</code>, <code>y2</code>, <code>z2</code>: 終点 (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: 色 (float, 0-1) </td></tr>
             <tr><td> <code>create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)</code> </td><td> 内蔵のモデル（USDZ）を作成します。 </td><td> <code>model_name</code>: モデル名 (string), <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) ,  <code>scale</code>: スケール (float), <code>entity_name</code>: 作成したモデルにつける名前 (string)</td></tr>
             <tr><td> <code>move_model(entity_name, x, y, z, pitch, yaw, roll, scale)</code> </td><td> 作成したモデル（USDZ）を移動します。 </td><td> <code>entity_name</code>: 作成したモデルにつける名前 (string), <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) ,  <code>scale</code>: スケール (float)</td></tr>
-            <tr><td> <code>send_data()</code> </td><td> ボクセルデータをデバイスに送信します。 </td><td> </td></tr>
+            <tr><td> <code>send_data(name)</code> </td><td> ボクセルデータをデバイスに送信します。name引数を設定すると、ボクセルデータを履歴として保存して、再現することができます。 </td><td> </td></tr>
             <tr><td> <code>clear_data()</code> </td><td> ボクセルデータを初期化します。 </td><td> </td></tr>
             <tr><td> <code>transform(x, y, z, pitch, yaw, roll)</code> </td><td> ボクセルの座標系を移動・回転します。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float) </td></tr>
             <tr><td> <code>animate(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> ボクセルをアニメーションさせます。 </td><td> <code>x</code>, <code>y</code>, <code>z</code>: 移動量 (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: 回転量 (float), <code>scale</code>: スケール (float), <code>interval</code>: 間隔 (float) </td></tr>
@@ -194,19 +193,19 @@ const buildBox = new BuildBox(roomName);
 buildBox.setBoxSize(0.5);
 buildBox.setBuildInterval(0.01);
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i &lt; 100; i++) {
   buildBox.createBox(-1, i, 0, 0, 1, 1);
   buildBox.createBox(0, i, 0, 1, 0, 0);
   buildBox.createBox(1, i, 0, 1, 1, 0);
   buildBox.createBox(2, i, 0, 0, 1, 1);
 }
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i &lt; 50; i++) {
   buildBox.removeBox(0, i * 2, 0);
   buildBox.removeBox(1, i * 2 + 1, 0);
 }
 
-await buildBox.sendData("main");
+await buildBox.sendData(&quot;main&quot;);
 console.log('send data done')
 </code></pre>
         <h4>実行方法</h4>
@@ -442,7 +441,7 @@ node_positions = [
 ]
 
 for x, y, z in node_positions:
-  build_box.translate(x, y, z, pitch=0, yaw=0, roll=0)
+  build_box.transform(x, y, z, pitch=0, yaw=0, roll=0)
   build_box.send_data()
   sleep(1)
 
@@ -462,7 +461,7 @@ build_box = BuildBox(room_name)
 build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
-build_box.translate(0, 16, 0, pitch=0, yaw=0, roll=0)
+build_box.transform(0, 16, 0, pitch=0, yaw=0, roll=0)
 build_box.write_sentence(&quot;Hello World&quot;, 0, 0, 0, r=1, g=0, b=0, alpha=1)
 build_box.send_data()
 
@@ -1121,6 +1120,85 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
 build_box.send_data()
 </code></pre>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
+        <h3>デフォルトモデルの表示</h3>
+        <p>Voxelammingに内蔵しているデフォルトモデルを表示することができます。現在モデルは19種類を選択できます。エンティティネームを指定すると、move_modelメソッドでモデルを移動させることができます。</p>
+        <p>内蔵モデル一覧</p>
+        <ul>
+            <li>Mercury</li>
+            <li>Venus</li>
+            <li>Earth</li>
+            <li>Mars</li>
+            <li>Jupiter</li>
+            <li>Saturn</li>
+            <li>Uranus</li>
+            <li>Neptune</li>
+            <li>Pluto</li>
+            <li>Sun</li>
+            <li>Moon</li>
+            <li>ToyBiplane</li>
+            <li>ToyCar</li>
+            <li>Drummer</li>
+            <li>Robot</li>
+            <li>ToyRocket</li>
+            <li>RocketToy1</li>
+            <li>RocketToy2</li>
+            <li>Skull</li>
+        </ul>
+        <pre><code class="python"># Python
+from voxelamming import BuildBox
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(10)
+build_box.set_build_interval(0.01)
+build_box.set_command('axis')
+
+build_box.change_shape('sphere')
+build_box.create_box(0, 0, 0, 1, 0, 0, 1)
+build_box.create_model('Earth', 0, 2, 0)
+build_box.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
+build_box.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
+build_box.create_model('Robot', 0, 8, 0, 0, 0, 90)
+build_box.create_model('Skull', 0, 10, 0, 0, 0, 90)
+build_box.create_model('Skull', 0, 12, 0, 90, 0, 0)
+build_box.create_model('Skull', 0, 14, 0, 90, 0, 90)
+
+build_box.send_data(&quot;createModel&quot;)
+</code></pre>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
+        <h3>デフォルトモデルの移動</h3>
+        <p>Voxelammingに内蔵しているデフォルトモデルをエンティティネームを付けて表示した後で、move_modelメソッドを使ってモデルを移動させることができます。</p>
+        <pre><code class="python"># Python
+from voxelamming import BuildBox
+import time
+
+room_name = &quot;1000&quot;
+build_box = BuildBox(room_name)
+
+box_size = 10
+build_box.set_box_size(box_size)
+build_box.set_build_interval(0.01)
+build_box.set_command('axis')
+
+build_box.change_shape('sphere')
+build_box.create_box(0, 0, 0, 1, 0, 0, 1)
+build_box.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
+build_box.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
+build_box.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
+
+build_box.send_data(&quot;Skulls&quot;)
+build_box.clear_data()
+
+for i in range(20):
+    time.sleep(1)
+    build_box.set_box_size(box_size)
+    build_box.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
+    build_box.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
+    build_box.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
+    build_box.send_data()
+</code></pre>
+        <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>
         <h2>設定</h2>
         <p>アプリ右上の「Settings」ボタンから設定画面を開けます。デバッグモードをオフにすると、画面の情報表示が無効になります。</p>
         <h2>ARワールドのリセット</h2>
@@ -1135,6 +1213,7 @@ build_box.send_data()
         <p><a href="https://creativival.github.io/voxelamming/contact.html">コンタクト</a></p>
         <h2>プライバシーポリシー</h2>
         <p><a href="https://creativival.github.io/voxelamming/privacy.html">プライバシーポリシー</a></p>
+
 
 
 
