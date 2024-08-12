@@ -1228,6 +1228,94 @@ build_box.send_data()
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
 
+### デフォルトモデルの表示
+
+Voxelammingに内蔵しているデフォルトモデルを表示することができます。現在モデルは19種類を選択できます。エンティティネームを指定すると、move_modelメソッドでモデルを移動させることができます。
+
+内蔵モデル一覧
+- Mercury
+- Venus
+- Earth
+- Mars
+- Jupiter
+- Saturn
+- Uranus
+- Neptune
+- Pluto
+- Sun
+- Moon
+- ToyBiplane
+- ToyCar
+- Drummer
+- Robot
+- ToyRocket
+- RocketToy1
+- RocketToy2
+- Skull
+
+```python
+# Python
+from voxelamming import BuildBox
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+build_box.set_box_size(10)
+build_box.set_build_interval(0.01)
+build_box.set_command('axis')
+
+build_box.change_shape('sphere')
+build_box.create_box(0, 0, 0, 1, 0, 0, 1)
+build_box.create_model('Earth', 0, 2, 0)
+build_box.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
+build_box.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
+build_box.create_model('Robot', 0, 8, 0, 0, 0, 90)
+build_box.create_model('Skull', 0, 10, 0, 0, 0, 90)
+build_box.create_model('Skull', 0, 12, 0, 90, 0, 0)
+build_box.create_model('Skull', 0, 14, 0, 90, 0, 90)
+
+build_box.send_data("createModel")
+```
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
+
+### デフォルトモデルの移動
+
+Voxelammingに内蔵しているデフォルトモデルをエンティティネームを付けて表示した後で、move_modelメソッドを使ってモデルを移動させることができます。
+
+```python
+# Python
+from voxelamming import BuildBox
+import time
+
+room_name = "1000"
+build_box = BuildBox(room_name)
+
+box_size = 10
+build_box.set_box_size(box_size)
+build_box.set_build_interval(0.01)
+build_box.set_command('axis')
+
+build_box.change_shape('sphere')
+build_box.create_box(0, 0, 0, 1, 0, 0, 1)
+build_box.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
+build_box.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
+build_box.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
+
+build_box.send_data("Skulls")
+build_box.clear_data()
+
+for i in range(20):
+    time.sleep(1)
+    build_box.set_box_size(box_size)
+    build_box.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
+    build_box.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
+    build_box.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
+    build_box.send_data()
+```
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>
+
 ## 設定
 
 アプリ右上の「Settings」ボタンから設定画面を開けます。デバッグモードをオフにすると、画面の情報表示が無効になります。

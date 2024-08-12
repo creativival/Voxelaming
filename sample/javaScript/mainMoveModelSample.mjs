@@ -8,7 +8,7 @@ const roomName = "1000";
 const buildBox = new BuildBox(roomName);
 
 // ボクセルのサイズを設定します
-buildBox.setBoxSize(10);
+buildBox.setBoxSize(1);
 // ボクセルの配置間隔を設定します
 buildBox.setBuildInterval(0.01);
 // 座標軸を表示します
@@ -28,7 +28,7 @@ console.log('send data done')
 
 // モデルを移動します
 for (let i = 0; i < 20; i++) {
-  buildBox.setBoxSize(10);
+  buildBox.setBoxSize(1);
   await buildBox.sleepSecond(1)
   buildBox.moveModel('skull_model_1', -2, i * 0.2, 0, 0, 0, 0, 1);
   buildBox.moveModel('skull_model_2', 2, 0, 0, 0, i * 10, 0, 1);

@@ -8,7 +8,7 @@ const roomName = "1000";
 const buildBox = new BuildBox(roomName);
 
 // ボクセルのサイズを設定します
-const boxSize = 10;
+const boxSize = 1;
 buildBox.setBoxSize(boxSize);
 // ボクセルの配置間隔を設定します
 buildBox.setBuildInterval(0.01);
