@@ -23,7 +23,7 @@ class BuildBox:
         self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.boxes = []
         self.frames = []
-        self.sentence = []
+        self.sentences = []
         self.lights = []
         self.commands = []
         self.models = []
@@ -47,7 +47,7 @@ class BuildBox:
         self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
         self.boxes = []
         self.frames = []
-        self.sentence = []
+        self.sentences = []
         self.lights = []
         self.commands = []
         self.models = []
@@ -178,12 +178,13 @@ class BuildBox:
     def set_build_interval(self, interval):
         self.build_interval = interval
 
-    def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1):
+    def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1, font_size=16, is_fixed_width=False):
         x, y, z = self.round_numbers([x, y, z])
         r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
         x, y, z = map(str, [x, y, z])
-        r, g, b, alpha = map(str, [r, g, b, alpha])
-        self.sentence = [sentence, x, y, z, r, g, b, alpha]
+        r, g, b, alpha, font_size = map(str, [r, g, b, alpha, font_size])
+        is_fixed_width = "1" if is_fixed_width else "0"
+        self.sentences.append([sentence, x, y, z, r, g, b, alpha, font_size, is_fixed_width])
 
     def set_light(self, x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point'):
         x, y, z = self.round_numbers([x, y, z])
@@ -287,7 +288,7 @@ class BuildBox:
         "animation": {self.animation},
         "boxes": {self.boxes},
         "frames": {self.frames},
-        "sentence": {self.sentence},
+        "sentences": {self.sentences},
         "lights": {self.lights},
         "commands": {self.commands},
         "models": {self.models},
