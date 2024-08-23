@@ -1,11 +1,11 @@
-import {BuildBox} from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming } from 'voxelamming';
+import Voxelamming from './voxelamming.js';  // test
 
 const roomName = '1000';
-const buildBox = new BuildBox(roomName);
+const voxelamming = new Voxelamming(roomName);
 
-buildBox.setCommand('japaneseCastle');
+voxelamming.setCommand('japaneseCastle');
 
-await buildBox.sendData('mainCastleCommandSample');
+await voxelamming.sendData('mainCastleCommandSample');
 console.log('send data done');
 

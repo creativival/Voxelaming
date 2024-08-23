@@ -1,4 +1,3 @@
-// const WebSocket = require('ws');
 const {
   getRotationMatrix,
   matrixMultiply,
@@ -7,7 +6,15 @@ const {
   transpose3x3
 } = require('./matrixUtil.js');
 
-class BuildBox {
+let WebSocketClient;
+
+if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
+  WebSocketClient = window.WebSocket;
+} else {
+  WebSocketClient = require('ws');
+}
+
+class Voxelamming {
   constructor(roomName) {
     this.textureNames = ["grass", "stone", "dirt", "planks", "bricks"];
     this.modelNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
@@ -27,9 +34,9 @@ class BuildBox {
     this.commands = [];
     this.models = [];
     this.modelMoves = [];
-    this.sprites = []; // ゲーム用（未使用）
-    this.spriteMoves = []; // ゲーム用（未使用）
-    this.gameScore = -1; // ゲーム用（未使用）
+    this.sprites = [];
+    this.spriteMoves = [];
+    this.gameScore = -1;
     this.size = 1.0;
     this.shape = 'box'
     this.isMetallic = 0
@@ -40,40 +47,44 @@ class BuildBox {
     this.frameId = 0;
     this.retationStyles = {}; // 回転の制御（送信しない）
     this.socket = null;
-    this.dataQueue = [];
-    this.isSocketConnecting = false;
     this.isSocketOpen = false;
     this.inactivityTimeout = null; // 非アクティブタイマー
-    this.inactivityDelay = 5000; // 5秒後に接続を切断
-    // setInterval(this.sendQueuedData.bind(this), 100);
+    this.inactivityDelay = 2000; // 2秒後に接続を切断
   }
 
-  clearData() {
-    this.isAllowedMatrix = 0;
-    this.savedMatrices = [];
-    this.nodeTransform = [0, 0, 0, 0, 0, 0];
-    this.matrixTransform = [0, 0, 0, 0, 0, 0];
-    this.frameTransforms = [];
-    this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
-    this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
-    this.boxes = [];
-    this.frames = [];
-    this.sentences = []
-    this.lights = [];
-    this.commands = [];
-    this.models = [];
-    this.modelMoves = [];
-    this.sprites = []; // ゲーム用（未使用）
-    this.spriteMoves = []; // ゲーム用（未使用）
-    this.gameScore = -1; // ゲーム用（未使用）
-    this.size = 1.0;
-    this.shape = 'box'
-    this.isMetallic = 0
-    this.roughness = 0.5
-    this.isAllowedFloat = 0
-    this.buildInterval = 0.01;
-    this.isFraming = false;
-    this.frameId = 0;
+  async clearData() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.isAllowedMatrix = 0;
+        this.savedMatrices = [];
+        this.nodeTransform = [0, 0, 0, 0, 0, 0];
+        this.matrixTransform = [0, 0, 0, 0, 0, 0];
+        this.frameTransforms = [];
+        this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0];
+        this.animation = [0, 0, 0, 0, 0, 0, 1, 0];
+        this.boxes = [];
+        this.frames = [];
+        this.sentences = [];
+        this.lights = [];
+        this.commands = [];
+        this.models = [];
+        this.modelMoves = [];
+        this.sprites = [];
+        this.spriteMoves = [];
+        this.gameScore = -1;
+        this.size = 1.0;
+        this.shape = 'box';
+        this.isMetallic = 0;
+        this.roughness = 0.5;
+        this.isAllowedFloat = 0;
+        this.buildInterval = 0.01;
+        this.isFraming = false;
+        this.frameId = 0;
+
+        // すべての初期化が完了したらresolveを呼び出す
+        resolve();
+      }, 0); // 遅延を0に設定
+    });
   }
 
   setFrameFPS(fps = 2) {
@@ -318,7 +329,7 @@ class BuildBox {
   }
 
   createModel(modelName, x = 0, y = 0, z = 0,
-           pitch = 0, yaw = 0, roll = 0, scale = 1, entityName = '') {
+              pitch = 0, yaw = 0, roll = 0, scale = 1, entityName = '') {
     if (this.modelNames.includes(modelName)) {
       [x, y, z, pitch, yaw, roll, scale] = this.roundTwoDecimals([x, y, z, pitch, yaw, roll, scale]);
       [x, y, z, pitch, yaw, roll, scale] = [x, y, z, pitch, yaw, roll, scale].map(String);
@@ -330,7 +341,7 @@ class BuildBox {
   }
 
   moveModel(entityName, x = 0, y = 0, z = 0,
-              pitch = 0, yaw = 0, roll = 0, scale = 1) {
+            pitch = 0, yaw = 0, roll = 0, scale = 1) {
     [x, y, z, pitch, yaw, roll, scale] = this.roundTwoDecimals([x, y, z, pitch, yaw, roll, scale]);
     [x, y, z, pitch, yaw, roll, scale] = [x, y, z, pitch, yaw, roll, scale].map(String);
 
@@ -356,46 +367,46 @@ class BuildBox {
 
   createSprite(spriteName, colorList, x, y, direction = 90, scale = 1, visible = true) {
     // 新しいスプライトデータを配列に追加
-    this.sprites.push([spriteName, colorList, x, y, direction, scale, visible ? 'visible' : 'invisible']);
+    [x, y, direction] = this.roundNumbers([x, y, direction]);
+    [x, y, direction, scale] = [x, y, direction, scale].map(val => String(val))
+    this.sprites.push([spriteName, colorList, x, y, direction, scale, visible ? '1' : '0']);
   }
 
-  getSpritePosition(spriteName, x, y, direction, visible = true) {
-    const sprite = this.runtime.getSpriteTargetByName(spriteName);
-    if (sprite) {
-      console.log(sprite);
+  moveSprite(spriteName, x, y, direction = 90, scale = 1, visible = true) {
+    // const sprite = this.runtime.getSpriteTargetByName(spriteName);
+    [x, y, direction] = this.roundNumbers([x, y, direction]);
+    [x, y, direction, scale] = [x, y, direction, scale].map(val => String(val))
 
-      // rotationStyleを取得
-      if (spriteName in this.retationStyles) {
-        const rotationStyle = this.retationStyles[spriteName];
+    // rotationStyleを取得
+    if (spriteName in this.retationStyles) {
+      const rotationStyle = this.retationStyles[spriteName];
 
-        // rotationStyleが変更された場合、新しいスプライトデータを配列に追加
-        if (rotationStyle === 'left-right') {
-          if (direction < 0) {
-            direction = "270"; // 取得できる値は-90から90である。270にすることで、左右反転を表現する
-          } else {
-            direction = "90";
-          }
-        } else if (rotationStyle === "don't rotate") {
-          direction = "90"
+      // rotationStyleが変更された場合、新しいスプライトデータを配列に追加
+      if (rotationStyle === 'left-right') {
+        if (direction < 0) {
+          direction = "270"; // 取得できる値は-90から90である。270にすることで、左右反転を表現する
         } else {
-          direction = String(direction)
+          direction = "90";
         }
+      } else if (rotationStyle === "don't rotate") {
+        direction = "90"
       } else {
-        // rotationStyleが設定されていない場合、そのままの値を使う
         direction = String(direction)
       }
-
-      // sprites配列から同じスプライト名の要素を削除
-      this.spriteMoves = this.spriteMoves.filter(spriteInfo => spriteInfo[0] !== spriteName);
-
-      // 新しいスプライトデータを配列に追加
-      this.spriteMoves.push([spriteName, x, y, direction, visible ? 'visible' : 'invisible']);
+    } else {
+      // rotationStyleが設定されていない場合、そのままの値を使う
+      direction = String(direction)
     }
+
+    // sprites配列から同じスプライト名の要素を削除
+    this.spriteMoves = this.spriteMoves.filter(spriteInfo => spriteInfo[0] !== spriteName);
+
+    // 新しいスプライトデータを配列に追加
+    this.spriteMoves.push([spriteName, x, y, direction, scale, visible ? '1' : '0']);
   }
 
-  async sendData(name= '') {
+  async sendData(name = '') {
     console.log('Sending data...');
-    // const ws = new WebSocket('wss://websocket.voxelamming.com');
     const date = new Date();
     const dataToSend = {
       nodeTransform: this.nodeTransform,
@@ -411,7 +422,7 @@ class BuildBox {
       modelMoves: this.modelMoves,
       sprites: this.sprites,
       spriteMoves: this.spriteMoves,
-      gameScore: this.gameScore ,
+      gameScore: this.gameScore,
       size: this.size,
       shape: this.shape,
       interval: this.buildInterval,
@@ -422,40 +433,67 @@ class BuildBox {
       date: date.toISOString()
     };
 
-    // voxelammingパッケージ内のWebSocketの部分を修正
-    let WebSocketClient;
-
-    if (typeof window !== 'undefined') {
-      // ブラウザ環境では、標準のWebSocketオブジェクトを使用
-      WebSocketClient = WebSocket;
-    } else {
-      // Node.js環境では、wsライブラリを使用
-      WebSocketClient = require('ws');
-    }
-
-// WebSocketの使用箇所で WebSocketClient を使用
-    const ws = new WebSocketClient('wss://websocket.voxelamming.com');
-
-    try {
-      await new Promise((resolve, reject) => {  ws.onopen = () => {
-        ws.send(this.roomName);
-        console.log(`Joined room: ${this.roomName}`);
-        ws.send(JSON.stringify(dataToSend));
-        console.log(dataToSend)
-        console.log('Sent data to server');
-        setTimeout(() => {
-          ws.close();
+    return new Promise((resolve, reject) => {
+      try {
+        if (this.socket && this.socket.readyState === WebSocketClient.OPEN) {
+          this.socket.send(JSON.stringify(dataToSend));
+          console.log('Sent data to server (existing connection):', dataToSend);
+          this.startInactivityTimer(); // タイマーを開始
           resolve();
-        }, 1000); // 適切な時間を指定して自動的に接続を閉じる
-      };
+        } else if (this.socket && this.socket.readyState === WebSocketClient.CONNECTING) {
+          this.socket.onopen = () => {
+            this.socket.send(this.roomName);
+            console.log(`Joined room: ${this.roomName}`);
+            this.socket.send(JSON.stringify(dataToSend));
+            console.log('Sent data to server (connected):', dataToSend);
+            this.isSocketOpen = true;
+            this.startInactivityTimer(); // タイマーを開始
+            resolve();
+          };
+        } else {
+          this.socket = new WebSocketClient('wss://websocket.voxelamming.com');
 
-        ws.onerror = error => {
-          console.error(`WebSocket error: ${error}`);
-          reject(error);
-        };
-      });
-    } catch (error) {
-      console.error(`WebSocket connection failed: ${error}`);
+          this.socket.onopen = () => {
+            this.socket.send(this.roomName);
+            console.log(`Joined room: ${this.roomName}`);
+            this.socket.send(JSON.stringify(dataToSend));
+            console.log('Sent data to server (new connection):', dataToSend);
+            this.isSocketOpen = true;
+            this.startInactivityTimer(); // タイマーを開始
+            resolve();
+          };
+
+          this.socket.onerror = error => {
+            console.error(`WebSocket error: ${error}`);
+            reject(error);
+          };
+
+          this.socket.onclose = () => {
+            this.isSocketOpen = false;
+            console.log('WebSocket connection closed.');
+          };
+        }
+      } catch (error) {
+        console.error(`WebSocket connection failed: ${error}`);
+        reject(error);
+      }
+    });
+  }
+
+  startInactivityTimer() {
+    this.clearInactivityTimer(); // 既存のタイマーをクリア
+    this.inactivityTimeout = setTimeout(() => {
+      if (this.socket && this.socket.readyState === WebSocketClient.OPEN) {
+        console.log('No data sent for 2 seconds. Closing WebSocket connection.');
+        this.socket.close();
+      }
+    }, this.inactivityDelay);
+  }
+
+  clearInactivityTimer() {
+    if (this.inactivityTimeout) {
+      clearTimeout(this.inactivityTimeout);
+      this.inactivityTimeout = null;
     }
   }
 

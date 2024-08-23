@@ -1,12 +1,14 @@
-import { BuildBox, getMapDataFromCSV, getBoxColor } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming, getMapDataFromCSV, getBoxColor } from 'voxelamming';
+import { getMapDataFromCSV, getBoxColor } from 'voxelamming'; // test
+import Voxelamming from './voxelamming.js';  // test
+
 
 const roomName = "1000";
-const buildBox = new BuildBox(roomName);
+const voxelamming = new Voxelamming(roomName);
 
-buildBox.setBoxSize(0.5);
-buildBox.setBuildInterval(0.001);
-buildBox.setCommand('liteRender');
+voxelamming.setBoxSize(0.5);
+voxelamming.setBuildInterval(0.001);
+voxelamming.setCommand('liteRender');
 
 const columnNum = 257;
 const rowNum = 257;
@@ -29,9 +31,9 @@ for (let j = 0; j < rowNum / skip; j++) {
     const [r, g, b] = getBoxColor(y, maxHeight, highColor, lowColor);
 
     if (y >= 0) {
-      buildBox.createBox(x, y, z, r, g, b, 1);
+      voxelamming.createBox(x, y, z, r, g, b, 1);
     }
   }
 }
 
-await buildBox.sendData("mainMapSample");
+await voxelamming.sendData("mainMapSample");

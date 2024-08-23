@@ -1,8 +1,9 @@
-import { BuildBox, getBoxesFromPly } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming, getBoxesFromPly } from 'voxelamming';
+import { getBoxesFromPly } from 'voxelamming'; // test
+import Voxelamming from './voxelamming.js';  // test
 
 const roomName = '1000';
-const buildBox = new BuildBox(roomName);
+const voxelamming = new Voxelamming(roomName);
 const animationSettings = [
   {
     model: '../ply_file/frog1.ply',
@@ -46,19 +47,19 @@ for (let _ = 0; _ < 3; _++) {
 
     let boxes = getBoxesFromPly(model);
     boxes.forEach(box => {
-      buildBox.createBox(...box);
+      voxelamming.createBox(...box);
     });
 
-    buildBox.setBoxSize(0.5);
-    buildBox.setBuildInterval(0);
-    buildBox.transform(...position);
-    await buildBox.sendData();
-    await buildBox.sleepSecond(0.5)
+    voxelamming.setBoxSize(0.5);
+    voxelamming.setBuildInterval(0);
+    voxelamming.transform(...position);
+    await voxelamming.sendData();
+    await voxelamming.sleepSecond(0.5)
 
-    buildBox.clearData();
-    buildBox.setCommand('reset');
-    await buildBox.sendData();
-    buildBox.clearData();
-    await buildBox.sleepSecond(0.5)
+    await voxelamming.clearData();
+    voxelamming.setCommand('reset');
+    await voxelamming.sendData();
+    await voxelamming.clearData();
+    await voxelamming.sleepSecond(0.5)
   }
 }

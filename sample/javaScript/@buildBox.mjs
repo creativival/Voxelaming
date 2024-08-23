@@ -389,4 +389,4 @@ class BuildBox {
   }
 }
 
-export default BuildBox;
+export default Voxelamming;

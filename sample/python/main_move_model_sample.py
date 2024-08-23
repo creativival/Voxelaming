@@ -1,6 +1,5 @@
 # voxelammingパッケージからBuildBoxクラスをインポートします
-from voxelamming import BuildBox
-# from build_box import BuildBox
+from voxelamming import BuildBox06
 import time
 
 # Voxelammingアプリに表示されている部屋名を指定してください

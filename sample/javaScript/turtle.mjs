@@ -1,6 +1,6 @@
 class Turtle {
-  constructor(buildBox) {
-    this.buildBox = buildBox;
+  constructor(voxelamming) {
+    this.voxelamming = voxelamming;
     this.x = 0;
     this.y = 0;
     this.z = 0;
@@ -20,7 +20,7 @@ class Turtle {
     z = this.roundToThreeDecimalPlaces(z);
 
     if (this.drawable) {
-      this.buildBox.drawLine(this.x, this.y, this.z, x, y, z, ...this.color);
+      this.voxelamming.drawLine(this.x, this.y, this.z, x, y, z, ...this.color);
     }
 
     this.x = x;

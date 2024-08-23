@@ -1,13 +1,14 @@
-import { BuildBox, Turtle } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming, Turtle } from 'voxelamming';
+import { Turtle } from 'voxelamming'; // test
+import Voxelamming from './voxelamming.js';  // test
 
 const roomName = "1000";
-const buildBox = new BuildBox(roomName);
+const voxelamming = new Voxelamming(roomName);
 
-buildBox.setBoxSize(0.3);
-buildBox.setBuildInterval(0.001);
-buildBox.setCommand('liteRender')
-const t = new Turtle(buildBox);
+voxelamming.setBoxSize(0.3);
+voxelamming.setBuildInterval(0.001);
+voxelamming.setCommand('liteRender')
+const t = new Turtle(voxelamming);
 
 const colors = [
   [0, 0, 0, 1],
@@ -41,5 +42,5 @@ for (let i = 0; i < colors.length; i++) {
   }
 }
 
-await buildBox.sendData();
+await voxelamming.sendData();
 console.log('send data done');

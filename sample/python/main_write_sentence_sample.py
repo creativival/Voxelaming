@@ -12,9 +12,13 @@ build_box.set_box_size(0.5)
 build_box.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
-build_box.write_sentence("Hello World", 0, 48, 0, r=1, g=0, b=0, alpha=1, font_size=16)
-build_box.write_sentence("Hello World", 0, 32, 0, r=1, g=0, b=0, alpha=1, font_size=16, is_fixed_width=True)
-build_box.write_sentence("こんにちは", 0, 16, 0, r=0, g=1, b=0, alpha=1, font_size=8)
-build_box.write_sentence("こんにちは", 0, 0, 0, r=0, g=1, b=0, alpha=1, font_size=8, is_fixed_width=True)
+build_box.write_sentence("Voxel", 0, 130, 0, r=1, g=0, b=1, alpha=1, font_size=24)
+build_box.write_sentence("Voxel", 0, 106, 0, r=1, g=0, b=1, alpha=1, font_size=24, is_fixed_width=True)
+build_box.write_sentence("Hello World", 0, 90, 0, r=1, g=0, b=0, alpha=1, font_size=16)
+build_box.write_sentence("Hello World", 0, 64, 0, r=1, g=0, b=0, alpha=1, font_size=16, is_fixed_width=True)
+build_box.write_sentence("こんにちは", 0, 48, 0, r=0, g=1, b=0, alpha=1, font_size=12)
+build_box.write_sentence("こんにちは", 0, 32, 0, r=0, g=1, b=0, alpha=1, font_size=12, is_fixed_width=True)
+build_box.write_sentence("今日は", 0, 16, 0, r=0, g=0, b=1, alpha=1, font_size=8)
+build_box.write_sentence("今日は", 0, 0, 0, r=0, g=0, b=1, alpha=1, font_size=8, is_fixed_width=True)
 # ボクセルデータをアプリに送信します。
 build_box.send_data("こんにちは")

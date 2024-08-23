@@ -1,13 +1,13 @@
-import { BuildBox } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming } from 'voxelamming';
+import Voxelamming from './voxelamming.js';  // test
 
 const roomName = '1000';
-const buildBox = new BuildBox(roomName);
+const voxelamming = new Voxelamming(roomName);
 
-buildBox.setBoxSize(0.5);
-buildBox.setBuildInterval(0.01);
+voxelamming.setBoxSize(0.5);
+voxelamming.setBuildInterval(0.01);
 
-buildBox.drawLine(0, 0, 0, 5, 10, 20, 1, 0, 0, 1)
+voxelamming.drawLine(0, 0, 0, 5, 10, 20, 1, 0, 0, 1)
 
-await buildBox.sendData('mainDrawLineSample');
+await voxelamming.sendData('mainDrawLineSample');
 console.log('send data done')

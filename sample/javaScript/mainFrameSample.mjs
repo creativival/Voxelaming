@@ -1,5 +1,5 @@
-import { BuildBox } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming } from 'voxelamming';
+import Voxelamming from './voxelamming.js';  // test
 
 function toRadians(degrees) {
   return degrees * (Math.PI / 180);
@@ -179,16 +179,16 @@ const butterflyList = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 const roomName = "1000";
-const buildBox = new BuildBox(roomName);
-buildBox.setBoxSize(0.15);
-// buildBox.setBuildInterval(0.01);
-buildBox.setCommand('float');
-buildBox.setFrameFPS(2);
-buildBox.setFrameRepeats(10)
+const voxelamming = new Voxelamming(roomName);
+voxelamming.setBoxSize(0.15);
+// voxelamming.setBuildInterval(0.01);
+voxelamming.setCommand('float');
+voxelamming.setFrameFPS(2);
+voxelamming.setFrameRepeats(10)
 
 for (let angle of [30, 15, 0, -15, -30, -15, 0, 15]) {
-  buildBox.frameIn();
-  buildBox.transform(0, 100, 0, 30, 0, 0);
+  voxelamming.frameIn();
+  voxelamming.transform(0, 100, 0, 30, 0, 0);
 
   for (let j = 0; j < butterflyList.length; j++) {
     const row = butterflyList[j];
@@ -203,12 +203,12 @@ for (let angle of [30, 15, 0, -15, -30, -15, 0, 15]) {
         const r = color[0] / 255;
         const g = color[1] / 255;
         const b = color[2] / 255;
-        buildBox.createBox(x, y, z, r, g, b);
-        buildBox.createBox(-x, y, z, r, g, b);
+        voxelamming.createBox(x, y, z, r, g, b);
+        voxelamming.createBox(-x, y, z, r, g, b);
       }
     }
   }
-  buildBox.frameOut();
+  voxelamming.frameOut();
 }
 
-await buildBox.sendData();
+await voxelamming.sendData();

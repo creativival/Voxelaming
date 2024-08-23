@@ -1,39 +1,39 @@
-import { BuildBox } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming } from 'voxelamming';
+import Voxelamming from './voxelamming.js';  // test
 
 const textureNames = ["grass", "stone", "dirt", "planks", "bricks"];
 const roomName = "1000";
-const buildBox = new BuildBox(roomName);
+const voxelamming = new Voxelamming(roomName);
 
-buildBox.setBoxSize(1);
-buildBox.setBuildInterval(0.01);
+voxelamming.setBoxSize(1);
+voxelamming.setBuildInterval(0.01);
 
 textureNames.forEach((texture, i) => {
-  buildBox.createBox(0, textureNames.length - i - 1, 0, 0, 0, 0, 1, texture);
+  voxelamming.createBox(0, textureNames.length - i - 1, 0, 0, 0, 0, 1, texture);
 });
 
-await buildBox.sendData();
-buildBox.clearData();
-await buildBox.sleepSecond(1)
+await voxelamming.sendData();
+await voxelamming.clearData();
+await voxelamming.sleepSecond(0.1)
 
-buildBox.setBoxSize(1);
-buildBox.setBuildInterval(0.01);
-buildBox.changeShape('sphere');
+voxelamming.setBoxSize(1);
+voxelamming.setBuildInterval(0.01);
+voxelamming.changeShape('sphere');
 textureNames.forEach((texture, i) => {
-  buildBox.createBox(1, textureNames.length - i - 1, 0, 0, 0, 0, 1, texture);
+  voxelamming.createBox(1, textureNames.length - i - 1, 0, 0, 0, 0, 1, texture);
 });
 
-await buildBox.sendData();
-buildBox.clearData();
-await buildBox.sleepSecond(1)
+await voxelamming.sendData();
+await voxelamming.clearData();
+await voxelamming.sleepSecond(0.1)
 
-buildBox.setBoxSize(1);
-buildBox.setBuildInterval(0.01);
-buildBox.changeShape('plane');
+voxelamming.setBoxSize(1);
+voxelamming.setBuildInterval(0.01);
+voxelamming.changeShape('plane');
 textureNames.forEach((texture, i) => {
-  buildBox.createBox(2, textureNames.length - i - 1, 0, 0, 0, 0, 1, texture);
+  voxelamming.createBox(2, textureNames.length - i - 1, 0, 0, 0, 0, 1, texture);
 });
 
-await buildBox.sendData();
-buildBox.clearData();
+await voxelamming.sendData();
+await voxelamming.clearData();
 console.log('send data done');

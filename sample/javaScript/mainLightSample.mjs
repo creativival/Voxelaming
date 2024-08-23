@@ -1,12 +1,12 @@
-import { BuildBox } from 'voxelamming';
-// import BuildBox from './buildBox.js';  // test
+// import { Voxelamming } from 'voxelamming';
+import Voxelamming from './voxelamming.js';  // test
 
 let roomName = "1000";
-let buildBox = new BuildBox(roomName);
+let voxelamming = new Voxelamming(roomName);
 
-buildBox.setCommand('axis');
-buildBox.setBoxSize(1);
-buildBox.setBuildInterval(0.01);
+voxelamming.setCommand('axis');
+voxelamming.setBoxSize(1);
+voxelamming.setBuildInterval(0.01);
 
 let colors = [
   [0, 0, 0],
@@ -28,12 +28,12 @@ let colors = [
 
 for(let i = 0; i < colors.length; i++){
   let color = colors[i];
-  buildBox.createBox(0, i, 0, color[0], color[1], color[2], 1);
+  voxelamming.createBox(0, i, 0, color[0], color[1], color[2], 1);
 }
 
-buildBox.setLight(1, 1, 0, 1, 0, 0, 1, 20000, 2, 'directional');
-buildBox.setLight(0, 1, 1, 0, 1, 0, 1, 20000, 3, 'spot');
-buildBox.setLight(-1, 1, 0, 0, 0, 1, 1, 20000, 5, 'point');
+voxelamming.setLight(1, 1, 0, 1, 0, 0, 1, 20000, 2, 'directional');
+voxelamming.setLight(0, 1, 1, 0, 1, 0, 1, 20000, 3, 'spot');
+voxelamming.setLight(-1, 1, 0, 0, 0, 1, 1, 20000, 5, 'point');
 
-await buildBox.sendData();
+await voxelamming.sendData();
 console.log('send data done');
