@@ -1,6 +1,6 @@
 from time import sleep
-# voxelammingパッケージからBuildBoxクラスをインポートします
-from voxelamming import BuildBox
+# voxelammingパッケージからVoxelammingクラスをインポートします
+from voxelamming_local import Voxelamming
 from ply_util import get_boxes_from_ply
 
 # 変数の設定
@@ -41,8 +41,8 @@ animation_settings = [
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
-# BuildBoxクラスのインスタンスを生成します
-build_box = BuildBox(room_name)
+# Voxelammingクラスのインスタンスを生成します
+voxelamming = Voxelamming(room_name)
 
 for _ in range(3):
     for i in range(len(animation_settings)):
@@ -50,16 +50,16 @@ for _ in range(3):
         position = animation_settings[i]['position']
 
         for box in get_boxes_from_ply(model):
-            build_box.create_box(*box)
+            voxelamming.create_box(*box)
 
-        build_box.set_box_size(0.5)
-        build_box.set_build_interval(0)
-        build_box.transform(*position)
-        build_box.send_data()
+        voxelamming.set_box_size(0.5)
+        voxelamming.set_build_interval(0)
+        voxelamming.transform(*position)
+        voxelamming.send_data()
         sleep(0.5)
 
-        build_box.clear_data()
-        build_box.set_command('reset')
-        build_box.send_data()
-        build_box.clear_data()
+        voxelamming.clear_data()
+        voxelamming.set_command('reset')
+        voxelamming.send_data()
+        voxelamming.clear_data()
         sleep(0.5)

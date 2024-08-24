@@ -1,14 +1,14 @@
 from time import sleep
-# voxelammingパッケージからBuildBoxクラスをインポートします
-from voxelamming import BuildBox
+# voxelammingパッケージからVoxelammingクラスをインポートします
+from voxelamming_local import Voxelamming
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
-# BuildBoxクラスのインスタンスを生成します
-build_box = BuildBox(room_name)
+# Voxelammingクラスのインスタンスを生成します
+voxelamming = Voxelamming(room_name)
 # ボクセルの設定を行います
-build_box.set_box_size(1)
-build_box.set_build_interval(0.01)
+voxelamming.set_box_size(1)
+voxelamming.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 colors = [
@@ -29,18 +29,18 @@ colors = [
 ]
 
 for i, color in enumerate(colors):
-    build_box.create_box(0, i, 0, *color, alpha=1)
+    voxelamming.create_box(0, i, 0, *color, alpha=1)
 
 for i in range(5):
-    build_box.change_material(is_metallic=False, roughness=0.25 * i)
-    build_box.transform(i, 0, 0, pitch=0, yaw=0, roll=0)
+    voxelamming.change_material(is_metallic=False, roughness=0.25 * i)
+    voxelamming.transform(i, 0, 0, pitch=0, yaw=0, roll=0)
     # ボクセルデータをアプリに送信します。
-    build_box.send_data()
-    sleep(1)
+    voxelamming.send_data()
+    sleep(0.1)
 
 for i in range(5):
-    build_box.change_material(is_metallic=True, roughness=0.25 * i)
-    build_box.transform(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
+    voxelamming.change_material(is_metallic=True, roughness=0.25 * i)
+    voxelamming.transform(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
     # ボクセルデータをアプリに送信します。
-    build_box.send_data()
-    sleep(1)
+    voxelamming.send_data()
+    sleep(0.1)

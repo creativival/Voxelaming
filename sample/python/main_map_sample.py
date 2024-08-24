@@ -1,5 +1,5 @@
-# voxelammingパッケージからBuildBoxクラスをインポートします
-from voxelamming import BuildBox
+# voxelammingパッケージからVoxelammingクラスをインポートします
+from voxelamming_local import Voxelamming
 from map_util import get_map_data_from_csv, get_box_color
 
 # 変数の設定
@@ -11,13 +11,13 @@ low_color = (0, 1, 0)
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
-# BuildBoxクラスのインスタンスを生成します
-build_box = BuildBox(room_name)
+# Voxelammingクラスのインスタンスを生成します
+voxelamming = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-build_box.set_box_size(1)
-build_box.set_build_interval(0.001)
-build_box.set_command('liteRender')  # 描画を軽くするためのコマンド
+voxelamming.set_box_size(1)
+voxelamming.set_build_interval(0.001)
+voxelamming.set_command('liteRender')  # 描画を軽くするためのコマンド
 
 # ボクセルを配置するため、位置と色を設定します
 map_data = get_map_data_from_csv(csv_file, height_scale)
@@ -36,7 +36,7 @@ for j in range(row_num // skip):
         r, g, b = get_box_color(y, max_height, high_color, low_color)
 
         if y > 0:
-            build_box.create_box(x, y, z, r, g, b, 1)
+            voxelamming.create_box(x, y, z, r, g, b, 1)
 
 # ボクセルデータをアプリに送信します。
-build_box.send_data("main_map_sample")
+voxelamming.send_data("main_map_sample")

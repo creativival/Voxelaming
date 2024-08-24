@@ -46,8 +46,8 @@ class Voxelamming {
     this.isFraming = false;
     this.frameId = 0;
     this.retationStyles = {}; // 回転の制御（送信しない）
+    this.spriteBaseSize = 50 // ベースサイズを保存（送信しない）
     this.socket = null;
-    this.isSocketOpen = false;
     this.inactivityTimeout = null; // 非アクティブタイマー
     this.inactivityDelay = 2000; // 2秒後に接続を切断
   }
@@ -80,6 +80,8 @@ class Voxelamming {
         this.buildInterval = 0.01;
         this.isFraming = false;
         this.frameId = 0;
+        this.retationStyles = {}; // 回転の制御（送信しない）
+        this.spriteBaseSize = 50 // ベースサイズを保存（送信しない）
 
         // すべての初期化が完了したらresolveを呼び出す
         resolve();
@@ -353,6 +355,10 @@ class Voxelamming {
     this.commands.push(`gameScreenSize ${x} ${y} ${angle}`);
   }
 
+  setSpriteBaseSize(baseSize) {
+    this.spriteBaseSize = Number(baseSize);
+  }
+
   setGameScore(score) {
     this.gameScore = Number(score);
   }
@@ -446,7 +452,6 @@ class Voxelamming {
             console.log(`Joined room: ${this.roomName}`);
             this.socket.send(JSON.stringify(dataToSend));
             console.log('Sent data to server (connected):', dataToSend);
-            this.isSocketOpen = true;
             this.startInactivityTimer(); // タイマーを開始
             resolve();
           };
@@ -458,7 +463,6 @@ class Voxelamming {
             console.log(`Joined room: ${this.roomName}`);
             this.socket.send(JSON.stringify(dataToSend));
             console.log('Sent data to server (new connection):', dataToSend);
-            this.isSocketOpen = true;
             this.startInactivityTimer(); // タイマーを開始
             resolve();
           };
@@ -469,7 +473,6 @@ class Voxelamming {
           };
 
           this.socket.onclose = () => {
-            this.isSocketOpen = false;
             console.log('WebSocket connection closed.');
           };
         }

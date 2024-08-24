@@ -2,8 +2,8 @@ from math import sin, cos, radians
 
 
 class Turtle:
-    def __init__(self, build_box):
-        self.build_box = build_box
+    def __init__(self, voxelamming):
+        self.voxelamming = voxelamming
         self.x = 0
         self.y = 0
         self.z = 0
@@ -20,7 +20,7 @@ class Turtle:
         x, y, z = round(x, 3), round(y, 3), round(z, 3)
 
         if self.drawable:
-            self.build_box.draw_line(self.x, self.y, self.z, x, y, z, *self.color)
+            self.voxelamming.draw_line(self.x, self.y, self.z, x, y, z, *self.color)
 
         self.x = x
         self.y = y

@@ -1,5 +1,5 @@
-# voxelammingパッケージからBuildBoxクラスをインポートします
-from voxelamming import BuildBox
+# voxelammingパッケージからVoxelammingクラスをインポートします
+from voxelamming_local import Voxelamming
 
 
 # 三分木を描画する関数
@@ -11,25 +11,25 @@ def draw_three_branches(count, branch_length):
     # draw branches
     shorted_branch_length = branch_length * length_ratio
     print('push_matrix')
-    build_box.push_matrix()
+    voxelamming.push_matrix()
 
     # first branch
-    build_box.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
-    build_box.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
+    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
+    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
     draw_three_branches(count, shorted_branch_length)
 
     # second branch
-    build_box.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
-    build_box.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
+    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
+    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
     draw_three_branches(count, shorted_branch_length)
 
     # third branch
-    build_box.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
-    build_box.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
+    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
+    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
     draw_three_branches(count, shorted_branch_length)
 
     print('pop_matrix')
-    build_box.pop_matrix()
+    voxelamming.pop_matrix()
 
 # 変数の設定
 initial_length = 10
@@ -39,12 +39,12 @@ length_ratio = 0.8
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
-# BuildBoxクラスのインスタンスを生成します
-build_box = BuildBox(room_name)
+# Voxelammingクラスのインスタンスを生成します
+voxelamming = Voxelamming(room_name)
 
-build_box.change_shape('sphere')
-build_box.set_command('float')
-build_box.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
+voxelamming.change_shape('sphere')
+voxelamming.set_command('float')
+voxelamming.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
 
 draw_three_branches(repeat_count, initial_length)
-build_box.send_data("main_matrix_sample")
+voxelamming.send_data("main_matrix_sample")

@@ -1,11 +1,11 @@
-# voxelammingパッケージからBuildBoxクラスをインポートします
-from voxelamming import BuildBox
+# voxelammingパッケージからVoxelammingクラスをインポートします
+from voxelamming_local import Voxelamming
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
-# BuildBoxクラスのインスタンスを生成します
-build_box = BuildBox(room_name)
+# Voxelammingクラスのインスタンスを生成します
+voxelamming = Voxelamming(room_name)
 # シークレットコマンドで一気に日本の城を作成します
-build_box.set_command('japaneseCastle')
+voxelamming.set_command('japaneseCastle')
 # ボクセルデータをアプリに送信します。
-build_box.send_data("castle_command")
+voxelamming.send_data("castle_command")
