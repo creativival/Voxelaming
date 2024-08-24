@@ -1,6 +1,7 @@
 from random import random, uniform
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
+from voxelamming import Voxelamming
+# from voxelamming_local import Voxelamming  # ローカルで開発している場合はこちらを使う
 
 line_length = 100
 

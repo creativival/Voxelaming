@@ -1,6 +1,6 @@
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
-from map_util import get_map_data_from_csv, get_box_color
+from voxelamming import Voxelamming, get_map_data_from_csv, get_box_color
+# from voxelamming_local import Voxelamming, get_map_data_from_csv, get_box_color
 
 # 変数の設定
 column_num, row_num = 257, 257

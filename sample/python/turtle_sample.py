@@ -1,7 +1,6 @@
 # voxelammingパッケージからVoxelammingクラスとTurtleクラスをインポートします
-# from voxelamming import Voxelamming, Turtle
-from voxelamming_local import Voxelamming
-from turtle import Turtle
+from voxelamming import Voxelamming, Turtle
+# from voxelamming_local import Voxelamming, Turtle
 
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"

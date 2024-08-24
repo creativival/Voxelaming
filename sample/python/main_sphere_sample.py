@@ -1,5 +1,6 @@
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
+from voxelamming import Voxelamming
+# from voxelamming_local import Voxelamming  # ローカルで開発している場合はこちらを使う
 
 # 球体の半径を設定する
 radius = 11

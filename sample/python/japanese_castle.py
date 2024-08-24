@@ -1,6 +1,7 @@
 from math import floor
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
+from voxelamming import Voxelamming
+# from voxelamming_local import Voxelamming  # ローカルで開発している場合はこちらを使う
 
 stone_base = [
     [1, 33, 36],

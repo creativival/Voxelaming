@@ -1,7 +1,7 @@
 from time import sleep
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
-from ply_util import get_boxes_from_ply
+from voxelamming import Voxelamming, get_boxes_from_ply
+# from voxelamming_local import Voxelamming, get_boxes_from_ply
 
 # 変数の設定
 animation_settings = [
@@ -56,10 +56,10 @@ for _ in range(3):
         voxelamming.set_build_interval(0)
         voxelamming.transform(*position)
         voxelamming.send_data()
-        sleep(0.5)
+        sleep(0.1)
 
         voxelamming.clear_data()
         voxelamming.set_command('reset')
         voxelamming.send_data()
         voxelamming.clear_data()
-        sleep(0.5)
+        sleep(0.1)

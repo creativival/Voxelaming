@@ -1,6 +1,6 @@
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
-from ply_util import get_boxes_from_ply
+from voxelamming import Voxelamming, get_boxes_from_ply
+# from voxelamming_local import Voxelamming, get_boxes_from_ply
 
 ply_file_name = '../ply_file/piyo.ply'
 

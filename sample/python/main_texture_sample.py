@@ -1,6 +1,7 @@
 from time import sleep
 # voxelammingパッケージからVoxelammingクラスをインポートします
-from voxelamming_local import Voxelamming
+from voxelamming import Voxelamming
+# from voxelamming_local import Voxelamming  # ローカルで開発している場合はこちらを使う
 
 texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 # Voxelammingアプリに表示されている部屋名を指定してください

@@ -45,7 +45,7 @@ class Voxelamming {
     this.buildInterval = 0.01;
     this.isFraming = false;
     this.frameId = 0;
-    this.retationStyles = {}; // 回転の制御（送信しない）
+    this.rotationStyles = {}; // 回転の制御（送信しない）
     this.spriteBaseSize = 50 // ベースサイズを保存（送信しない）
     this.socket = null;
     this.inactivityTimeout = null; // 非アクティブタイマー
@@ -80,7 +80,7 @@ class Voxelamming {
         this.buildInterval = 0.01;
         this.isFraming = false;
         this.frameId = 0;
-        this.retationStyles = {}; // 回転の制御（送信しない）
+        this.rotationStyles = {}; // 回転の制御（送信しない）
         this.spriteBaseSize = 50 // ベースサイズを保存（送信しない）
 
         // すべての初期化が完了したらresolveを呼び出す
@@ -368,7 +368,7 @@ class Voxelamming {
   }
 
   setRotationStyle(spriteName, rotation_style = 'all around') {
-    this.retationStyles[spriteName] = rotation_style;
+    this.rotationStyles[spriteName] = rotation_style;
   }
 
   createSprite(spriteName, colorList, x, y, direction = 90, scale = 1, visible = true) {
@@ -384,8 +384,8 @@ class Voxelamming {
     [x, y, direction, scale] = [x, y, direction, scale].map(val => String(val))
 
     // rotationStyleを取得
-    if (spriteName in this.retationStyles) {
-      const rotationStyle = this.retationStyles[spriteName];
+    if (spriteName in this.rotationStyles) {
+      const rotationStyle = this.rotationStyles[spriteName];
 
       // rotationStyleが変更された場合、新しいスプライトデータを配列に追加
       if (rotationStyle === 'left-right') {

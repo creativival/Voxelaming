@@ -1,13 +1,11 @@
-import asyncio
 import datetime
-import re
 from math import floor
-import websockets
+import websocket
 
-from matrix_util import *
+from .matrix_util import *
 
 
-class BuildBox:
+class Voxelamming:
     texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
     model_names = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
     "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
@@ -28,6 +26,9 @@ class BuildBox:
         self.commands = []
         self.models = []
         self.model_moves = []
+        self.sprites = []
+        self.sprite_moves = []
+        self.game_score = -1
         self.size = 1
         self.shape = 'box'
         self.is_metallic = 0
@@ -36,6 +37,9 @@ class BuildBox:
         self.build_interval = 0.01
         self.is_framing = False
         self.frame_id = 0
+        self.rotation_styles = {}  # 回転の制御（送信しない）
+        self.sprite_base_size = 50  # ベースサイズを保存（送信しない）
+        self.websocket = None
 
     def clear_data(self):
         self.is_allowed_matrix = 0
@@ -52,6 +56,9 @@ class BuildBox:
         self.commands = []
         self.models = []
         self.model_moves = []
+        self.sprites = []
+        self.sprite_moves = []
+        self.game_score = -1
         self.size = 1
         self.shape = 'box'
         self.is_metallic = 0
@@ -60,6 +67,8 @@ class BuildBox:
         self.build_interval = 0.01
         self.is_framing = False
         self.frame_id = 0
+        self.rotation_styles = {}  # 回転の制御（送信しない）
+        self.sprite_base_size = 50  # ベースサイズを保存（送信しない）
 
     def set_frame_fps(self, fps=2):
         self.commands.append(f'fps {fps}')
@@ -277,8 +286,60 @@ class BuildBox:
 
         self.model_moves.append([entity_name, x, y, z, pitch, yaw, roll, scale])
 
+    # Game API
+
+    def set_game_screen_size(self, x, y, angle=90):
+        self.commands.append(f"gameScreenSize {x} {y} {angle}")
+
+    def set_sprite_base_size(self, base_size):
+        self.sprite_base_size = float(base_size)
+
+    def set_game_score(self, score):
+        self.game_score = float(score)
+
+    def send_game_over(self):
+        self.commands.append('gameOver')
+
+    def set_rotation_style(self, sprite_name, rotation_style='all around'):
+        self.rotation_styles[sprite_name] = rotation_style
+
+    def create_sprite(self, sprite_name, color_list, x, y, direction=90, scale=1, visible=True):
+        # 新しいスプライトデータを配列に追加
+        x, y, direction = self.round_numbers([x, y, direction])
+        x, y, direction, scale = map(str, [x, y, direction, scale])
+        self.sprites.append([sprite_name, color_list, x, y, direction, scale, '1' if visible else '0'])
+
+    def move_sprite(self, sprite_name, x, y, direction=90, scale=1, visible=True):
+        # x, y, directionを丸める
+        x, y, direction = self.round_numbers([x, y, direction])
+        x, y, direction, scale = map(str, [x, y, direction, scale])
+
+        # rotation_styleを取得
+        if sprite_name in self.rotation_styles:
+            rotation_style = self.rotation_styles[sprite_name]
+
+            # rotation_styleが変更された場合、新しいスプライトデータを配列に追加
+            if rotation_style == 'left-right':
+                if direction < 0:
+                    direction = "270"  # -90から90を270にすることで、左右反転を表現
+                else:
+                    direction = "90"
+            elif rotation_style == "don't rotate":
+                direction = "90"
+            else:
+                direction = str(direction)
+        else:
+            # rotation_styleが設定されていない場合、そのままの値を使う
+            direction = str(direction)
+
+        # sprites配列から同じスプライト名の要素を削除
+        self.sprite_moves = [sprite_info for sprite_info in self.sprite_moves if sprite_info[0] != sprite_name]
+
+        # 新しいスプライトデータを配列に追加
+        self.sprite_moves.append([sprite_name, x, y, direction, scale, '1' if visible else '0'])
+
     def send_data(self, name=''):
-        print('send data')
+        print('Sending data...')
         now = datetime.datetime.now()
         data_to_send = f"""
         {{
@@ -293,6 +354,9 @@ class BuildBox:
         "commands": {self.commands},
         "models": {self.models},
         "modelMoves": {self.model_moves},
+        "sprites": {self.sprites},
+        "spriteMoves": {self.sprite_moves},
+        "gameScore": {self.game_score},
         "size": {self.size},
         "shape": "{self.shape}",
         "interval": {self.build_interval},
@@ -304,21 +368,30 @@ class BuildBox:
         }}
         """.replace("'", '"')
 
-        async def sender(room_name):
-            async with websockets.connect('wss://websocket.voxelamming.com') as websocket:
-                await websocket.send(room_name)
-                await websocket.send(data_to_send)
-                print(re.sub(r'\n    ', ' ', data_to_send.replace('"', '\\"')))
+        if self.websocket is None or not self.websocket.connected:
+            # WebSocket接続を初期化
+            self.websocket = websocket.WebSocket()
+            self.websocket.connect('wss://websocket.voxelamming.com')
+            self.websocket.send(self.room_name)
+            print(f"Joined room: {self.room_name}")
 
-        # asyncio.runを使って非同期関数を実行する
-        asyncio.run(sender(self.room_name))
+        # WebSocketが接続中か確認
+        if self.websocket.connected:
+            self.websocket.send(data_to_send)
+            print('Sent data:', data_to_send)
 
+    # 明示的にWebsocket接続を閉じる（必要な場合のみ）
+    def close_connection(self):
+        if self.websocket is not None:
+            print('Closing WebSocket connection.')
+            self.websocket.close()
+            self.websocket = None
 
     def round_numbers(self, num_list):
         if self.is_allowed_float:
             return self.round_two_decimals(num_list)
         else:
-            return map(floor, [round(val, 1) for val in num_list])
+            return list(map(floor, [round(val, 1) for val in num_list]))  # 修正
 
     def round_two_decimals(self, num_list):
          return [round(val, 2) for val in num_list]
