@@ -4,11 +4,11 @@ import Voxelamming from './voxelamming.js';  // test
 
 
 const roomName = "1000";
-const voxelamming = new Voxelamming(roomName);
+const vox = new Voxelamming(roomName);
 
-voxelamming.setBoxSize(0.5);
-voxelamming.setBuildInterval(0.001);
-voxelamming.setCommand('liteRender');
+vox.setBoxSize(0.5);
+vox.setBuildInterval(0.001);
+vox.setCommand('liteRender');
 
 const columnNum = 257;
 const rowNum = 257;
@@ -31,9 +31,9 @@ for (let j = 0; j < rowNum / skip; j++) {
     const [r, g, b] = getBoxColor(y, maxHeight, highColor, lowColor);
 
     if (y >= 0) {
-      voxelamming.createBox(x, y, z, r, g, b, 1);
+      vox.createBox(x, y, z, r, g, b, 1);
     }
   }
 }
 
-await voxelamming.sendData("mainMapSample");
+await vox.sendData("mainMapSample");

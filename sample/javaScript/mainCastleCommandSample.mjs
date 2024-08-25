@@ -2,10 +2,10 @@
 import Voxelamming from './voxelamming.js';  // test
 
 const roomName = '1000';
-const voxelamming = new Voxelamming(roomName);
+const vox = new Voxelamming(roomName);
 
-voxelamming.setCommand('japaneseCastle');
+vox.setCommand('japaneseCastle');
 
-await voxelamming.sendData('mainCastleCommandSample');
+await vox.sendData('mainCastleCommandSample');
 console.log('send data done');
 

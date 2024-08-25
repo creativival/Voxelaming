@@ -179,18 +179,18 @@ butterfly_list = [
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.15)
-# voxelamming.set_build_interval(0.01)
-voxelamming.set_command('float')
-voxelamming.set_frame_fps(2)
-voxelamming.set_frame_repeats(10)
+vox.set_box_size(0.15)
+# vox.set_build_interval(0.01)
+vox.set_command('float')
+vox.set_frame_fps(2)
+vox.set_frame_repeats(10)
 
 # ボクセルを配置するため、位置と色を設定します
 for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
-    voxelamming.frame_in()
-    voxelamming.transform(0, 100, 0, 30, 0, 0)
+    vox.frame_in()
+    vox.transform(0, 100, 0, 30, 0, 0)
 
     for j, row in enumerate(butterfly_list):
         color = rainbow_colors[j // 10]
@@ -203,9 +203,9 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
                 r = color[0] / 255
                 g = color[1] / 255
                 b = color[2] / 255
-                voxelamming.create_box(x, y, z, r, g, b)
-                voxelamming.create_box(-x, y, z, r, g, b)
-    voxelamming.frame_out()
+                vox.create_box(x, y, z, r, g, b)
+                vox.create_box(-x, y, z, r, g, b)
+    vox.frame_out()
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data('main_frame_sample')
+vox.send_data('main_frame_sample')

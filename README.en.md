@@ -160,28 +160,28 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Set the size of the voxels
-voxelamming.set_box_size(1)
+vox.set_box_size(1)
 # Set the interval for placing voxels
-voxelamming.set_build_interval(0.01)
+vox.set_build_interval(0.01)
 
 # Set the position and color to place the voxels
 for i in range(100):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
 
 # Set the position to remove the voxels
 for i in range(50):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # Send voxel data to the app
-voxelamming.send_data("main")
-# voxelamming.close_connection()
+vox.send_data("main")
+# vox.close_connection()
 
 ```
 
@@ -192,7 +192,7 @@ $ pip install voxelamming
 $ sample/python
 $ python main.py
 
-or  
+or
 
 $ python3 main.py
 ```
@@ -339,11 +339,11 @@ radius = 11
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Configure voxel settings
-voxelamming.set_box_size(2)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(2)
+vox.set_build_interval(0.01)
 
 # Set the position and color to place the voxels
 for i in range(-radius, radius + 1):
@@ -351,10 +351,10 @@ for i in range(-radius, radius + 1):
         for k in range(-radius, radius + 1):
             if (radius - 1) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
                 print(i, j, k)
-                voxelamming.create_box(i, j, k, 0, 1, 1)
+                vox.create_box(i, j, k, 0, 1, 1)
 
 # Send voxel data to the app
-voxelamming.send_data("main_sphere_sample")
+vox.send_data("main_sphere_sample")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
@@ -416,28 +416,28 @@ rotations = [
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Configure voxel settings
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0)
+    vox.create_box(1, i, 0, r=1, g=1, b=0)
+    vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
     pitch, yaw, roll = rotation
 
-    voxelamming.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+    vox.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
     # Send voxel data to the app
-    voxelamming.send_data()
+    vox.send_data()
     time.sleep(0.1)
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
@@ -455,31 +455,31 @@ from voxelamming_local import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0)
+    vox.create_box(1, i, 0, r=1, g=1, b=0)
+    vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # Send voxel data to the app (1st time)
-voxelamming.send_data()
+vox.send_data()
 
 # Wait for 0.1 seconds
 sleep(0.1)
 
-voxelamming.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
+vox.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
 
 # Send voxel data to the app (2nd time)
-voxelamming.send_data()
+vox.send_data()
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
 
@@ -497,21 +497,21 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(0.3)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.3)
+vox.set_build_interval(0.01)
 
 # Set positions and colors for voxel placement
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # Set positions for voxel placement
 node_positions = [
@@ -526,16 +526,16 @@ node_positions = [
 
 for x, y, z in node_positions:
     # Set positions for voxel placement
-    voxelamming.transform(x, y, z, pitch=0, yaw=0, roll=0)
+    vox.transform(x, y, z, pitch=0, yaw=0, roll=0)
     # Send voxel data to the app (sending multiple times with different positions)
-    voxelamming.send_data()
+    vox.send_data()
     # Wait for 0.1 seconds
     sleep(0.1)
 
-voxelamming.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
+vox.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
 
 # Send voxel data to the app (global animation)
-voxelamming.send_data()
+vox.send_data()
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
@@ -553,24 +553,24 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 # Set positions and colors for voxel placement
 # Font sizes can be chosen from 8, 12, 16, 24
 # If is_fixed_width is set to True, the character spacing is fixed
-voxelamming.write_sentence("Voxel", 0, 130, 0, r=1, g=0, b=1, alpha=1, font_size=24)
-voxelamming.write_sentence("Voxel", 0, 106, 0, r=1, g=0, b=1, alpha=1, font_size=24, is_fixed_width=True)
-voxelamming.write_sentence("Hello World", 0, 90, 0, r=1, g=0, b=0, alpha=1, font_size=16)
-voxelamming.write_sentence("Hello World", 0, 64, 0, r=1, g=0, b=0, alpha=1, font_size=16, is_fixed_width=True)
-voxelamming.write_sentence("こんにちは", 0, 48, 0, r=0, g=1, b=0, alpha=1, font_size=12)
-voxelamming.write_sentence("こんにちは", 0, 32, 0, r=0, g=1, b=0, alpha=1, font_size=12, is_fixed_width=True)
-voxelamming.write_sentence("今日は", 0, 16, 0, r=0, g=0, b=1, alpha=1, font_size=8)
-voxelamming.write_sentence("今日は", 0, 0, 0, r=0, g=0, b=1, alpha=1, font_size=8, is_fixed_width=True)
+vox.write_sentence("Voxel", 0, 130, 0, r=1, g=0, b=1, alpha=1, font_size=24)
+vox.write_sentence("Voxel", 0, 106, 0, r=1, g=0, b=1, alpha=1, font_size=24, is_fixed_width=True)
+vox.write_sentence("Hello World", 0, 90, 0, r=1, g=0, b=0, alpha=1, font_size=16)
+vox.write_sentence("Hello World", 0, 64, 0, r=1, g=0, b=0, alpha=1, font_size=16, is_fixed_width=True)
+vox.write_sentence("こんにちは", 0, 48, 0, r=0, g=1, b=0, alpha=1, font_size=12)
+vox.write_sentence("こんにちは", 0, 32, 0, r=0, g=1, b=0, alpha=1, font_size=12, is_fixed_width=True)
+vox.write_sentence("今日は", 0, 16, 0, r=0, g=0, b=1, alpha=1, font_size=8)
+vox.write_sentence("今日は", 0, 0, 0, r=0, g=0, b=1, alpha=1, font_size=8, is_fixed_width=True)
 # Send voxel data to the app
-voxelamming.send_data("write_sentence")
+vox.send_data("write_sentence")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
@@ -595,12 +595,12 @@ low_color = (0, 1, 0)
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Configure voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.001)
-voxelamming.set_command('liteRender')  # Command to reduce rendering load
+vox.set_box_size(1)
+vox.set_build_interval(0.001)
+vox.set_command('liteRender')  # Command to reduce rendering load
 
 # Set positions and colors for voxel placement
 map_data = get_map_data_from_csv(csv_file, height_scale)
@@ -619,10 +619,10 @@ for j in range(row_num // skip):
         r, g, b = get_box_color(y, max_height, high_color, low_color)
 
         if y > 0:
-            voxelamming.create_box(x, y, z, r, g, b, 1)
+            vox.create_box(x, y, z, r, g, b, 1)
 
 # Send voxel data to the app
-voxelamming.send_data("main_map_sample")
+vox.send_data("main_map_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 
@@ -642,20 +642,20 @@ ply_file_name = '../ply_file/piyo.ply'
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Configure voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # Set positions and colors for voxel placement
 boxes = get_boxes_from_ply(ply_file_name)
 
 for box in boxes:
-    voxelamming.create_box(*box)
+    vox.create_box(*box)
 
 # Send voxel data to the app
-voxelamming.send_data("main_make_model_sample")
+vox.send_data("main_make_model_sample")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
@@ -673,28 +673,28 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Configure voxel settings
-voxelamming.set_box_size(0.3)
-voxelamming.set_build_interval(0.01)
-voxelamming.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
-voxelamming.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval=0)
+vox.set_box_size(0.3)
+vox.set_build_interval(0.01)
+vox.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
+vox.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval=0)
 
 # Set positions and colors for voxel placement
 for i in range(100):
     alpha = (100 - i) / 100
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
 
 for i in range(50):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # Send voxel data to the app
-voxelamming.send_data("main_set_alpha_sample")
+vox.send_data("main_set_alpha_sample")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
@@ -713,18 +713,18 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
-# voxelamming.set_command('float')
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
+# vox.set_command('float')
 
 # Draw a line using the draw_line method
-voxelamming.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
-voxelamming.send_data()
+vox.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
+vox.send_data()
 
 # Send voxel data to the app
-voxelamming.send_data("main_draw_line_sample")
+vox.send_data("main_draw_line_sample")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
@@ -743,36 +743,36 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 # Set the position and color to place voxels
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
-voxelamming.send_data('box')  # Send voxel data to the app.
-
-time.sleep(0.1)
-
-voxelamming.transform(10, 0, 0, pitch=0, yaw=0, roll=0)
-voxelamming.change_shape('sphere')
-voxelamming.send_data('sphere')  # Send voxel data of the sphere to the app.
+vox.send_data('box')  # Send voxel data to the app.
 
 time.sleep(0.1)
 
-voxelamming.transform(20, 0, 0, pitch=0, yaw=0, roll=0)
-voxelamming.change_shape('plane')
+vox.transform(10, 0, 0, pitch=0, yaw=0, roll=0)
+vox.change_shape('sphere')
+vox.send_data('sphere')  # Send voxel data of the sphere to the app.
+
+time.sleep(0.1)
+
+vox.transform(20, 0, 0, pitch=0, yaw=0, roll=0)
+vox.change_shape('plane')
 # Send voxel data to the app.
-voxelamming.send_data('plane')  # Send voxel data of the plane to the app.
+vox.send_data('plane')  # Send voxel data of the plane to the app.
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
 
@@ -790,10 +790,10 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # Set the position and color to place voxels
 colors = [
@@ -814,20 +814,20 @@ colors = [
 ]
 
 for i, color in enumerate(colors):
-    voxelamming.create_box(0, i, 0, *color, alpha=1)
+    vox.create_box(0, i, 0, *color, alpha=1)
 
 for i in range(5):
-    voxelamming.change_material(is_metallic=False, roughness=0.25 * i)
-    voxelamming.transform(i, 0, 0, pitch=0, yaw=0, roll=0)
+    vox.change_material(is_metallic=False, roughness=0.25 * i)
+    vox.transform(i, 0, 0, pitch=0, yaw=0, roll=0)
     # Send voxel data to the app.
-    voxelamming.send_data()
+    vox.send_data()
     sleep(0.1)
 
 for i in range(5):
-    voxelamming.change_material(is_metallic=True, roughness=0.25 * i)
-    voxelamming.transform(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
+    vox.change_material(is_metallic=True, roughness=0.25 * i)
+    vox.transform(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
     # Send voxel data to the app.
-    voxelamming.send_data()
+    vox.send_data()
     sleep(0.1)
 
 ```
@@ -846,10 +846,10 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # Set the position and color to place voxels
 colors = [
@@ -870,18 +870,18 @@ colors = [
 ]
 
 for i, color in enumerate(colors):
-    voxelamming.create_box(0, i, 0, *color, alpha=1)
+    vox.create_box(0, i, 0, *color, alpha=1)
 
 # Set lights
-voxelamming.set_light(1, 1, 0, r=1, g=0, b=0, alpha=1, intensity=20000, interval=2, light_type='directional')
-voxelamming.set_light(0, 1, 1, r=0, g=1, b=0, alpha=1, intensity=20000, interval=3, light_type='spot')
-voxelamming.set_light(-1, 1, 0, r=0, g=0, b=1, alpha=1, intensity=20000, interval=5, light_type='point')
+vox.set_light(1, 1, 0, r=1, g=0, b=0, alpha=1, intensity=20000, interval=2, light_type='directional')
+vox.set_light(0, 1, 1, r=0, g=1, b=0, alpha=1, intensity=20000, interval=3, light_type='spot')
+vox.set_light(-1, 1, 0, r=0, g=0, b=1, alpha=1, intensity=20000, interval=5, light_type='point')
 
 # Add the 'axis' command
-voxelamming.set_command('axis')
+vox.set_command('axis')
 
 # Send voxel data to the app
-voxelamming.send_data("main_light_sample")
+vox.send_data("main_light_sample")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
@@ -899,11 +899,11 @@ from voxelamming import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Use the secret command to quickly create a Japanese castle
-voxelamming.set_command('japaneseCastle')
+vox.set_command('japaneseCastle')
 # Send voxel data to the app
-voxelamming.send_data("castle_command")
+vox.send_data("castle_command")
 
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
@@ -958,7 +958,7 @@ animation_settings = [
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 for _ in range(3):
     for i in range(len(animation_settings)):
@@ -966,18 +966,18 @@ for _ in range(3):
         position = animation_settings[i]['position']
 
         for box in get_boxes_from_ply(model):
-            voxelamming.create_box(*box)
+            vox.create_box(*box)
 
-        voxelamming.set_box_size(0.5)
-        voxelamming.set_build_interval(0)
-        voxelamming.transform(*position)
-        voxelamming.send_data()
+        vox.set_box_size(0.5)
+        vox.set_build_interval(0)
+        vox.transform(*position)
+        vox.send_data()
         sleep(0.1)
 
-        voxelamming.clear_data()
-        voxelamming.set_command('reset')
-        voxelamming.send_data()
-        voxelamming.clear_data()
+        vox.clear_data()
+        vox.set_command('reset')
+        vox.send_data()
+        vox.clear_data()
         sleep(0.1)
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
@@ -1001,12 +1001,12 @@ radius = 1.5
 repeat_count = 100
 
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Configure voxel settings
-voxelamming.set_build_interval(0.01)
-voxelamming.set_box_size(size)
-voxelamming.change_shape("sphere")
-voxelamming.set_command('float')
+vox.set_build_interval(0.01)
+vox.set_box_size(size)
+vox.change_shape("sphere")
+vox.set_command('float')
 
 # Set position and color to place voxels
 for i in range(repeat_count):
@@ -1015,15 +1015,15 @@ for i in range(repeat_count):
     y = i
     z = radius * sin(angle)
 
-    voxelamming.create_box(x, y, z, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(-x, y, -z, r=0, g=1, b=1, alpha=1)
+    vox.create_box(x, y, z, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-x, y, -z, r=0, g=1, b=1, alpha=1)
     if i % 2 == 0:
-        voxelamming.create_box(x / 3, y, z / 3, r=1, g=0, b=0, alpha=1)
+        vox.create_box(x / 3, y, z / 3, r=1, g=0, b=0, alpha=1)
     else:
-        voxelamming.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
+        vox.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
 
 # Send voxel data to the app
-voxelamming.send_data("main_float_command_sample")
+vox.send_data("main_float_command_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
 
@@ -1047,25 +1047,25 @@ def draw_three_branches(count, branch_length):
     # Draw branches
     shortened_branch_length = branch_length * length_ratio
     print('push_matrix')
-    voxelamming.push_matrix()
+    vox.push_matrix()
 
     # First branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shortened_branch_length, 0, r=1, g=0, b=1)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
+    vox.draw_line(0, 0, 0, 0, shortened_branch_length, 0, r=1, g=0, b=1)
     draw_three_branches(count, shortened_branch_length)
 
     # Second branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shortened_branch_length, 0, r=1, g=0, b=0)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
+    vox.draw_line(0, 0, 0, 0, shortened_branch_length, 0, r=1, g=0, b=0)
     draw_three_branches(count, shortened_branch_length)
 
     # Third branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shortened_branch_length, 0, r=1, g=1, b=0)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
+    vox.draw_line(0, 0, 0, 0, shortened_branch_length, 0, r=1, g=1, b=0)
     draw_three_branches(count, shortened_branch_length)
 
     print('pop_matrix')
-    voxelamming.pop_matrix()
+    vox.pop_matrix()
 
 # Variable settings
 initial_length = 10
@@ -1076,14 +1076,14 @@ length_ratio = 0.8
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
-voxelamming.change_shape('sphere')
-voxelamming.set_command('float')
-voxelamming.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
+vox.change_shape('sphere')
+vox.set_command('float')
+vox.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
 
 draw_three_branches(repeat_count, initial_length)
-voxelamming.send_data("main_matrix_sample")
+vox.send_data("main_matrix_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
 
@@ -1102,48 +1102,48 @@ texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Set up voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # Configure the position and texture for placing voxels
 for i, texture in enumerate(texture_names):
-    voxelamming.create_box(0, len(texture_names) - i - 1, 0, texture=texture)
+    vox.create_box(0, len(texture_names) - i - 1, 0, texture=texture)
 
 # Send voxel data to the app
-voxelamming.send_data()
+vox.send_data()
 # Clear the voxel data
-voxelamming.clear_data()
+vox.clear_data()
 sleep(0.1)
 
 # Set up voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
-voxelamming.change_shape('sphere')
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
+vox.change_shape('sphere')
 
 # Configure the position and texture for placing voxels
 for i, texture in enumerate(texture_names):
-    voxelamming.create_box(1, len(texture_names) - i - 1, 0, texture=texture)
+    vox.create_box(1, len(texture_names) - i - 1, 0, texture=texture)
 
 # Send voxel data to the app
-voxelamming.send_data()
+vox.send_data()
 # Clear the voxel data
-voxelamming.clear_data()
+vox.clear_data()
 sleep(0.1)
 
 # Set up voxel settings
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
-voxelamming.change_shape('plane')
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
+vox.change_shape('plane')
 
 # Configure the position and texture for placing voxels
 for i, texture in enumerate(texture_names):
-    voxelamming.create_box(2, len(texture_names) - i - 1, 0, texture=texture)
+    vox.create_box(2, len(texture_names) - i - 1, 0, texture=texture)
 
 # Send voxel data to the app
-voxelamming.send_data()
+vox.send_data()
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
@@ -1334,18 +1334,18 @@ butterfly_list = [
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # Set up voxel settings
-voxelamming.set_box_size(0.15)
-# voxelamming.set_build_interval(0.01)
-voxelamming.set_command('float')
-voxelamming.set_frame_fps(2)
-voxelamming.set_frame_repeats(10)
+vox.set_box_size(0.15)
+# vox.set_build_interval(0.01)
+vox.set_command('float')
+vox.set_frame_fps(2)
+vox.set_frame_repeats(10)
 
 # Configure the position and color for placing voxels
 for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
-    voxelamming.frame_in()
-    voxelamming.transform(0, 100, 0, 30, 0, 0)
+    vox.frame_in()
+    vox.transform(0, 100, 0, 30, 0, 0)
 
     for j, row in enumerate(butterfly_list):
         color = rainbow_colors[j // 10]
@@ -1358,12 +1358,12 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
                 r = color[0] / 255
                 g = color[1] / 255
                 b = color[2] / 255
-                voxelamming.create_box(x, y, z, r, g, b)
-                voxelamming.create_box(-x, y, z, r, g, b)
-    voxelamming.frame_out()
+                vox.create_box(x, y, z, r, g, b)
+                vox.create_box(-x, y, z, r, g, b)
+    vox.frame_out()
 
 # Send voxel data to the app
-voxelamming.send_data('main_frame_sample')
+vox.send_data('main_frame_sample')
 ```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
@@ -1402,28 +1402,28 @@ from voxelamming_local import Voxelamming
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Set the voxel size
-voxelamming.set_box_size(10)
+vox.set_box_size(10)
 # Set the voxel placement interval
-voxelamming.set_build_interval(0.01)
+vox.set_build_interval(0.01)
 # Draw coordinate axes
-voxelamming.set_command('axis')
+vox.set_command('axis')
 
 # Configure the position and color for placing voxels
-voxelamming.change_shape('sphere')
-voxelamming.create_box(0, 0, 0, 1, 0, 0, 1)
-voxelamming.create_model('Earth', 0, 2, 0)
-voxelamming.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
-voxelamming.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
-voxelamming.create_model('Robot', 0, 8, 0, 0, 0, 90)
-voxelamming.create_model('Skull', 0, 10, 0, 0, 0, 90)
-voxelamming.create_model('Skull', 0, 12, 0, 90, 0, 0)
-voxelamming.create_model('Skull', 0, 14, 0, 90, 0, 90)
+vox.change_shape('sphere')
+vox.create_box(0, 0, 0, 1, 0, 0, 1)
+vox.create_model('Earth', 0, 2, 0)
+vox.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
+vox.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
+vox.create_model('Robot', 0, 8, 0, 0, 0, 90)
+vox.create_model('Skull', 0, 10, 0, 0, 0, 90)
+vox.create_model('Skull', 0, 12, 0, 90, 0, 0)
+vox.create_model('Skull', 0, 14, 0, 90, 0, 90)
 
 # Send voxel data to the app
-voxelamming.send_data("createModel")
+vox.send_data("createModel")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
 
@@ -1441,36 +1441,36 @@ import time
 # Specify the room name displayed in the Voxelamming app
 room_name = "1000"
 # Create an instance of the Voxelamming class
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # Set the voxel size
 box_size = 10
-voxelamming.set_box_size(box_size)
+vox.set_box_size(box_size)
 # Set the voxel placement interval
-voxelamming.set_build_interval(0.01)
+vox.set_build_interval(0.01)
 # Draw coordinate axes
-voxelamming.set_command('axis')
+vox.set_command('axis')
 
 # Configure the position and color for placing voxels
-voxelamming.change_shape('sphere')
-voxelamming.create_box(0, 0, 0, 1, 0, 0, 1)
-voxelamming.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
-voxelamming.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
-voxelamming.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
+vox.change_shape('sphere')
+vox.create_box(0, 0, 0, 1, 0, 0, 1)
+vox.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
+vox.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
+vox.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
 
 # Send voxel data to the app
-voxelamming.send_data("Skulls")
+vox.send_data("Skulls")
 # Clear voxel data
-voxelamming.clear_data()
+vox.clear_data()
 
 # Move the models
 for i in range(20):
     time.sleep(0.1)
-    voxelamming.set_box_size(box_size)
-    voxelamming.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
-    voxelamming.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
-    voxelamming.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
-    voxelamming.send_data()
+    vox.set_box_size(box_size)
+    vox.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
+    vox.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
+    vox.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
+    vox.send_data()
 ```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>

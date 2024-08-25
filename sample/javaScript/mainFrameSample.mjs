@@ -179,16 +179,16 @@ const butterflyList = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 const roomName = "1000";
-const voxelamming = new Voxelamming(roomName);
-voxelamming.setBoxSize(0.15);
-// voxelamming.setBuildInterval(0.01);
-voxelamming.setCommand('float');
-voxelamming.setFrameFPS(2);
-voxelamming.setFrameRepeats(10)
+const vox = new Voxelamming(roomName);
+vox.setBoxSize(0.15);
+// vox.setBuildInterval(0.01);
+vox.setCommand('float');
+vox.setFrameFPS(2);
+vox.setFrameRepeats(10)
 
 for (let angle of [30, 15, 0, -15, -30, -15, 0, 15]) {
-  voxelamming.frameIn();
-  voxelamming.transform(0, 100, 0, 30, 0, 0);
+  vox.frameIn();
+  vox.transform(0, 100, 0, 30, 0, 0);
 
   for (let j = 0; j < butterflyList.length; j++) {
     const row = butterflyList[j];
@@ -203,12 +203,12 @@ for (let angle of [30, 15, 0, -15, -30, -15, 0, 15]) {
         const r = color[0] / 255;
         const g = color[1] / 255;
         const b = color[2] / 255;
-        voxelamming.createBox(x, y, z, r, g, b);
-        voxelamming.createBox(-x, y, z, r, g, b);
+        vox.createBox(x, y, z, r, g, b);
+        vox.createBox(-x, y, z, r, g, b);
       }
     }
   }
-  voxelamming.frameOut();
+  vox.frameOut();
 }
 
-await voxelamming.sendData();
+await vox.sendData();

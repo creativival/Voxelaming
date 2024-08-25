@@ -12,12 +12,12 @@ low_color = (0, 1, 0)
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.001)
-voxelamming.set_command('liteRender')  # 描画を軽くするためのコマンド
+vox.set_box_size(1)
+vox.set_build_interval(0.001)
+vox.set_command('liteRender')  # 描画を軽くするためのコマンド
 
 # ボクセルを配置するため、位置と色を設定します
 map_data = get_map_data_from_csv(csv_file, height_scale)
@@ -36,7 +36,7 @@ for j in range(row_num // skip):
         r, g, b = get_box_color(y, max_height, high_color, low_color)
 
         if y > 0:
-            voxelamming.create_box(x, y, z, r, g, b, 1)
+            vox.create_box(x, y, z, r, g, b, 1)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_map_sample")
+vox.send_data("main_map_sample")

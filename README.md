@@ -159,28 +159,28 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルのサイズを設定します
-voxelamming.set_box_size(1)
+vox.set_box_size(1)
 # ボクセルの配置間隔を設定します
-voxelamming.set_build_interval(0.01)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 for i in range(100):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
 
 # ボクセルを削除するため、位置を設定します
 for i in range(50):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main")
-# voxelamming.close_connection()
+vox.send_data("main")
+# vox.close_connection()
 ```
 
 #### 実行方法
@@ -341,11 +341,11 @@ radius = 11
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(2)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(2)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 for i in range(-radius, radius + 1):
@@ -353,10 +353,10 @@ for i in range(-radius, radius + 1):
         for k in range(-radius, radius + 1):
             if (radius - 1) ** 2 <= i ** 2 + j ** 2 + k ** 2 < radius ** 2:
                 print(i, j, k)
-                voxelamming.create_box(i, j, k, 0, 1, 1)
+                vox.create_box(i, j, k, 0, 1, 1)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_sphere_sample")
+vox.send_data("main_sphere_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
 
@@ -417,28 +417,28 @@ rotations = [
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0)
+    vox.create_box(1, i, 0, r=1, g=1, b=0)
+    vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 for rotation in rotations:
     pitch, yaw, roll = rotation
 
-    voxelamming.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
+    vox.transform(0, 0, 0, pitch=pitch, yaw=yaw, roll=roll)
     # ボクセルデータをアプリに送信します。
-    voxelamming.send_data()
+    vox.send_data()
     time.sleep(0.1)
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
@@ -456,31 +456,31 @@ from voxelamming_local import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0)
+    vox.create_box(1, i, 0, r=1, g=1, b=0)
+    vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # ボクセルデータをアプリに送信します。（1回目）
-voxelamming.send_data()
+vox.send_data()
 
 # 1秒待機します
 sleep(0.1)
 
-voxelamming.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
+vox.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
 
 # ボクセルデータをアプリに送信します。（2回目）
-voxelamming.send_data()
+vox.send_data()
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
 
@@ -498,21 +498,21 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.3)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.3)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # ボクセルを配置する位置を設定します
 node_positions = [
@@ -528,16 +528,16 @@ node_positions = [
 
 for x, y, z in node_positions:
     # ボクセルを配置するため、位置を設定します
-    voxelamming.transform(x, y, z, pitch=0, yaw=0, roll=0)
+    vox.transform(x, y, z, pitch=0, yaw=0, roll=0)
     # ボクセルデータをアプリに送信します。（位置を変えて、複数回送信）
-    voxelamming.send_data()
+    vox.send_data()
     # 1秒待機します
     sleep(0.1)
 
-voxelamming.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
+vox.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
 
 # ボクセルデータをアプリに送信します。（グローバルアニメーション）
-voxelamming.send_data()
+vox.send_data()
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
 
@@ -555,24 +555,24 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 # フォントサイズは、8, 12, 16, 24から選びます
 # is_fixed_widthをTrueにすると、文字間隔が固定されます
-voxelamming.write_sentence("Voxel", 0, 130, 0, r=1, g=0, b=1, alpha=1, font_size=24)
-voxelamming.write_sentence("Voxel", 0, 106, 0, r=1, g=0, b=1, alpha=1, font_size=24, is_fixed_width=True)
-voxelamming.write_sentence("Hello World", 0, 90, 0, r=1, g=0, b=0, alpha=1, font_size=16)
-voxelamming.write_sentence("Hello World", 0, 64, 0, r=1, g=0, b=0, alpha=1, font_size=16, is_fixed_width=True)
-voxelamming.write_sentence("こんにちは", 0, 48, 0, r=0, g=1, b=0, alpha=1, font_size=12)
-voxelamming.write_sentence("こんにちは", 0, 32, 0, r=0, g=1, b=0, alpha=1, font_size=12, is_fixed_width=True)
-voxelamming.write_sentence("今日は", 0, 16, 0, r=0, g=0, b=1, alpha=1, font_size=8)
-voxelamming.write_sentence("今日は", 0, 0, 0, r=0, g=0, b=1, alpha=1, font_size=8, is_fixed_width=True)
+vox.write_sentence("Voxel", 0, 130, 0, r=1, g=0, b=1, alpha=1, font_size=24)
+vox.write_sentence("Voxel", 0, 106, 0, r=1, g=0, b=1, alpha=1, font_size=24, is_fixed_width=True)
+vox.write_sentence("Hello World", 0, 90, 0, r=1, g=0, b=0, alpha=1, font_size=16)
+vox.write_sentence("Hello World", 0, 64, 0, r=1, g=0, b=0, alpha=1, font_size=16, is_fixed_width=True)
+vox.write_sentence("こんにちは", 0, 48, 0, r=0, g=1, b=0, alpha=1, font_size=12)
+vox.write_sentence("こんにちは", 0, 32, 0, r=0, g=1, b=0, alpha=1, font_size=12, is_fixed_width=True)
+vox.write_sentence("今日は", 0, 16, 0, r=0, g=0, b=1, alpha=1, font_size=8)
+vox.write_sentence("今日は", 0, 0, 0, r=0, g=0, b=1, alpha=1, font_size=8, is_fixed_width=True)
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("write_sentence")
+vox.send_data("write_sentence")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
 
@@ -595,12 +595,12 @@ low_color = (0, 1, 0)
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.001)
-voxelamming.set_command('liteRender')  # 描画を軽くするためのコマンド
+vox.set_box_size(1)
+vox.set_build_interval(0.001)
+vox.set_command('liteRender')  # 描画を軽くするためのコマンド
 
 # ボクセルを配置するため、位置と色を設定します
 map_data = get_map_data_from_csv(csv_file, height_scale)
@@ -619,10 +619,10 @@ for j in range(row_num // skip):
         r, g, b = get_box_color(y, max_height, high_color, low_color)
 
         if y > 0:
-            voxelamming.create_box(x, y, z, r, g, b, 1)
+            vox.create_box(x, y, z, r, g, b, 1)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_map_sample")
+vox.send_data("main_map_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
 
@@ -642,20 +642,20 @@ ply_file_name = '../ply_file/piyo.ply'
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 boxes = get_boxes_from_ply(ply_file_name)
 
 for box in boxes:
-    voxelamming.create_box(*box)
+    vox.create_box(*box)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_make_model_sample")
+vox.send_data("main_make_model_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
 
@@ -672,28 +672,28 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.3)
-voxelamming.set_build_interval(0.01)
-voxelamming.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
-voxelamming.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval=0)
+vox.set_box_size(0.3)
+vox.set_build_interval(0.01)
+vox.transform(0, 0, 0, pitch=0, yaw=0, roll=0)
+vox.animate(0, 0, 10, pitch=0, yaw=30, roll=0, scale=2, interval=0)
 
 # ボクセルを配置するため、位置と色を設定します
 for i in range(100):
     alpha = (100 - i) / 100
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=alpha)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=alpha)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=alpha)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=alpha)
 
 for i in range(50):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_set_alpha_sample")
+vox.send_data("main_set_alpha_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
 
@@ -711,18 +711,18 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
-# voxelamming.set_command('float')
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
+# vox.set_command('float')
 
 # draw_lineメソッドを使って直線を描画します
-voxelamming.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
-voxelamming.send_data()
+vox.draw_line(0, 0, 0, 5, 10, 20, r=1, g=0, b=0, alpha=1)
+vox.send_data()
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_draw_line_sample")
+vox.send_data("main_draw_line_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
 
@@ -740,36 +740,36 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.5)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 for i in range(10):
-    voxelamming.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
-    voxelamming.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
-    voxelamming.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-1, i, 0, r=0, g=1, b=1, alpha=1)
+    vox.create_box(0, i, 0, r=1, g=0, b=0, alpha=1)
+    vox.create_box(1, i, 0, r=1, g=1, b=0, alpha=1)
+    vox.create_box(2, i, 0, r=0, g=1, b=1, alpha=1)
 
 for i in range(5):
-    voxelamming.remove_box(0, i * 2 + 1, 0)
-    voxelamming.remove_box(1, i * 2, 0)
+    vox.remove_box(0, i * 2 + 1, 0)
+    vox.remove_box(1, i * 2, 0)
 
-voxelamming.send_data('box')  # ボクセルデータをアプリに送信します。
-
-time.sleep(0.1)
-
-voxelamming.transform(10, 0, 0, pitch=0, yaw=0, roll=0)
-voxelamming.change_shape('sphere')
-voxelamming.send_data('sphere')  # sphereのボクセルデータをアプリに送信します。
+vox.send_data('box')  # ボクセルデータをアプリに送信します。
 
 time.sleep(0.1)
 
-voxelamming.transform(20, 0, 0, pitch=0, yaw=0, roll=0)
-voxelamming.change_shape('plane')
+vox.transform(10, 0, 0, pitch=0, yaw=0, roll=0)
+vox.change_shape('sphere')
+vox.send_data('sphere')  # sphereのボクセルデータをアプリに送信します。
+
+time.sleep(0.1)
+
+vox.transform(20, 0, 0, pitch=0, yaw=0, roll=0)
+vox.change_shape('plane')
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data('plane')  # planeのボクセルデータをアプリに送信します。
+vox.send_data('plane')  # planeのボクセルデータをアプリに送信します。
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
 
@@ -787,10 +787,10 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 colors = [
@@ -811,20 +811,20 @@ colors = [
 ]
 
 for i, color in enumerate(colors):
-    voxelamming.create_box(0, i, 0, *color, alpha=1)
+    vox.create_box(0, i, 0, *color, alpha=1)
 
 for i in range(5):
-    voxelamming.change_material(is_metallic=False, roughness=0.25 * i)
-    voxelamming.transform(i, 0, 0, pitch=0, yaw=0, roll=0)
+    vox.change_material(is_metallic=False, roughness=0.25 * i)
+    vox.transform(i, 0, 0, pitch=0, yaw=0, roll=0)
     # ボクセルデータをアプリに送信します。
-    voxelamming.send_data()
+    vox.send_data()
     sleep(0.1)
 
 for i in range(5):
-    voxelamming.change_material(is_metallic=True, roughness=0.25 * i)
-    voxelamming.transform(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
+    vox.change_material(is_metallic=True, roughness=0.25 * i)
+    vox.transform(5 + i, 0, 0, pitch=0, yaw=0, roll=0)
     # ボクセルデータをアプリに送信します。
-    voxelamming.send_data()
+    vox.send_data()
     sleep(0.1)
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
@@ -842,10 +842,10 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 colors = [
@@ -866,18 +866,18 @@ colors = [
 ]
 
 for i, color in enumerate(colors):
-    voxelamming.create_box(0, i, 0, *color, alpha=1)
+    vox.create_box(0, i, 0, *color, alpha=1)
 
 # ライトを設定します
-voxelamming.set_light(1, 1, 0, r=1, g=0, b=0, alpha=1, intensity=20000, interval=2, light_type='directional')
-voxelamming.set_light(0, 1, 1, r=0, g=1, b=0, alpha=1, intensity=20000, interval=3, light_type='spot')
-voxelamming.set_light(-1, 1, 0, r=0, g=0, b=1, alpha=1, intensity=20000, interval=5, light_type='point')
+vox.set_light(1, 1, 0, r=1, g=0, b=0, alpha=1, intensity=20000, interval=2, light_type='directional')
+vox.set_light(0, 1, 1, r=0, g=1, b=0, alpha=1, intensity=20000, interval=3, light_type='spot')
+vox.set_light(-1, 1, 0, r=0, g=0, b=1, alpha=1, intensity=20000, interval=5, light_type='point')
 
 # axisコマンドを追加する
-voxelamming.set_command('axis')
+vox.set_command('axis')
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_light_sample")
+vox.send_data("main_light_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
 
@@ -894,11 +894,11 @@ from voxelamming import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # シークレットコマンドで一気に日本の城を作成します
-voxelamming.set_command('japaneseCastle')
+vox.set_command('japaneseCastle')
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("castle_command")
+vox.send_data("castle_command")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
 
@@ -952,7 +952,7 @@ animation_settings = [
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 for _ in range(3):
     for i in range(len(animation_settings)):
@@ -960,18 +960,18 @@ for _ in range(3):
         position = animation_settings[i]['position']
 
         for box in get_boxes_from_ply(model):
-            voxelamming.create_box(*box)
+            vox.create_box(*box)
 
-        voxelamming.set_box_size(0.5)
-        voxelamming.set_build_interval(0)
-        voxelamming.transform(*position)
-        voxelamming.send_data()
+        vox.set_box_size(0.5)
+        vox.set_build_interval(0)
+        vox.transform(*position)
+        vox.send_data()
         sleep(0.1)
 
-        voxelamming.clear_data()
-        voxelamming.set_command('reset')
-        voxelamming.send_data()
-        voxelamming.clear_data()
+        vox.clear_data()
+        vox.set_command('reset')
+        vox.send_data()
+        vox.clear_data()
         sleep(0.1)
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
@@ -995,12 +995,12 @@ radius = 1.5
 repeat_count = 100
 
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_build_interval(0.01)
-voxelamming.set_box_size(size)
-voxelamming.change_shape("sphere")
-voxelamming.set_command('float')
+vox.set_build_interval(0.01)
+vox.set_box_size(size)
+vox.change_shape("sphere")
+vox.set_command('float')
 
 # ボクセルを配置するため、位置と色を設定します
 for i in range(repeat_count):
@@ -1009,15 +1009,15 @@ for i in range(repeat_count):
     y = i
     z = radius * sin(angle)
 
-    voxelamming.create_box(x, y, z, r=0, g=1, b=1, alpha=1)
-    voxelamming.create_box(-x, y, -z, r=0, g=1, b=1, alpha=1)
+    vox.create_box(x, y, z, r=0, g=1, b=1, alpha=1)
+    vox.create_box(-x, y, -z, r=0, g=1, b=1, alpha=1)
     if i % 2 == 0:
-        voxelamming.create_box(x / 3, y, z / 3, r=1, g=0, b=0, alpha=1)
+        vox.create_box(x / 3, y, z / 3, r=1, g=0, b=0, alpha=1)
     else:
-        voxelamming.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
+        vox.create_box(-x / 3, y, -z / 3, r=1, g=1, b=0, alpha=1)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("main_float_command_sample")
+vox.send_data("main_float_command_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
 
@@ -1041,25 +1041,25 @@ def draw_three_branches(count, branch_length):
     # draw branches
     shorted_branch_length = branch_length * length_ratio
     print('push_matrix')
-    voxelamming.push_matrix()
+    vox.push_matrix()
 
     # first branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
+    vox.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
     draw_three_branches(count, shorted_branch_length)
 
     # second branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
+    vox.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
     draw_three_branches(count, shorted_branch_length)
 
     # third branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
+    vox.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
     draw_three_branches(count, shorted_branch_length)
 
     print('pop_matrix')
-    voxelamming.pop_matrix()
+    vox.pop_matrix()
 
 # 変数の設定
 initial_length = 10
@@ -1070,14 +1070,14 @@ length_ratio = 0.8
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
-voxelamming.change_shape('sphere')
-voxelamming.set_command('float')
-voxelamming.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
+vox.change_shape('sphere')
+vox.set_command('float')
+vox.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
 
 draw_three_branches(repeat_count, initial_length)
-voxelamming.send_data("main_matrix_sample")
+vox.send_data("main_matrix_sample")
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
 
@@ -1096,48 +1096,48 @@ texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
 
 # ボクセルを配置するため、位置と色を設定します
 for i, texture in enumerate(texture_names):
-    voxelamming.create_box(0, len(texture_names) - i - 1, 0, texture=texture)
+    vox.create_box(0, len(texture_names) - i - 1, 0, texture=texture)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data()
+vox.send_data()
 # ボクセルデータをクリアします。
-voxelamming.clear_data()
+vox.clear_data()
 sleep(0.1)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
-voxelamming.change_shape('sphere')
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
+vox.change_shape('sphere')
 
 # ボクセルを配置するため、位置と色を設定します
 for i, texture in enumerate(texture_names):
-    voxelamming.create_box(1, len(texture_names) - i - 1, 0, texture=texture)
+    vox.create_box(1, len(texture_names) - i - 1, 0, texture=texture)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data()
+vox.send_data()
 # ボクセルデータをクリアします。
-voxelamming.clear_data()
+vox.clear_data()
 sleep(0.1)
 
 # ボクセルの設定を行います
-voxelamming.set_box_size(1)
-voxelamming.set_build_interval(0.01)
-voxelamming.change_shape('plane')
+vox.set_box_size(1)
+vox.set_build_interval(0.01)
+vox.change_shape('plane')
 
 # ボクセルを配置するため、位置と色を設定します
 for i, texture in enumerate(texture_names):
-    voxelamming.create_box(2, len(texture_names) - i - 1, 0, texture=texture)
+    vox.create_box(2, len(texture_names) - i - 1, 0, texture=texture)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data()
+vox.send_data()
 ```
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
 
@@ -1328,18 +1328,18 @@ butterfly_list = [
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 # ボクセルの設定を行います
-voxelamming.set_box_size(0.15)
-# voxelamming.set_build_interval(0.01)
-voxelamming.set_command('float')
-voxelamming.set_frame_fps(2)
-voxelamming.set_frame_repeats(10)
+vox.set_box_size(0.15)
+# vox.set_build_interval(0.01)
+vox.set_command('float')
+vox.set_frame_fps(2)
+vox.set_frame_repeats(10)
 
 # ボクセルを配置するため、位置と色を設定します
 for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
-    voxelamming.frame_in()
-    voxelamming.transform(0, 100, 0, 30, 0, 0)
+    vox.frame_in()
+    vox.transform(0, 100, 0, 30, 0, 0)
 
     for j, row in enumerate(butterfly_list):
         color = rainbow_colors[j // 10]
@@ -1352,12 +1352,12 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
                 r = color[0] / 255
                 g = color[1] / 255
                 b = color[2] / 255
-                voxelamming.create_box(x, y, z, r, g, b)
-                voxelamming.create_box(-x, y, z, r, g, b)
-    voxelamming.frame_out()
+                vox.create_box(x, y, z, r, g, b)
+                vox.create_box(-x, y, z, r, g, b)
+    vox.frame_out()
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data('main_frame_sample')
+vox.send_data('main_frame_sample')
 ```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
@@ -1396,28 +1396,28 @@ from voxelamming_local import Voxelamming
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルのサイズを設定します
-voxelamming.set_box_size(10)
+vox.set_box_size(10)
 # ボクセルの配置間隔を設定します
-voxelamming.set_build_interval(0.01)
+vox.set_build_interval(0.01)
 # 座標軸を描きます
-voxelamming.set_command('axis')
+vox.set_command('axis')
 
 # ボクセルを配置するため、位置と色を設定します
-voxelamming.change_shape('sphere')
-voxelamming.create_box(0, 0, 0, 1, 0, 0, 1)
-voxelamming.create_model('Earth', 0, 2, 0)
-voxelamming.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
-voxelamming.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
-voxelamming.create_model('Robot', 0, 8, 0, 0, 0, 90)
-voxelamming.create_model('Skull', 0, 10, 0, 0, 0, 90)
-voxelamming.create_model('Skull', 0, 12, 0, 90, 0, 0)
-voxelamming.create_model('Skull', 0, 14, 0, 90, 0, 90)
+vox.change_shape('sphere')
+vox.create_box(0, 0, 0, 1, 0, 0, 1)
+vox.create_model('Earth', 0, 2, 0)
+vox.create_model('ToyCar', 0, 4, 0, 90, 0, 0)
+vox.create_model('ToyBiplane', 0, 6, 0, 0, 90, 0)
+vox.create_model('Robot', 0, 8, 0, 0, 0, 90)
+vox.create_model('Skull', 0, 10, 0, 0, 0, 90)
+vox.create_model('Skull', 0, 12, 0, 90, 0, 0)
+vox.create_model('Skull', 0, 14, 0, 90, 0, 90)
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("createModel")
+vox.send_data("createModel")
 ```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
@@ -1436,36 +1436,36 @@ import time
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
 # ボクセルのサイズを設定します
 box_size = 10
-voxelamming.set_box_size(box_size)
+vox.set_box_size(box_size)
 # ボクセルの配置間隔を設定します
-voxelamming.set_build_interval(0.01)
+vox.set_build_interval(0.01)
 # 座標軸を描きます
-voxelamming.set_command('axis')
+vox.set_command('axis')
 
 # ボクセルを配置するため、位置と色を設定します
-voxelamming.change_shape('sphere')
-voxelamming.create_box(0, 0, 0, 1, 0, 0, 1)
-voxelamming.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
-voxelamming.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
-voxelamming.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
+vox.change_shape('sphere')
+vox.create_box(0, 0, 0, 1, 0, 0, 1)
+vox.create_model('Skull', -2, 0, 0, 0, 0, 0, 1, 'skull_model_1')
+vox.create_model('Skull', 2, 0, 0, 0, 0, 0, 1, 'skull_model_2')
+vox.create_model('Skull', 0, 2, 0, 0, 0, 0, 1, 'skull_model_3')
 
 # ボクセルデータをアプリに送信します。
-voxelamming.send_data("Skulls")
+vox.send_data("Skulls")
 # ボクセルデータを初期化
-voxelamming.clear_data()
+vox.clear_data()
 
 # モデルを移動を行います
 for i in range(20):
     time.sleep(0.1)
-    voxelamming.set_box_size(box_size)
-    voxelamming.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
-    voxelamming.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
-    voxelamming.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
-    voxelamming.send_data()
+    vox.set_box_size(box_size)
+    vox.move_model('skull_model_1', -2, i * 0.2, 0, 0, 0, 0)
+    vox.move_model('skull_model_2', 2, 0, 0, 0, i * 10, 0)
+    vox.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
+    vox.send_data()
 ```
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>

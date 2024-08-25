@@ -3,12 +3,12 @@ import { Turtle } from 'voxelamming'; // test
 import Voxelamming from './voxelamming.js';  // test
 
 const roomName = "1000";
-const voxelamming = new Voxelamming(roomName);
+const vox = new Voxelamming(roomName);
 
-voxelamming.setBoxSize(0.3);
-voxelamming.setBuildInterval(0.01);
-voxelamming.setCommand('liteRender')
-const t = new Turtle(voxelamming);
+vox.setBoxSize(0.3);
+vox.setBuildInterval(0.01);
+vox.setCommand('liteRender')
+const t = new Turtle(vox);
 
 const colors = [
 [0, 0, 0, 1],
@@ -41,5 +41,5 @@ t.up(6);
 }
 }
 
-await voxelamming.sendData();
+await vox.sendData();
 console.log('send data done');

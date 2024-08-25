@@ -86,21 +86,21 @@ castle = {
 def draw_square(voxelamming, w, d, h, r, g, b):
     for i in range(-floor(w / 2), floor(w / 2) + 1):
         for j in [-floor(d / 2), floor(d / 2) - 1]:
-            voxelamming.create_box(i, h, j, r=r, g=g, b=b, alpha=1)
+            vox.create_box(i, h, j, r=r, g=g, b=b, alpha=1)
     for i in range(-floor(d / 2), floor(d / 2)):
         for j in [-floor(w / 2), floor(w / 2)]:
-            voxelamming.create_box(j, h, i, r=r, g=g, b=b, alpha=1)
+            vox.create_box(j, h, i, r=r, g=g, b=b, alpha=1)
 
 
 def main():
     # Voxelammingアプリに表示されている部屋名を指定してください
     room_name = "1000"
     # Voxelammingクラスのインスタンスを生成します
-    voxelamming = Voxelamming(room_name)
-    voxelamming.set_box_size(0.3)
-    voxelamming.set_build_interval(0.001)
+    vox = Voxelamming(room_name)
+    vox.set_box_size(0.3)
+    vox.set_build_interval(0.001)
 
-    #   voxelamming.set_command('japaneseCastle')
+    #   vox.set_command('japaneseCastle')
 
     # ボクセルを配置するため、位置と色を設定します
     for key in castle:
@@ -113,14 +113,14 @@ def main():
             draw_square(voxelamming, w, d, h, color[0], color[1], color[2])
 
     for p in yellow_fish:
-        voxelamming.create_box(p[1], p[0], p[2], r=1, g=1, b=0, alpha=1)
+        vox.create_box(p[1], p[0], p[2], r=1, g=1, b=0, alpha=1)
 
     for p in roof_edge:
-        voxelamming.remove_box(p[1], p[0] - 1, p[2])
-        voxelamming.create_box(p[1], p[0], p[2], r=1, g=0, b=0, alpha=1)
+        vox.remove_box(p[1], p[0] - 1, p[2])
+        vox.create_box(p[1], p[0], p[2], r=1, g=0, b=0, alpha=1)
 
     # ボクセルデータをアプリに送信します。
-    voxelamming.send_data("japanese_castle")
+    vox.send_data("japanese_castle")
 
 
 main()

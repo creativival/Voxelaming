@@ -12,25 +12,25 @@ def draw_three_branches(count, branch_length):
     # draw branches
     shorted_branch_length = branch_length * length_ratio
     print('push_matrix')
-    voxelamming.push_matrix()
+    vox.push_matrix()
 
     # first branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=0, roll=0)
+    vox.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=1)
     draw_three_branches(count, shorted_branch_length)
 
     # second branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=120, roll=0)
+    vox.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=0, b=0)
     draw_three_branches(count, shorted_branch_length)
 
     # third branch
-    voxelamming.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
-    voxelamming.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
+    vox.transform(0, branch_length, 0, pitch=angle_to_open, yaw=240, roll=0)
+    vox.draw_line(0, 0, 0, 0, shorted_branch_length, 0, r=1, g=1, b=0)
     draw_three_branches(count, shorted_branch_length)
 
     print('pop_matrix')
-    voxelamming.pop_matrix()
+    vox.pop_matrix()
 
 # 変数の設定
 initial_length = 10
@@ -41,11 +41,11 @@ length_ratio = 0.8
 # Voxelammingアプリに表示されている部屋名を指定してください
 room_name = "1000"
 # Voxelammingクラスのインスタンスを生成します
-voxelamming = Voxelamming(room_name)
+vox = Voxelamming(room_name)
 
-voxelamming.change_shape('sphere')
-voxelamming.set_command('float')
-voxelamming.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
+vox.change_shape('sphere')
+vox.set_command('float')
+vox.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
 
 draw_three_branches(repeat_count, initial_length)
-voxelamming.send_data("main_matrix_sample")
+vox.send_data("main_matrix_sample")

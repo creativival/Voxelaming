@@ -1,6 +1,6 @@
 class Turtle {
-  constructor(voxelamming) {
-    this.voxelamming = voxelamming;
+  constructor(voxelammingInstance) {
+    this.voxelammingInstance = voxelammingInstance;
     this.x = 0;
     this.y = 0;
     this.z = 0;
@@ -20,7 +20,7 @@ class Turtle {
     z = this.roundToThreeDecimalPlaces(z);
 
     if (this.drawable) {
-      this.voxelamming.drawLine(this.x, this.y, this.z, x, y, z, ...this.color);
+      this.voxelammingInstance.drawLine(this.x, this.y, this.z, x, y, z, ...this.color);
     }
 
     this.x = x;
