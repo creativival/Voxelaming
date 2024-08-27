@@ -1,12 +1,15 @@
 require 'voxelamming'
-require_relative 'turtle'
+# require_relative 'voxelamming'
+# require_relative 'turtle'
 
 room_name = "1000"
-build_box = Voxelamming::BuildBox.new(room_name)
+vox = Voxelamming::VoxelammingManager.new(room_name)
+# vox = VoxelammingManager.new(room_name)
 
-build_box.set_box_size(0.3)
-build_box.set_build_interval(0.01)
-t = Voxelamming::Turtle.new(build_box)
+vox.set_box_size(0.3)
+vox.set_build_interval(0.01)
+t = Voxelamming::Turtle.new(vox)
+# t = Turtle.new(vox)
 
 t.set_color(1, 1, 0, 1)
 
@@ -31,4 +34,4 @@ t.forward(10)
 t.left(90)
 t.forward(10)
 
-build_box.send_data()
+vox.send_data()

@@ -1,4 +1,5 @@
 require 'voxelamming'
+# require_relative 'voxelamming'
 
 rainbow_colors = [
     [255, 0, 0],     # 赤
@@ -175,16 +176,17 @@ butterfly_list = [
 angles = [30, 15, 0, -15, -30, -15, 0, 15]
 
 room_name = '1000'
-build_box = Voxelamming::BuildBox.new(room_name)
-build_box.set_box_size(0.15)
-# build_box.set_build_interval(0.01)
-build_box.set_command('float')
-build_box.set_frame_fps(2)
-build_box.set_frame_repeats(10)
+vox = Voxelamming::VoxelammingManager.new(room_name)
+# vox = VoxelammingManager.new(room_name)
+vox.set_box_size(0.15)
+# vox.set_build_interval(0.01)
+vox.set_command('float')
+vox.set_frame_fps(2)
+vox.set_frame_repeats(10)
 
 angles.each do |angle|
-  build_box.frame_in()
-  build_box.transform(0, 100, 0, pitch: 30, yaw: 0, roll: 0)
+  vox.frame_in()
+  vox.transform(0, 100, 0, pitch: 30, yaw: 0, roll: 0)
 
   butterfly_list.each_with_index do |row, j|
     color = rainbow_colors[j / 10]
@@ -197,14 +199,14 @@ angles.each do |angle|
         r = color[0] / 255.0
         g = color[1] / 255.0
         b = color[2] / 255.0
-        build_box.create_box(x, y, z, r: r, g: g, b: b)
-        build_box.create_box(-x, y, z, r: r, g: g, b: b)
+        vox.create_box(x, y, z, r: r, g: g, b: b)
+        vox.create_box(-x, y, z, r: r, g: g, b: b)
       end
     end
   end
 
-  build_box.frame_out()
+  vox.frame_out()
 end
 
 # データを送信
-build_box.send_data()
+vox.send_data(name: 'frame_sample')

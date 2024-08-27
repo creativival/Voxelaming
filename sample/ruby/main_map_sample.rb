@@ -1,12 +1,14 @@
 require 'voxelamming'
+# require_relative 'voxelamming'
 require_relative 'map_util'
 
 room_name = "1000"
-build_box = Voxelamming::BuildBox.new(room_name)
+vox = Voxelamming::VoxelammingManager.new(room_name)
+# vox = VoxelammingManager.new(room_name)
 
-build_box.set_box_size(0.1)
-build_box.set_build_interval(0.001)
-build_box.set_command('liteRender')
+vox.set_box_size(0.1)
+vox.set_build_interval(0.001)
+vox.set_command('liteRender')
 
 column_num, row_num = 257, 257
 csv_file = '../map_file/map_38_138_100km.csv'
@@ -30,9 +32,9 @@ skip = 2  # normal device
     if y >= 0
       r, g, b = Voxelamming.get_box_color(y, max_height, high_color, low_color)
 #       print("r: #{r}, g: #{g}, b: #{b}\n")
-      build_box.create_box(x, y, z, r: r, g: g, b: b)
+      vox.create_box(x, y, z, r: r, g: g, b: b)
     end
   end
 end
 
-build_box.send_data()
+vox.send_data(name: 'map_sample')

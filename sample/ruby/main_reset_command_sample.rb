@@ -1,8 +1,10 @@
 require 'voxelamming'
+# require_relative 'voxelamming'
 require_relative 'ply_util'
 
 room_name = "1000"
-build_box = Voxelamming::BuildBox.new(room_name)
+vox = Voxelamming::VoxelammingManager.new(room_name)
+# vox = VoxelammingManager.new(room_name)
 
 animation_settings = [
     {
@@ -46,19 +48,19 @@ animation_settings = [
 
     boxes = get_boxes_from_ply(model)
     boxes.each do |b|
-      build_box.create_box(b[0], b[1], b[2], r: b[3], g: b[4], b: b[5])
+      vox.create_box(b[0], b[1], b[2], r: b[3], g: b[4], b: b[5])
     end
 
-    build_box.set_box_size(0.5)
-    build_box.set_build_interval(0)
-    build_box.transform(*position)
-    build_box.send_data
-    sleep(0.5)
+    vox.set_box_size(0.5)
+    vox.set_build_interval(0)
+    vox.transform(*position)
+    vox.send_data
+    sleep(0.1)
 
-    build_box.clear_data
-    build_box.set_command('reset')
-    build_box.send_data
-    build_box.clear_data
-    sleep(0.5)
+    vox.clear_data
+    vox.set_command('reset')
+    vox.send_data
+    vox.clear_data
+    sleep(0.1)
   end
 end
