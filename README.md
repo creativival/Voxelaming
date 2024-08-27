@@ -153,6 +153,14 @@ Scratch3 MODのタートルプログラミングを使って、ボクセルを�
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_turtle_scratch3.png" alt="voxelamming_turtle_scratch3" width="100%"/></p>
 
+### Scratch3 MOD（ゲームプログラミング）
+
+Scratch3 MODのゲーム用のブロックを使って、ARゲームを作成できます。ゲームのロジックはSctatch3 MODのブロックで設定し、スプライトの位置情報をボクセラミングに送信することで、AR空間上にゲームを表示できます。
+
+[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/game_example.sb3)
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/scratch_game_ja.png" alt="scratch_game_ja" width="100%"/></p>
+
 ### Python (3.6以上)
 
 #### スクリプト
