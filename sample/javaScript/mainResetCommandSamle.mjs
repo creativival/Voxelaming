@@ -1,6 +1,6 @@
-// import { Voxelamming, getBoxesFromPly } from 'voxelamming';
-import { getBoxesFromPly } from 'voxelamming'; // test
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming, getBoxesFromPly } from 'voxelamming';
+// import { getBoxesFromPly } from 'voxelamming'; // test
+// import Voxelamming from './voxelamming.js';  // test
 
 const roomName = '1000';
 const vox = new Voxelamming(roomName);

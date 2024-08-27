@@ -1,5 +1,5 @@
-// import { Voxelamming } from 'voxelamming';
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming } from 'voxelamming';
+// import Voxelamming from './voxelamming.js';  // test
 
 function toRadians(degrees) {
   return degrees * (Math.PI / 180);

@@ -115,6 +115,13 @@ build_box.send_data() # データ送信
 | `frame_out()` | フレームの記録を終了します。 | |
 | `set_frame_fps(fps)` | フレームレートを設定します (デフォルト: 2)。 | `fps`: フレームレート (int) |
 | `set_frame_repeats(repeats)` | フレームの再生回数を設定します (デフォルト: 10)。 | `repeats`: 再生回数 (int) |
+| ゲームメソッド名                                                                               | 説明 | 引数                                                                                                                                                                |
+| `set_game_screen_size(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)`           | ゲーム画面を設定します。 | `width`, `height`: 画面サイズ (float), `angle`: 角度 (float) , `r`, `g`, `b`, `alpha`: 色 (float, 0-1)                                                                    |
+| `set_game_score(score)`                                                             | ゲームスコアを設定します。 | `score`: ゲームのスコア(int)                                                                                                                                             |
+| `send_game_over()`                                                                  | ゲームオーバーを設定します。 |                                                                                                                                                                   |
+| `create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)` | スプライトを作成します。 | `sprite_name`: スプライトの名前 (string), `color_list`: ドットの色データ (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `visiable`: 表示 (boolean) |
+| `move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)`               | スプライトを移動します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `visiable`: 表示 (boolean)                                  |
+
 
 
 **注記:**
@@ -204,27 +211,27 @@ $ python3 main.py
 
 ```javascript
 // JavaScript (Node.js)
-import { BuildBox } from 'voxelamming';
+import { Voxelamming } from 'voxelamming';
 
 const roomName = '1000';
-const buildBox = new BuildBox(roomName);
+const vox = new Voxelamming(roomName);
 
-buildBox.setBoxSize(0.5);
-buildBox.setBuildInterval(0.01);
+vox.setBoxSize(0.5);
+vox.setBuildInterval(0.01);
 
 for (let i = 0; i < 100; i++) {
-  buildBox.createBox(-1, i, 0, 0, 1, 1);
-  buildBox.createBox(0, i, 0, 1, 0, 0);
-  buildBox.createBox(1, i, 0, 1, 1, 0);
-  buildBox.createBox(2, i, 0, 0, 1, 1);
+  vox.createBox(-1, i, 0, 0, 1, 1);
+  vox.createBox(0, i, 0, 1, 0, 0);
+  vox.createBox(1, i, 0, 1, 1, 0);
+  vox.createBox(2, i, 0, 0, 1, 1);
 }
 
 for (let i = 0; i < 50; i++) {
-  buildBox.removeBox(0, i * 2, 0);
-  buildBox.removeBox(1, i * 2 + 1, 0);
+  vox.removeBox(0, i * 2, 0);
+  vox.removeBox(1, i * 2 + 1, 0);
 }
 
-await buildBox.sendData("main");
+await vox.sendData("main");
 console.log('send data done')
 ```
 

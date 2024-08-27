@@ -1,6 +1,6 @@
-// import { Voxelamming, Turtle } from 'voxelamming';
-import { Turtle } from 'voxelamming'; // test
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming, Turtle } from 'voxelamming';
+// import {Turtle} from 'voxelamming'; // test
+// import Voxelamming from './voxelamming.js';  // test
 
 const roomName = "1000";
 const vox = new Voxelamming(roomName);
@@ -11,34 +11,34 @@ vox.setCommand('liteRender')
 const t = new Turtle(vox);
 
 const colors = [
-[0, 0, 0, 1],
-[1, 0, 0, 1],
-[0, 1, 0, 1],
-[0, 0, 1, 1],
-[1, 1, 0, 1],
-[0, 1, 1, 1],
-[1, 0, 1, 1],
-[1, 1, 1, 1],
-[0.5, 0, 0, 1],
-[0, 0.5, 0, 1],
-[0, 0, 0.5, 1],
-[0.5, 0.5, 0, 1],
-[0, 0.5, 0.5, 1],
-[0.5, 0, 0.5, 1],
-[0.5, 0.5, 0.5, 1],
+  [0, 0, 0, 1],
+  [1, 0, 0, 1],
+  [0, 1, 0, 1],
+  [0, 0, 1, 1],
+  [1, 1, 0, 1],
+  [0, 1, 1, 1],
+  [1, 0, 1, 1],
+  [1, 1, 1, 1],
+  [0.5, 0, 0, 1],
+  [0, 0.5, 0, 1],
+  [0, 0, 0.5, 1],
+  [0.5, 0.5, 0, 1],
+  [0, 0.5, 0.5, 1],
+  [0.5, 0, 0.5, 1],
+  [0.5, 0.5, 0.5, 1],
 ];
 
 for (let j = 0; j < colors.length; j++) {
-const color = colors[j];
-const polarPhi = (j * 180) / colors.length;
-t.reset();
-t.setColor(...color);
-t.left(polarPhi);
+  const color = colors[j];
+  const polarPhi = (j * 180) / colors.length;
+  t.reset();
+  t.setColor(...color);
+  t.left(polarPhi);
 
-for (let i = 0; i < 60; i++) {
-t.forward(4);
-t.up(6);
-}
+  for (let i = 0; i < 60; i++) {
+    t.forward(4);
+    t.up(6);
+  }
 }
 
 await vox.sendData();

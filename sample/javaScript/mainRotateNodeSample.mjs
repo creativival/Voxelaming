@@ -1,5 +1,5 @@
-// import { Voxelamming } from 'voxelamming';
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming } from 'voxelamming';
+// import Voxelamming from './voxelamming.js';  // test
 
 const rotations = [
   [0, 0, 0],

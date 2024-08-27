@@ -1,6 +1,6 @@
-// import { Voxelamming, getMapDataFromCSV, getBoxColor } from 'voxelamming';
-import { getMapDataFromCSV, getBoxColor } from 'voxelamming'; // test
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming, getMapDataFromCSV, getBoxColor } from 'voxelamming';
+// import { getMapDataFromCSV, getBoxColor } from 'voxelamming'; // test
+// import Voxelamming from './voxelamming.js';  // test
 
 
 const roomName = "1000";

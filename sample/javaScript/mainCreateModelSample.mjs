@@ -1,5 +1,5 @@
-// import { Voxelamming } from 'voxelamming';
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming } from 'voxelamming';
+// import Voxelamming from './voxelamming.js';  // test
 
 // Voxelammingアプリに表示されている部屋名を指定します
 const roomName = "1000";

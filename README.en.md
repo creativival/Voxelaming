@@ -115,6 +115,13 @@ build_box.send_data() # Send data
 | `frame_out()` | Ends recording a frame. | |
 | `set_frame_fps(fps)` | Sets the frame rate (default: 2). | `fps`: Frame rate (int) |
 | `set_frame_repeats(repeats)` | Sets the number of frame repetitions (default: 10). | `repeats`: Number of repetitions (int) |
+| Game Method Name                                                                              | Description | Arguments                                                                                                                                                            |
+| `set_game_screen(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)`                | Sets the game screen size. | `width`, `height`: screen size (float), `angle`: angle (float), `r`, `g`, `b`, `alpha`: color (float, 0-1)                                                            |
+| `set_game_score(score)`                                                                  | Sets the game score. | `score`: game score (int)                                                                                                                                            |
+| `send_game_over()`                                                                       | Triggers game over. |                                                                                                                                                                     |
+| `create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)`      | Creates a sprite. | `sprite_name`: sprite name (string), `color_list`: dot color data (string), `x`, `y`: position (float), `direction`: angle (float), `scale`: scale (float), `visible`: visibility (boolean) |
+| `move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)`                    | Moves a sprite. | `sprite_name`: sprite name (string), `x`, `y`: position (float), `direction`: angle (float), `scale`: scale (float), `visible`: visibility (boolean)                                  |
+
 
 **Notes:**
 
@@ -189,6 +196,7 @@ vox.send_data("main")
 
 ```bash
 $ pip install voxelamming
+$ pip install --upgrade voxelamming
 $ sample/python
 $ python main.py
 
@@ -203,27 +211,27 @@ $ python3 main.py
 
 ```javascript
 // JavaScript (Node.js)
-import { BuildBox } from 'voxelamming';
+import { Voxelamming } from 'voxelamming';
 
 const roomName = '1000';
-const buildBox = new BuildBox(roomName);
+const vox = new Voxelamming(roomName);
 
-buildBox.setBoxSize(0.5);
-buildBox.setBuildInterval(0.01);
+vox.setBoxSize(0.5);
+vox.setBuildInterval(0.01);
 
 for (let i = 0; i < 100; i++) {
-  buildBox.createBox(-1, i, 0, 0, 1, 1);
-  buildBox.createBox(0, i, 0, 1, 0, 0);
-  buildBox.createBox(1, i, 0, 1, 1, 0);
-  buildBox.createBox(2, i, 0, 0, 1, 1);
+  vox.createBox(-1, i, 0, 0, 1, 1);
+  vox.createBox(0, i, 0, 1, 0, 0);
+  vox.createBox(1, i, 0, 1, 1, 0);
+  vox.createBox(2, i, 0, 0, 1, 1);
 }
 
 for (let i = 0; i < 50; i++) {
-  buildBox.removeBox(0, i * 2, 0);
-  buildBox.removeBox(1, i * 2 + 1, 0);
+  vox.removeBox(0, i * 2, 0);
+  vox.removeBox(1, i * 2 + 1, 0);
 }
 
-await buildBox.sendData("main");
+await vox.sendData("main");
 console.log('send data done')
 ```
 

@@ -1,3 +1,4 @@
+# 開発用のモジュール
 import datetime
 from math import floor
 import websocket
@@ -8,7 +9,7 @@ from .matrix_util import *
 class Voxelamming:
     texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
     model_names = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
-    "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
+                   "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
 
     def __init__(self, room_name):
         self.room_name = room_name
@@ -29,6 +30,7 @@ class Voxelamming:
         self.sprites = []
         self.sprite_moves = []
         self.game_score = -1
+        self.game_screen = []  # width, height, angle=90, red=1, green=1, blue=1, alpha=0.5
         self.size = 1
         self.shape = 'box'
         self.is_metallic = 0
@@ -38,7 +40,6 @@ class Voxelamming:
         self.is_framing = False
         self.frame_id = 0
         self.rotation_styles = {}  # 回転の制御（送信しない）
-        self.sprite_base_size = 50  # ベースサイズを保存（送信しない）
         self.websocket = None
 
     def clear_data(self):
@@ -59,6 +60,7 @@ class Voxelamming:
         self.sprites = []
         self.sprite_moves = []
         self.game_score = -1
+        self.game_screen = []
         self.size = 1
         self.shape = 'box'
         self.is_metallic = 0
@@ -68,7 +70,6 @@ class Voxelamming:
         self.is_framing = False
         self.frame_id = 0
         self.rotation_styles = {}  # 回転の制御（送信しない）
-        self.sprite_base_size = 50  # ベースサイズを保存（送信しない）
 
     def set_frame_fps(self, fps=2):
         self.commands.append(f'fps {fps}')
@@ -288,11 +289,8 @@ class Voxelamming:
 
     # Game API
 
-    def set_game_screen_size(self, x, y, angle=90):
-        self.commands.append(f"gameScreenSize {x} {y} {angle}")
-
-    def set_sprite_base_size(self, base_size):
-        self.sprite_base_size = float(base_size)
+    def set_game_screen(self, width, height, angle=90, r=1, g=1, b=0, alpha=0.5):
+        self.game_screen = [width, height, angle, r, g, b, alpha]
 
     def set_game_score(self, score):
         self.game_score = float(score)
@@ -320,12 +318,13 @@ class Voxelamming:
 
             # rotation_styleが変更された場合、新しいスプライトデータを配列に追加
             if rotation_style == 'left-right':
-                if direction < 0:
-                    direction = "270"  # -90から90を270にすることで、左右反転を表現
+                direction_mod = direction % 360  # 常に0から359の範囲で処理（常に正の数になる）
+                if (direction_mod > 90 and direction_mod < 270):
+                    direction = "-180"  # -180は左右反転するようにボクセラミング側で実装されている
                 else:
-                    direction = "90"
+                    direction = "0"
             elif rotation_style == "don't rotate":
-                direction = "90"
+                direction = "0"
             else:
                 direction = str(direction)
         else:
@@ -357,6 +356,7 @@ class Voxelamming:
         "sprites": {self.sprites},
         "spriteMoves": {self.sprite_moves},
         "gameScore": {self.game_score},
+        "gameScreen": {self.game_screen},
         "size": {self.size},
         "shape": "{self.shape}",
         "interval": {self.build_interval},
@@ -393,5 +393,6 @@ class Voxelamming:
         else:
             return list(map(floor, [round(val, 1) for val in num_list]))  # 修正
 
-    def round_two_decimals(self, num_list):
-         return [round(val, 2) for val in num_list]
+    @staticmethod
+    def round_two_decimals(num_list):
+        return [round(val, 2) for val in num_list]

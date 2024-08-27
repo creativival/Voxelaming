@@ -1,5 +1,5 @@
-// import { Voxelamming } from 'voxelamming';
-import Voxelamming from './voxelamming.js';  // test
+import { Voxelamming } from 'voxelamming';
+// import Voxelamming from './voxelamming.js';  // test
 
 const textureNames = ["grass", "stone", "dirt", "planks", "bricks"];
 const roomName = "1000";

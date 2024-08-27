@@ -37,6 +37,7 @@ class Voxelamming {
     this.sprites = [];
     this.spriteMoves = [];
     this.gameScore = -1;
+    this.gameScreen = [] // width, height, angle=90, red=1, green=1, blue=1, alpha=0.5
     this.size = 1.0;
     this.shape = 'box'
     this.isMetallic = 0
@@ -46,7 +47,6 @@ class Voxelamming {
     this.isFraming = false;
     this.frameId = 0;
     this.rotationStyles = {}; // 回転の制御（送信しない）
-    this.spriteBaseSize = 50 // ベースサイズを保存（送信しない）
     this.socket = null;
     this.inactivityTimeout = null; // 非アクティブタイマー
     this.inactivityDelay = 2000; // 2秒後に接続を切断
@@ -72,6 +72,7 @@ class Voxelamming {
         this.sprites = [];
         this.spriteMoves = [];
         this.gameScore = -1;
+        this.gameScreen = [] // width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
         this.size = 1.0;
         this.shape = 'box';
         this.isMetallic = 0;
@@ -81,7 +82,6 @@ class Voxelamming {
         this.isFraming = false;
         this.frameId = 0;
         this.rotationStyles = {}; // 回転の制御（送信しない）
-        this.spriteBaseSize = 50 // ベースサイズを保存（送信しない）
 
         // すべての初期化が完了したらresolveを呼び出す
         resolve();
@@ -351,12 +351,9 @@ class Voxelamming {
   }
 
   // Game API
-  setGameScreenSize(x, y, angle = 90) {
-    this.commands.push(`gameScreenSize ${x} ${y} ${angle}`);
-  }
 
-  setSpriteBaseSize(baseSize) {
-    this.spriteBaseSize = Number(baseSize);
+  setGameScreen(width, height, angle = 90, r = 1, g = 1, b = 0, alpha = 0.5) {
+    this.gameScreen = [width, height, angle, r, g, b, alpha];
   }
 
   setGameScore(score) {
@@ -378,7 +375,7 @@ class Voxelamming {
     this.sprites.push([spriteName, colorList, x, y, direction, scale, visible ? '1' : '0']);
   }
 
-  moveSprite(spriteName, x, y, direction = 90, scale = 1, visible = true) {
+  moveSprite(spriteName, x, y, direction = 0, scale = 1, visible = true) {
     // const sprite = this.runtime.getSpriteTargetByName(spriteName);
     [x, y, direction] = this.roundNumbers([x, y, direction]);
     [x, y, direction, scale] = [x, y, direction, scale].map(val => String(val))
@@ -389,13 +386,14 @@ class Voxelamming {
 
       // rotationStyleが変更された場合、新しいスプライトデータを配列に追加
       if (rotationStyle === 'left-right') {
-        if (direction < 0) {
-          direction = "270"; // 取得できる値は-90から90である。270にすることで、左右反転を表現する
+        const direction_mod = Math.abs(direction) % 360; // 0-359の範囲に変換
+        if (direction_mod < 270 && direction_mod > 90) {
+          direction = "-180"; // -180は左右反転するようにボクセラミング側で実装されている
         } else {
-          direction = "90";
+          direction = "0";
         }
       } else if (rotationStyle === "don't rotate") {
-        direction = "90"
+        direction = "0"
       } else {
         direction = String(direction)
       }
@@ -429,6 +427,7 @@ class Voxelamming {
       sprites: this.sprites,
       spriteMoves: this.spriteMoves,
       gameScore: this.gameScore,
+      gameScreen: this.gameScreen,
       size: this.size,
       shape: this.shape,
       interval: this.buildInterval,
