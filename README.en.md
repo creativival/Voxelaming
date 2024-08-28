@@ -213,6 +213,261 @@ or
 $ python3 main.py
 ```
 
+#### Game Script
+
+```python
+# Python
+import pyxel
+from voxelamming import Voxelamming
+# from voxelamming_local import Voxelamming  # Use this when developing locally
+
+
+class Cat:
+    def __init__(self, app):
+        self.app = app
+        self.name = 'cat_8x8'
+        self.dot_data = (
+            '-1 -1 9 -1 9 -1 -1 -1 -1 -1 9 9 9 9 -1 -1 '
+            '-1 -1 9 0 9 0 9 -1 -1 -1 9 9 7 7 7 -1 -1 -1 '
+            '9 9 9 -1 -1 -1 9 9 9 9 9 9 9 -1 -1 -1 9 9 7 '
+            '-1 -1 -1 -1 9 9 -1 9 9 -1 -1'
+        )
+        self.direction = 0
+        self.x = 0
+        self.y = 0
+        self.img = 0
+        self.u = 0
+        self.v = 0
+        self.w = 8
+        self.h = 8
+        self.speed = 0.1  # Movement speed of the cat
+        self.diameter = 4  # Initial size of the cat (circle diameter)
+
+    def chase(self, mouse):
+        # The cat chases the mouse
+        if self.x < mouse.x:
+            self.x += self.speed
+            self.w = 8
+            self.h = 8
+            self.direction = 0
+        elif self.x > mouse.x:
+            self.x -= self.speed
+            self.w = -8
+            self.h = 8
+            self.direction = -180  # Flip the image
+
+        if self.y < mouse.y:
+            self.y += self.speed
+        elif self.y > mouse.y:
+            self.y -= self.speed
+
+        # Gradually increase the size of the cat
+        self.diameter += 0.05
+
+
+class Mouse:
+    def __init__(self, app):
+        self.app = app
+        self.name = 'mouse_8x8'
+        self.dot_data = (
+            '-1 -1 -1 -1 -1 -1 -1 -1 -1 13 -1 -1 13 -1 -1 -1 '
+            '-1 13 13 13 -1 -1 -1 -1 -1 13 13 13 13 0 13 -1 '
+            '13 13 13 13 13 13 13 0 -1 13 13 13 13 0 13 -1 '
+            '-1 13 13 13 -1 -1 -1 -1 -1 13 -1 -1 13 -1 -1 -1'
+        )
+        self.direction = 0
+        self.x = 20
+        self.y = 0
+        self.img = 0
+        self.u = 0
+        self.v = 8
+        self.w = 8
+        self.h = 8
+        self.speed = 0.5  # Movement speed of the mouse
+        self.diameter = 8  # Size of the mouse (circle diameter)
+
+    def move(self):
+        # Move the mouse with the arrow keys
+        if pyxel.btn(pyxel.KEY_LEFT):
+            self.x -= self.speed
+            self.u = 0
+            self.v = 8
+            self.w = -8
+            self.h = 8
+            self.direction = 180  # Rotate 180 degrees
+        if pyxel.btn(pyxel.KEY_RIGHT):
+            self.x += self.speed
+            self.u = 0
+            self.v = 8
+            self.w = 8
+            self.h = 8
+            self.direction = 0
+        if pyxel.btn(pyxel.KEY_UP):
+            self.y += self.speed
+            self.u = 8
+            self.v = 8
+            self.w = 8
+            self.h = 8
+            self.direction = 90
+        if pyxel.btn(pyxel.KEY_DOWN):
+            self.y -= self.speed
+            self.u = 8
+            self.v = 8
+            self.w = 8
+            self.h = -8
+            self.direction = -90
+
+        # Restrict movement within the screen
+        self.x = max(-self.app.window_width // 2, min(self.app.window_width // 2, self.x))
+        self.y = max(-self.app.window_height // 2, min(self.app.window_height // 2, self.y))
+
+
+class App:
+    def __init__(self):
+        # Initialize Pyxel
+        self.dot_size = 1  # Dot size of the sprites displayed in the AR space (in centimeters)
+        self.window_width = int(64 * 4 / 3)  # The width of the AR window is multiplied by self.dot_size (in centimeters)
+        self.window_height = 64  # The height of the AR window is multiplied by self.dot_size (in centimeters)
+        self.window_angle = 80  # The tilt angle of the AR window (in degrees)
+        self.sprite_base_diameter = 8  # Base diameter of the sprite (reference value for sprite transmission scale)
+        self.cat = Cat(self)
+        self.mouse = Mouse(self)
+        self.game_started = False
+        self.game_over = False
+        self.score = 0  # Initial score
+        self.last_score_update_time = 0  # Timer to update the score
+
+        # Initialize Voxelamming
+        self.vox = Voxelamming('1000')
+        self.vox.set_box_size(self.dot_size)
+        self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=1, blue=0, alpha=0.8)
+        self.vox.set_game_score(self.score)
+        cat_scale = self.cat.diameter / self.sprite_base_diameter
+        mouse_scale = self.mouse.diameter / self.sprite_base_diameter
+        self.vox.create_sprite(self.cat.name, self.cat.dot_data, self.cat.x, self.cat.y, self.cat.direction, cat_scale,
+                               True)
+        self.vox.create_sprite(self.mouse.name, self.mouse.dot_data, self.mouse.x, self.mouse.y, self.mouse.direction,
+                               mouse_scale, True)
+        self.vox.send_data()
+        self.vox.clear_data()
+
+        pyxel.init(self.window_width, self.window_height, title='Cat Game')
+
+        pyxel.load('cat_game.pyxres')
+
+        pyxel.run(self.update, self.draw)
+
+    def update(self):
+        if not self.game_started:
+            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
+                self.reset_game()
+            return
+
+        if self.game_over:
+            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
+                self.reset_game()
+            return
+
+        self.mouse.move()  # Update the position of the mouse
+        self.cat.chase(self.mouse)  # The cat chases the mouse
+
+        # Collision detection: The game is over if the cat's circle touches the mouse
+        if ((self.cat.x - self.mouse.x) ** 2 + (self.cat.y - self.mouse.y) ** 2) < (
+                self.cat.diameter / 2 + self.mouse.diameter / 2) ** 2:
+            self.game_over = True
+
+            # Send game over (change window color to red)
+            self.vox.set_box_size(self.dot_size)
+            self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=0, blue=0, alpha=0.8)
+            self.vox.set_game_score(self.score)
+            self.vox.set_command('gameOver')
+            self.vox.send_data()
+            self.vox.clear_data()
+
+        # Add score every second
+        if pyxel.frame_count - self.last_score_update_time >= 30:  # Default FPS of Pyxel is 30
+            self.score += 1
+            self.last_score_update_time = pyxel.frame_count
+
+        # Send sprite information every 0.1 seconds
+        if pyxel.frame_count - self.last_score_update_time >= 3:  # Default FPS of Pyxel is 30
+            if not self.game_over:  # Prevent sending right after game over
+                self.vox.set_box_size(self.dot_size)
+                self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=1, blue=0, alpha=0.5)
+                self.vox.set_game_score(self.score)
+                cat_scale = self.cat.diameter / self.sprite_base_diameter
+                mouse_scale = self.mouse.diameter / self.sprite_base_diameter
+                self.vox.move_sprite(self.cat.name, self.cat.x, self.cat.y, self.cat.direction, cat_scale, True)
+                self.vox.move_sprite(self.mouse.name, self.mouse.x, self.mouse.y, self.mouse.direction, mouse_scale, True)
+                self.vox.send_data()
+                self.vox.clear_data()
+
+    def draw(self):
+        pyxel.cls(1)
+
+        # Display the score in the top left corner
+        pyxel.text(2, 2, f"Score: {self.score}", pyxel.COLOR_WHITE)
+
+        if not self.game_started:
+            pyxel.text(self.window_width // 2 - 26, self.window_height // 2 - 8, "Click to start",
+                       pyxel.frame_count % 16)
+            self.draw_cursor()  # Draw custom cursor
+            return
+
+        if self.game_over:
+            pyxel.text(self.window_width // 2 - 26, self.window_height // 2 - 8, "Game Over!", pyxel.frame_count % 16)
+            pyxel.text(self.window_width // 2 - 26, self.window_height // 2 + 8, "Click to start",
+                       pyxel.frame_count % 16)
+            self.draw_cursor()  # Draw custom cursor
+            return
+
+        # Draw a gradually enlarging circle
+        cat_x, cat_y = self.get_sprite_position(self.cat.x, self.cat.y)
+        pyxel.circ(cat_x + 4, cat_y + 4, self.cat.diameter / 2, pyxel.COLOR_RED)
+
+        # Draw the cat sprite
+        pyxel.blt(cat_x, cat_y, self.cat.img, self.cat.u, self.cat.v, self.cat.w, self.cat.h, 1)
+
+        # Draw the mouse sprite
+        mouse_x, mouse_y = self.get_sprite_position(self.mouse.x, self.mouse.y)
+        pyxel.blt(mouse_x, mouse_y, self.mouse.img, self.mouse.u, self.mouse.v, self.mouse.w, self.mouse.h, 1)
+
+    def get_sprite_position(self, x, y):
+        return self.window_width // 2 + x - 4, self.window_height // 2 - y - 4
+
+    def reset_game(self):
+        self.score = 0  # Reset the score
+        self.last_score_update_time = pyxel.frame_count  # Reset the timer
+        self.cat = Cat(self)  # Initialize the cat (position, size)
+        self.mouse = Mouse(self)  # Initialize the mouse (position)
+        self.game_started = True
+        self.game_over = False
+
+    @staticmethod
+    def draw_cursor():
+        cursor_x = pyxel.mouse_x
+        cursor_y = pyxel.mouse_y
+        pyxel.blt(cursor_x - 4, cursor_y - 4, 0, 0, 16, 8, 8, 1)
+
+
+App()
+```
+
+#### How to run
+
+After placing the base anchor with voxelamming, start the Pyxel game.
+
+```bash
+$ pip install voxelamming pyxel
+$ pip install --upgrade voxelamming
+$ sample/python
+$ python game_sample.py
+
+or
+
+$ python3 game_sample.py
+```
+
 ### JavaScript (Node.js)
 
 Install package version 0.3.0 or later.
