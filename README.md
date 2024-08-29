@@ -98,7 +98,7 @@ build_box.send_data() # データ送信
 | `create_box(x, y, z, r, g, b, alpha)` | ボクセルを設置します。 | `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1) |
 | `create_box(x, y, z, texture)` | テクスチャ付きのボクセルを設置します。 | `x`, `y`, `z`: 位置 (float), `texture`: テクスチャ名 (string) |
 | `remove_box(x, y, z)` | ボクセルを削除します。 | `x`, `y`, `z`: 位置 (float) |
-| `write_sentence(sentence, x, y, z, r, g, b, alpha)` | 文字列をボクセルで描画します。 | `sentence`: 文字列 (string), `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1) |
+| `write_sentence(sentence, x, y, z, r, g, b, alpha, font_size, is_fixed_width)` | 文字列をボクセルで描画します。 | `sentence`: 文字列 (string), `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1), `font_size`: フォントサイズ (8, 12, 16, 24), is_fixed_width: 固定長にするか (0 or 1) |
 | `set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)` | ライトを設置します。 | `x`, `y`, `z`: 位置 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1), `intensity`: 強さ (float), `interval`: 点滅間隔 (float), `light_type`: ライトの種類 ("point", "spot", "directional") |
 | `set_command(command)` | コマンドを実行します。 | `command`: コマンド ("axis", "japaneseCastle", "float", "liteRender") |
 | `draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)` | 2点間に線を描画します。 | `x1`, `y1`, `z1`: 始点 (float), `x2`, `y2`, `z2`: 終点 (float), `r`, `g`, `b`, `alpha`: 色 (float, 0-1) |
