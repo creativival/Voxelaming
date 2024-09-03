@@ -352,61 +352,120 @@ class Voxelamming {
 
   // Game API
 
-  setGameScreen(width, height, angle = 90, r = 1, g = 1, b = 0, alpha = 0.5) {
-    this.gameScreen = [width, height, angle, r, g, b, alpha];
+  // ゲーム画面の設定
+  setGameScreen(width, height, angle = 90, red = 1, green = 1, blue = 0, alpha = 0.5) {
+    this.gameScreen = [width, height, angle, red, green, blue, alpha];
   }
 
-  setGameScore(score) {
-    this.gameScore = Number(score);
+  // ゲームスコアの設定
+  setGameScore(score, x = 0, y = 0) {
+    score = parseFloat(score);
+    x = parseFloat(x);
+    y = parseFloat(y);
+    this.gameScore = [score, x, y];
   }
 
+  // ゲームオーバーの送信
   sendGameOver() {
     this.commands.push('gameOver');
   }
 
-  setRotationStyle(spriteName, rotation_style = 'all around') {
-    this.rotationStyles[spriteName] = rotation_style;
+  // 回転スタイルの設定
+  setRotationStyle(spriteName, rotationStyle = 'all around') {
+    this.rotationStyles[spriteName] = rotationStyle;
   }
 
-  createSprite(spriteName, colorList, x, y, direction = 90, scale = 1, visible = true) {
-    // 新しいスプライトデータを配列に追加
-    [x, y, direction] = this.roundNumbers([x, y, direction]);
-    [x, y, direction, scale] = [x, y, direction, scale].map(val => String(val))
-    this.sprites.push([spriteName, colorList, x, y, direction, scale, visible ? '1' : '0']);
+  // スプライトの作成と表示について、テンプレートとクローンの概念を導入する
+  // テンプレートはボクセルの集合で、標準サイズは8x8に設定する
+  // この概念により、スプライトの複数作成が可能となる（敵キャラや球など）
+  // スプライトは、ボクセラミングアプリ上で、テンプレートとして作成される（isEnable=falseにより表示されない）
+  // スプライトは、テンプレートのクローンとして画面上に表示される
+  // 送信ごとに、クローンはすべて削除されて、新しいクローンが作成される
+  // 上記の仕様により、テンプレートからスプライトを複数作成できる
+
+  // スプライトのテンプレートを作成（スプライトは配置されない）
+  createSpriteTemplate(spriteName, colorList) {
+    this.sprites.push([spriteName, colorList]);
   }
 
-  moveSprite(spriteName, x, y, direction = 0, scale = 1, visible = true) {
-    // const sprite = this.runtime.getSpriteTargetByName(spriteName);
+  // スプライトのテンプレートを使って、複数のスプライトを表示する
+  displaySpriteTemplate(spriteName, x, y, direction = 0, scale = 1) {
+    // x, y, directionを丸める
     [x, y, direction] = this.roundNumbers([x, y, direction]);
-    [x, y, direction, scale] = [x, y, direction, scale].map(val => String(val))
+    [x, y, direction, scale] = [x, y, direction, scale].map(String);
 
     // rotationStyleを取得
-    if (spriteName in this.rotationStyles) {
-      const rotationStyle = this.rotationStyles[spriteName];
+    if (this.rotationStyles[spriteName]) {
+      let rotationStyle = this.rotationStyles[spriteName];
 
       // rotationStyleが変更された場合、新しいスプライトデータを配列に追加
       if (rotationStyle === 'left-right') {
-        const direction_mod = Math.abs(direction) % 360; // 0-359の範囲に変換
-        if (direction_mod < 270 && direction_mod > 90) {
-          direction = "-180"; // -180は左右反転するようにボクセラミング側で実装されている
+        let directionMod = direction % 360;  // 常に0から359の範囲で処理（常に正の数になる）
+        if (directionMod > 90 && directionMod < 270) {
+          direction = "-180";  // -180は左右反転するようにボクセラミング側で実装されている
         } else {
           direction = "0";
         }
       } else if (rotationStyle === "don't rotate") {
-        direction = "0"
+        direction = "0";
       } else {
-        direction = String(direction)
+        direction = String(direction);
       }
     } else {
       // rotationStyleが設定されていない場合、そのままの値を使う
-      direction = String(direction)
+      direction = String(direction);
     }
 
-    // sprites配列から同じスプライト名の要素を削除
-    this.spriteMoves = this.spriteMoves.filter(spriteInfo => spriteInfo[0] !== spriteName);
+    // spriteMoves 配列から指定されたスプライト名の情報を検索
+    let matchingSprites = this.spriteMoves
+      .map((info, index) => ({ index, info }))
+      .filter(item => item.info[0] === spriteName);
 
-    // 新しいスプライトデータを配列に追加
-    this.spriteMoves.push([spriteName, x, y, direction, scale, visible ? '1' : '0']);
+    // スプライトの移動データを保存または更新
+    if (matchingSprites.length === 0) {
+      // 新しいスプライトデータをリストに追加
+      this.spriteMoves.push([spriteName, x, y, direction, scale]);
+    } else {
+      // 既存のスプライトデータを更新（2つ目以降のスプライトデータ）
+      let { index, info: spriteData } = matchingSprites[0];
+      this.spriteMoves[index] = [...this.spriteMoves[index], x, y, direction, scale];
+    }
+  }
+
+  // 通常のスプライトの作成
+  createSprite(spriteName, colorList, x = 0, y = 0, direction = 0, scale = 1, visible = true) {
+    // スプライトのテンプレートデータを配列に追加（これだけでは表示されない）
+    this.createSpriteTemplate(spriteName, colorList);
+
+    // スプライトが表示される場合、スプライトの移動データを配列に追加（これでスプライトが表示される）
+    if (visible) {
+      [x, y, direction] = this.roundNumbers([x, y, direction]);
+      [x, y, direction, scale] = [x, y, direction, scale].map(String);
+      this.spriteMoves.push([spriteName, x, y, direction, scale]);
+    }
+  }
+
+  // 通常のスプライトの移動
+  moveSprite(spriteName, x, y, direction = 0, scale = 1, visible = true) {
+    if (visible) {
+      // displaySpriteTemplateと同じ処理
+      this.displaySpriteTemplate(spriteName, x, y, direction, scale);
+    }
+  }
+
+  // ドット（弾）を表示する
+  // ドットの表示は、特別な名前（dot_色_幅_高さ）のテンプレートとして表示する
+  displayDot(x, y, direction = 0, colorId = 10, width = 1, height = 1) {
+    let templateName = `dot_${colorId}_${width}_${height}`;
+    this.displaySpriteTemplate(templateName, x, y, direction, 1);
+  }
+
+  // テキストを表示する
+  // テキストの表示は、特別な名前（template_色_幅_高さ）のテンプレートとして表示する
+  // 一度表示した後はテンプレートが自動で保存されているため、テンプレートをクローンとして表示できる
+  displayText(text, x, y, direction = 0, scale = 1, colorId = 7, isVertical = false) {
+    let templateName = `text_${text}_${colorId}_${isVertical ? "1" : "0"}`;
+    this.displaySpriteTemplate(templateName, x, y, direction, scale);
   }
 
   async sendData(name = '') {

@@ -156,7 +156,7 @@ You can use Scratch3 MOD's turtle programming to place voxels. Since you can int
 
 AR games can be created using Scratch3 MOD game blocks. The logic of the game is set up in the Scratch3 MOD blocks, and the game can be displayed on the AR space by sending the sprite's location information to Boxerming.
 
-[Play the sample project with Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/game_example.sb3)
+[Play the sample project with Xcratch](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/game_example.sb3)
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/scratch_game_en.png" alt="scratch_game_en" width="100%"/></p>
 
