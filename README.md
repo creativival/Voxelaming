@@ -119,8 +119,12 @@ build_box.send_data() # データ送信
 | `set_game_screen_size(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)`           | ゲーム画面を設定します。 | `width`, `height`: 画面サイズ (float), `angle`: 角度 (float) , `r`, `g`, `b`, `alpha`: 色 (float, 0-1)                                                                    |
 | `set_game_score(score)`                                                             | ゲームスコアを設定します。 | `score`: ゲームのスコア(int)                                                                                                                                             |
 | `send_game_over()`                                                                  | ゲームオーバーを設定します。 |                                                                                                                                                                   |
+| `send_game_clear()`                                                                  | ゲームクリアを設定します。 |                                                                                                                                                                   |
 | `create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)` | スプライトを作成します。 | `sprite_name`: スプライトの名前 (string), `color_list`: ドットの色データ (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `visiable`: 表示 (boolean) |
 | `move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)`               | スプライトを移動します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `visiable`: 表示 (boolean)                                  |
+| `move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)`               | スプライトのクローンを移動します。複数回の実行が可能で、複数のスプライトを作成するときに使います。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float)                                  |
+| `display_dot(sprite_name, x, y, direction=90, scale=1)`               | 弾やパティクルなど複数のドットを配置する時に使用します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float)                                  |
+| `display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True)`               | ゲーム画面にテキストを表示します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `is_vertical`: 縦書き表示 (boolean)                                  |
 
 
 
@@ -157,7 +161,7 @@ Scratch3 MODのタートルプログラミングを使って、ボクセルを�
 
 Scratch3 MODのゲーム用のブロックを使って、ARゲームを作成できます。ゲームのロジックはSctatch3 MODのブロックで設定し、スプライトの位置情報をボクセラミングに送信することで、AR空間上にゲームを表示できます。
 
-[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/game_example.sb3)
+[Xcratchで、サンプルプロジェクトを再生する](https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/cat_game.sb3)
 
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/scratch_game_ja.png" alt="scratch_game_ja" width="100%"/></p>
 
@@ -218,239 +222,334 @@ $ python3 main.py
 ```python
 # Python
 import pyxel
+import time
+import random
 # from voxelamming import Voxelamming
 from voxelamming_local import Voxelamming  # ローカルで開発している場合はこちらを使う
 
 
-class Cat:
-    def __init__(self, app):
-        self.app = app
-        self.name = 'cat_8x8'
-        self.dot_data = (
-            '-1 -1 9 -1 9 -1 -1 -1 -1 -1 9 9 9 9 -1 -1 '
-            '-1 -1 9 0 9 0 9 -1 -1 -1 9 9 7 7 7 -1 -1 -1 '
-            '9 9 9 -1 -1 -1 9 9 9 9 9 9 9 -1 -1 -1 9 9 7 '
-            '-1 -1 -1 -1 9 9 -1 9 9 -1 -1'
-        )
+class Player:
+    name = 'spaceship_8x8'
+    dot_data = (
+        '-1 -1 -1 8 8 -1 -1 -1 -1 -1 3 7 7 3 -1 -1 -1 -1 -1 7 7 -1 -1 -1 -1 -1 7 7 7 7 -1 -1 -1 7 7 7 7 7 7 -1 3 7'
+        ' 7 7 7 7 7 3 -1 8 8 7 7 8 8 -1 -1 -1 -1 8 8 -1 -1 -1'
+    )
+
+    def __init__(self, x, y, speed):
         self.direction = 0
-        self.x = 0
-        self.y = 0
+        self.x = x
+        self.y = y
         self.img = 0
         self.u = 0
         self.v = 0
         self.w = 8
         self.h = 8
-        self.speed = 0.1  # 猫の移動速度
-        self.diameter = 4  # 初期の猫のサイズ（円の直径）
+        self.speed = speed
 
-    def chase(self, mouse):
-        # 猫がマウスを追いかける
-        if self.x < mouse.x:
-            self.x += self.speed
-            self.w = 8
-            self.h = 8
-            self.direction = 0
-        elif self.x > mouse.x:
+    def update(self):
+        if pyxel.btn(pyxel.KEY_LEFT):
             self.x -= self.speed
-            self.w = -8
-            self.h = 8
-            self.direction = -180  # 画像を反転させる
-
-        if self.y < mouse.y:
-            self.y += self.speed
-        elif self.y > mouse.y:
-            self.y -= self.speed
-
-        # 猫のサイズを徐々に大きくする
-        self.diameter += 0.05
+        if pyxel.btn(pyxel.KEY_RIGHT):
+            self.x += self.speed
 
 
-class Mouse:
-    def __init__(self, app):
-        self.app = app
-        self.name = 'mouse_8x8'
-        self.dot_data = (
-            '-1 -1 -1 -1 -1 -1 -1 -1 -1 13 -1 -1 13 -1 -1 -1 '
-            '-1 13 13 13 -1 -1 -1 -1 -1 13 13 13 13 0 13 -1 '
-            '13 13 13 13 13 13 13 0 -1 13 13 13 13 0 13 -1 '
-            '-1 13 13 13 -1 -1 -1 -1 -1 13 -1 -1 13 -1 -1 -1'
-        )
+class Enemy:
+    name = 'enemy_8x8'
+    dot_data = (
+        '-1 -1 3 -1 -1 3 -1 -1 -1 3 -1 3 3 -1 3 -1 3 -1 3 3 3 3 -1 3 3 3 3 3 3 3 3 3 3 3 -1 3 3 -1 3 3 3 3 3 3 3 3'
+        ' 3 3 -1 3 3 -1 -1 3 3 -1 3 -1 -1 -1 -1 -1 -1 3'
+    )
+
+    def __init__(self, x, y):
         self.direction = 0
-        self.x = 20
-        self.y = 0
+        self.x = x
+        self.y = y
         self.img = 0
         self.u = 0
         self.v = 8
         self.w = 8
         self.h = 8
-        self.speed = 0.5  # マウスの移動速度
-        self.diameter = 8  # マウスのサイズ（円の直径）
 
-    def move(self):
-        # 矢印キーでマウスを動かす
-        if pyxel.btn(pyxel.KEY_LEFT):
-            self.x -= self.speed
-            self.u = 0
-            self.v = 8
-            self.w = -8
-            self.h = 8
-            self.direction = 180  # 180度回転させる
-        if pyxel.btn(pyxel.KEY_RIGHT):
-            self.x += self.speed
-            self.u = 0
-            self.v = 8
-            self.w = 8
-            self.h = 8
-            self.direction = 0
-        if pyxel.btn(pyxel.KEY_UP):
-            self.y += self.speed
-            self.u = 8
-            self.v = 8
-            self.w = 8
-            self.h = 8
-            self.direction = 90
-        if pyxel.btn(pyxel.KEY_DOWN):
-            self.y -= self.speed
-            self.u = 8
-            self.v = 8
-            self.w = 8
-            self.h = -8
-            self.direction = -90
 
-        # 画面内に動きを制限する
-        self.x = max(-self.app.window_width // 2, min(self.app.window_width // 2, self.x))
-        self.y = max(-self.app.window_height // 2, min(self.app.window_height // 2, self.y))
+class Missile:
+    def __init__(self, x, y, color_id, direction=0, width=1, height=1):
+        self.x = x
+        self.y = y
+        self.direction = direction
+        self.color_id = color_id
+        self.width = width
+        self.height = height
 
 
 class App:
     def __init__(self):
-        # Pyxelの初期化
-        self.dot_size = 1  # AR空間で表示されるスプライトのドットのサイズ（センチメートル）
-        self.window_width = int(64 * 4 / 3)  # ARウインドウの横幅はself.dot_sizeを掛けた値になる（センチメートル）
-        self.window_height = 64  # ARウインドウの縦幅はself.dot_sizeを掛けた値になる（センチメートル）
-        self.window_angle = 80  # ARウインドウの傾き（度）
-        self.sprite_base_diameter = 8  # スプライトの基本直径（スプライトの送信スケールの基準値）
-        self.cat = Cat(self)
-        self.mouse = Mouse(self)
-        self.game_started = False
+        # Pyxelの設定
+        self.window_width = 160  # ARウインドウの横幅はself.dot_sizeを掛けた値になる（センチメートル）
+        self.window_height = 120  # ARウインドウの縦幅はself.dot_sizeを掛けた値になる（センチメートル）
+        self.score = 0
         self.game_over = False
-        self.score = 0  # 初期スコア
-        self.last_score_update_time = 0  # スコアを更新するためのタイマー
+        self.game_clear = False
 
-        # Voxelammingの初期化
+        # プレイヤーの設定
+        self.player = Player(self.window_width // 2, self.window_height - 10, 2)
+        self.missiles = []
+        self.player_missile_speed = 2
+
+        # 敵の設定
+        self.enemy_rows = 3
+        self.enemy_cols = 6
+        self.enemy_speed = 1
+        self.enemy_direction = 1
+        self.enemies = []
+        self.enemy_missiles = []
+        self.enemy_missile_speed = 2
+
+        # 敵の初期化
+        for row in range(self.enemy_rows):
+            for col in range(self.enemy_cols):
+                enemy_x = col * 16 + 20
+                enemy_y = row * 12 + 20
+                enemy = Enemy(enemy_x, enemy_y)
+                self.enemies.append(enemy)
+
+        # ボクセラミングの設定（Pyxelの初期化の前に実行）
+        self.dot_size = 1  # AR空間で表示されるスプライトのドットのサイズ（センチメートル）
+        self.window_angle = 80  # ARウインドウの傾き（度）
         self.vox = Voxelamming('1000')
-        self.vox.set_box_size(self.dot_size)
-        self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=1, blue=0, alpha=0.8)
-        self.vox.set_game_score(self.score)
-        cat_scale = self.cat.diameter / self.sprite_base_diameter
-        mouse_scale = self.mouse.diameter / self.sprite_base_diameter
-        self.vox.create_sprite(self.cat.name, self.cat.dot_data, self.cat.x, self.cat.y, self.cat.direction, cat_scale,
-                               True)
-        self.vox.create_sprite(self.mouse.name, self.mouse.dot_data, self.mouse.x, self.mouse.y, self.mouse.direction,
-                               mouse_scale, True)
-        self.vox.send_data()
-        self.vox.clear_data()
+        self.init_voxelamming()
 
-        pyxel.init(self.window_width, self.window_height, title='Cat Game')
-
-        pyxel.load('cat_game.pyxres')
-
+        # Pyxelの初期化
+        pyxel.init(self.window_width, self.window_height, title="Pyxel Invader Game", fps=30)
+        pyxel.mouse(True)
+        pyxel.load("invader_game.pyxres")
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        if not self.game_started:
+        if self.game_over or self.game_clear:
+            # カーソル表示
+            pyxel.mouse(True)
+
             if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
                 self.reset_game()
             return
 
-        if self.game_over:
-            if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
-                self.reset_game()
-            return
+        # カーソルの非表示
+        pyxel.mouse(False)
 
-        self.mouse.move()  # マウスの位置を更新
-        self.cat.chase(self.mouse)  # 猫がマウスを追いかける
+        # プレイヤーの操作
+        self.player.update()
 
-        # 衝突判定: 猫の円がマウスに触れるとゲームオーバー
-        if ((self.cat.x - self.mouse.x) ** 2 + (self.cat.y - self.mouse.y) ** 2) < (
-                self.cat.diameter / 2 + self.mouse.diameter / 2) ** 2:
-            self.game_over = True
+        if pyxel.btnp(pyxel.KEY_SPACE):
+            missile_x = self.player.x + self.player_missile_speed
+            missile_y = self.player.y
+            missile_clor_id = 10  # 青色
+            missile_direction = 0
+            missile_width = 2
+            missile_height = 4
+            self.missiles.append(
+                Missile(missile_x, missile_y, missile_clor_id, missile_direction, missile_width, missile_height))
 
-            # ゲームオーバーを送信（ウインドウを赤に変更）
-            self.vox.set_box_size(self.dot_size)
-            self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=0, blue=0, alpha=0.8)
-            self.vox.set_game_score(self.score)
-            self.vox.set_command('gameOver')
-            self.vox.send_data()
-            self.vox.clear_data()
+        # ミサイルの移動
+        for missile in self.missiles[:]:
+            missile.y -= 2
+            if missile.y < 0:
+                self.missiles.remove(missile)
 
-        # スコアを1秒ごとに加算
-        if pyxel.frame_count - self.last_score_update_time >= 30:  # PyxelのデフォルトFPSは30
-            self.score += 1
-            self.last_score_update_time = pyxel.frame_count
+        # 敵の移動
+        move_down = False
+        for enemy in self.enemies:
+            enemy.x += self.enemy_speed * self.enemy_direction
 
-        # スプライトの情報を0.1秒ごとに送信
-        if pyxel.frame_count - self.last_score_update_time >= 3:  # PyxelのデフォルトFPSは30
-            if not self.game_over:  # ゲームオーバー直後に送信しないようにする
-                self.vox.set_box_size(self.dot_size)
-                self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=1, blue=0, alpha=0.5)
-                self.vox.set_game_score(self.score)
-                cat_scale = self.cat.diameter / self.sprite_base_diameter
-                mouse_scale = self.mouse.diameter / self.sprite_base_diameter
-                self.vox.move_sprite(self.cat.name, self.cat.x, self.cat.y, self.cat.direction, cat_scale, True)
-                self.vox.move_sprite(self.mouse.name, self.mouse.x, self.mouse.y, self.mouse.direction, mouse_scale, True)
-                self.vox.send_data()
-                self.vox.clear_data()
+        for enemy in self.enemies:
+            if enemy.x > pyxel.width - 8 or enemy.x < 0:
+                self.enemy_direction *= -1
+                move_down = True
+                break  # 端に到達したらすぐに方向を変える
+
+        if move_down:
+            for enemy in self.enemies:
+                enemy.y += 8
+
+                # 敵が画面下部に到達したらゲームオーバー
+                if enemy.y > pyxel.height - 16:
+                    self.game_over = True
+
+        # 敵のミサイル発射
+        if random.random() < 0.03 and self.enemies:
+            shooting_enemy = random.choice(self.enemies)
+            missile_x = shooting_enemy.x + 4
+            missile_y = shooting_enemy.y + 8
+            missile_clor_id = 8  # 赤色
+            missile_direction = 0
+            missile_width = 2
+            missile_height = 4
+            self.enemy_missiles.append(
+                Missile(missile_x, missile_y, missile_clor_id, missile_direction, missile_width, missile_height))
+
+        # 敵ミサイルの移動
+        for missile in self.enemy_missiles[:]:
+            missile.y += self.enemy_missile_speed
+            if missile.y > pyxel.height * 2:
+                self.enemy_missiles.remove(missile)
+
+        # ミサイルと敵の衝突判定
+        for missile in self.missiles[:]:
+            for enemy in self.enemies[:]:
+                if (enemy.x < missile.x < enemy.x + 16 and
+                        enemy.y < missile.y < enemy.y + 12):
+                    self.missiles.remove(missile)
+                    self.enemies.remove(enemy)
+                    self.score += 10
+                    break
+
+        # プレイヤーと敵ミサイルの衝突判定
+        for missile in self.enemy_missiles[:]:
+            if (self.player.x < missile.x < self.player.x + 8 and
+                    self.player.y < missile.y < self.player.y + 8):
+                self.game_over = True
+
+        # プレイヤーと敵の衝突判定
+        for enemy in self.enemies:
+            if (self.player.x < enemy.x < self.player.x + 8 and
+                    self.player.y < enemy.y < self.player.y + 8):
+                self.game_over = True
+
+        # ゲームクリア判定
+        if not self.enemies:
+            self.game_clear = True
+
+        # ボクセラミングの更新
+        self.update_voxelamming()
 
     def draw(self):
-        pyxel.cls(1)
+        pyxel.cls(0)
+        pyxel.text(5, 4, f"Score: {self.score}", 7)
 
-        # スコアを左上に表示する
-        pyxel.text(2, 2, f"Score: {self.score}", pyxel.COLOR_WHITE)
-
-        if not self.game_started:
-            pyxel.text(self.window_width // 2 - 26, self.window_height // 2 - 8, "Click to start",
-                       pyxel.frame_count % 16)
-            self.draw_cursor()  # カスタムカーソルの描画
-            return
-
-        if self.game_over:
-            pyxel.text(self.window_width // 2 - 26, self.window_height // 2 - 8, "Game Over!", pyxel.frame_count % 16)
+        if self.game_clear:
+            pyxel.text(pyxel.width // 2 - 20, pyxel.height // 2, "GAME CLEAR!", pyxel.frame_count % 16)
             pyxel.text(self.window_width // 2 - 26, self.window_height // 2 + 8, "Click to start",
                        pyxel.frame_count % 16)
-            self.draw_cursor()  # カスタムカーソルの描画
-            return
+        elif self.game_over:
+            pyxel.text(pyxel.width // 2 - 20, pyxel.height // 2, "GAME OVER", pyxel.frame_count % 16)
+            pyxel.text(self.window_width // 2 - 26, self.window_height // 2 + 8, "Click to start",
+                       pyxel.frame_count % 16)
+        else:
+            # プレイヤーの描画
+            pyxel.blt(self.player.x, self.player.y, self.player.img, self.player.u, self.player.v, self.player.w,
+                      self.player.h, 0)
 
-        # 徐々に大きくなる円を描画する
-        cat_x, cat_y = self.get_sprite_position(self.cat.x, self.cat.y)
-        pyxel.circ(cat_x + 4, cat_y + 4, self.cat.diameter / 2, pyxel.COLOR_RED)
+            # 敵の描画
+            for enemy in self.enemies:
+                pyxel.blt(enemy.x, enemy.y, enemy.img, enemy.u, enemy.v, enemy.w, enemy.h, 0)
 
-        # 猫のスプライトを描画する
-        pyxel.blt(cat_x, cat_y, self.cat.img, self.cat.u, self.cat.v, self.cat.w, self.cat.h, 1)
+            # ミサイルの描画
+            for missile in self.missiles:
+                pyxel.rect(missile.x, missile.y, missile.width, missile.height, missile.color_id)
 
-        # マウスのスプライトを描画する
-        mouse_x, mouse_y = self.get_sprite_position(self.mouse.x, self.mouse.y)
-        pyxel.blt(mouse_x, mouse_y, self.mouse.img, self.mouse.u, self.mouse.v, self.mouse.w, self.mouse.h, 1)
-
-    def get_sprite_position(self, x, y):
-        return self.window_width // 2 + x - 4, self.window_height // 2 - y - 4
+            # 敵ミサイルの描画
+            for missile in self.enemy_missiles:
+                pyxel.rect(missile.x, missile.y, missile.width, missile.height, missile.color_id)
 
     def reset_game(self):
         self.score = 0  # スコアをリセット
-        self.last_score_update_time = pyxel.frame_count  # タイマーをリセット
-        self.cat = Cat(self)  # 猫の初期化(位置、サイズ)
-        self.mouse = Mouse(self)  # マウスの初期化(位置)
-        self.game_started = True
         self.game_over = False
+        self.game_clear = False
 
-    @staticmethod
-    def draw_cursor():
-        cursor_x = pyxel.mouse_x
-        cursor_y = pyxel.mouse_y
-        pyxel.blt(cursor_x - 4, cursor_y - 4, 0, 0, 16, 8, 8, 1)
+        # プレイヤーの設定
+        self.player = Player(self.window_width // 2, self.window_height - 10, 2)
+        self.missiles = []
+
+        # 敵の設定
+        self.enemy_rows = 3
+        self.enemy_cols = 6
+        self.enemy_speed = 1
+        self.enemy_direction = 1
+        self.enemies = []
+        self.enemy_missiles = []
+        self.enemy_missile_speed = 2
+
+        # 敵の初期化
+        for row in range(self.enemy_rows):
+            for col in range(self.enemy_cols):
+                enemy_x = col * 16 + 20
+                enemy_y = row * 12 + 20
+                enemy = Enemy(enemy_x, enemy_y)
+                self.enemies.append(enemy)
+
+    def init_voxelamming(self):
+
+        # ボクセラミングの初期化
+        self.vox.set_box_size(self.dot_size)
+        self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=1, blue=0,
+                                 alpha=0.8)
+        self.vox.set_game_score(self.score)
+
+        # プレイヤーのスプライトを表示
+        vox_x, vox_y = self.convert_sprite_position_to_voxelamming(self.player.x, self.player.y)
+        self.vox.create_sprite(self.player.name, self.player.dot_data, vox_x, vox_y, self.player.direction, 1)
+
+        # 敵は複数のため、テンプレートを作成して、それを複数箇所に表示する
+        self.vox.create_sprite(Enemy.name, Enemy.dot_data)
+        for enemy in self.enemies:
+            vox_x, vox_y = self.convert_sprite_position_to_voxelamming(enemy.x, enemy.y)
+            self.vox.move_sprite(enemy.name, vox_x, vox_y, enemy.direction, 1)
+
+        self.vox.send_data()
+        self.vox.clear_data()
+
+    def update_voxelamming(self):
+        # スプライトの情報を0.1秒ごとに送信
+        if pyxel.frame_count % 3 == 0 or self.game_clear or self.game_over:  # PyxelのデフォルトFPSは30
+            self.vox.set_box_size(self.dot_size)
+            self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=1,
+                                     blue=0, alpha=0.5)
+            self.vox.set_game_score(self.score, -66, 57)
+
+            # スプライトの移動
+            vox_x, vox_y = self.convert_sprite_position_to_voxelamming(self.player.x, self.player.y)
+            self.vox.move_sprite(self.player.name, vox_x, vox_y, self.player.direction, 1)
+
+            # 敵の移動はテンプレートを複数箇所に表示する
+            for enemy in self.enemies:
+                vox_x, vox_y = self.convert_sprite_position_to_voxelamming(enemy.x, enemy.y)
+                self.vox.move_sprite_clone(enemy.name, vox_x, vox_y, enemy.direction, 1)
+
+            # ミサイルはdotとして表示
+            for missile in self.missiles + self.enemy_missiles:
+                vox_x, vox_y = self.convert_dot_position_to_voxelamming(missile.x, missile.y, missile.width, missile.height)
+                self.vox.display_dot(vox_x, vox_y, missile.direction, missile.color_id, missile.width,
+                                     missile.height)
+
+            # ゲームクリアの表示と画面を青に変更
+            if self.game_clear:
+                self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=0, green=0,
+                                         blue=1, alpha=0.8)
+                self.vox.set_command('gameClear')
+
+            # ゲームオーバーの表示と画面を赤に変更
+            if self.game_over:
+                self.vox.set_game_screen(self.window_width, self.window_height, self.window_angle, red=1, green=0,
+                                         blue=0, alpha=0.8)
+                self.vox.set_command('gameOver')
+
+            self.vox.send_data()
+
+            # ゲームクリア、ゲームオーバー時に1秒待ってから再度データを送信
+            if self.game_clear or self.game_over:
+                time.sleep(1)
+                self.vox.send_data()
+
+            self.vox.clear_data()
+
+    def convert_sprite_position_to_voxelamming(self, x, y):
+        return x - self.window_width // 2 + 4, self.window_height // 2 - (y + 4)
+
+    def convert_dot_position_to_voxelamming(self, x, y, width=1, height=1):
+        return x - self.window_width // 2 + width / 2, self.window_height // 2 - (y + height / 2)
 
 
-App()
+if __name__ == "__main__":
+    App()
 ```
 
 #### 実行方法
