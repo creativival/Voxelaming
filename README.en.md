@@ -81,9 +81,9 @@ Voxel data is data that specifies the position, color, size, etc. of voxels.
 
 ```python
 # Python
-build_box.set_box_size(2.0)  # Set size to double
-build_box.create_box(10, 5, -2, 1, 0, 0)  # Place a red voxel
-build_box.send_data() # Send data
+vox.set_box_size(2.0)  # Set size to double
+vox.create_box(10, 5, -2, 1, 0, 0)  # Place a red voxel
+vox.send_data() # Send data
 ```
 
 #### Method description
@@ -117,14 +117,14 @@ build_box.send_data() # Send data
 | `set_frame_repeats(repeats)` | Sets the number of frame repetitions (default: 10). | `repeats`: Number of repetitions (int) |
 | Game Method Name                                                                              | Description | Arguments                                                                                                                                                            |
 | `set_game_screen(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)`                | Sets the game screen size. | `width`, `height`: screen size (float), `angle`: angle (float), `r`, `g`, `b`, `alpha`: color (float, 0-1)                                                            |
-| `set_game_score(score)`                                                                  | Sets the game score. | `score`: game score (int)                                                                                                                                            |
+| `set_game_score(score, x=0, y=0)`                                                                  | Sets the game score. | `score`: game score (int), `x`, `y`: position (float)                                                                                                                                            |
 | `send_game_over()`                                                                       | Triggers game over. |                                                                                                                                                                     |
 | `send_game_clear()`                                                                  | Triggers game clear. |                                                                                                                                                                   |
 | `create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)`      | Creates a sprite. | `sprite_name`: sprite name (string), `color_list`: dot color data (string), `x`, `y`: position (float), `direction`: angle (float), `scale`: scale (float), `visible`: visibility (boolean) |
 | `move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)`                    | Moves a sprite. | `sprite_name`: sprite name (string), `x`, `y`: position (float), `direction`: angle (float), `scale`: scale (float), `visible`: visibility (boolean)                                  |
 | `move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)`               | Moves a clone of the sprite. Can be executed multiple times and is used when creating multiple sprites. | `sprite_name`: Sprite name (string), `x`, `y`: Position (float), `direction`: Direction (float), `scale`: Scale (float)                                  |
 | `display_dot(sprite_name, x, y, direction=90, scale=1)`               | Used to place multiple dots, such as bullets or particles. | `sprite_name`: Sprite name (string), `x`, `y`: Position (float), `direction`: Direction (float), `scale`: Scale (float)                                  |
-| `display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True)`               | Displays text on the game screen. | `sprite_name`: Sprite name (string), `x`, `y`: Position (float), `direction`: Direction (float), `scale`: Scale (float), `is_vertical`: Vertical display (boolean)                                  |
+| `display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True, align='')`               | Displays text on the game screen. | `sprite_name`: Name of the sprite (string), `x`, `y`: Position (float), `direction`: Angle (float), `scale`: Scale (float), `is_vertical`: Vertical text display (boolean), `align`: Text alignment (combination of 'Top', 'Bottom', 'Right', 'Left')                                  |
 
 **Notes:**
 
@@ -657,25 +657,25 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
+    let vox = Voxelamming(roomName: roomName)
+    vox.setBoxSize(0.5)
+    vox.setBuildInterval(0.01)
 
     Task {
         do {
             for i in 0..<100 {
-                buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
-                buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
-                buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
-                buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
+                vox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
+                vox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
             }
 
             for i in 0..<50 {
-                buildBox.removeBox(0, Double(i * 2), 0)
-                buildBox.removeBox(1, Double(i * 2 + 1), 0)
+                vox.removeBox(0, Double(i * 2), 0)
+                vox.removeBox(1, Double(i * 2 + 1), 0)
             }
 
-            try await buildBox.sendData()
+            try await vox.sendData()
         } catch {
             print("An error occurred: \(error)")
         }
@@ -743,27 +743,27 @@ Location information can be specified for the nodes.
 ```python
 # Python
 import time
-from voxelamming import BuildBox
+from voxelamming import Voxelamming
 
 room_name = "1000"
-build_box = BuildBox(room_name)
+vox = Voxelamming(room_name)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+  vox.create_box(-1, i, 0, r=0, g=1, b=1)
+  vox.create_box(0, i, 0, r=1, g=0, b=0)
+  vox.create_box(1, i, 0, r=1, g=1, b=0)
+  vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
+  vox.remove_box(0, i * 2 + 1, 0)
+  vox.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
-  build_box.send_data()
+  vox.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  vox.send_data()
   time.sleep(1)
 ```
 

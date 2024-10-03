@@ -91,9 +91,9 @@
         </ul>
         <p><strong>Example: Place a red voxel at the position (x: 10, y: 5, z: -2) with double size.</strong></p>
         <pre><code class="python"># Python
-build_box.set_box_size(2.0)  # Set size to double
-build_box.create_box(10, 5, -2, 1, 0, 0)  # Place a red voxel
-build_box.send_data() # Send data
+vox.set_box_size(2.0)  # Set size to double
+vox.create_box(10, 5, -2, 1, 0, 0)  # Place a red voxel
+vox.send_data() # Send data
 </code></pre>
         <h4>Method description</h4>
         <table class=“custom-table”>
@@ -128,14 +128,14 @@ build_box.send_data() # Send data
             <tr><td> <code>set_frame_repeats(repeats)</code> </td><td> Sets the number of frame repetitions (default: 10). </td><td> <code>repeats</code>: Number of repetitions (int) </td></tr>
             <tr><td> Game Method Name                                                                              </td><td> Description </td><td> Arguments                                                                                                                                                            </td></tr>
             <tr><td> <code>set_game_screen(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)</code>                </td><td> Sets the game screen size. </td><td> <code>width</code>, <code>height</code>: screen size (float), <code>angle</code>: angle (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: color (float, 0-1)                                                            </td></tr>
-            <tr><td> <code>set_game_score(score)</code>                                                                  </td><td> Sets the game score. </td><td> <code>score</code>: game score (int)                                                                                                                                            </td></tr>
+            <tr><td> <code>set_game_score(score, x=0, y=0)</code>                                                                  </td><td> Sets the game score. </td><td> <code>score</code>: game score (int), <code>x</code>, <code>y</code>: position (float)                                                                                                                                            </td></tr>
             <tr><td> <code>send_game_over()</code>                                                                       </td><td> Triggers game over. </td><td>                                                                                                                                                                     </td></tr>
             <tr><td> <code>send_game_clear()</code>                                                                  </td><td> Triggers game clear. </td><td>                                                                                                                                                                   </td></tr>
             <tr><td> <code>create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)</code>      </td><td> Creates a sprite. </td><td> <code>sprite_name</code>: sprite name (string), <code>color_list</code>: dot color data (string), <code>x</code>, <code>y</code>: position (float), <code>direction</code>: angle (float), <code>scale</code>: scale (float), <code>visible</code>: visibility (boolean) </td></tr>
             <tr><td> <code>move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)</code>                    </td><td> Moves a sprite. </td><td> <code>sprite_name</code>: sprite name (string), <code>x</code>, <code>y</code>: position (float), <code>direction</code>: angle (float), <code>scale</code>: scale (float), <code>visible</code>: visibility (boolean)                                  </td></tr>
             <tr><td> <code>move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)</code>               </td><td> Moves a clone of the sprite. Can be executed multiple times and is used when creating multiple sprites. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float)                                  </td></tr>
             <tr><td> <code>display_dot(sprite_name, x, y, direction=90, scale=1)</code>               </td><td> Used to place multiple dots, such as bullets or particles. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float)                                  </td></tr>
-            <tr><td> <code>display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True)</code>               </td><td> Displays text on the game screen. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float), <code>is_vertical</code>: Vertical display (boolean)                                  </td></tr>
+            <tr><td> <code>display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True, align='')</code>               </td><td> Displays text on the game screen. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float), <code>is_vertical</code>: Vertical display (boolean), <code>align</code>: Text alignment (combination of 'Top', 'Bottom', 'Right', 'Left')                                  </td></tr>
             </tbody>
         </table>
         <p><strong>Notes:</strong></p>
@@ -619,25 +619,25 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = &quot;1000&quot;
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
+    let vox = Voxelamming(roomName: roomName)
+    vox.setBoxSize(0.5)
+    vox.setBuildInterval(0.01)
 
     Task {
         do {
             for i in 0..&lt;100 {
-                buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
-                buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
-                buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
-                buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
+                vox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
+                vox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
             }
 
             for i in 0..&lt;50 {
-                buildBox.removeBox(0, Double(i * 2), 0)
-                buildBox.removeBox(1, Double(i * 2 + 1), 0)
+                vox.removeBox(0, Double(i * 2), 0)
+                vox.removeBox(1, Double(i * 2 + 1), 0)
             }
 
-            try await buildBox.sendData()
+            try await vox.sendData()
         } catch {
             print(&quot;An error occurred: \(error)&quot;)
         }
@@ -692,27 +692,27 @@ vox.send_data(&quot;main_sphere_sample&quot;)
         <p>Location information can be specified for the nodes.</p>
         <pre><code class="python"># Python
 import time
-from voxelamming import BuildBox
+from voxelamming import Voxelamming
 
 room_name = &quot;1000&quot;
-build_box = BuildBox(room_name)
+vox = Voxelamming(room_name)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+  vox.create_box(-1, i, 0, r=0, g=1, b=1)
+  vox.create_box(0, i, 0, r=1, g=0, b=0)
+  vox.create_box(1, i, 0, r=1, g=1, b=0)
+  vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
+  vox.remove_box(0, i * 2 + 1, 0)
+  vox.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
-  build_box.send_data()
+  vox.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  vox.send_data()
   time.sleep(1)
 </code></pre>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>

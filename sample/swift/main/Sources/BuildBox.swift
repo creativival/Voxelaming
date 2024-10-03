@@ -1,7 +1,7 @@
 import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
-class BuildBox {
+class Voxelamming {
     let url = URL(string: "wss://websocket.voxelamming.com")!
     let webSocketTask: URLSessionWebSocketTask
     let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]

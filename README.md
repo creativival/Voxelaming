@@ -81,9 +81,9 @@ App Storeからボクセラミングアプリをダウンロードし、イン�
 
 ```python
 # Python
-build_box.set_box_size(2.0)  # サイズを2倍に設定
-build_box.create_box(10, 5, -2, 1, 0, 0)  # 赤いボクセルを設置
-build_box.send_data() # データ送信
+vox.set_box_size(2.0)  # サイズを2倍に設定
+vox.create_box(10, 5, -2, 1, 0, 0)  # 赤いボクセルを設置
+vox.send_data() # データ送信
 ```
 
 #### メソッドの説明
@@ -117,14 +117,14 @@ build_box.send_data() # データ送信
 | `set_frame_repeats(repeats)` | フレームの再生回数を設定します (デフォルト: 10)。 | `repeats`: 再生回数 (int) |
 | ゲームメソッド名                                                                               | 説明 | 引数                                                                                                                                                                |
 | `set_game_screen_size(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)`           | ゲーム画面を設定します。 | `width`, `height`: 画面サイズ (float), `angle`: 角度 (float) , `r`, `g`, `b`, `alpha`: 色 (float, 0-1)                                                                    |
-| `set_game_score(score)`                                                             | ゲームスコアを設定します。 | `score`: ゲームのスコア(int)                                                                                                                                             |
+| `set_game_score(score, x=0, y=0)`                                                             | ゲームスコアを設定します。 | `score`: ゲームのスコア(int), `x`, `y`: 位置 (float)                                                                                                                                             |
 | `send_game_over()`                                                                  | ゲームオーバーを設定します。 |                                                                                                                                                                   |
 | `send_game_clear()`                                                                  | ゲームクリアを設定します。 |                                                                                                                                                                   |
 | `create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)` | スプライトを作成します。 | `sprite_name`: スプライトの名前 (string), `color_list`: ドットの色データ (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `visiable`: 表示 (boolean) |
 | `move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)`               | スプライトを移動します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `visiable`: 表示 (boolean)                                  |
 | `move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)`               | スプライトのクローンを移動します。複数回の実行が可能で、複数のスプライトを作成するときに使います。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float)                                  |
 | `display_dot(sprite_name, x, y, direction=90, scale=1)`               | 弾やパティクルなど複数のドットを配置する時に使用します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float)                                  |
-| `display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True)`               | ゲーム画面にテキストを表示します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `is_vertical`: 縦書き表示 (boolean)                                  |
+| `display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True, align='')`               | ゲーム画面にテキストを表示します。 | `sprite_name`: スプライトの名前 (string), `x`, `y`: 位置 (float), `direction`: 角度 (float), `sclae`: スケール (float), `is_vertical`: 縦書き表示 (boolean), `align`: 文字寄せ（'Top', 'Bottom', 'Right', 'Left' の組み合わせ）                                  |
 
 
 
@@ -658,25 +658,25 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = "1000"
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
+    let vox = Voxelamming(roomName: roomName)
+    vox.setBoxSize(0.5)
+    vox.setBuildInterval(0.01)
 
     Task {
         do {
             for i in 0..<100 {
-                buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
-                buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
-                buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
-                buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
+                vox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
+                vox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
             }
 
             for i in 0..<50 {
-                buildBox.removeBox(0, Double(i * 2), 0)
-                buildBox.removeBox(1, Double(i * 2 + 1), 0)
+                vox.removeBox(0, Double(i * 2), 0)
+                vox.removeBox(1, Double(i * 2 + 1), 0)
             }
 
-            try await buildBox.sendData()
+            try await vox.sendData()
         } catch {
             print("An error occurred: \(error)")
         }
@@ -744,27 +744,27 @@ vox.send_data("main_sphere_sample")
 ```python
 # Python
 import time
-from voxelamming import BuildBox
+from voxelamming import Voxelamming
 
 room_name = "1000"
-build_box = BuildBox(room_name)
+vox = Voxelamming(room_name)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+  vox.create_box(-1, i, 0, r=0, g=1, b=1)
+  vox.create_box(0, i, 0, r=1, g=0, b=0)
+  vox.create_box(1, i, 0, r=1, g=1, b=0)
+  vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
+  vox.remove_box(0, i * 2 + 1, 0)
+  vox.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
-  build_box.send_data()
+  vox.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  vox.send_data()
   time.sleep(1)
 ```
 

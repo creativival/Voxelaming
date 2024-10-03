@@ -1,451 +1,614 @@
-# 開発用のモジュール
-import datetime
-  from math import floor
-import websocket
-
-  from .matrix_util import *
-
-
-class Voxelamming:
-texture_names = ["grass", "stone", "dirt", "planks", "bricks"]
-model_names = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
-  "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
-
-def __init__(self, room_name):
-self.room_name = room_name
-self.is_allowed_matrix = 0
-self.saved_matrices = []
-self.node_transform = [0, 0, 0, 0, 0, 0]
-self.matrix_transform = [0, 0, 0, 0, 0, 0]
-self.frame_transforms = []
-self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
-self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
-self.boxes = []
-self.frames = []
-self.sentences = []
-self.lights = []
-self.commands = []
-self.models = []
-self.model_moves = []
-self.sprites = []
-self.sprite_moves = []
-self.game_score = []
-self.game_screen = []  # width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
-self.size = 1
-self.shape = 'box'
-self.is_metallic = 0
-self.roughness = 0.5
-self.is_allowed_float = 0
-self.build_interval = 0.01
-self.is_framing = False
-self.frame_id = 0
-self.rotation_styles = {}  # 回転の制御（送信しない）
-        self.websocket = None
-
-def clear_data(self):
-self.is_allowed_matrix = 0
-self.saved_matrices = []
-self.node_transform = [0, 0, 0, 0, 0, 0]
-self.matrix_transform = [0, 0, 0, 0, 0, 0]
-self.frame_transforms = []
-self.global_animation = [0, 0, 0, 0, 0, 0, 1, 0]
-self.animation = [0, 0, 0, 0, 0, 0, 1, 0]
-self.boxes = []
-self.frames = []
-self.sentences = []
-self.lights = []
-self.commands = []
-self.models = []
-self.model_moves = []
-self.sprites = []
-self.sprite_moves = []
-self.game_score = []
-self.game_screen = []
-self.size = 1
-self.shape = 'box'
-self.is_metallic = 0
-self.roughness = 0.5
-self.is_allowed_float = 0
-self.build_interval = 0.01
-self.is_framing = False
-self.frame_id = 0
-self.rotation_styles = {}  # 回転の制御（送信しない）
-
-    def set_frame_fps(self, fps=2):
-self.commands.append(f'fps {fps}')
-
-def set_frame_repeats(self, repeats=10):
-self.commands.append(f'repeats {repeats}')
-
-def frame_in(self):
-self.is_framing = True
-
-def frame_out(self):
-self.is_framing = False
-self.frame_id += 1
-
-def push_matrix(self):
-self.is_allowed_matrix += 1
-self.saved_matrices.append(self.matrix_transform)
-
-def pop_matrix(self):
-self.is_allowed_matrix -= 1
-self.matrix_transform = self.saved_matrices.pop()
-
-def transform(self, x, y, z, pitch=0, yaw=0, roll=0):
-if self.is_allowed_matrix:
-# 移動用のマトリックスを計算する
-matrix = self.saved_matrices[-1]
-base_position = matrix[:3]
-
-if len(matrix) == 6:
-base_rotation_matrix = get_rotation_matrix(*matrix[3:])
-else:
-base_rotation_matrix = [
-  matrix[3:6],
-matrix[6:9],
-matrix[9:12]
-]
-
-# 移動後の位置を計算する
-# 転置行列を使用
-add_x, add_y, add_z = transform_point_by_rotation_matrix([x, y, z], transpose_3x3(base_rotation_matrix))
-print('add_x, add_y, add_z: ', add_x, add_y, add_z)
-x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
-x, y, z = self.round_numbers([x, y, z])
-
-# 移動後の回転を計算する
-transform_rotation_matrix = get_rotation_matrix(-pitch, -yaw, -roll)  # 逆回転
-rotate_matrix = matrix_multiply(transform_rotation_matrix, base_rotation_matrix)
-
-self.matrix_transform = [x, y, z, *rotate_matrix[0], *rotate_matrix[1], *rotate_matrix[2]]
-else:
-x, y, z = self.round_numbers([x, y, z])
-
-if self.is_framing:
-self.frame_transforms.append([x, y, z, pitch, yaw, roll, self.frame_id])
-else:
-self.node_transform = [x, y, z, pitch, yaw, roll]
-
-def create_box(self, x, y, z, r=1, g=1, b=1, alpha=1, texture=''):
-if self.is_allowed_matrix:
-# 移動用のマトリックスにより位置を計算する
-matrix_transform = self.matrix_transform
-base_position = matrix_transform[:3]
-
-if len(matrix_transform) == 6:
-base_rotation_matrix = get_rotation_matrix(*matrix_transform[3:])
-else:
-base_rotation_matrix = [
-  matrix_transform[3:6],
-matrix_transform[6:9],
-matrix_transform[9:12]
-]
-
-# 移動後の位置を計算する
-# 転置行列を使用
-add_x, add_y, add_z = transform_point_by_rotation_matrix([x, y, z], transpose_3x3(base_rotation_matrix))
-x, y, z = add_vectors(base_position, [add_x, add_y, add_z])
-
-x, y, z = self.round_numbers([x, y, z])
-r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
-
-# 重ねておくことを防止
-self.remove_box(x, y, z)
-if texture not in self.texture_names:
-texture_id = -1
-else:
-texture_id = self.texture_names.index(texture)
-
-if self.is_framing:
-self.frames.append([x, y, z, r, g, b, alpha, texture_id, self.frame_id])
-else:
-self.boxes.append([x, y, z, r, g, b, alpha, texture_id])
-
-def remove_box(self, x, y, z):
-x, y, z = self.round_numbers([x, y, z])
-
-if self.is_framing:
-for box in self.frames:
-if box[0] == x and box[1] == y and box[2] == z and box[8] == self.frame_id:
-self.frames.remove(box)
-else:
-for box in self.boxes:
-if box[0] == x and box[1] == y and box[2] == z:
-self.boxes.remove(box)
-
-def animate_global(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
-x, y, z = self.round_numbers([x, y, z])
-self.global_animation = [x, y, z, pitch, yaw, roll, scale, interval]
-
-def animate(self, x, y, z, pitch=0, yaw=0, roll=0, scale=1, interval=10):
-x, y, z = self.round_numbers([x, y, z])
-self.animation = [x, y, z, pitch, yaw, roll, scale, interval]
-
-def set_box_size(self, box_size):
-self.size = box_size
-
-def set_build_interval(self, interval):
-self.build_interval = interval
-
-def write_sentence(self, sentence, x, y, z, r=1, g=1, b=1, alpha=1, font_size=16, is_fixed_width=False):
-x, y, z = self.round_numbers([x, y, z])
-r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
-x, y, z = map(str, [x, y, z])
-r, g, b, alpha, font_size = map(str, [r, g, b, alpha, font_size])
-is_fixed_width = "1" if is_fixed_width else "0"
-self.sentences.append([sentence, x, y, z, r, g, b, alpha, font_size, is_fixed_width])
-
-def set_light(self, x, y, z, r=1, g=1, b=1, alpha=1, intensity=1000, interval=1, light_type='point'):
-x, y, z = self.round_numbers([x, y, z])
-r, g, b, alpha = self.round_two_decimals([r, g, b, alpha])
-
-if light_type == 'point':
-light_type = 1
-elif light_type == 'spot':
-light_type = 2
-elif light_type == 'directional':
-light_type = 3
-else:
-light_type = 1
-self.lights.append([x, y, z, r, g, b, alpha, intensity, interval, light_type])
-
-def set_command(self, command):
-self.commands.append(command)
-
-if command == 'float':
-self.is_allowed_float = 1
-
-def draw_line(self, x1, y1, z1, x2, y2, z2, r=1, g=1, b=1, alpha=1):
-x1, y1, z1, x2, y2, z2 = map(floor, [x1, y1, z1, x2, y2, z2])
-diff_x = x2 - x1
-diff_y = y2 - y1
-diff_z = z2 - z1
-max_length = max(abs(diff_x), abs(diff_y), abs(diff_z))
-# print(x2, y2, z2)
-
-if diff_x == 0 and diff_y == 0 and diff_z == 0:
-return False
-
-if abs(diff_x) == max_length:
-if x2 > x1:
-for x in range(x1, x2 + 1):
-y = y1 + (x - x1) * diff_y / diff_x
-z = z1 + (x - x1) * diff_z / diff_x
-self.create_box(x, y, z, r, g, b, alpha)
-else:
-for x in range(x1, x2 - 1, -1):
-y = y1 + (x - x1) * diff_y / diff_x
-z = z1 + (x - x1) * diff_z / diff_x
-self.create_box(x, y, z, r, g, b, alpha)
-elif abs(diff_y) == max_length:
-if y2 > y1:
-for y in range(y1, y2 + 1):
-x = x1 + (y - y1) * diff_x / diff_y
-z = z1 + (y - y1) * diff_z / diff_y
-self.create_box(x, y, z, r, g, b, alpha)
-else:
-for y in range(y1, y2 - 1, -1):
-x = x1 + (y - y1) * diff_x / diff_y
-z = z1 + (y - y1) * diff_z / diff_y
-self.create_box(x, y, z, r, g, b, alpha)
-elif abs(diff_z) == max_length:
-if z2 > z1:
-for z in range(z1, z2 + 1):
-x = x1 + (z - z1) * diff_x / diff_z
-y = y1 + (z - z1) * diff_y / diff_z
-self.create_box(x, y, z, r, g, b, alpha)
-else:
-for z in range(z1, z2 - 1, -1):
-x = x1 + (z - z1) * diff_x / diff_z
-y = y1 + (z - z1) * diff_y / diff_z
-self.create_box(x, y, z, r, g, b, alpha)
-
-def change_shape(self, shape):
-self.shape = shape
-
-def change_material(self, is_metallic=False, roughness=0.5):
-if is_metallic:
-self.is_metallic = 1
-else:
-self.is_metallic = 0
-self.roughness = roughness
-
-def create_model(self, model_name, x=0, y=0, z=0, pitch=0, yaw=0, roll=0, scale=1, entity_name=''):
-if model_name in self.model_names:
-print(f'Find model name: {model_name}')
-x, y, z, pitch, yaw, roll, scale = self.round_two_decimals([x, y, z, pitch, yaw, roll, scale])
-x, y, z, pitch, yaw, roll, scale = map(str, [x, y, z, pitch, yaw, roll, scale])
-
-self.models.append([model_name, x, y, z, pitch, yaw, roll, scale, entity_name])
-else:
-print(f'No model name: {model_name}')
-
-def move_model(self, entity_name, x=0, y=0, z=0, pitch=0, yaw=0, roll=0, scale=1):
-x, y, z, pitch, yaw, roll, scale = self.round_two_decimals([x, y, z, pitch, yaw, roll, scale])
-x, y, z, pitch, yaw, roll, scale = map(str, [x, y, z, pitch, yaw, roll, scale])
-
-self.model_moves.append([entity_name, x, y, z, pitch, yaw, roll, scale])
-
-# Game API
-
-def set_game_screen(self, width, height, angle=90, red=1, green=1, blue=0, alpha=0.5):
-self.game_screen = [width, height, angle, red, green, blue, alpha]
-
-def set_game_score(self, score, x=0, y=0):
-score, x, y = map(float, [score, x, y])
-self.game_score = [score, x, y]
-
-def send_game_over(self):
-self.commands.append('gameOver')
-
-def set_rotation_style(self, sprite_name, rotation_style='all around'):
-self.rotation_styles[sprite_name] = rotation_style
-
-# スプライトの作成と表示について、テンプレートとクローンの概念を導入する
-# テンプレートはボクセルの集合で、標準サイズは8x8に設定する
-# この概念により、スプライトの複数作成が可能となる（敵キャラや球など）
-# スプライトは、ボクセラミングアプリ上で、テンプレートとして作成される（isEnable=falseにより表示されない）
-# スプライトは、テンプレートのクローンとして画面上に表示される
-# 送信ごとに、クローンはすべて削除されて、新しいクローンが作成される
-# 上記の仕様により、テンプレートからスプライトを複数作成できる
-
-# スプライトのテンプレートを作成（スプライトは配置されない）
-    def create_sprite_template(self, sprite_name, color_list):
-self.sprites.append([sprite_name, color_list])
-
-# スプライトのテンプレートを使って、複数のスプライトを表示する
-def display_sprite_template(self, sprite_name, x, y, direction=0, scale=1):
-# x, y, directionを丸める
-x, y, direction = self.round_numbers([x, y, direction])
-x, y, direction, scale = map(str, [x, y, direction, scale])
-
-# rotation_styleを取得
-if sprite_name in self.rotation_styles:
-rotation_style = self.rotation_styles[sprite_name]
-
-# rotation_styleが変更された場合、新しいスプライトデータを配列に追加
-if rotation_style == 'left-right':
-direction_mod = direction % 360  # 常に0から359の範囲で処理（常に正の数になる）
-                if (direction_mod > 90 and direction_mod < 270):
-direction = "-180"  # -180は左右反転するようにボクセラミング側で実装されている
-else:
-direction = "0"
-elif rotation_style == "don't rotate":
-direction = "0"
-else:
-direction = str(direction)
-else:
-# rotation_styleが設定されていない場合、そのままの値を使う
-direction = str(direction)
-
-# sprite_moves 配列から指定されたスプライト名の情報を検索
-matching_sprites = [(index, info) for (index, info) in enumerate(self.sprite_moves) if
-  info[0] == sprite_name]
-
-# スプライトの移動データを保存または更新
-if len(matching_sprites) == 0:
-# 新しいスプライトデータをリストに追加
-self.sprite_moves.append([sprite_name, x, y, direction, scale])
-else:
-# 既存のスプライトデータを更新（2つ目以降のスプライトデータ）
-            index, sprite_data = matching_sprites[0]
-self.sprite_moves[index] += [x, y, direction, scale]
-
-# 通常のスプライトの作成
-def create_sprite(self, sprite_name, color_list, x=0, y=0, direction=0, scale=1, visible=True):
-# （第一処理）スプライトのテンプレートデータを配列に追加（これだけでは表示されない）
-        self.create_sprite_template(sprite_name, color_list)
-
-# （第二処理）スプライトが表示される場合、スプライトの移動データを配列に追加（これでスプライトが表示される）
-# visibleがTrueの場合、またはx, y, direction, scaleのいずれかがデフォルト値でないの場合
-if visible or not(x == 0 and y == 0 and direction == 0 and scale == 1):
-x, y, direction = self.round_numbers([x, y, direction])
-x, y, direction, scale = map(str, [x, y, direction, scale])
-self.sprite_moves.append([sprite_name, x, y, direction, scale])
-
-# 通常のスプライトの移動
-def move_sprite(self, sprite_name, x, y, direction=0, scale=1, visible=True):
-if visible:
-# display_sprite_templateと同じ処理
-self.display_sprite_template(sprite_name, x, y, direction, scale)
-
-# スプライトクローンの移動
-def move_sprite_clone(self, sprite_name, x, y, direction=0, scale=1):
-# display_sprite_templateと同じ処理
-self.display_sprite_template(sprite_name, x, y, direction, scale)
-
-# ドット（弾）を表示する
-# ドットの表示は、特別な名前（dot_色_幅_高さ）のテンプレートとして表示する
-def display_dot(self, x, y, direction=0, color_id=10, width=1, height=1):
-template_name = f'dot_{color_id}_{width}_{height}'
-# display_sprite_templateと同じ処理
-self.display_sprite_template(template_name, x, y, direction, 1)
-
-# テキストを表示する
-# テキストの表示は、特別な名前（template_色_幅_高さ）のテンプレートとして表示する
-# 一度表示した後はテンプレートが自動で保存されているため、テンプレートをクローンとして表示できる
-def display_text(self, text, x, y, direction=0, scale=1, color_id=7, is_vertical=False):
-template_name = f'text_{text}_{color_id}_{"1" if is_vertical else "0"}'
-# display_sprite_templateと同じ処理
-self.display_sprite_template(template_name, x, y, direction, scale)
-
-def send_data(self, name=''):
-print('Sending data...')
-now = datetime.datetime.now()
-data_to_send = f"""
-{{
-  "nodeTransform": {self.node_transform},
-  "frameTransforms": {self.frame_transforms},
-  "globalAnimation": {self.global_animation},
-  "animation": {self.animation},
-  "boxes": {self.boxes},
-  "frames": {self.frames},
-  "sentences": {self.sentences},
-  "lights": {self.lights},
-  "commands": {self.commands},
-  "models": {self.models},
-  "modelMoves": {self.model_moves},
-  "sprites": {self.sprites},
-  "spriteMoves": {self.sprite_moves},
-  "gameScore": {self.game_score},
-  "gameScreen": {self.game_screen},
-  "size": {self.size},
-  "shape": "{self.shape}",
-    "interval": {self.build_interval},
-  "isMetallic": {self.is_metallic},
-  "roughness": {self.roughness},
-  "isAllowedFloat": {self.is_allowed_float},
-  "name": "{name}",
-    "date": "{now}"
-}}
-""".replace("'", '"')
-
-if self.websocket is None or not self.websocket.connected:
-# WebSocket接続を初期化
-self.websocket = websocket.WebSocket()
-self.websocket.connect('wss://websocket.voxelamming.com')
-self.websocket.send(self.room_name)
-print(f"Joined room: {self.room_name}")
-
-# WebSocketが接続中か確認
-if self.websocket.connected:
-self.websocket.send(data_to_send)
-print('Sent data:', data_to_send)
-
-# 明示的にWebsocket接続を閉じる（必要な場合のみ）
-    def close_connection(self):
-if self.websocket is not None:
-  print('Closing WebSocket connection.')
-self.websocket.close()
-self.websocket = None
-
-def round_numbers(self, num_list):
-if self.is_allowed_float:
-return self.round_two_decimals(num_list)
-else:
-return list(map(floor, [round(val, 1) for val in num_list]))  # 修正
-
-@staticmethod
-def round_two_decimals(num_list):
-return [round(val, 2) for val in num_list]
+const {
+  getRotationMatrix,
+  matrixMultiply,
+  transformPointByRotationMatrix,
+  addVectors,
+  transpose3x3
+} = require('./matrixUtil.js');
+
+let WebSocketClient;
+
+if (typeof window !== 'undefined' && typeof window.WebSocket !== 'undefined') {
+  WebSocketClient = window.WebSocket;
+} else {
+  WebSocketClient = require('ws');
+}
+
+class Voxelamming {
+  constructor(roomName) {
+    this.textureNames = ["grass", "stone", "dirt", "planks", "bricks"];
+    this.modelNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
+      "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"];
+    this.roomName = roomName;
+    this.isAllowedMatrix = 0;
+    this.savedMatrices = [];
+    this.nodeTransform = [0, 0, 0, 0, 0, 0];
+    this.matrixTransform = [0, 0, 0, 0, 0, 0];
+    this.frameTransforms = [];
+    this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
+    this.animation = [0, 0, 0, 0, 0, 0, 1, 0]
+    this.boxes = [];
+    this.frames = [];
+    this.sentences = []
+    this.lights = [];
+    this.commands = [];
+    this.models = [];
+    this.modelMoves = [];
+    this.sprites = [];
+    this.spriteMoves = [];
+    this.gameScore = [];
+    this.gameScreen = [] // width, height, angle=90, red=1, green=1, blue=1, alpha=0.5
+    this.size = 1.0;
+    this.shape = 'box'
+    this.isMetallic = 0
+    this.roughness = 0.5
+    this.isAllowedFloat = 0
+    this.buildInterval = 0.01;
+    this.isFraming = false;
+    this.frameId = 0;
+    this.rotationStyles = {}; // 回転の制御（送信しない）
+    this.socket = null;
+    this.inactivityTimeout = null; // 非アクティブタイマー
+    this.inactivityDelay = 2000; // 2秒後に接続を切断
+  }
+
+  async clearData() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.isAllowedMatrix = 0;
+        this.savedMatrices = [];
+        this.nodeTransform = [0, 0, 0, 0, 0, 0];
+        this.matrixTransform = [0, 0, 0, 0, 0, 0];
+        this.frameTransforms = [];
+        this.globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0];
+        this.animation = [0, 0, 0, 0, 0, 0, 1, 0];
+        this.boxes = [];
+        this.frames = [];
+        this.sentences = [];
+        this.lights = [];
+        this.commands = [];
+        this.models = [];
+        this.modelMoves = [];
+        this.sprites = [];
+        this.spriteMoves = [];
+        this.gameScore = [];
+        this.gameScreen = [] // width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
+        this.size = 1.0;
+        this.shape = 'box';
+        this.isMetallic = 0;
+        this.roughness = 0.5;
+        this.isAllowedFloat = 0;
+        this.buildInterval = 0.01;
+        this.isFraming = false;
+        this.frameId = 0;
+        this.rotationStyles = {}; // 回転の制御（送信しない）
+
+        // すべての初期化が完了したらresolveを呼び出す
+        resolve();
+      }, 0); // 遅延を0に設定
+    });
+  }
+
+  setFrameFPS(fps = 2) {
+    this.commands.push(`fps ${fps}`);
+  }
+
+  setFrameRepeats(repeats = 10) {
+    this.commands.push(`repeats ${repeats}`);
+  }
+
+  frameIn() {
+    this.isFraming = true;
+  }
+
+  frameOut() {
+    this.isFraming = false;
+    this.frameId++;
+  }
+
+  pushMatrix() {
+    this.isAllowedMatrix++;
+    this.savedMatrices.push(this.matrixTransform);
+  }
+
+  popMatrix() {
+    this.isAllowedMatrix--;
+    this.matrixTransform = this.savedMatrices.pop();
+  }
+
+  transform(x, y, z, pitch = 0, yaw = 0, roll = 0) {
+    if (this.isAllowedMatrix) {
+      // 移動用のマトリックスを計算する
+      const matrix = this.savedMatrices[this.savedMatrices.length - 1];
+      const basePosition = matrix.slice(0, 3);
+
+      let baseRotationMatrix;
+      if (matrix.length === 6) {
+        baseRotationMatrix = getRotationMatrix(...matrix.slice(3));
+      } else {
+        baseRotationMatrix = [
+          matrix.slice(3, 6),
+          matrix.slice(6, 9),
+          matrix.slice(9, 12)
+        ];
+      }
+
+      const [addX, addY, addZ] = transformPointByRotationMatrix([x, y, z], transpose3x3(baseRotationMatrix));
+
+      [x, y, z] = addVectors(basePosition, [addX, addY, addZ]);
+      [x, y, z] = this.roundNumbers([x, y, z]);
+
+      const transformRotationMatrix = getRotationMatrix(-pitch, -yaw, -roll);
+      const rotateMatrix = matrixMultiply(transformRotationMatrix, baseRotationMatrix);
+
+      this.matrixTransform = [x, y, z, ...rotateMatrix[0], ...rotateMatrix[1], ...rotateMatrix[2]];
+    } else {
+      [x, y, z] = this.roundNumbers([x, y, z]);
+
+      if (this.isFraming) {
+        this.frameTransforms.push([x, y, z, pitch, yaw, roll, this.frameId]);
+      } else {
+        this.nodeTransform = [x, y, z, pitch, yaw, roll];
+      }
+    }
+  }
+
+  createBox(x, y, z, r = 1, g = 1, b = 1, alpha = 1, texture = '') {
+    if (this.isAllowedMatrix) {
+      // 移動用のマトリックスにより位置を計算する
+      const matrix = this.matrixTransform;
+      const basePosition = matrix.slice(0, 3);
+
+      let baseRotationMatrix;
+      if (matrix.length === 6) {
+        baseRotationMatrix = getRotationMatrix(...matrix.slice(3));
+      } else {
+        baseRotationMatrix = [
+          matrix.slice(3, 6),
+          matrix.slice(6, 9),
+          matrix.slice(9, 12)
+        ];
+      }
+
+      const [addX, addY, addZ] = transformPointByRotationMatrix([x, y, z], transpose3x3(baseRotationMatrix));
+      [x, y, z] = addVectors(basePosition, [addX, addY, addZ]);
+    }
+
+    [x, y, z] = this.roundNumbers([x, y, z]);
+    [r, g, b, alpha] = this.roundTwoDecimals([r, g, b, alpha]);
+    // 重ねておくことを防止
+    this.removeBox(x, y, z);
+
+    let textureId;
+    if (!this.textureNames.includes(texture)) {
+      textureId = -1;
+    } else {
+      textureId = this.textureNames.indexOf(texture);
+    }
+
+    if (this.isFraming) {
+      this.frames.push([x, y, z, r, g, b, alpha, textureId, this.frameId]);
+    } else {
+      this.boxes.push([x, y, z, r, g, b, alpha, textureId]);
+    }
+  }
+
+  removeBox(x, y, z) {
+    [x, y, z] = this.roundNumbers([x, y, z]);
+
+    if (this.isFraming) {
+      for (let i = 0; i < this.frames.length; i++) {
+        let box = this.frames[i];
+        if (box[0] === x && box[1] === y && box[2] === z && box[8] === this.frameId) {
+          this.frames.splice(i, 1);
+          break;
+        }
+      }
+    } else {
+      for (let i = 0; i < this.boxes.length; i++) {
+        let box = this.boxes[i];
+        if (box[0] === x && box[1] === y && box[2] === z) {
+          this.boxes.splice(i, 1);
+          break;
+        }
+      }
+    }
+  }
+
+  animateGlobal(x, y, z, pitch = 0, yaw = 0, roll = 0, scale = 1, interval = 10) {
+    [x, y, z] = this.roundNumbers([x, y, z]);
+    this.globalAnimation = [x, y, z, pitch, yaw, roll, scale, interval];
+  }
+
+  animate(x, y, z, pitch = 0, yaw = 0, roll = 0, scale = 1, interval = 10) {
+    [x, y, z] = this.roundNumbers([x, y, z]);
+    this.animation = [x, y, z, pitch, yaw, roll, scale, interval]
+  }
+
+  setBoxSize(boxSize) {
+    this.size = boxSize;
+  }
+
+  setBuildInterval(interval) {
+    this.buildInterval = interval;
+  }
+
+  writeSentence(sentence, x, y, z, r = 1, g = 1, b = 1, alpha = 1, fontSize = 16, isFixedFont = false) {
+    [x, y, z] = this.roundNumbers([x, y, z]);
+    [r, g, b, alpha] = this.roundTwoDecimals([r, g, b, alpha]);
+    [x, y, z] = [x, y, z].map(val => String(val));
+    [r, g, b, alpha, fontSize] = [r, g, b, alpha, fontSize].map(val => String(val));
+    this.sentences.push([sentence, x, y, z, r, g, b, alpha, fontSize, isFixedFont ? "1" : "0"]);
+  }
+
+  setLight(x, y, z, r = 1, g = 1, b = 1, alpha = 1, intensity = 1000, interval = 1, lightType = 'point') {
+    [x, y, z] = this.roundNumbers([x, y, z]);
+    [r, g, b, alpha] = this.roundTwoDecimals([r, g, b, alpha]);
+
+    if (lightType === 'point') {
+      lightType = 1;
+    } else if (lightType === 'spot') {
+      lightType = 2;
+    } else if (lightType === 'directional') {
+      lightType = 3;
+    } else {
+      lightType = 1;
+    }
+    this.lights.push([x, y, z, r, g, b, alpha, intensity, interval, lightType]);
+  }
+
+  setCommand(command) {
+    this.commands.push(command);
+
+    if (command === 'float') {
+      this.isAllowedFloat = 1;
+    }
+  }
+
+  drawLine(x1, y1, z1, x2, y2, z2, r = 1, g = 1, b = 1, alpha = 1) {
+    [x1, y1, z1, x2, y2, z2] = this.roundNumbers([x1, y1, z1, x2, y2, z2])
+    const diff_x = x2 - x1;
+    const diff_y = y2 - y1;
+    const diff_z = z2 - z1;
+    const maxLength = Math.max(Math.abs(diff_x), Math.abs(diff_y), Math.abs(diff_z));
+
+    if (diff_x === 0 && diff_y === 0 && diff_z === 0) {
+      return false;
+    }
+
+    if (Math.abs(diff_x) === maxLength) {
+      if (x2 > x1) {
+        for (let x = x1; x <= x2; x++) {
+          const y = y1 + (x - x1) * diff_y / diff_x;
+          const z = z1 + (x - x1) * diff_z / diff_x;
+          this.createBox(x, y, z, r, g, b, alpha);
+        }
+      } else {
+        for (let x = x1; x >= x2; x--) {
+          const y = y1 + (x - x1) * diff_y / diff_x;
+          const z = z1 + (x - x1) * diff_z / diff_x;
+          this.createBox(x, y, z, r, g, b, alpha);
+        }
+      }
+    } else if (Math.abs(diff_y) === maxLength) {
+      if (y2 > y1) {
+        for (let y = y1; y <= y2; y++) {
+          const x = x1 + (y - y1) * diff_x / diff_y;
+          const z = z1 + (y - y1) * diff_z / diff_y;
+          this.createBox(x, y, z, r, g, b, alpha);
+        }
+      } else {
+        for (let y = y1; y >= y2; y--) {
+          const x = x1 + (y - y1) * diff_x / diff_y;
+          const z = z1 + (y - y1) * diff_z / diff_y;
+          this.createBox(x, y, z, r, g, b, alpha);
+        }
+      }
+    } else if (Math.abs(diff_z) === maxLength) {
+      if (z2 > z1) {
+        for (let z = z1; z <= z2; z++) {
+          const x = x1 + (z - z1) * diff_x / diff_z;
+          const y = y1 + (z - z1) * diff_y / diff_z;
+          this.createBox(x, y, z, r, g, b, alpha);
+        }
+      } else {
+        for (let z = z1; z >= z2; z--) {
+          const x = x1 + (z - z1) * diff_x / diff_z;
+          const y = y1 + (z - z1) * diff_y / diff_z;
+          this.createBox(x, y, z, r, g, b, alpha);
+        }
+      }
+    }
+  }
+
+  changeShape(shape) {
+    this.shape = shape;
+  }
+
+  changeMaterial(isMetallic, roughness) {
+    this.isMetallic = isMetallic ? 1 : 0;
+    this.roughness = roughness;
+  }
+
+  createModel(modelName, x = 0, y = 0, z = 0,
+              pitch = 0, yaw = 0, roll = 0, scale = 1, entityName = '') {
+    if (this.modelNames.includes(modelName)) {
+      [x, y, z, pitch, yaw, roll, scale] = this.roundTwoDecimals([x, y, z, pitch, yaw, roll, scale]);
+      [x, y, z, pitch, yaw, roll, scale] = [x, y, z, pitch, yaw, roll, scale].map(String);
+
+      this.models.push([modelName, x, y, z, pitch, yaw, roll, scale, entityName]);
+    } else {
+      console.log(`No model name: ${modelName}`);
+    }
+  }
+
+  moveModel(entityName, x = 0, y = 0, z = 0,
+            pitch = 0, yaw = 0, roll = 0, scale = 1) {
+    [x, y, z, pitch, yaw, roll, scale] = this.roundTwoDecimals([x, y, z, pitch, yaw, roll, scale]);
+    [x, y, z, pitch, yaw, roll, scale] = [x, y, z, pitch, yaw, roll, scale].map(String);
+
+    this.modelMoves.push([entityName, x, y, z, pitch, yaw, roll, scale]);
+  }
+
+  // Game API
+
+  setGameScreen(width, height, angle = 90, red = 1, green = 1, blue = 0, alpha = 0.5) {
+    this.gameScreen = [width, height, angle, red, green, blue, alpha];
+  }
+
+  setGameScore(score, x = 0, y = 0) {
+    score = parseFloat(score);
+    x = parseFloat(x);
+    y = parseFloat(y);
+    this.gameScore = [score, x, y];
+  }
+
+  sendGameOver() {
+    this.commands.push('gameOver');
+  }
+
+  sendGameClear() {
+    this.commands.push('gameClear');
+  }
+
+  setRotationStyle(spriteName, rotationStyle = 'all around') {
+    this.rotationStyles[spriteName] = rotationStyle;
+  }
+
+  // Introduce the concept of template and clone for sprite creation and display.
+  // A template is a collection of voxels with a standard size of 8x8.
+  // This concept allows for creating multiple sprites (e.g., enemies, bullets).
+  // Sprites are created as templates in the Voxelamming app (not displayed with isEnable = false).
+  // Sprites are displayed as clones of the template on the screen.
+  // All clones are deleted on each transmission, and new clones are created.
+  // This allows multiple sprites to be created from the template.
+
+  // Create a sprite template (sprite is not placed)
+  createSpriteTemplate(spriteName, colorList) {
+    this.sprites.push([spriteName, colorList]);
+  }
+
+  // Use the sprite template to display multiple sprites
+  displaySpriteTemplate(spriteName, x, y, direction = 0, scale = 1) {
+    // Round x, y, and direction
+    [x, y, direction] = this.roundNumbers([x, y, direction]);
+    x = String(x);
+    y = String(y);
+    direction = String(direction);
+    scale = String(scale);
+
+    // Get the rotation style
+    if (spriteName in this.rotationStyles) {
+      let rotationStyle = this.rotationStyles[spriteName];
+
+      // If the rotation style has changed, add new sprite data to the array
+      if (rotationStyle === 'left-right') {
+        let directionMod = direction % 360; // Always process within the range of 0 to 359 (always positive)
+        if (directionMod > 90 && directionMod < 270) {
+          direction = "-180"; // -180 is implemented on the Voxelamming side to flip left and right
+        } else {
+          direction = "0";
+        }
+      } else if (rotationStyle === "don't rotate") {
+        direction = "0";
+      } else {
+        direction = String(direction);
+      }
+    } else {
+      // If the rotation style is not set, use the original value
+      direction = String(direction);
+    }
+
+    // Search the sprite_moves array for the specified sprite name
+    let matchingSprites = this.spriteMoves.filter((info) => info[0] === spriteName);
+
+    // Save or update sprite move data
+    if (matchingSprites.length === 0) {
+      // Add new sprite data to the list
+      this.spriteMoves.push([spriteName, x, y, direction, scale]);
+    } else {
+      // Update existing sprite data (second or later sprite data)
+      let [index, spriteData] = matchingSprites[0];
+      this.spriteMoves[index] += [x, y, direction, scale];
+    }
+  }
+
+  // Normal sprite creation
+  createSprite(spriteName, colorList, x = 0, y = 0, direction = 0, scale = 1, visible = true) {
+    // (First step) Add sprite template data to the array (not displayed yet)
+    this.createSpriteTemplate(spriteName, colorList);
+
+    // (Second step) If the sprite is visible, add move data to the array (this will display the sprite)
+    // If visible is true, or if x, y, direction, or scale is not the default value
+    if (visible || !(x === 0 && y === 0 && direction === 0 && scale === 1)) {
+      [x, y, direction] = this.roundNumbers([x, y, direction]);
+      x = String(x);
+      y = String(y);
+      direction = String(direction);
+      scale = String(scale);
+      this.spriteMoves.push([spriteName, x, y, direction, scale]);
+    }
+  }
+
+  // Move a normal sprite
+  moveSprite(spriteName, x, y, direction = 0, scale = 1, visible = true) {
+    if (visible) {
+      // Same process as displaySpriteTemplate
+      this.displaySpriteTemplate(spriteName, x, y, direction, scale);
+    }
+  }
+
+  // Move a sprite clone
+  moveSpriteClone(spriteName, x, y, direction = 0, scale = 1) {
+    // Same process as displaySpriteTemplate
+    this.displaySpriteTemplate(spriteName, x, y, direction, scale);
+  }
+
+  // Display a dot (bullet)
+  // The dot is displayed as a special name (dot_color_width_height) template
+  displayDot(x, y, direction = 0, colorId = 10, width = 1, height = 1) {
+    let templateName = `dot_${colorId}_${width}_${height}`;
+    // Same process as displaySpriteTemplate
+    this.displaySpriteTemplate(templateName, x, y, direction, 1);
+  }
+
+  // Display text
+  // The text is displayed as a special name (template_color_width_height) template
+  // Once displayed, the template is automatically saved, allowing it to be displayed as a clone
+  displayText(text, x, y, direction = 0, scale = 1, colorId = 7, isVertical = false, align = '') {
+    // テキストの右寄せなどの情報を取得
+    let textFormat = '';
+    align = align.toLowerCase();
+
+    if (align.includes('top')) {
+      textFormat += 't';
+    } else if (align.includes('bottom')) {
+      textFormat += 'b';
+    }
+
+    if (align.includes('left')) {
+      textFormat += 'l';
+    } else if (align.includes('right')) {
+      textFormat += 'r';
+    }
+
+    if (isVertical) {
+      textFormat += 'v';
+    } else {
+      textFormat += 'h';
+    }
+
+    const templateName = `text_${text}_${colorId}_${textFormat}`;
+
+    // display_sprite_templateと同じ処理
+    this.displaySpriteTemplate(templateName, x, y, direction, scale);
+  }
+
+  async sendData(name = '') {
+    console.log('Sending data...');
+    const date = new Date();
+    const dataToSend = {
+      nodeTransform: this.nodeTransform,
+      frameTransforms: this.frameTransforms,
+      globalAnimation: this.globalAnimation,
+      animation: this.animation,
+      boxes: this.boxes,
+      frames: this.frames,
+      sentences: this.sentences,
+      lights: this.lights,
+      commands: this.commands,
+      models: this.models,
+      modelMoves: this.modelMoves,
+      sprites: this.sprites,
+      spriteMoves: this.spriteMoves,
+      gameScore: this.gameScore,
+      gameScreen: this.gameScreen,
+      size: this.size,
+      shape: this.shape,
+      interval: this.buildInterval,
+      isMetallic: this.isMetallic,
+      roughness: this.roughness,
+      isAllowedFloat: this.isAllowedFloat,
+      name: name,
+      date: date.toISOString()
+    };
+
+    return new Promise((resolve, reject) => {
+      try {
+        if (this.socket && this.socket.readyState === WebSocketClient.OPEN) {
+          this.socket.send(JSON.stringify(dataToSend));
+          console.log('Sent data to server (existing connection):', dataToSend);
+          this.startInactivityTimer(); // タイマーを開始
+          resolve();
+        } else if (this.socket && this.socket.readyState === WebSocketClient.CONNECTING) {
+          this.socket.onopen = () => {
+            this.socket.send(this.roomName);
+            console.log(`Joined room: ${this.roomName}`);
+            this.socket.send(JSON.stringify(dataToSend));
+            console.log('Sent data to server (connected):', dataToSend);
+            this.startInactivityTimer(); // タイマーを開始
+            resolve();
+          };
+        } else {
+          this.socket = new WebSocketClient('wss://websocket.voxelamming.com');
+
+          this.socket.onopen = () => {
+            this.socket.send(this.roomName);
+            console.log(`Joined room: ${this.roomName}`);
+            this.socket.send(JSON.stringify(dataToSend));
+            console.log('Sent data to server (new connection):', dataToSend);
+            this.startInactivityTimer(); // タイマーを開始
+            resolve();
+          };
+
+          this.socket.onerror = error => {
+            console.error(`WebSocket error: ${error}`);
+            reject(error);
+          };
+
+          this.socket.onclose = () => {
+            console.log('WebSocket connection closed.');
+          };
+        }
+      } catch (error) {
+        console.error(`WebSocket connection failed: ${error}`);
+        reject(error);
+      }
+    });
+  }
+
+  startInactivityTimer() {
+    this.clearInactivityTimer(); // 既存のタイマーをクリア
+    this.inactivityTimeout = setTimeout(() => {
+      if (this.socket && this.socket.readyState === WebSocketClient.OPEN) {
+        console.log('No data sent for 2 seconds. Closing WebSocket connection.');
+        this.socket.close();
+      }
+    }, this.inactivityDelay);
+  }
+
+  clearInactivityTimer() {
+    if (this.inactivityTimeout) {
+      clearTimeout(this.inactivityTimeout);
+      this.inactivityTimeout = null;
+    }
+  }
+
+  async sleepSecond(s) {
+    await new Promise(resolve => setTimeout(resolve, s * 1000));
+  }
+
+  roundNumbers(num_list) {
+    if (this.isAllowedFloat) {
+      return this.roundTwoDecimals(num_list);
+    } else {
+      return num_list.map(val => Math.floor(parseFloat(val.toFixed(1))));
+    }
+  }
+
+  roundTwoDecimals(num_list) {
+    return num_list.map(val => parseFloat(val.toFixed(2)));
+  }
+}
+
+module.exports = Voxelamming;

@@ -93,9 +93,9 @@
         </ul>
         <p><strong>例：赤いボクセルを (x: 10, y: 5, z: -2) の位置に、サイズ2倍で設置する</strong></p>
         <pre><code class="python"># Python
-build_box.set_box_size(2.0)  # サイズを2倍に設定
-build_box.create_box(10, 5, -2, 1, 0, 0)  # 赤いボクセルを設置
-build_box.send_data() # データ送信
+vox.set_box_size(2.0)  # サイズを2倍に設定
+vox.create_box(10, 5, -2, 1, 0, 0)  # 赤いボクセルを設置
+vox.send_data() # データ送信
 </code></pre>
         <h4>メソッドの説明</h4>
         <table class=“custom-table”>
@@ -130,14 +130,14 @@ build_box.send_data() # データ送信
             <tr><td> <code>set_frame_repeats(repeats)</code> </td><td> フレームの再生回数を設定します (デフォルト: 10)。 </td><td> <code>repeats</code>: 再生回数 (int) </td></tr>
             <tr><td> ゲームメソッド名                                                                               </td><td> 説明 </td><td> 引数                                                                                                                                                                </td></tr>
             <tr><td> <code>set_game_screen_size(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)</code>           </td><td> ゲーム画面を設定します。 </td><td> <code>width</code>, <code>height</code>: 画面サイズ (float), <code>angle</code>: 角度 (float) , <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: 色 (float, 0-1)                                                                    </td></tr>
-            <tr><td> <code>set_game_score(score)</code>                                                             </td><td> ゲームスコアを設定します。 </td><td> <code>score</code>: ゲームのスコア(int)                                                                                                                                             </td></tr>
+            <tr><td> <code>set_game_score(score, x=0, y=0)</code>                                                             </td><td> ゲームスコアを設定します。 </td><td> <code>score</code>: ゲームのスコア(int),  <code>x</code>, <code>y</code>: 位置 (float)                                                                                                                                             </td></tr>
             <tr><td> <code>send_game_over()</code>                                                                  </td><td> ゲームオーバーを設定します。 </td><td>                                                                                                                                                                   </td></tr>
             <tr><td> <code>send_game_clear()</code>                                                                  </td><td> ゲームクリアを設定します。 </td><td>                                                                                                                                                                   </td></tr>
             <tr><td> <code>create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)</code> </td><td> スプライトを作成します。 </td><td> <code>sprite_name</code>: スプライトの名前 (string), <code>color_list</code>: ドットの色データ (string), <code>x</code>, <code>y</code>: 位置 (float), <code>direction</code>: 角度 (float), <code>sclae</code>: スケール (float), <code>visiable</code>: 表示 (boolean) </td></tr>
             <tr><td> <code>move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)</code>               </td><td> スプライトを移動します。 </td><td> <code>sprite_name</code>: スプライトの名前 (string), <code>x</code>, <code>y</code>: 位置 (float), <code>direction</code>: 角度 (float), <code>sclae</code>: スケール (float), <code>visiable</code>: 表示 (boolean)                                  </td></tr>
             <tr><td> <code>move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)</code>               </td><td> スプライトのクローンを移動します。複数回の実行が可能で、複数のスプライトを作成するときに使います。 </td><td> <code>sprite_name</code>: スプライトの名前 (string), <code>x</code>, <code>y</code>: 位置 (float), <code>direction</code>: 角度 (float), <code>sclae</code>: スケール (float)                                  </td></tr>
             <tr><td> <code>display_dot(sprite_name, x, y, direction=90, scale=1)</code>               </td><td> 弾やパティクルなど複数のドットを配置する時に使用します。 </td><td> <code>sprite_name</code>: スプライトの名前 (string), <code>x</code>, <code>y</code>: 位置 (float), <code>direction</code>: 角度 (float), <code>sclae</code>: スケール (float)                                  </td></tr>
-            <tr><td> <code>display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True)</code>               </td><td> ゲーム画面にテキストを表示します。 </td><td> <code>sprite_name</code>: スプライトの名前 (string), <code>x</code>, <code>y</code>: 位置 (float), <code>direction</code>: 角度 (float), <code>sclae</code>: スケール (float), <code>is_vertical</code>: 縦書き表示 (boolean)                                  </td></tr>
+            <tr><td> <code>display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True, align='')</code>               </td><td> ゲーム画面にテキストを表示します。 </td><td> <code>sprite_name</code>: スプライトの名前 (string), <code>x</code>, <code>y</code>: 位置 (float), <code>direction</code>: 角度 (float), <code>sclae</code>: スケール (float), <code>is_vertical</code>: 縦書き表示 (boolean), <code>align</code>: 文字寄せ（'Top', 'Bottom', 'Right', 'Left' の組み合わせ）                                  </td></tr>
             </tbody>
         </table>
         <p><strong>注記:</strong></p>
@@ -620,25 +620,25 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     let roomName = &quot;1000&quot;
-    let buildBox = BuildBox(roomName: roomName)
-    buildBox.setBoxSize(0.5)
-    buildBox.setBuildInterval(0.01)
+    let vox = Voxelamming(roomName: roomName)
+    vox.setBoxSize(0.5)
+    vox.setBuildInterval(0.01)
 
     Task {
         do {
             for i in 0..&lt;100 {
-                buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
-                buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
-                buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
-                buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1)
+                vox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0)
+                vox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0)
+                vox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1)
             }
 
             for i in 0..&lt;50 {
-                buildBox.removeBox(0, Double(i * 2), 0)
-                buildBox.removeBox(1, Double(i * 2 + 1), 0)
+                vox.removeBox(0, Double(i * 2), 0)
+                vox.removeBox(1, Double(i * 2 + 1), 0)
             }
 
-            try await buildBox.sendData()
+            try await vox.sendData()
         } catch {
             print(&quot;An error occurred: \(error)&quot;)
         }
@@ -692,27 +692,27 @@ vox.send_data(&quot;main_sphere_sample&quot;)
         <p>ノードには、位置情報を指定することができます。</p>
         <pre><code class="python"># Python
 import time
-from voxelamming import BuildBox
+from voxelamming import Voxelamming
 
 room_name = &quot;1000&quot;
-build_box = BuildBox(room_name)
+vox = Voxelamming(room_name)
 
-build_box.set_box_size(0.5)
-build_box.set_build_interval(0.01)
+vox.set_box_size(0.5)
+vox.set_build_interval(0.01)
 
 for i in range(10):
-  build_box.create_box(-1, i, 0, r=0, g=1, b=1)
-  build_box.create_box(0, i, 0, r=1, g=0, b=0)
-  build_box.create_box(1, i, 0, r=1, g=1, b=0)
-  build_box.create_box(2, i, 0, r=0, g=1, b=1)
+  vox.create_box(-1, i, 0, r=0, g=1, b=1)
+  vox.create_box(0, i, 0, r=1, g=0, b=0)
+  vox.create_box(1, i, 0, r=1, g=1, b=0)
+  vox.create_box(2, i, 0, r=0, g=1, b=1)
 
 for i in range(5):
-  build_box.remove_box(0, i * 2 + 1, 0)
-  build_box.remove_box(1, i * 2, 0)
+  vox.remove_box(0, i * 2 + 1, 0)
+  vox.remove_box(1, i * 2, 0)
 
 for i in range(5):
-  build_box.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
-  build_box.send_data()
+  vox.transform(-25 + i * 10, 0, 0, pitch=0, yaw=0, roll=0)
+  vox.send_data()
   time.sleep(1)
 </code></pre>
         <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>

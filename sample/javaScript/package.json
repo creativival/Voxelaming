@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "voxelamming": "^0.2.2",
+    "voxelamming": "^0.3.6",
     "ws": "^8.17.1"
   }
 }
