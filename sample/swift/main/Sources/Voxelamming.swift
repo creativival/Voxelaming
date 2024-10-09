@@ -17,11 +17,15 @@ class Voxelamming {
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
     var frames = [[Double]]()
-    var sentence = [String]()
+    var sentences = [[String]]()
     var lights = [[Double]]()
     var commands = [String]()
     var models = [[String]]()
     var modelMoves = [[String]]()
+    var sprites = [[String]]()
+    var spriteMoves = [[String]]()
+    var gameScore = [[Double]]()
+    var gameScreen = [[Double]]() // width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
     var size: Double = 1.0
     var shape: String = "box"
     var isMetallic: Int = 0
@@ -30,6 +34,7 @@ class Voxelamming {
     var buildInterval = 0.01
     var isFraming = false
     var frameId: Int = 0
+    var rotationStyles = {} // 回転の制御（送信しない）
 
     init(roomName: String) {
         self.roomName = roomName
@@ -46,11 +51,13 @@ class Voxelamming {
         animation = [0, 0, 0, 0, 0, 0, 1, 0]
         boxes = []
         frames = []
-        sentence = []
+        sentences = []
         lights = []
         commands = []
         models = []
         modelMoves = []
+        sprites = []
+        spriteMoves = []
         size = 1.0
         shape = "box"
         isMetallic = 0
@@ -59,6 +66,7 @@ class Voxelamming {
         buildInterval = 0.01
         isFraming = false
         frameId = 0
+        rotationStyles = {}
     }
 
     func setFrameFPS(_ fps: Int = 2) {
@@ -233,7 +241,7 @@ class Voxelamming {
         buildInterval = interval
     }
 
-    func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
+    func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, fontSize: Int = 16, isFixedWidth: Bool = false) {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -249,7 +257,12 @@ class Voxelamming {
         let stringG = String(roundG)
         let stringB = String(roundB)
         let stringAlpha = String(alpha)
-        sentence = [string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha]
+        let stringFontSize = String(fontSize)
+
+        // 固定幅のフラグを文字列に変換
+        let stringIsFixedWidth = isFixedWidth ? "1" : "0"
+
+        sentences.append([string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha, stringFontSize, stringIsFixedWidth])
     }
 
     func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1, lightType: String = "point") {
@@ -388,11 +401,15 @@ class Voxelamming {
             "animation": animation,
             "boxes": boxes,
             "frames": frames,
-            "sentence": sentence,
+            "sentences": sentences,
             "lights": lights,
             "commands": commands,
             "models": models,
             "modelMoves": modelMoves,
+            "sprites": sprites,
+            "spriteMoves": spriteMoves,
+            "gameScore": gameScore,
+            "gameScreen": gameScreen,
             "size": size,
             "shape": shape,
             "interval": buildInterval,
