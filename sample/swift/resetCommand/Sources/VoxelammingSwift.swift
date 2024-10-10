@@ -1,9 +1,9 @@
 import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
-class BuildBox {
+class VoxelammingSwift: NSObject {
     let url = URL(string: "wss://websocket.voxelamming.com")!
-    let webSocketTask: URLSessionWebSocketTask
+    var webSocketTask: URLSessionWebSocketTask?
     let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
     let modelNames = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Sun",
             "Moon", "ToyBiplane", "ToyCar", "Drummer", "Robot", "ToyRocket", "RocketToy1", "RocketToy2", "Skull"]
@@ -17,11 +17,15 @@ class BuildBox {
     var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
     var boxes = [[Double]]()
     var frames = [[Double]]()
-    var sentence = [String]()
+    var sentences = [[String]]()
     var lights = [[Double]]()
     var commands = [String]()
     var models = [[String]]()
     var modelMoves = [[String]]()
+    var sprites = [[String]]()
+    var spriteMoves = [[String]]()
+    var gameScore = [[Double]]()
+    var gameScreen = [[Double]]() // width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
     var size: Double = 1.0
     var shape: String = "box"
     var isMetallic: Int = 0
@@ -30,10 +34,15 @@ class BuildBox {
     var buildInterval = 0.01
     var isFraming = false
     var frameId: Int = 0
+    var rotationStyles: [String: Any] = [:] // 回転の制御（送信しない）
 
-    init(roomName: String) {
+    // 追加部分: アイドルタイマーとタイムアウト設定
+    var idleTimer: DispatchSourceTimer?
+    let idleTimeout: TimeInterval = 3.0 // 3秒間アイドル状態が続いたら接続を閉じる
+
+    init(roomName: String = "") {
         self.roomName = roomName
-        webSocketTask = URLSession.shared.webSocketTask(with: url)
+        super.init()
     }
 
     func clearData() {
@@ -46,11 +55,13 @@ class BuildBox {
         animation = [0, 0, 0, 0, 0, 0, 1, 0]
         boxes = []
         frames = []
-        sentence = []
+        sentences = []
         lights = []
         commands = []
         models = []
         modelMoves = []
+        sprites = []
+        spriteMoves = []
         size = 1.0
         shape = "box"
         isMetallic = 0
@@ -59,6 +70,7 @@ class BuildBox {
         buildInterval = 0.01
         isFraming = false
         frameId = 0
+        rotationStyles = [:]
     }
 
     func setFrameFPS(_ fps: Int = 2) {
@@ -128,10 +140,15 @@ class BuildBox {
             let roundY = roundNumList[1]
             let roundZ = roundNumList[2]
 
+            let roundRotationList = roundTwoDecimals(numList: [pitch, yaw, roll])
+            let roundPitch = roundRotationList[0]
+            let roundYaw = roundRotationList[1]
+            let roundRoll = roundRotationList[2]
+
             if isFraming {
-                frameTransforms.append([roundX, roundY, roundZ, pitch, yaw, roll, Double(frameId)])
+                frameTransforms.append([roundX, roundY, roundZ, roundPitch, roundYaw, roundRoll, Double(frameId)])
             } else {
-                self.nodeTransform = [roundX, roundY, roundZ, pitch, yaw, roll]
+                self.nodeTransform = [roundX, roundY, roundZ, roundPitch, roundYaw, roundRoll]
             }
         }
     }
@@ -218,11 +235,16 @@ class BuildBox {
     }
 
     func animate(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
-        let roundNumList = roundNumbers(numList: [x, y, z])
+        let roundNumList = roundTwoDecimals(numList: [x, y, z, pitch, yaw, roll, scale, interval])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
         let roundZ = roundNumList[2]
-        animation = [roundX, roundY, roundZ, pitch, yaw, roll, scale, interval]
+        let roundPitch = roundNumList[3]
+        let roundYaw = roundNumList[4]
+        let roundRoll = roundNumList[5]
+        let roundScale = roundNumList[6]
+        let roundInterval = roundNumList[7]
+        animation = [roundX, roundY, roundZ, roundPitch, roundYaw, roundRoll, roundScale, roundInterval]
     }
 
     func setBoxSize(_ boxSize: Double) {
@@ -233,7 +255,7 @@ class BuildBox {
         buildInterval = interval
     }
 
-    func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1) {
+    func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, fontSize: Int = 16, isFixedWidth: Bool = false) {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -242,14 +264,20 @@ class BuildBox {
         let roundR = roundColorList[0]
         let roundG = roundColorList[1]
         let roundB = roundColorList[2]
+        let roundAlpha = roundColorList[3]
         let stringX = String(roundX)
         let stringY = String(roundY)
         let stringZ = String(roundZ)
         let stringR = String(roundR)
         let stringG = String(roundG)
         let stringB = String(roundB)
-        let stringAlpha = String(alpha)
-        sentence = [string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha]
+        let stringAlpha = String(roundAlpha)
+        let stringFontSize = String(fontSize)
+
+        // 固定幅のフラグを文字列に変換
+        let stringIsFixedWidth = isFixedWidth ? "1" : "0"
+
+        sentences.append([string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha, stringFontSize, stringIsFixedWidth])
     }
 
     func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1, lightType: String = "point") {
@@ -308,7 +336,7 @@ class BuildBox {
                     createBox(Double(x), y, z, r: r, g: g, b: b, alpha: alpha)
                 }
             } else {
-                for x in stride(from: Int(x1), through: Int(x2 + 1), by: -1) {
+                for x in stride(from: Int(x1), through: Int(x2), by: -1) {
                     let y = y1 + (Double(x) - x1) * diffY / diffX
                     let z = z1 + (Double(x) - x1) * diffZ / diffX
                     createBox(Double(x), y, z, r: r, g: g, b: b, alpha: alpha)
@@ -322,7 +350,7 @@ class BuildBox {
                     createBox(x, Double(y), z, r: r, g: g, b: b, alpha: alpha)
                 }
             } else {
-                for y in stride(from: Int(y1), through: Int(y2 + 1), by: -1) {
+                for y in stride(from: Int(y1), through: Int(y2), by: -1) {
                     let x = x1 + (Double(y) - y1) * diffX / diffY
                     let z = z1 + (Double(y) - y1) * diffZ / diffY
                     createBox(x, Double(y), z, r: r, g: g, b: b, alpha: alpha)
@@ -336,7 +364,7 @@ class BuildBox {
                     createBox(x, y, Double(z), r: r, g: g, b: b, alpha: alpha)
                 }
             } else {
-                for z in stride(from: Int(z1), through: Int(z2 + 1), by: -1) {
+                for z in stride(from: Int(z1), through: Int(z2), by: -1) {
                     let x = x1 + (Double(z) - z1) * diffX / diffZ
                     let y = y1 + (Double(z) - z1) * diffY / diffZ
                     createBox(x, y, Double(z), r: r, g: g, b: b, alpha: alpha)
@@ -375,8 +403,46 @@ class BuildBox {
         self.roughness = roughness
     }
 
+
+    // 接続を確立または再利用するための関数
+    func ensureConnection() async throws {
+        if webSocketTask == nil || webSocketTask?.state != .running || webSocketTask?.state == .completed || webSocketTask?.state == .canceling {
+            // 新しい接続を確立
+            webSocketTask = URLSession.shared.webSocketTask(with: url)
+            webSocketTask?.resume()
+            // 部屋名を送信
+            if let webSocketTask = webSocketTask {
+                try await webSocketTask.send(.string(roomName))
+                print("Joined room: \(roomName)")
+            }
+        }
+        // アイドルタイマーをリセット
+        resetIdleTimer()
+    }
+
+    // アイドルタイマーをリセットする関数
+    func resetIdleTimer() {
+        idleTimer?.cancel()
+        idleTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
+        idleTimer?.schedule(deadline: .now() + idleTimeout)
+        idleTimer?.setEventHandler { [weak self] in
+            self?.closeConnection()
+        }
+        idleTimer?.resume()
+    }
+
+    // 接続を閉じる関数
+    func closeConnection() {
+        webSocketTask?.cancel(with: .goingAway, reason: nil)
+        webSocketTask = nil
+        idleTimer?.cancel()
+        idleTimer = nil
+        print("WebSocket connection closed due to inactivity.")
+    }
+
+    // データを送信する関数
     func sendData(name: String = "") async throws {
-        self.webSocketTask.resume()
+        try await ensureConnection()
 
         let date = Date()
         let dateFormatter = ISO8601DateFormatter()
@@ -388,11 +454,15 @@ class BuildBox {
             "animation": animation,
             "boxes": boxes,
             "frames": frames,
-            "sentence": sentence,
+            "sentences": sentences,
             "lights": lights,
             "commands": commands,
             "models": models,
             "modelMoves": modelMoves,
+            "sprites": sprites,
+            "spriteMoves": spriteMoves,
+            "gameScore": gameScore,
+            "gameScreen": gameScreen,
             "size": size,
             "shape": shape,
             "interval": buildInterval,
@@ -409,10 +479,15 @@ class BuildBox {
             return
         }
 
-        try await self.webSocketTask.send(.string(roomName))
-        print("Joined room: \(roomName)")
-        try await self.webSocketTask.send(.string(jsonString))
-        print("Sent message: \(jsonString)")
+        if let webSocketTask = webSocketTask {
+            try await webSocketTask.send(.string(jsonString))
+            print("Sent message: \(jsonString)")
+        } else {
+            print("WebSocket connection is not available.")
+        }
+
+        // アイドルタイマーをリセット
+        resetIdleTimer()
     }
 
     private func roundNumbers(numList: [Double]) -> [Double] {
@@ -426,67 +501,68 @@ class BuildBox {
     private func roundTwoDecimals(numList: [Double]) -> [Double] {
         return numList.map { round($0 * 100) / 100 }
     }
-}
 
-func getRotationMatrix(pitch: Double, yaw: Double, roll: Double) -> [[Double]] {
-    let pitch = pitch * .pi / 180.0
-    let yaw = yaw * .pi / 180.0
-    let roll = roll * .pi / 180.0
+    private func getRotationMatrix(pitch: Double, yaw: Double, roll: Double) -> [[Double]] {
+        let pitch = pitch * .pi / 180.0
+        let yaw = yaw * .pi / 180.0
+        let roll = roll * .pi / 180.0
 
-    // Pitch (rotation around X-axis)
-    let Rx: [[Double]] = [
-        [1, 0, 0],
-        [0, cos(pitch), -sin(pitch)],
-        [0, sin(pitch), cos(pitch)]
-    ]
+        // Pitch (rotation around X-axis)
+        let Rx: [[Double]] = [
+            [1, 0, 0],
+            [0, cos(pitch), -sin(pitch)],
+            [0, sin(pitch), cos(pitch)]
+        ]
 
-    // Yaw (rotation around Y-axis)
-    let Ry: [[Double]] = [
-        [cos(yaw), 0, sin(yaw)],
-        [0, 1, 0],
-        [-sin(yaw), 0, cos(yaw)]
-    ]
+        // Yaw (rotation around Y-axis)
+        let Ry: [[Double]] = [
+            [cos(yaw), 0, sin(yaw)],
+            [0, 1, 0],
+            [-sin(yaw), 0, cos(yaw)]
+        ]
 
-    // Roll (rotation around Z-axis)
-    let Rz: [[Double]] = [
-        [cos(roll), -sin(roll), 0],
-        [sin(roll), cos(roll), 0],
-        [0, 0, 1]
-    ]
+        // Roll (rotation around Z-axis)
+        let Rz: [[Double]] = [
+            [cos(roll), -sin(roll), 0],
+            [sin(roll), cos(roll), 0],
+            [0, 0, 1]
+        ]
 
-    // Matrix multiplication: Rx x (Rz x Ry)
-    let R = matrixMultiply(A: Rx, B: matrixMultiply(A: Rz, B: Ry))
-    return R
-}
+        // Matrix multiplication: Rx x (Rz x Ry)
+        let R = matrixMultiply(A: Rx, B: matrixMultiply(A: Rz, B: Ry))
+        return R
+    }
 
-func matrixMultiply(A: [[Double]], B: [[Double]]) -> [[Double]] {
-    var result: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    for i in 0..<3 {
-        for j in 0..<3 {
-            for k in 0..<3 {
-                result[i][j] += A[i][k] * B[k][j]
+    private func matrixMultiply(A: [[Double]], B: [[Double]]) -> [[Double]] {
+        var result: [[Double]] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        for i in 0..<3 {
+            for j in 0..<3 {
+                for k in 0..<3 {
+                    result[i][j] += A[i][k] * B[k][j]
+                }
             }
         }
+        return result
     }
-    return result
+
+    private func transformPointByRotationMatrix(point: (Double, Double, Double), R: [[Double]]) -> (Double, Double, Double) {
+        let (x, y, z) = point
+        let x_new = R[0][0] * x + R[0][1] * y + R[0][2] * z
+        let y_new = R[1][0] * x + R[1][1] * y + R[1][2] * z
+        let z_new = R[2][0] * x + R[2][1] * y + R[2][2] * z
+        return (x_new, y_new, z_new)
+    }
+
+    private func addVectors(vector1: [Double], vector2: [Double]) -> [Double] {
+        return zip(vector1, vector2).map(+)
+    }
+
+    private func transpose3x3(matrix: [[Double]]) -> [[Double]] {
+        return [
+            [matrix[0][0], matrix[1][0], matrix[2][0]],
+            [matrix[0][1], matrix[1][1], matrix[2][1]],
+            [matrix[0][2], matrix[1][2], matrix[2][2]]
+        ]
+    }
 }
 
-func transformPointByRotationMatrix(point: (Double, Double, Double), R: [[Double]]) -> (Double, Double, Double) {
-    let (x, y, z) = point
-    let x_new = R[0][0] * x + R[0][1] * y + R[0][2] * z
-    let y_new = R[1][0] * x + R[1][1] * y + R[1][2] * z
-    let z_new = R[2][0] * x + R[2][1] * y + R[2][2] * z
-    return (x_new, y_new, z_new)
-}
-
-func addVectors(vector1: [Double], vector2: [Double]) -> [Double] {
-    return zip(vector1, vector2).map(+)
-}
-
-func transpose3x3(matrix: [[Double]]) -> [[Double]] {
-    return [
-        [matrix[0][0], matrix[1][0], matrix[2][0]],
-        [matrix[0][1], matrix[1][1], matrix[2][1]],
-        [matrix[0][2], matrix[1][2], matrix[2][2]]
-    ]
-}

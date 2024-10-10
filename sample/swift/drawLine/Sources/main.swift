@@ -5,13 +5,13 @@ if #available(iOS 15.0, macOS 12.0, *) {
         do {
             // Edit code here.
             let roomName = "1000"
-            let buildBox = BuildBox(roomName: roomName)
-            buildBox.setBoxSize(0.5)
-            buildBox.setBuildInterval(0.01)
+            let vox = VoxelammingSwift(roomName: roomName)
+            vox.setBoxSize(0.5)
+            vox.setBuildInterval(0.01)
 
-            buildBox.drawLine(0, 0, 0, 5, 10, 20, r: 1, g: 0, b: 0, alpha: 1)
+            vox.drawLine(0, 0, 0, 5, 10, 20, r: 1, g: 0, b: 0, alpha: 1)
 
-            try await buildBox.sendData()
+            try await vox.sendData()
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

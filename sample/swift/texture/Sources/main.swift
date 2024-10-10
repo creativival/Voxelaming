@@ -6,35 +6,35 @@ if #available(iOS 15.0, macOS 12.0, *) {
             // Edit code here.
             let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
             let roomName = "1000"
-            let buildBox = BuildBox(roomName: roomName)
+            let vox = VoxelammingSwift(roomName: roomName)
 
-            buildBox.setBoxSize(1)
-            buildBox.setBuildInterval(0.01)
+            vox.setBoxSize(1)
+            vox.setBuildInterval(0.01)
             for (i, texture) in textureNames.enumerated() {
-               buildBox.createBox(0, Double(textureNames.count - i - 1), 0, texture: texture)
+               vox.createBox(0, Double(textureNames.count - i - 1), 0, texture: texture)
             }
-            try await buildBox.sendData()
-            buildBox.clearData()
-            sleep(1)
+            try await vox.sendData()
+            vox.clearData()
+            usleep(500_000) // 0.5秒待機
 
-            buildBox.setBoxSize(1)
-            buildBox.setBuildInterval(0.01)
-            buildBox.changeShape("sphere")
+            vox.setBoxSize(1)
+            vox.setBuildInterval(0.01)
+            vox.changeShape("sphere")
             for (i, texture) in textureNames.enumerated() {
-               buildBox.createBox(1, Double(textureNames.count - i - 1), 0, texture: texture)
+               vox.createBox(1, Double(textureNames.count - i - 1), 0, texture: texture)
             }
-            try await buildBox.sendData()
-            buildBox.clearData()
-            sleep(1)
+            try await vox.sendData()
+            vox.clearData()
+            usleep(500_000) // 0.5秒待機
 
-            buildBox.setBoxSize(1)
-            buildBox.setBuildInterval(0.01)
-            buildBox.changeShape("plane")
+            vox.setBoxSize(1)
+            vox.setBuildInterval(0.01)
+            vox.changeShape("plane")
             for (i, texture) in textureNames.enumerated() {
-               buildBox.createBox(2, Double(textureNames.count - i - 1), 0, texture: texture)
+               vox.createBox(2, Double(textureNames.count - i - 1), 0, texture: texture)
             }
-            try await buildBox.sendData()
-            buildBox.clearData()
+            try await vox.sendData()
+            vox.clearData()
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

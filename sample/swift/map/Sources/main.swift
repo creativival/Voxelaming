@@ -18,10 +18,10 @@ if #available(iOS 15.0, macOS 12.0, *) {
         //     let skip = 1  // high power device
             let skip = 2  // normal
         //    let skip = 4  // low power device
-            let buildBox = BuildBox(roomName: roomName)
-            buildBox.setBoxSize(0.1)
-            buildBox.setBuildInterval(0.001)
-            buildBox.setCommand("liteRender")
+            let vox = VoxelammingSwift(roomName: roomName)
+            vox.setBoxSize(1)
+            vox.setBuildInterval(0.001)
+            vox.setCommand("liteRender")
 
             for j in 0..<(rowNum / skip) {
                 for i in 0..<(columnNum / skip) {
@@ -32,12 +32,12 @@ if #available(iOS 15.0, macOS 12.0, *) {
                     let (r, g, b) = getBoxColor(height: y, maxHeight: maxHeight, highColor: highColor, lowColor: lowColor)
 
                     if y > 0 {
-                        buildBox.createBox(Double(x), y, Double(z), r: r, g: g, b: b, alpha: 1.0)
+                        vox.createBox(Double(x), y, Double(z), r: r, g: g, b: b, alpha: 1.0)
                     }
                 }
             }
 
-            try await buildBox.sendData()
+            try await vox.sendData()
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

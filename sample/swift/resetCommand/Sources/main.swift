@@ -16,7 +16,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 ["model": constants.frog3, "position": [0, 0, 0, 0, 0, 0]],
                 ["model": constants.frog2, "position": [0, 0, 0, 0, 0, 0]]
             ]
-            let buildBox = BuildBox(roomName: roomName)
+            let vox = VoxelammingSwift(roomName: roomName)
 
             for _ in 0..<3 {
                 for setting in animationSettings {
@@ -26,28 +26,28 @@ if #available(iOS 15.0, macOS 12.0, *) {
                     }
 
                     for b in getBoxesFromPly(plyFile) {
-                        buildBox.createBox(b.x, b.y, b.z, r: b.r, g: b.g, b: b.b, alpha: b.alpha)
+                        vox.createBox(b.x, b.y, b.z, r: b.r, g: b.g, b: b.b, alpha: b.alpha)
                     }
 
-                    buildBox.setBoxSize(0.5)
-                    buildBox.setBuildInterval(0)
+                    vox.setBoxSize(0.5)
+                    vox.setBuildInterval(0)
                     let x = Double(position[0])
                     let y = Double(position[1])
                     let z = Double(position[2])
                     let pitch = Double(position[3])
                     let yaw = Double(position[4])
                     let roll = Double(position[5])
-                    buildBox.transform(x, y, z, pitch: pitch, yaw: yaw , roll: roll)
-                    try await buildBox.sendData()
-                    sleep(1)
+                    vox.transform(x, y, z, pitch: pitch, yaw: yaw , roll: roll)
+                    try await vox.sendData()
+                    usleep(500_000) // 0.5秒待機
 
-                    buildBox.clearData()
-                    buildBox.setCommand("reset")
-                    try await buildBox.sendData()
-                    sleep(1)
+                    vox.clearData()
+                    vox.setCommand("reset")
+                    try await vox.sendData()
+                    usleep(500_000) // 0.5秒待機
 
-                    buildBox.clearData()
-                    sleep(1)
+                    vox.clearData()
+                    usleep(500_000) // 0.5秒待機
                 }
             }
             // Edit code here.

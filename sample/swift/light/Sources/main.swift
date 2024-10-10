@@ -5,10 +5,10 @@ if #available(iOS 15.0, macOS 12.0, *) {
         do {
             // Edit code here.
             let roomName = "1000"
-            let buildBox = BuildBox(roomName: roomName)
-            buildBox.setCommand("axis")
-            buildBox.setBoxSize(1)
-            buildBox.setBuildInterval(0.01)
+            let vox = VoxelammingSwift(roomName: roomName)
+            vox.setCommand("axis")
+            vox.setBoxSize(1)
+            vox.setBuildInterval(0.01)
 
             let colors: [[Double]] = [
               [0, 0, 0],
@@ -29,14 +29,14 @@ if #available(iOS 15.0, macOS 12.0, *) {
             ]
 
             for (i, color) in colors.enumerated() {
-              buildBox.createBox(0, Double(i), 0, r: color[0], g: color[1], b: color[2], alpha: 1)
+              vox.createBox(0, Double(i), 0, r: color[0], g: color[1], b: color[2], alpha: 1)
             }
 
-            buildBox.setLight(1, 1, 0, r: 1, g: 0, b: 0, alpha: 1, intensity: 20000, interval: 2, lightType: "directional")
-            buildBox.setLight(0, 1, 1, r: 0, g: 1, b: 0, alpha: 1, intensity: 20000, interval: 3, lightType: "spot")
-            buildBox.setLight(-1, 1, 0, r: 0, g: 0, b: 1, alpha: 1, intensity: 20000, interval: 5, lightType: "point")
+            vox.setLight(1, 1, 0, r: 1, g: 0, b: 0, alpha: 1, intensity: 20000, interval: 2, lightType: "directional")
+            vox.setLight(0, 1, 1, r: 0, g: 1, b: 0, alpha: 1, intensity: 20000, interval: 3, lightType: "spot")
+            vox.setLight(-1, 1, 0, r: 0, g: 0, b: 1, alpha: 1, intensity: 20000, interval: 5, lightType: "point")
 
-            try await buildBox.sendData(name: "light")
+            try await vox.sendData(name: "light")
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

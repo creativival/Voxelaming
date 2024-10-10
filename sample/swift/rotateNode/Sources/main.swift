@@ -11,7 +11,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 [0, 30, 0],
                 [0, 0, 30]
             ]
-            let vox = Voxelamming(roomName: roomName)
+            let vox = VoxelammingSwift(roomName: roomName)
             vox.setBoxSize(0.5)
             vox.setBuildInterval(0.01)
 
@@ -33,7 +33,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
               let roll = Double(rotation[2])
               vox.transform(0, 0, 0, pitch: pitch, yaw: yaw , roll: roll)
               try await vox.sendData()
-              usleep(100_000) // 0.1秒待機
+              usleep(500_000) // 0.5秒待機
             }
             // Edit code here.
         } catch {

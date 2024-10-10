@@ -5,10 +5,10 @@ if #available(iOS 15.0, macOS 12.0, *) {
         do {
             // Edit code here.
             let roomName = "1000"
-            let buildBox = BuildBox(roomName: roomName)
-            buildBox.setBoxSize(0.5)
-            buildBox.setBuildInterval(0.01)
-            let t = Turtle(buildBox: buildBox)
+            let vox = VoxelammingSwift(roomName: roomName)
+            vox.setBoxSize(0.5)
+            vox.setBuildInterval(0.01)
+            let t = Turtle(vox: vox)
 
             t.setColor(1, 0, 0, 1)
 
@@ -34,7 +34,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             t.forward(10)
             t.left(90)
 
-            try await buildBox.sendData(name: "turtle")
+            try await vox.sendData(name: "turtle")
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

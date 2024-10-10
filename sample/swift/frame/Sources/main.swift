@@ -178,18 +178,18 @@ if #available(iOS 15.0, macOS 12.0, *) {
             ]
 
             let roomName = "1000"
-            let buildBox = BuildBox(roomName: roomName)
-            buildBox.setBoxSize(0.15)
-        //     buildBox.setBuildInterval(0.01)
-            buildBox.setCommand("float")
-            buildBox.setFrameFPS(2)
-            buildBox.setFrameRepeats(10)
+            let vox = VoxelammingSwift(roomName: roomName)
+            vox.setBoxSize(0.15)
+        //     vox.setBuildInterval(0.01)
+            vox.setCommand("float")
+            vox.setFrameFPS(2)
+            vox.setFrameRepeats(10)
 
             let angles = [30, 15, 0, -15, -30, -15, 0, 15]
 
             for angle in angles {
-                buildBox.frameIn()
-                buildBox.transform(0, 100, 0, pitch: 30, yaw: 0, roll: 0)
+                vox.frameIn()
+                vox.transform(0, 100, 0, pitch: 30, yaw: 0, roll: 0)
 
                 for (j, row) in butterflyList.enumerated() {
                     let color = rainbowColors[j / 10]
@@ -202,15 +202,15 @@ if #available(iOS 15.0, macOS 12.0, *) {
                             let r = Double(color[0]) / 255.0
                             let g = Double(color[1]) / 255.0
                             let b = Double(color[2]) / 255.0
-                            buildBox.createBox(x, y, z, r: r, g: g, b: b)
-                            buildBox.createBox(-x, y, z, r: r, g: g, b: b)
+                            vox.createBox(x, y, z, r: r, g: g, b: b)
+                            vox.createBox(-x, y, z, r: r, g: g, b: b)
                         }
                     }
                 }
-                buildBox.frameOut()
+                vox.frameOut()
             }
 
-            try await buildBox.sendData(name: "butterfly")
+            try await vox.sendData(name: "butterfly")
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

@@ -1,7 +1,7 @@
 import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
-class Voxelamming: NSObject {
+class VoxelammingSwift: NSObject {
     let url = URL(string: "wss://websocket.voxelamming.com")!
     var webSocketTask: URLSessionWebSocketTask?
     let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
@@ -40,7 +40,7 @@ class Voxelamming: NSObject {
     var idleTimer: DispatchSourceTimer?
     let idleTimeout: TimeInterval = 3.0 // 3秒間アイドル状態が続いたら接続を閉じる
 
-    init(roomName: String) {
+    init(roomName: String = "") {
         self.roomName = roomName
         super.init()
     }

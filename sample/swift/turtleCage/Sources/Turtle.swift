@@ -2,7 +2,7 @@ import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
 class Turtle {
-    var buildBox: BuildBox
+    var vox: VoxelammingSwift
     var x: Double
     var y: Double
     var z: Double
@@ -12,8 +12,8 @@ class Turtle {
     var color: [Double]
     var size: Double
 
-    init(buildBox: BuildBox) {
-        self.buildBox = buildBox
+    init(vox: VoxelammingSwift) {
+        self.vox = vox
         self.x = 0
         self.y = 0
         self.z = 0
@@ -41,7 +41,7 @@ class Turtle {
         let roundedZ = round(z * 1000) / 1000
 
         if drawable {
-            buildBox.drawLine(self.x, self.y, self.z, roundedX, roundedY, roundedZ, r: r, g: g, b: b, alpha: alpha)
+            vox.drawLine(self.x, self.y, self.z, roundedX, roundedY, roundedZ, r: r, g: g, b: b, alpha: alpha)
         }
 
         self.x = roundedX

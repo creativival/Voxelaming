@@ -5,7 +5,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
         do {
             // Edit code here.
             let roomName = "1000"
-            let vox = Voxelamming(roomName: roomName)
+            let vox = VoxelammingSwift(roomName: roomName)
             vox.setBoxSize(0.5)
             vox.setBuildInterval(0.01)
 

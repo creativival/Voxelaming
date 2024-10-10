@@ -4,21 +4,21 @@ if #available(iOS 15.0, macOS 12.0, *) {
     Task {
             // Edit code here.
         let roomName = "1000"
-        let buildBox = BuildBox(roomName: roomName)
-        buildBox.setBoxSize(0.3)
-        buildBox.setBuildInterval(0.01)
+        let vox = VoxelammingSwift(roomName: roomName)
+        vox.setBoxSize(0.3)
+        vox.setBuildInterval(0.01)
 
         do {
             for i in 0..<10 {
-                buildBox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1, alpha: 1)
-                buildBox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0, alpha: 1)
-                buildBox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0, alpha: 1)
-                buildBox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1, alpha: 1)
+                vox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1, alpha: 1)
+                vox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0, alpha: 1)
+                vox.createBox(1, Double(i), 0, r: 1, g: 1, b: 0, alpha: 1)
+                vox.createBox(2, Double(i), 0, r: 0, g: 1, b: 1, alpha: 1)
             }
 
             for i in 0..<5 {
-                buildBox.removeBox(0, Double(i * 2 + 1), 0)
-                buildBox.removeBox(1, Double(i * 2), 0)
+                vox.removeBox(0, Double(i * 2 + 1), 0)
+                vox.removeBox(1, Double(i * 2), 0)
             }
 
             let nodePositions: [[Double]] = [
@@ -36,14 +36,14 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 let y = position[1]
                 let z = position[2]
 
-                buildBox.transform(x, y, z, pitch: 0, yaw: 0, roll: 0)
-                try await buildBox.sendData()
-                sleep(1)
+                vox.transform(x, y, z, pitch: 0, yaw: 0, roll: 0)
+                try await vox.sendData()
+                usleep(500_000) // 0.5秒待機
             }
 
-            buildBox.clearData()
-            buildBox.animateGlobal(0, 0, 0, pitch: 0, yaw: 180, roll: 0, scale: 1, interval: 100)
-            try await buildBox.sendData()
+            vox.clearData()
+            vox.animateGlobal(0, 0, 0, pitch: 0, yaw: 180, roll: 0, scale: 1, interval: 100)
+            try await vox.sendData()
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")
