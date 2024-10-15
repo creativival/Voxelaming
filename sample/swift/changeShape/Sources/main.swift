@@ -23,13 +23,13 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
             try await vox.sendData()
 
-            usleep(500_000) // 0.5秒待機
+            vox.sleepSecond(0.5) // 0.5秒待機
 
             vox.transform(10, 0, 0, pitch: 0, yaw: 0, roll: 0)
             vox.changeShape("sphere")
             try await vox.sendData()
 
-            usleep(500_000) // 0.5秒待機
+            vox.sleepSecond(0.5) // 0.5秒待機
 
             vox.transform(20, 0, 0, pitch: 0, yaw: 0, roll: 0)
             vox.changeShape("plane")

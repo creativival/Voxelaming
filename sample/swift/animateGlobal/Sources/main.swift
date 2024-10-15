@@ -38,7 +38,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
                 vox.transform(x, y, z, pitch: 0, yaw: 0, roll: 0)
                 try await vox.sendData()
-                usleep(500_000) // 0.5秒待機
+                vox.sleepSecond(0.5) // 0.5秒待機
             }
 
             vox.clearData()

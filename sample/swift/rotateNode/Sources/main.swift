@@ -33,7 +33,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
               let roll = Double(rotation[2])
               vox.transform(0, 0, 0, pitch: pitch, yaw: yaw , roll: roll)
               try await vox.sendData()
-              usleep(500_000) // 0.5秒待機
+              vox.sleepSecond(0.5) // 0.5秒待機
             }
             // Edit code here.
         } catch {

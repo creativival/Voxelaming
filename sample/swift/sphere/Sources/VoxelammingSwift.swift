@@ -1,7 +1,10 @@
+// The Swift Programming Language
+// https://docs.swift.org/swift-book
+
 import Foundation
 
 @available(iOS 15.0, macOS 12.0, *)
-class VoxelammingSwift: NSObject {
+public class VoxelammingSwift: NSObject {
     let url = URL(string: "wss://websocket.voxelamming.com")!
     var webSocketTask: URLSessionWebSocketTask?
     let textureNames = ["grass", "stone", "dirt", "planks", "bricks"]
@@ -10,46 +13,51 @@ class VoxelammingSwift: NSObject {
     var roomName = ""
     var isAllowedMatrix: Int = 0
     var savedMatrices: [[Double]] = []
-    var nodeTransform: [Double] = [0, 0, 0, 0, 0, 0]
     var matrixTransform: [Double] = [0, 0, 0, 0, 0, 0]
-    var frameTransforms: [[Double]] = []
-    var globalAnimation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
-    var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
-    var boxes = [[Double]]()
-    var frames = [[Double]]()
-    var sentences = [[String]]()
-    var lights = [[Double]]()
-    var commands = [String]()
-    var models = [[String]]()
-    var modelMoves = [[String]]()
-    var sprites = [[String]]()
-    var spriteMoves = [[String]]()
-    var gameScore = [[Double]]()
-    var gameScreen = [[Double]]() // width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
-    var size: Double = 1.0
-    var shape: String = "box"
-    var isMetallic: Int = 0
-    var roughness: Double = 0.5
-    var isAllowedFloat: Int = 0
-    var buildInterval = 0.01
     var isFraming = false
     var frameId: Int = 0
-    var rotationStyles: [String: Any] = [:] // 回転の制御（送信しない）
-
-    // 追加部分: アイドルタイマーとタイムアウト設定
+    var rotationStyles: [String: String] = [:] // 回転の制御（送信しない）
+    // アイドルタイマーとタイムアウト設定
     var idleTimer: DispatchSourceTimer?
     let idleTimeout: TimeInterval = 3.0 // 3秒間アイドル状態が続いたら接続を閉じる
+    // 送信データ
+    public var nodeTransform: [Double] = [0, 0, 0, 0, 0, 0]
+    public var frameTransforms: [[Double]] = []
+    public var globalAnimation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
+    public var animation: [Double] = [0, 0, 0, 0, 0, 0, 1, 0]
+    public var boxes = [[Double]]()
+    public var frames = [[Double]]()
+    public var sentences = [[String]]()
+    public var lights = [[Double]]()
+    public var commands = [String]()
+    public var models = [[String]]()
+    public var modelMoves = [[String]]()
+    public var sprites = [[String]]()
+    public var spriteMoves = [[String]]()
+    public var gameScore = [Double]()
+    public var gameScreen = [Double]() // width, height, angle=90, red=1, green=0, blue=1, alpha=0.3
+    public var size: Double = 1.0
+    public var shape: String = "box"
+    public var buildInterval = 0.01
+    public var isMetallic: Int = 0
+    public var roughness: Double = 0.5
+    public var isAllowedFloat: Int = 0
+    public var name: String = "" // アプリ内ののコードエディタ用
+    public var date: String = "" // アプリ内ののコードエディタ用
 
-    init(roomName: String = "") {
+    public init(roomName: String = "") {
         self.roomName = roomName
         super.init()
     }
 
-    func clearData() {
+    public func clearData() {
         isAllowedMatrix = 0
         savedMatrices = []
-        nodeTransform = [0, 0, 0, 0, 0, 0]
         matrixTransform = [0, 0, 0, 0, 0, 0]
+        isFraming = false
+        frameId = 0
+        rotationStyles = [:]
+        nodeTransform = [0, 0, 0, 0, 0, 0]
         frameTransforms = []
         globalAnimation = [0, 0, 0, 0, 0, 0, 1, 0]
         animation = [0, 0, 0, 0, 0, 0, 1, 0]
@@ -64,43 +72,42 @@ class VoxelammingSwift: NSObject {
         spriteMoves = []
         size = 1.0
         shape = "box"
+        buildInterval = 0.01
         isMetallic = 0
         roughness = 0.5
         isAllowedFloat = 0
-        buildInterval = 0.01
-        isFraming = false
-        frameId = 0
-        rotationStyles = [:]
+        name = ""
+        date = ""
     }
 
-    func setFrameFPS(_ fps: Int = 2) {
+    public func setFrameFPS(_ fps: Int = 2) {
         commands.append("fps \(fps)")
     }
 
-    func setFrameRepeats(_ repeats: Int = 10) {
+    public func setFrameRepeats(_ repeats: Int = 10) {
         commands.append("repeats \(repeats)")
     }
 
-    func frameIn() {
+    public func frameIn() {
         isFraming = true
     }
 
-    func frameOut() {
+    public func frameOut() {
         isFraming = false
         frameId += 1
     }
 
-    func pushMatrix() {
+    public func pushMatrix() {
         self.isAllowedMatrix += 1
         self.savedMatrices.append(matrixTransform)
     }
 
-    func popMatrix() {
+    public func popMatrix() {
         self.isAllowedMatrix -= 1
         matrixTransform = self.savedMatrices.popLast()!
     }
 
-    func transform(_ x: Double, _ y: Double, _ z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
+    public func transform(_ x: Double, _ y: Double, _ z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0) {
         if self.isAllowedMatrix > 0 {
             // Retrieve the saved matrix
             let matrix = self.savedMatrices.last!
@@ -153,7 +160,7 @@ class VoxelammingSwift: NSObject {
         }
     }
 
-    func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String = "") {
+    public func createBox(_ x: Double, _ y: Double, _  z: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1, texture: String = "") {
         var x = x
         var y = y
         var z = z
@@ -209,7 +216,7 @@ class VoxelammingSwift: NSObject {
         }
     }
 
-    func removeBox(_ x: Double, _ y: Double, _ z: Double) {
+    public func removeBox(_ x: Double, _ y: Double, _ z: Double) {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -226,7 +233,7 @@ class VoxelammingSwift: NSObject {
         }
     }
 
-    func animateGlobal(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+    public func animateGlobal(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -234,7 +241,7 @@ class VoxelammingSwift: NSObject {
         globalAnimation = [roundX, roundY, roundZ, pitch, yaw, roll, scale, interval]
     }
 
-    func animate(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
+    public func animate(_ x: Double, _ y: Double, _  z: Double, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, interval: Double = 10) {
         let roundNumList = roundTwoDecimals(numList: [x, y, z, pitch, yaw, roll, scale, interval])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -247,15 +254,15 @@ class VoxelammingSwift: NSObject {
         animation = [roundX, roundY, roundZ, roundPitch, roundYaw, roundRoll, roundScale, roundInterval]
     }
 
-    func setBoxSize(_ boxSize: Double) {
+    public func setBoxSize(_ boxSize: Double) {
         size = boxSize
     }
 
-    func setBuildInterval(_ interval: Double) {
+    public func setBuildInterval(_ interval: Double) {
         buildInterval = interval
     }
 
-    func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, fontSize: Int = 16, isFixedWidth: Bool = false) {
+    public func writeSentence(_ string_sentence: String, _ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, fontSize: Int = 16, isFixedWidth: Bool = false) {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -280,7 +287,7 @@ class VoxelammingSwift: NSObject {
         sentences.append([string_sentence, stringX, stringY, stringZ, stringR, stringG, stringB, stringAlpha, stringFontSize, stringIsFixedWidth])
     }
 
-    func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1, lightType: String = "point") {
+    public func setLight(_ x: Double, _ y: Double, _  z: Double, r: Double = 0, g: Double = 0, b: Double = 0, alpha: Double = 1, intensity: Double = 1000, interval: Double = 1, lightType: String = "point") {
         let roundNumList = roundNumbers(numList: [x, y, z])
         let roundX = roundNumList[0]
         let roundY = roundNumList[1]
@@ -304,7 +311,7 @@ class VoxelammingSwift: NSObject {
         lights.append([roundX, roundY, roundZ, roundR, roundG, roundB, roundAlpha, intensity, interval, doubleLightType])
     }
 
-    func setCommand(_ command: String) {
+    public func setCommand(_ command: String) {
         commands.append(command)
 
         if command == "float" {
@@ -312,7 +319,7 @@ class VoxelammingSwift: NSObject {
         }
     }
 
-    func drawLine(_ x1: Double, _ y1: Double, _ z1: Double, _ x2: Double, _ y2: Double, _ z2: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
+    public func drawLine(_ x1: Double, _ y1: Double, _ z1: Double, _ x2: Double, _ y2: Double, _ z2: Double, r: Double = 1, g: Double = 1, b: Double = 1, alpha: Double = 1) {
         let x1 = floor(x1)
         let y1 = floor(y1)
         let z1 = floor(z1)
@@ -373,7 +380,7 @@ class VoxelammingSwift: NSObject {
         }
     }
 
-    func createModel(modelName: String, x: Double = 0, y: Double = 0, z: Double = 0, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, entityName: String = "") {
+    public func createModel(modelName: String, x: Double = 0, y: Double = 0, z: Double = 0, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1, entityName: String = "") {
         if modelNames.contains(modelName) {
             print("Find model name: \(modelName)")
             let roundedValues = roundTwoDecimals(numList: [x, y, z, pitch, yaw, roll, scale])
@@ -386,7 +393,7 @@ class VoxelammingSwift: NSObject {
         }
     }
 
-    func moveModel(entityName: String, x: Double = 0, y: Double = 0, z: Double = 0, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1) {
+    public func moveModel(entityName: String, x: Double = 0, y: Double = 0, z: Double = 0, pitch: Double = 0, yaw: Double = 0, roll: Double = 0, scale: Double = 1) {
         let roundedValues = roundTwoDecimals(numList: [x, y, z, pitch, yaw, roll, scale])
         let stringValues = roundedValues.map { String($0) }
 
@@ -394,54 +401,147 @@ class VoxelammingSwift: NSObject {
         modelMoves.append(moveEntry)
     }
 
-    func changeShape(_ shape: String) {
+    public func changeShape(_ shape: String) {
         self.shape = shape
     }
 
-    func changeMaterial(isMetallic: Bool = false, roughness: Double = 0.5) {
+    public func changeMaterial(isMetallic: Bool = false, roughness: Double = 0.5) {
         self.isMetallic = isMetallic ? 1 : 0
         self.roughness = roughness
     }
 
+    // sleep seconds function
+    public func sleepSecond(_ seconds: Double) {
+        let sec = seconds * Double(1_000_000)
+        usleep(useconds_t(sec))
+    }
 
-    // 接続を確立または再利用するための関数
-    func ensureConnection() async throws {
-        if webSocketTask == nil || webSocketTask?.state != .running || webSocketTask?.state == .completed || webSocketTask?.state == .canceling {
-            // 新しい接続を確立
-            webSocketTask = URLSession.shared.webSocketTask(with: url)
-            webSocketTask?.resume()
-            // 部屋名を送信
-            if let webSocketTask = webSocketTask {
-                try await webSocketTask.send(.string(roomName))
-                print("Joined room: \(roomName)")
+    // Game API
+
+    public func setGameScreen(width: Double, height: Double, angle: Double = 90, red: Double = 1, green: Double = 1, blue: Double = 0, alpha: Double = 0.5) {
+        gameScreen = [width, height, angle, red, green, blue, alpha]
+    }
+
+    public func setGameScore(score: Double, x: Double = 0, y: Double = 0) {
+        gameScore = [score, x, y]
+    }
+
+    public func sendGameOver() {
+        commands.append("gameOver")
+    }
+
+    public func sendGameClear() {
+        commands.append("gameClear")
+    }
+
+    public func setRotationStyle(spriteName: String, rotationStyle: String = "all around") {
+        rotationStyles[spriteName] = rotationStyle
+    }
+
+    // Create sprite template (sprite is not placed)
+    public func createSpriteTemplate(spriteName: String, colorList: [String]) {
+        sprites.append([spriteName] + colorList)
+    }
+
+    // Display multiple sprites using the template
+    public func displaySpriteTemplate(spriteName: String, x: Double, y: Double, direction: Double = 0, scale: Double = 1) {
+        // Round x, y, and direction
+        let roundedValues = roundNumbers(numList: [x, y, direction])
+        let stringValues = roundedValues.map { String($0) }
+        let roundedX = roundedValues[0]
+        let roundedY = roundedValues[1]
+        let roundedDirection = roundedValues[2]
+        var directionStr = stringValues[2]
+
+        // Get rotation style
+        if let rotationStyle = rotationStyles[spriteName] {
+            switch rotationStyle {
+            case "left-right":
+                let directionMod = roundedDirection.truncatingRemainder(dividingBy: 360)
+                if directionMod > 90 && directionMod < 270 {
+                    directionStr = "-180"
+                } else {
+                    directionStr = "0"
+                }
+            case "don't rotate":
+                directionStr = "0"
+            default:
+                break
             }
         }
-        // アイドルタイマーをリセット
-        resetIdleTimer()
-    }
 
-    // アイドルタイマーをリセットする関数
-    func resetIdleTimer() {
-        idleTimer?.cancel()
-        idleTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
-        idleTimer?.schedule(deadline: .now() + idleTimeout)
-        idleTimer?.setEventHandler { [weak self] in
-            self?.closeConnection()
+        // Find the specified sprite name in spriteMoves
+        if let index = spriteMoves.firstIndex(where: { $0[0] == spriteName }) {
+            spriteMoves[index] += [String(roundedX), String(roundedY), directionStr, String(scale)]
+        } else {
+            spriteMoves.append([spriteName, String(roundedX), String(roundedY), directionStr, String(scale)])
         }
-        idleTimer?.resume()
     }
 
-    // 接続を閉じる関数
-    func closeConnection() {
-        webSocketTask?.cancel(with: .goingAway, reason: nil)
-        webSocketTask = nil
-        idleTimer?.cancel()
-        idleTimer = nil
-        print("WebSocket connection closed due to inactivity.")
+    // Create a regular sprite
+    public func createSprite(spriteName: String, colorList: [String], x: Double = 0, y: Double = 0, direction: Double = 0, scale: Double = 1, visible: Bool = true) {
+        // (Step 1) Add the sprite template data to the array (it will not be displayed yet)
+        createSpriteTemplate(spriteName: spriteName, colorList: colorList)
+
+        // (Step 2) If the sprite should be visible, add the sprite move data to the array
+        if visible || x != 0 || y != 0 || direction != 0 || scale != 1 {
+            let roundedValues = roundNumbers(numList: [x, y, direction])
+            let roundedX = roundedValues[0]
+            let roundedY = roundedValues[1]
+            let roundedDirection = roundedValues[2]
+            spriteMoves.append([spriteName, String(roundedX), String(roundedY), String(roundedDirection), String(scale)])
+        }
+    }
+
+    // Move a regular sprite
+    public func moveSprite(spriteName: String, x: Double, y: Double, direction: Double = 0, scale: Double = 1, visible: Bool = true) {
+        if visible {
+            displaySpriteTemplate(spriteName: spriteName, x: x, y: y, direction: direction, scale: scale)
+        }
+    }
+
+    // Move a sprite clone
+    public func moveSpriteClone(spriteName: String, x: Double, y: Double, direction: Double = 0, scale: Double = 1) {
+        displaySpriteTemplate(spriteName: spriteName, x: x, y: y, direction: direction, scale: scale)
+    }
+
+    // Display a dot (bullet)
+    public func displayDot(x: Double, y: Double, direction: Double = 0, colorId: Int = 10, width: Int = 1, height: Int = 1) {
+        let templateName = "dot_\(colorId)_\(width)_\(height)"
+        displaySpriteTemplate(spriteName: templateName, x: x, y: y, direction: direction, scale: 1)
+    }
+
+    // Display text
+    public func displayText(text: String, x: Double, y: Double, direction: Double = 0, scale: Double = 1, colorId: Int = 7, isVertical: Bool = false, align: String = "") {
+        // Determine text format based on alignment
+        var textFormat = ""
+        if align.lowercased().contains("top") {
+            textFormat += "t"
+        } else if align.lowercased().contains("bottom") {
+            textFormat += "b"
+        }
+        if align.lowercased().contains("left") {
+            textFormat += "l"
+        } else if align.lowercased().contains("right") {
+            textFormat += "r"
+        }
+
+        textFormat += isVertical ? "v" : "h"
+        let templateName = "text_\(text)_\(colorId)_\(textFormat)"
+        displaySpriteTemplate(spriteName: templateName, x: x, y: y, direction: direction, scale: scale)
+    }
+
+    // アプリ内ののコードエディタからデータ送信するときに使用する
+    public func setDataName(name: String) {
+        let date = Date()
+        let dateFormatter = ISO8601DateFormatter()
+        let dateString = dateFormatter.string(from: date)
+        self.name = name
+        self.date = dateString
     }
 
     // データを送信する関数
-    func sendData(name: String = "") async throws {
+    public func sendData(name: String = "") async throws {
         try await ensureConnection()
 
         let date = Date()
@@ -488,6 +588,42 @@ class VoxelammingSwift: NSObject {
 
         // アイドルタイマーをリセット
         resetIdleTimer()
+    }
+
+    // 接続を確立または再利用するための関数
+    private func ensureConnection() async throws {
+        if webSocketTask == nil || webSocketTask?.state != .running || webSocketTask?.state == .completed || webSocketTask?.state == .canceling {
+            // 新しい接続を確立
+            webSocketTask = URLSession.shared.webSocketTask(with: url)
+            webSocketTask?.resume()
+            // 部屋名を送信
+            if let webSocketTask = webSocketTask {
+                try await webSocketTask.send(.string(roomName))
+                print("Joined room: \(roomName)")
+            }
+        }
+        // アイドルタイマーをリセット
+        resetIdleTimer()
+    }
+
+    // アイドルタイマーをリセットする関数
+    private func resetIdleTimer() {
+        idleTimer?.cancel()
+        idleTimer = DispatchSource.makeTimerSource(queue: DispatchQueue.main)
+        idleTimer?.schedule(deadline: .now() + idleTimeout)
+        idleTimer?.setEventHandler { [weak self] in
+            self?.closeConnection()
+        }
+        idleTimer?.resume()
+    }
+
+    // 接続を閉じる関数
+    private func closeConnection() {
+        webSocketTask?.cancel(with: .goingAway, reason: nil)
+        webSocketTask = nil
+        idleTimer?.cancel()
+        idleTimer = nil
+        print("WebSocket connection closed due to inactivity.")
     }
 
     private func roundNumbers(numList: [Double]) -> [Double] {

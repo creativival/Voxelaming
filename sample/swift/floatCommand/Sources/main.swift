@@ -28,7 +28,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
                 }
             }
 
-            try await vox.sendData()
+            try await vox.sendData(name: "floatCommand")
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

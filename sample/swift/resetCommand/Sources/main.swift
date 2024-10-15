@@ -39,15 +39,15 @@ if #available(iOS 15.0, macOS 12.0, *) {
                     let roll = Double(position[5])
                     vox.transform(x, y, z, pitch: pitch, yaw: yaw , roll: roll)
                     try await vox.sendData()
-                    usleep(500_000) // 0.5秒待機
+                    vox.sleepSecond(0.5) // 0.5秒待機
 
                     vox.clearData()
                     vox.setCommand("reset")
                     try await vox.sendData()
-                    usleep(500_000) // 0.5秒待機
+                    vox.sleepSecond(0.5) // 0.5秒待機
 
                     vox.clearData()
-                    usleep(500_000) // 0.5秒待機
+                    vox.sleepSecond(0.5) // 0.5秒待機
                 }
             }
             // Edit code here.
