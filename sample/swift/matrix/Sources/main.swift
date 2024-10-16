@@ -17,7 +17,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
             drawThreeBranches(count: repeatCount, branchLength: initialLength)
 
-            try await vox.sendData()
+            try await vox.sendData(name: "fractalTree")
 
             @Sendable func drawThreeBranches(count: Int, branchLength: Double) {
                 let count = count - 1
