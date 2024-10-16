@@ -24,7 +24,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             for i in 0..<5 {
               vox.transform(Double(-25 + i * 10), 0, 0, pitch: 0, yaw: 0 , roll: 0)
               try await vox.sendData()
-              vox.sleepSecond(0.5) // 0.5秒待機
+              try await vox.sleepSeconds(0.5) // 0.5秒待機
             }
             // Edit code here.
         } catch {

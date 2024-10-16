@@ -15,9 +15,9 @@ if #available(iOS 15.0, macOS 12.0, *) {
             let mapData = getMapDataFromCSV(csvFile: csvFile, heightScale: heightScale)
             let boxes = mapData["boxes"] as! [[Double]] // Assuming the data structure based on given Python code
             let maxHeight = mapData["maxHeight"] as! Double
-        //     let skip = 1  // high power device
+            // let skip = 1  // high power device
             let skip = 2  // normal
-        //    let skip = 4  // low power device
+            // let skip = 4  // low power device
             let vox = VoxelammingSwift(roomName: roomName)
             vox.setBoxSize(1)
             vox.setBuildInterval(0.001)

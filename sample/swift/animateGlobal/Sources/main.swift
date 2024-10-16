@@ -2,13 +2,13 @@ import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
     Task {
-            // Edit code here.
-        let roomName = "1000"
-        let vox = VoxelammingSwift(roomName: roomName)
-        vox.setBoxSize(0.3)
-        vox.setBuildInterval(0.01)
-
         do {
+            // Edit code here.
+            let roomName = "1000"
+            let vox = VoxelammingSwift(roomName: roomName)
+            vox.setBoxSize(0.3)
+            vox.setBuildInterval(0.01)
+
             for i in 0..<10 {
                 vox.createBox(-1, Double(i), 0, r: 0, g: 1, b: 1, alpha: 1)
                 vox.createBox(0, Double(i), 0, r: 1, g: 0, b: 0, alpha: 1)
@@ -38,7 +38,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
                 vox.transform(x, y, z, pitch: 0, yaw: 0, roll: 0)
                 try await vox.sendData()
-                vox.sleepSecond(0.5) // 0.5秒待機
+                try await vox.sleepSeconds(0.5) // 0.5秒待機
             }
 
             vox.clearData()

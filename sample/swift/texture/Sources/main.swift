@@ -15,7 +15,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             }
             try await vox.sendData()
             vox.clearData()
-            vox.sleepSecond(0.5) // 0.5秒待機
+            try await vox.sleepSeconds(0.5) // 0.5秒待機
 
             vox.setBoxSize(1)
             vox.setBuildInterval(0.01)
@@ -25,7 +25,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
             }
             try await vox.sendData()
             vox.clearData()
-            vox.sleepSecond(0.5) // 0.5秒待機
+            try await vox.sleepSeconds(0.5) // 0.5秒待機
 
             vox.setBoxSize(1)
             vox.setBuildInterval(0.01)

@@ -11,7 +11,7 @@ if #available(iOS 15.0, macOS 12.0, *) {
 
             vox.drawLine(0, 0, 0, 5, 10, 20, r: 1, g: 0, b: 0, alpha: 1)
 
-            try await vox.sendData(name: "drawLine"")
+            try await vox.sendData(name: "drawLine")
             // Edit code here.
         } catch {
             print("An error occurred: \(error)")

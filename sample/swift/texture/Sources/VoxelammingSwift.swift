@@ -410,12 +410,6 @@ public class VoxelammingSwift: NSObject {
         self.roughness = roughness
     }
 
-    // sleep seconds function
-    public func sleepSecond(_ seconds: Double) {
-        let sec = seconds * Double(1_000_000)
-        usleep(useconds_t(sec))
-    }
-
     // Game API
 
     public func setGameScreen(width: Double, height: Double, angle: Double = 90, red: Double = 1, green: Double = 1, blue: Double = 0, alpha: Double = 0.5) {
@@ -538,6 +532,13 @@ public class VoxelammingSwift: NSObject {
         let dateString = dateFormatter.string(from: date)
         self.name = name
         self.date = dateString
+    }
+
+    // sleep seconds function
+    public func sleepSeconds(_ seconds: Double) async throws {
+        // 秒をナノ秒に変換（1秒 = 1,000,000,000ナノ秒）
+        let nanoseconds = UInt64(seconds * 1_000_000_000)
+        try await Task.sleep(nanoseconds: nanoseconds)
     }
 
     // データを送信する関数
@@ -701,4 +702,3 @@ public class VoxelammingSwift: NSObject {
         ]
     }
 }
-
