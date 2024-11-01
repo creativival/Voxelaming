@@ -1,10 +1,7 @@
 import Foundation
 
-let columnNum = 257
-let rowNum = 257
-
 @available(iOS 15.0, macOS 12.0, *)
-func getMapDataFromCSV(csvFile: String, heightScale: Double) -> [String: Any] {
+func getMapDataFromCSV(csvFile: String, heightScale: Double, columnNum: Int = 257, rowNum: Int = 257) -> [String: Any] {
     var mapData: [String: Any] = [:]
 
     do {
