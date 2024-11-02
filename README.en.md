@@ -59,11 +59,17 @@ Download and install the Voxelamming app from the App Store.
 
 #### Programming on your computer
 
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/macbook_and_iphone_en.png" alt="macbook_and_iphone" width="50%"/></p>
+
 Create code to place voxels using your computer (Windows or Mac).
 
 1. **Choose a programming language:** You can choose from Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
 2. **Check the room name of the WebSocket server:** Launch the Voxelamming app on your device and check the room name displayed in the center of the screen.
-3. **Refer to the sample code:** Create your own code by referring to the sample code in the [sample folder](https://github.com/creativival/voxelamming/tree/main/sample).#### Programming in the In-App Editor
+3. **Refer to the sample code:** Create your own code by referring to the sample code in the [sample folder](https://github.com/creativival/voxelamming/tree/main/sample).
+
+#### Programming in the In-App Editor
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/built-in_codeeditor.png" alt="built-in_codeeditor" width="50%"/></p>
 
 You can also write code directly using the editor within the Voxelamming app.
 

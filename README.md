@@ -59,6 +59,8 @@ App Storeからボクセラミングアプリをダウンロードし、イン�
 
 #### パソコンでのプログラミング
 
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/macbook_and_iphone_ja.png" alt="macbook_and_iphone" width="50%"/></p>
+
 パソコン (Windows, Mac) を使って、ボクセルを配置するためのコードを作成します。
 
 1. **プログラミング言語を選択:**  Scratch3 MOD、Python、JavaScript (Node.js)、Ruby、Swiftから選択できます。
@@ -66,6 +68,8 @@ App Storeからボクセラミングアプリをダウンロードし、イン�
 3. **サンプルコードを参考に:** [sampleフォルダー](https://github.com/creativival/voxelamming/tree/main/sample) のサンプルコードを参考に、独自のコードを作成します。
 
 #### アプリ内エディターでのプログラミング
+
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/built-in_codeeditor.png" alt="built-in_codeeditor" width="50%"/></p>
 
 ボクセラミングアプリ内のエディターを使って、直接コードを入力することもできます。
 
