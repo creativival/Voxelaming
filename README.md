@@ -4,8 +4,6 @@
 
 ボクセラミングは、ARを用いたプログラミング学習アプリです。プログラミング初心者でも、視覚的に楽しくプログラミングを学ぶことができます。ボクセラミングは、iOS 16以上のiPhoneとiPad、そしてApple Vision Proに対応しています。
 
-<a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
-
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
 
 * 別の言語で読む: [English](README.en.md), [日本語](README.md)*
@@ -34,7 +32,7 @@ Voxelamming = ボクセル + プログラミング
 
 1. **デバイスの準備:** iOS 16以上のiPhoneまたはiPad、あるいはApple Vision Proが必要です。
 2. **平面アンカーの設置:** アプリを起動し、画面の指示に従って現実世界の平面にアンカーを設置します。
-3. **ボクセルのモデリング:** パソコンを使って、ボクセルの位置、色、サイズなどを指定するコードを作成し、アプリに送信します。
+3. **ボクセルのモデリング:** パソコンを使って、ボクセルの位置、色、サイズなどを指定するコードを作成し、アプリに送信します。あるいは、アプリ内エディターで直接コードを入力することもできます。
 
 ### 1. デバイスの準備
 
@@ -59,11 +57,24 @@ App Storeからボクセラミングアプリをダウンロードし、イン�
 
 ### 3. ボクセルのモデリング（プログラミング）
 
+#### パソコンでのプログラミング
+
 パソコン (Windows, Mac) を使って、ボクセルを配置するためのコードを作成します。
 
 1. **プログラミング言語を選択:**  Scratch3 MOD、Python、JavaScript (Node.js)、Ruby、Swiftから選択できます。
 2. **WebSocketサーバーのルーム名を確認:**  デバイスでボクセラミングアプリを起動し、画面中央に表示されているルーム名を確認します。
 3. **サンプルコードを参考に:** [sampleフォルダー](https://github.com/creativival/voxelamming/tree/main/sample) のサンプルコードを参考に、独自のコードを作成します。
+
+#### アプリ内エディターでのプログラミング
+
+ボクセラミングアプリ内のエディターを使って、直接コードを入力することもできます。
+
+1. **エディターを起動:** ボクセラミングアプリを起動し、左上の「コードエディタ」を選択します。
+2. **コードを入力:** ボクセルの位置、色、サイズなどを指定するコードを入力します。コードはSwiftライクなDLS (Domain Specific Language) である、VoxelammingSwiftで記述します。VoxelammingSwiftは、Swift言語の構文に似ていますが、すべtの構文がサポートされているわけではありません。また、Voxelammingのメソッドで実行できなものもあります。
+3. **サンプルコード** コードエディタの左下の「サンプル」から、サンプルコードを選択して、編集することもできます。サンプルコードを参考に独自のコードを作成できます。
+4. **実行:** 「実行」ボタンをタップして、コードを実行します。
+5. **コードの保存:** 「保存」ボタンをタップして、コードを保存します。
+6. **コードの読み込み:** 「読み込み」ボタンをタップして、保存したコードを読み込みます。
 
 #### ボクセルデータ
 

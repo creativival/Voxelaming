@@ -4,8 +4,6 @@
 
 Voxelamming is an AR programming learning app. Even programming beginners can learn programming visually and enjoyably. Voxelamming supports iPhones and iPads with iOS 16 or later, and Apple Vision Pro.
 
-<a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
-
 <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
 
 * Read this in other languages: [English](README.en.md), [日本語](README.md)*
@@ -30,11 +28,11 @@ Voxelamming is an app that allows you to learn programming using AR technology. 
 
 ## How to Use
 
-To use Voxelamming, you need to follow these three steps:
+To use Voxelamming, follow these three steps:
 
-1. **Prepare your device:** You need an iPhone or iPad with iOS 16 or later, or an Apple Vision Pro.
-2. **Set the plane anchor:** Launch the app and follow the on-screen instructions to place an anchor on a real-world plane.
-3. **Voxel modeling:** Use your computer to create code that specifies the position, color, size, etc. of the voxels and send it to the app.
+1. **Prepare Your Device:** You’ll need an iPhone or iPad with iOS 16 or later, or an Apple Vision Pro.
+2. **Set Up a Plane Anchor:** Launch the app and follow the on-screen instructions to place an anchor on a flat surface in the real world.
+3. **Model Voxel Art:** Using your computer, write code specifying the position, color, and size of each voxel, then send it to the app. Alternatively, you can directly enter code using the in-app editor.
 
 ### 1. Prepare your device
 
@@ -59,11 +57,22 @@ Download and install the Voxelamming app from the App Store.
 
 ### 3. Voxel modeling (programming)
 
+#### Programming on your computer
+
 Create code to place voxels using your computer (Windows or Mac).
 
 1. **Choose a programming language:** You can choose from Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.
 2. **Check the room name of the WebSocket server:** Launch the Voxelamming app on your device and check the room name displayed in the center of the screen.
-3. **Refer to the sample code:** Create your own code by referring to the sample code in the [sample folder](https://github.com/creativival/voxelamming/tree/main/sample).
+3. **Refer to the sample code:** Create your own code by referring to the sample code in the [sample folder](https://github.com/creativival/voxelamming/tree/main/sample).#### Programming in the In-App Editor
+
+You can also write code directly using the editor within the Voxelamming app.
+
+1. **Open the Editor:** Launch the Voxelamming app and select "Code Editor" in the upper left corner.
+2. **Enter Code:** Write code specifying the voxel's position, color, size, etc. The code is written in VoxelammingSwift, a Domain Specific Language (DSL) similar to Swift. Although VoxelammingSwift resembles Swift syntax, not all Swift syntax is supported, and some methods specific to Voxelamming may not be executable.
+3. **Sample Code:** In the lower left corner of the code editor, you can select sample code from "Samples" to edit and customize. Use these examples as a reference to create your own code.
+4. **Run Code:** Tap the "Run" button to execute your code.
+5. **Save Code:** Tap the "Save" button to save your code.
+6. **Load Code:** Tap the "Load" button to load previously saved code.
 
 #### Voxel data
 
