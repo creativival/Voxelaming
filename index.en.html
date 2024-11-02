@@ -19,150 +19,159 @@
 
 
 
-        <h1><strong>Voxelamming - AR Programming Learning App</strong></h1>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_icon.png" alt="Voxelamming Logo" width="200"/></p>
-        <p>Voxelamming is an AR programming learning app. Even programming beginners can learn programming visually and enjoyably. Voxelamming supports iPhones and iPads with iOS 16 or later, and Apple Vision Pro.</p>
-        <p><a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ja-jp?size=250x83&amp;releaseDate=1690502400" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a></p>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
-        <ul>
-            <li>Read this in other languages: <a href="https://creativival.github.io/voxelamming/index.en">English</a>, <a href="https://creativival.github.io/voxelamming/">日本語</a>*</li>
-        </ul>
-        <h2>What is Voxelamming?</h2>
-        <p>Voxelamming = Voxel + Programming</p>
-        <p>Voxelamming is an app that allows you to learn programming using AR technology. You can place voxels (the smallest unit cube in 3D space) with code and create interactive 3D works.</p>
-        <p><strong>Target users:</strong></p>
-        <ul>
-            <li>Programming beginners: You can learn the basics of programming while getting visual feedback.</li>
-            <li>Generative artists: You can create creative 3D artworks using code.</li>
-        </ul>
-        <h2>Features</h2>
-        <ul>
-            <li><strong>Intuitive operation with AR:</strong> Placing voxels in the real world enhances spatial awareness while learning programming.</li>
-            <li><strong>Various programming languages:</strong> Supports Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.</li>
-            <li><strong>Cross-platform:</strong> Works on Windows, Mac, and iOS (iPhone, iPad, Apple Vision Pro).</li>
-            <li><strong>Free:</strong> It is free to download and use.</li>
-        </ul>
-        <h2>How to Use</h2>
-        <p>To use Voxelamming, you need to follow these three steps:</p>
-        <ol>
-            <li><strong>Prepare your device:</strong> You need an iPhone or iPad with iOS 16 or later, or an Apple Vision Pro.</li>
-            <li><strong>Set the plane anchor:</strong> Launch the app and follow the on-screen instructions to place an anchor on a real-world plane.</li>
-            <li><strong>Voxel modeling:</strong> Use your computer to create code that specifies the position, color, size, etc. of the voxels and send it to the app.</li>
-        </ol>
-        <h3>1. Prepare your device</h3>
-        <p>Download and install the Voxelamming app from the App Store.</p>
-        <ul>
-            <li>iPhone/iPad version: <a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_link&amp;itscg=30200">App Store</a></li>
-            <li>Apple Vision Pro version: <a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%AA/id6475821648">App Store</a></li>
-        </ul>
-        <h3>2. Set the plane anchor</h3>
-        <h4>For iPhone/iPad:</h4>
-        <ol>
-            <li>Launch the Voxelamming app.</li>
-            <li>Upon the first launch, you will be asked for permission to use the camera. Tap &quot;Yes&quot; to allow it.</li>
-            <li>When the camera starts up, AR automatically searches for a real-world plane. When the plane detection mark (red, green, and blue coordinate axes) appears, tap the screen to place the plane anchor. The plane anchor is composed of white and black tiles.</li>
-        </ol>
-        <h4>For Apple Vision Pro:</h4>
-        <ol>
-            <li>Launch the Voxelamming Studio app.</li>
-            <li>Tap the &quot;Set Base Anchor&quot; button to set the base anchor. The base anchor is composed of white and black tiles.</li>
-            <li>You can drag the base anchor to move it.</li>
-        </ol>
-        <h3>3. Voxel modeling (programming)</h3>
-        <p>Create code to place voxels using your computer (Windows or Mac).</p>
-        <ol>
-            <li><strong>Choose a programming language:</strong> You can choose from Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.</li>
-            <li><strong>Check the room name of the WebSocket server:</strong> Launch the Voxelamming app on your device and check the room name displayed in the center of the screen.</li>
-            <li><strong>Refer to the sample code:</strong> Create your own code by referring to the sample code in the <a href="https://github.com/creativival/voxelamming/tree/main/sample">sample folder</a>.</li>
-        </ol>
-        <h4>Voxel data</h4>
-        <p>Voxel data is data that specifies the position, color, size, etc. of voxels.</p>
-        <ul>
-            <li><strong>Position:</strong> Specified by the values of the x, y, and z axes based on the plane anchor (unit is centimeters).
-                <ul>
-                    <li>x-axis: left and right</li>
-                    <li>y-axis: up and down</li>
-                    <li>z-axis: depth (front is positive)</li>
-                </ul>
-            </li>
-            <li><strong>Size:</strong> Specified as a decimal based on 1.0cm.</li>
-            <li><strong>Color:</strong> Specified by RGB values, as decimals between 0 and 1.</li>
-            <li><strong>Placement interval:</strong> Specifies the interval at which voxels are placed in seconds. Voxels are placed at 0.01 second intervals by default.</li>
-        </ul>
-        <p><strong>Example: Place a red voxel at the position (x: 10, y: 5, z: -2) with double size.</strong></p>
-        <pre><code class="python"># Python
+<h1><strong>Voxelamming - AR Programming Learning App</strong></h1>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_icon.png" alt="Voxelamming Logo" width="200"/></p>
+<p>Voxelamming is an AR programming learning app. Even programming beginners can learn programming visually and enjoyably. Voxelamming supports iPhones and iPads with iOS 16 or later, and Apple Vision Pro.</p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_ladder.png" alt="VoxelLadder" width="50%"/></p>
+<ul>
+  <li>Read this in other languages: <a href="https://creativival.github.io/voxelamming/index.en">English</a>, <a href="https://creativival.github.io/voxelamming/">日本語</a>*</li>
+</ul>
+<h2>What is Voxelamming?</h2>
+<p>Voxelamming = Voxel + Programming</p>
+<p>Voxelamming is an app that allows you to learn programming using AR technology. You can place voxels (the smallest unit cube in 3D space) with code and create interactive 3D works.</p>
+<p><strong>Target users:</strong></p>
+<ul>
+  <li>Programming beginners: You can learn the basics of programming while getting visual feedback.</li>
+  <li>Generative artists: You can create creative 3D artworks using code.</li>
+</ul>
+<h2>Features</h2>
+<ul>
+  <li><strong>Intuitive operation with AR:</strong> Placing voxels in the real world enhances spatial awareness while learning programming.</li>
+  <li><strong>Various programming languages:</strong> Supports Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.</li>
+  <li><strong>Cross-platform:</strong> Works on Windows, Mac, and iOS (iPhone, iPad, Apple Vision Pro).</li>
+  <li><strong>Free:</strong> It is free to download and use.</li>
+</ul>
+<h2>How to Use</h2>
+<p>To use Voxelamming, follow these three steps:</p>
+<ol>
+  <li><strong>Prepare Your Device:</strong> You’ll need an iPhone or iPad with iOS 16 or later, or an Apple Vision Pro.</li>
+  <li><strong>Set Up a Plane Anchor:</strong> Launch the app and follow the on-screen instructions to place an anchor on a flat surface in the real world.</li>
+  <li><strong>Model Voxel Art:</strong> Using your computer, write code specifying the position, color, and size of each voxel, then send it to the app. Alternatively, you can directly enter code using the in-app editor.</li>
+</ol>
+<h3>1. Prepare your device</h3>
+<p>Download and install the Voxelamming app from the App Store.</p>
+<ul>
+  <li>iPhone/iPad version: <a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/id6451427658?itsct=apps_box_link&amp;itscg=30200">App Store</a></li>
+  <li>Apple Vision Pro version: <a href="https://apps.apple.com/jp/app/%E3%83%9C%E3%82%AF%E3%82%BB%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%AA/id6475821648">App Store</a></li>
+</ul>
+<h3>2. Set the plane anchor</h3>
+<h4>For iPhone/iPad:</h4>
+<ol>
+  <li>Launch the Voxelamming app.</li>
+  <li>Upon the first launch, you will be asked for permission to use the camera. Tap &quot;Yes&quot; to allow it.</li>
+  <li>When the camera starts up, AR automatically searches for a real-world plane. When the plane detection mark (red, green, and blue coordinate axes) appears, tap the screen to place the plane anchor. The plane anchor is composed of white and black tiles.</li>
+</ol>
+<h4>For Apple Vision Pro:</h4>
+<ol>
+  <li>Launch the Voxelamming Studio app.</li>
+  <li>Tap the &quot;Set Base Anchor&quot; button to set the base anchor. The base anchor is composed of white and black tiles.</li>
+  <li>You can drag the base anchor to move it.</li>
+</ol>
+<h3>3. Voxel modeling (programming)</h3>
+<h4>Programming on your computer</h4>
+<p>Create code to place voxels using your computer (Windows or Mac).</p>
+<ol>
+  <li><strong>Choose a programming language:</strong> You can choose from Scratch3 MOD, Python, JavaScript (Node.js), Ruby, and Swift.</li>
+  <li><strong>Check the room name of the WebSocket server:</strong> Launch the Voxelamming app on your device and check the room name displayed in the center of the screen.</li>
+  <li><strong>Refer to the sample code:</strong> Create your own code by referring to the sample code in the <a href="https://github.com/creativival/voxelamming/tree/main/sample">sample folder</a>.#### Programming in the In-App Editor</li>
+</ol>
+<p>You can also write code directly using the editor within the Voxelamming app.</p>
+<ol>
+  <li><strong>Open the Editor:</strong> Launch the Voxelamming app and select &quot;Code Editor&quot; in the upper left corner.</li>
+  <li><strong>Enter Code:</strong> Write code specifying the voxel's position, color, size, etc. The code is written in VoxelammingSwift, a Domain Specific Language (DSL) similar to Swift. Although VoxelammingSwift resembles Swift syntax, not all Swift syntax is supported, and some methods specific to Voxelamming may not be executable.</li>
+  <li><strong>Sample Code:</strong> In the lower left corner of the code editor, you can select sample code from &quot;Samples&quot; to edit and customize. Use these examples as a reference to create your own code.</li>
+  <li><strong>Run Code:</strong> Tap the &quot;Run&quot; button to execute your code.</li>
+  <li><strong>Save Code:</strong> Tap the &quot;Save&quot; button to save your code.</li>
+  <li><strong>Load Code:</strong> Tap the &quot;Load&quot; button to load previously saved code.</li>
+</ol>
+<h4>Voxel data</h4>
+<p>Voxel data is data that specifies the position, color, size, etc. of voxels.</p>
+<ul>
+  <li><strong>Position:</strong> Specified by the values of the x, y, and z axes based on the plane anchor (unit is centimeters).
+    <ul>
+      <li>x-axis: left and right</li>
+      <li>y-axis: up and down</li>
+      <li>z-axis: depth (front is positive)</li>
+    </ul>
+  </li>
+  <li><strong>Size:</strong> Specified as a decimal based on 1.0cm.</li>
+  <li><strong>Color:</strong> Specified by RGB values, as decimals between 0 and 1.</li>
+  <li><strong>Placement interval:</strong> Specifies the interval at which voxels are placed in seconds. Voxels are placed at 0.01 second intervals by default.</li>
+</ul>
+<p><strong>Example: Place a red voxel at the position (x: 10, y: 5, z: -2) with double size.</strong></p>
+<pre><code class="python"># Python
 vox.set_box_size(2.0)  # Set size to double
 vox.create_box(10, 5, -2, 1, 0, 0)  # Place a red voxel
 vox.send_data() # Send data
 </code></pre>
-        <h4>Method description</h4>
-        <table class=“custom-table”>
-            <thead>
-            <tr><th> Method name </th><th> Description </th><th> Arguments </th></tr>
-            </thead>
-            <tbody>
-            <tr><td> <code>set_room_name(room_name)</code> </td><td> Sets the room name for communicating with the device. </td><td> <code>room_name</code>: Room name (string) </td></tr>
-            <tr><td> <code>set_box_size(size)</code> </td><td> Sets the size of the voxel (default: 1.0). </td><td> <code>size</code>: Size (float) </td></tr>
-            <tr><td> <code>set_build_interval(interval)</code> </td><td> Sets the placement interval of the voxels (default: 0.01 seconds). </td><td> <code>interval</code>: Interval (float) </td></tr>
-            <tr><td> <code>change_shape(shape)</code> </td><td> Changes the shape of the voxel. </td><td> <code>shape</code>: Shape (&quot;box&quot;, &quot;sphere&quot;, &quot;plane&quot;) </td></tr>
-            <tr><td> <code>change_material(is_metallic, roughness)</code> </td><td> Changes the material of the voxel. </td><td> <code>is_metallic</code>: Whether to make it metallic (boolean), <code>roughness</code>: Roughness (float) </td></tr>
-            <tr><td> <code>create_box(x, y, z, r, g, b, alpha)</code> </td><td> Places a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1) </td></tr>
-            <tr><td> <code>create_box(x, y, z, texture)</code> </td><td> Places a voxel with texture. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>texture</code>: Texture name (string) </td></tr>
-            <tr><td> <code>remove_box(x, y, z)</code> </td><td> Removes a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float) </td></tr>
-            <tr><td> <code>write_sentence(sentence, x, y, z, r, g, b, alpha, font_size, is_fixed_width)</code> </td><td> Draws a string with voxels. </td><td> <code>sentence</code>: String (string), <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1), <code>font_size</code>: font size (8, 12, 16, 24), <code>is_fixed_width</code>: indicates if the font is monospaced (0 for false, 1 for true) </td></tr>
-            <tr><td> <code>set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)</code> </td><td> Places a light. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1), <code>intensity</code>: Intensity (float), <code>interval</code>: Blinking interval (float), <code>light_type</code>: Type of light (&quot;point&quot;, &quot;spot&quot;, &quot;directional&quot;) </td></tr>
-            <tr><td> <code>set_command(command)</code> </td><td> Executes a command. </td><td> <code>command</code>: Command (&quot;axis&quot;, &quot;japaneseCastle&quot;, &quot;float&quot;, &quot;liteRender&quot;) </td></tr>
-            <tr><td> <code>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)</code> </td><td> Draws a line between two points. </td><td> <code>x1</code>, <code>y1</code>, <code>z1</code>: Starting point (float), <code>x2</code>, <code>y2</code>, <code>z2</code>: Ending point (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1) </td></tr>
-            <tr><td> <code>create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)</code> </td><td> Creates a built-in model (USDZ). </td><td>  <code>model_name</code>: Name of the model (string), <code>x</code>, <code>y</code>, <code>z</code>: Translation values (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation values (float), <code>scale</code>: Scale (float), <code>entity_name</code>: Name assigned to the created model (string) </td></tr>
-            <tr><td> <code>move_model(entity_name, x, y, z, pitch, yaw, roll, scale)</code> </td><td> Moves the created model (USDZ). </td><td>  <code>entity_name</code>: Name assigned to the created model (string), <code>x</code>, <code>y</code>, <code>z</code>: Translation values (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation values (float), <code>scale</code>: Scale (float) </td></tr>
-            <tr><td> <code>send_data(name)</code> </td><td> Sends voxel data to the device; if the name argument is set, the voxel data can be stored and reproduced as history. </td><td> </td></tr>
-            <tr><td> <code>clear_data()</code> </td><td> Initializes voxel data. </td><td> </td></tr>
-            <tr><td> <code>transform(x, y, z, pitch, yaw, roll)</code> </td><td> Moves and rotates the coordinate system of the voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float) </td></tr>
-            <tr><td> <code>animate(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> Animates a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float), <code>scale</code>: Scale (float), <code>interval</code>: Interval (float) </td></tr>
-            <tr><td> <code>animate_global(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> Animates all voxels. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float), <code>scale</code>: Scale (float), <code>interval</code>: Interval (float) </td></tr>
-            <tr><td> <code>push_matrix()</code> </td><td> Saves the current coordinate system to the stack. </td><td> </td></tr>
-            <tr><td> <code>pop_matrix()</code> </td><td> Restores the coordinate system from the stack. </td><td> </td></tr>
-            <tr><td> <code>frame_in()</code> </td><td> Starts recording a frame. </td><td> </td></tr>
-            <tr><td> <code>frame_out()</code> </td><td> Ends recording a frame. </td><td> </td></tr>
-            <tr><td> <code>set_frame_fps(fps)</code> </td><td> Sets the frame rate (default: 2). </td><td> <code>fps</code>: Frame rate (int) </td></tr>
-            <tr><td> <code>set_frame_repeats(repeats)</code> </td><td> Sets the number of frame repetitions (default: 10). </td><td> <code>repeats</code>: Number of repetitions (int) </td></tr>
-            <tr><td> Game Method Name                                                                              </td><td> Description </td><td> Arguments                                                                                                                                                            </td></tr>
-            <tr><td> <code>set_game_screen(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)</code>                </td><td> Sets the game screen size. </td><td> <code>width</code>, <code>height</code>: screen size (float), <code>angle</code>: angle (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: color (float, 0-1)                                                            </td></tr>
-            <tr><td> <code>set_game_score(score, x=0, y=0)</code>                                                                  </td><td> Sets the game score. </td><td> <code>score</code>: game score (int), <code>x</code>, <code>y</code>: position (float)                                                                                                                                            </td></tr>
-            <tr><td> <code>send_game_over()</code>                                                                       </td><td> Triggers game over. </td><td>                                                                                                                                                                     </td></tr>
-            <tr><td> <code>send_game_clear()</code>                                                                  </td><td> Triggers game clear. </td><td>                                                                                                                                                                   </td></tr>
-            <tr><td> <code>create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)</code>      </td><td> Creates a sprite. </td><td> <code>sprite_name</code>: sprite name (string), <code>color_list</code>: dot color data (string), <code>x</code>, <code>y</code>: position (float), <code>direction</code>: angle (float), <code>scale</code>: scale (float), <code>visible</code>: visibility (boolean) </td></tr>
-            <tr><td> <code>move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)</code>                    </td><td> Moves a sprite. </td><td> <code>sprite_name</code>: sprite name (string), <code>x</code>, <code>y</code>: position (float), <code>direction</code>: angle (float), <code>scale</code>: scale (float), <code>visible</code>: visibility (boolean)                                  </td></tr>
-            <tr><td> <code>move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)</code>               </td><td> Moves a clone of the sprite. Can be executed multiple times and is used when creating multiple sprites. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float)                                  </td></tr>
-            <tr><td> <code>display_dot(sprite_name, x, y, direction=90, scale=1)</code>               </td><td> Used to place multiple dots, such as bullets or particles. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float)                                  </td></tr>
-            <tr><td> <code>display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True, align='')</code>               </td><td> Displays text on the game screen. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float), <code>is_vertical</code>: Vertical display (boolean), <code>align</code>: Text alignment (combination of 'Top', 'Bottom', 'Right', 'Left')                                  </td></tr>
-            </tbody>
-        </table>
-        <p><strong>Notes:</strong></p>
-        <ul>
-            <li>The method names above are examples in Python. Method names may differ in other languages.</li>
-            <li>Please refer to the sample code for each language for more details.</li>
-        </ul>
-        <h3>4. Run and check</h3>
-        <p>When you run the code you created, the voxel data is sent to the device and the voxels are built in AR space.</p>
-        <h2>Sample Script</h2>
-        <p>We have prepared sample scripts in the <a href="https://github.com/creativival/voxelamming/tree/main/sample">sample folder</a>. If you run the following script, voxels like the top image will be placed.</p>
-        <h3>Scratch3 MOD</h3>
-        <p>Please load the Voxelamming extension and create a script.</p>
-        <p><a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3">Play the sample project with Xcratch</a></p>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3_en.png" alt="voxelamming_scratch3" width="100%"/></p>
-        <h3>Scratch3 MOD (Turtle Programming)</h3>
-        <p>You can use Scratch3 MOD's turtle programming to place voxels. Since you can intuitively place voxels, it is recommended for programming beginners, especially children.</p>
-        <p><a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/example.sb3">Play the sample project with Xcratch</a></p>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_turtle_scratch3_en.png" alt="voxelamming_turtle_scratch3" width="100%"/></p>
-        <h3>Scratch3 MOD (Game Programming)</h3>
-        <p>AR games can be created using Scratch3 MOD game blocks. The logic of the game is set up in the Scratch3 MOD blocks, and the game can be displayed on the AR space by sending the sprite's location information to Boxerming.</p>
-        <p><a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/cat_game.sb3">Play the sample project with Xcratch</a></p>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/scratch_game_en.png" alt="scratch_game_en" width="100%"/></p>
-        <h3>Python (3.6 or higher)</h3>
-        <p>Install package version 0.3.0 or later.</p>
-        <h4>Script</h4>
-        <pre><code class="python"># Python
+<h4>Method description</h4>
+<table>
+  <thead>
+    <tr><th> Method name </th><th> Description </th><th> Arguments </th></tr>
+  </thead>
+  <tbody>
+    <tr><td> <code>set_room_name(room_name)</code> </td><td> Sets the room name for communicating with the device. </td><td> <code>room_name</code>: Room name (string) </td></tr>
+    <tr><td> <code>set_box_size(size)</code> </td><td> Sets the size of the voxel (default: 1.0). </td><td> <code>size</code>: Size (float) </td></tr>
+    <tr><td> <code>set_build_interval(interval)</code> </td><td> Sets the placement interval of the voxels (default: 0.01 seconds). </td><td> <code>interval</code>: Interval (float) </td></tr>
+    <tr><td> <code>change_shape(shape)</code> </td><td> Changes the shape of the voxel. </td><td> <code>shape</code>: Shape (&quot;box&quot;, &quot;sphere&quot;, &quot;plane&quot;) </td></tr>
+    <tr><td> <code>change_material(is_metallic, roughness)</code> </td><td> Changes the material of the voxel. </td><td> <code>is_metallic</code>: Whether to make it metallic (boolean), <code>roughness</code>: Roughness (float) </td></tr>
+    <tr><td> <code>create_box(x, y, z, r, g, b, alpha)</code> </td><td> Places a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1) </td></tr>
+    <tr><td> <code>create_box(x, y, z, texture)</code> </td><td> Places a voxel with texture. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>texture</code>: Texture name (string) </td></tr>
+    <tr><td> <code>remove_box(x, y, z)</code> </td><td> Removes a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float) </td></tr>
+    <tr><td> <code>write_sentence(sentence, x, y, z, r, g, b, alpha, font_size, is_fixed_width)</code> </td><td> Draws a string with voxels. </td><td> <code>sentence</code>: String (string), <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1), <code>font_size</code>: font size (8, 12, 16, 24), <code>is_fixed_width</code>: indicates if the font is monospaced (0 for false, 1 for true) </td></tr>
+    <tr><td> <code>set_light(x, y, z, r, g, b, alpha, intensity, interval, light_type)</code> </td><td> Places a light. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Position (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1), <code>intensity</code>: Intensity (float), <code>interval</code>: Blinking interval (float), <code>light_type</code>: Type of light (&quot;point&quot;, &quot;spot&quot;, &quot;directional&quot;) </td></tr>
+    <tr><td> <code>set_command(command)</code> </td><td> Executes a command. </td><td> <code>command</code>: Command (&quot;axis&quot;, &quot;japaneseCastle&quot;, &quot;float&quot;, &quot;liteRender&quot;) </td></tr>
+    <tr><td> <code>draw_line(x1, y1, z1, x2, y2, z2, r, g, b, alpha)</code> </td><td> Draws a line between two points. </td><td> <code>x1</code>, <code>y1</code>, <code>z1</code>: Starting point (float), <code>x2</code>, <code>y2</code>, <code>z2</code>: Ending point (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: Color (float, 0-1) </td></tr>
+    <tr><td> <code>create_model(model_name, x, y, z, pitch, yaw, roll, scale, entity_name)</code> </td><td> Creates a built-in model (USDZ). </td><td>  <code>model_name</code>: Name of the model (string), <code>x</code>, <code>y</code>, <code>z</code>: Translation values (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation values (float), <code>scale</code>: Scale (float), <code>entity_name</code>: Name assigned to the created model (string) </td></tr>
+    <tr><td> <code>move_model(entity_name, x, y, z, pitch, yaw, roll, scale)</code> </td><td> Moves the created model (USDZ). </td><td>  <code>entity_name</code>: Name assigned to the created model (string), <code>x</code>, <code>y</code>, <code>z</code>: Translation values (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation values (float), <code>scale</code>: Scale (float) </td></tr>
+    <tr><td> <code>send_data(name)</code> </td><td> Sends voxel data to the device; if the name argument is set, the voxel data can be stored and reproduced as history. </td><td> </td></tr>
+    <tr><td> <code>clear_data()</code> </td><td> Initializes voxel data. </td><td> </td></tr>
+    <tr><td> <code>transform(x, y, z, pitch, yaw, roll)</code> </td><td> Moves and rotates the coordinate system of the voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float) </td></tr>
+    <tr><td> <code>animate(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> Animates a voxel. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float), <code>scale</code>: Scale (float), <code>interval</code>: Interval (float) </td></tr>
+    <tr><td> <code>animate_global(x, y, z, pitch, yaw, roll, scale, interval)</code> </td><td> Animates all voxels. </td><td> <code>x</code>, <code>y</code>, <code>z</code>: Translation amount (float), <code>pitch</code>, <code>yaw</code>, <code>roll</code>: Rotation amount (float), <code>scale</code>: Scale (float), <code>interval</code>: Interval (float) </td></tr>
+    <tr><td> <code>push_matrix()</code> </td><td> Saves the current coordinate system to the stack. </td><td> </td></tr>
+    <tr><td> <code>pop_matrix()</code> </td><td> Restores the coordinate system from the stack. </td><td> </td></tr>
+    <tr><td> <code>frame_in()</code> </td><td> Starts recording a frame. </td><td> </td></tr>
+    <tr><td> <code>frame_out()</code> </td><td> Ends recording a frame. </td><td> </td></tr>
+    <tr><td> <code>set_frame_fps(fps)</code> </td><td> Sets the frame rate (default: 2). </td><td> <code>fps</code>: Frame rate (int) </td></tr>
+    <tr><td> <code>set_frame_repeats(repeats)</code> </td><td> Sets the number of frame repetitions (default: 10). </td><td> <code>repeats</code>: Number of repetitions (int) </td></tr>
+    <tr><td> Game Method Name                                                                              </td><td> Description </td><td> Arguments                                                                                                                                                            </td></tr>
+    <tr><td> <code>set_game_screen(width, height, angle=90, r=1, g=1, b=0, alpha=0.5)</code>                </td><td> Sets the game screen size. </td><td> <code>width</code>, <code>height</code>: screen size (float), <code>angle</code>: angle (float), <code>r</code>, <code>g</code>, <code>b</code>, <code>alpha</code>: color (float, 0-1)                                                            </td></tr>
+    <tr><td> <code>set_game_score(score, x=0, y=0)</code>                                                                  </td><td> Sets the game score. </td><td> <code>score</code>: game score (int), <code>x</code>, <code>y</code>: position (float)                                                                                                                                            </td></tr>
+    <tr><td> <code>send_game_over()</code>                                                                       </td><td> Triggers game over. </td><td>                                                                                                                                                                     </td></tr>
+    <tr><td> <code>send_game_clear()</code>                                                                  </td><td> Triggers game clear. </td><td>                                                                                                                                                                   </td></tr>
+    <tr><td> <code>create_sprite(sprite_name, color_list, x, y, direction=90, scale=1, visible=True)</code>      </td><td> Creates a sprite. </td><td> <code>sprite_name</code>: sprite name (string), <code>color_list</code>: dot color data (string), <code>x</code>, <code>y</code>: position (float), <code>direction</code>: angle (float), <code>scale</code>: scale (float), <code>visible</code>: visibility (boolean) </td></tr>
+    <tr><td> <code>move_sprite(sprite_name, x, y, direction=90, scale=1, visible=True)</code>                    </td><td> Moves a sprite. </td><td> <code>sprite_name</code>: sprite name (string), <code>x</code>, <code>y</code>: position (float), <code>direction</code>: angle (float), <code>scale</code>: scale (float), <code>visible</code>: visibility (boolean)                                  </td></tr>
+    <tr><td> <code>move_sprite_clone(sprite_name, x, y, direction=90, scale=1,)</code>               </td><td> Moves a clone of the sprite. Can be executed multiple times and is used when creating multiple sprites. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float)                                  </td></tr>
+    <tr><td> <code>display_dot(sprite_name, x, y, direction=90, scale=1)</code>               </td><td> Used to place multiple dots, such as bullets or particles. </td><td> <code>sprite_name</code>: Sprite name (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Direction (float), <code>scale</code>: Scale (float)                                  </td></tr>
+    <tr><td> <code>display_text(sprite_name, x, y, direction=90, scale=1, is_vertical=True, align='')</code>               </td><td> Displays text on the game screen. </td><td> <code>sprite_name</code>: Name of the sprite (string), <code>x</code>, <code>y</code>: Position (float), <code>direction</code>: Angle (float), <code>scale</code>: Scale (float), <code>is_vertical</code>: Vertical text display (boolean), <code>align</code>: Text alignment (combination of 'Top', 'Bottom', 'Right', 'Left')                                  </td></tr>
+  </tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul>
+  <li>The method names above are examples in Python. Method names may differ in other languages.</li>
+  <li>Please refer to the sample code for each language for more details.</li>
+</ul>
+<h3>4. Run and check</h3>
+<p>When you run the code you created, the voxel data is sent to the device and the voxels are built in AR space.</p>
+<h2>Sample Script</h2>
+<p>We have prepared sample scripts in the <a href="https://github.com/creativival/voxelamming/tree/main/sample">sample folder</a>. If you run the following script, voxels like the top image will be placed.</p>
+<h3>Scratch3 MOD</h3>
+<p>Please load the Voxelamming extension and create a script.</p>
+<p><a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/example.sb3">Play the sample project with Xcratch</a></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_scratch3_en.png" alt="voxelamming_scratch3" width="100%"/></p>
+<h3>Scratch3 MOD (Turtle Programming)</h3>
+<p>You can use Scratch3 MOD's turtle programming to place voxels. Since you can intuitively place voxels, it is recommended for programming beginners, especially children.</p>
+<p><a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-turtle-extension/projects/example.sb3">Play the sample project with Xcratch</a></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxelamming_turtle_scratch3_en.png" alt="voxelamming_turtle_scratch3" width="100%"/></p>
+<h3>Scratch3 MOD (Game Programming)</h3>
+<p>AR games can be created using Scratch3 MOD game blocks. The logic of the game is set up in the Scratch3 MOD blocks, and the game can be displayed on the AR space by sending the sprite's location information to Boxerming.</p>
+<p><a href="https://xcratch.github.io/editor/#https://creativival.github.io/voxelamming-extension/projects/cat_game.sb3">Play the sample project with Xcratch</a></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/scratch_game_en.png" alt="scratch_game_en" width="100%"/></p>
+<h3>Python (3.6 or higher)</h3>
+<p>Install package version 0.3.0 or later.</p>
+<h4>Script</h4>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -194,8 +203,8 @@ vox.send_data(&quot;main&quot;)
 # vox.close_connection()
 
 </code></pre>
-        <h4>How to run</h4>
-        <pre><code class="bash">$ pip install voxelamming
+<h4>How to run</h4>
+<pre><code class="bash">$ pip install voxelamming
 $ pip install --upgrade voxelamming
 $ sample/python
 $ python main.py
@@ -204,8 +213,8 @@ or
 
 $ python3 main.py
 </code></pre>
-        <h4>Game Script</h4>
-        <pre><code class="python"># Python
+<h4>Game Script</h4>
+<pre><code class="python"># Python
 import pyxel
 import time
 import random
@@ -536,9 +545,9 @@ class App:
 if __name__ == &quot;__main__&quot;:
     App()
 </code></pre>
-        <h4>How to run</h4>
-        <p>After placing the base anchor with voxelamming, start the Pyxel game.</p>
-        <pre><code class="bash">$ pip install voxelamming pyxel
+<h4>How to run</h4>
+<p>After placing the base anchor with voxelamming, start the Pyxel game.</p>
+<pre><code class="bash">$ pip install voxelamming pyxel
 $ pip install --upgrade voxelamming
 $ sample/python
 $ python game_sample.py
@@ -547,10 +556,10 @@ or
 
 $ python3 game_sample.py
 </code></pre>
-        <h3>JavaScript (Node.js)</h3>
-        <p>Install package version 0.3.0 or later.</p>
-        <h4>Script</h4>
-        <pre><code class="javascript">// JavaScript (Node.js)
+<h3>JavaScript (Node.js)</h3>
+<p>Install package version 0.3.0 or later.</p>
+<h4>Script</h4>
+<pre><code class="javascript">// JavaScript (Node.js)
 import { Voxelamming } from 'voxelamming';
 
 const roomName = '1000';
@@ -574,15 +583,15 @@ for (let i = 0; i &lt; 50; i++) {
 await vox.sendData(&quot;main&quot;);
 console.log('send data done')
 </code></pre>
-        <h4>How to run</h4>
-        <pre><code class="bash">$ sample/javaScript
+<h4>How to run</h4>
+<pre><code class="bash">$ sample/javaScript
 $ npm install voxelamming
 $ node main.mjs
 </code></pre>
-        <h3>Ruby</h3>
-        <p>Install package version 0.3.0 or later.</p>
-        <h4>Script</h4>
-        <pre><code class="ruby"># Ruby
+<h3>Ruby</h3>
+<p>Install package version 0.3.0 or later.</p>
+<h4>Script</h4>
+<pre><code class="ruby"># Ruby
 require 'voxelamming'
 # require_relative 'voxelamming'
 
@@ -607,14 +616,14 @@ end
 
 vox.send_data(name: 'main')
 </code></pre>
-        <h4>How to run</h4>
-        <pre><code class="bash">$ sample/ruby
+<h4>How to run</h4>
+<pre><code class="bash">$ sample/ruby
 $ gem install voxelamming
 $ ruby main.rb
 </code></pre>
-        <h3>Swift</h3>
-        <h4>Script</h4>
-        <pre><code class="swift">// Swift
+<h3>Swift</h3>
+<h4>Script</h4>
+<pre><code class="swift">// Swift
 import Foundation
 
 if #available(iOS 15.0, macOS 12.0, *) {
@@ -649,15 +658,15 @@ if #available(iOS 15.0, macOS 12.0, *) {
 }
 
 </code></pre>
-        <h4>How to run</h4>
-        <pre><code class="bash">$ cd sample/swift/main
+<h4>How to run</h4>
+<pre><code class="bash">$ cd sample/swift/main
 $ swift run
 </code></pre>
-        <h2>Showcase</h2>
-        <p>Here are some examples of works that can be created with Voxelamming.</p>
-        <h3>Sphere</h3>
-        <p>create a sphere in voxels; the size of the sphere can be adjusted by changing the radius variable.</p>
-        <pre><code class="python"># Python
+<h2>Showcase</h2>
+<p>Here are some examples of works that can be created with Voxelamming.</p>
+<h3>Sphere</h3>
+<p>create a sphere in voxels; the size of the sphere can be adjusted by changing the radius variable.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -686,11 +695,11 @@ for i in range(-radius, radius + 1):
 vox.send_data(&quot;main_sphere_sample&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
-        <h3>Node Placement</h3>
-        <p>Voxelamming allows structures to be created in 3D space by placing nodes.</p>
-        <p>Location information can be specified for the nodes.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/square_sample.png" alt="square_sample" width="50%"/></p>
+<h3>Node Placement</h3>
+<p>Voxelamming allows structures to be created in 3D space by placing nodes.</p>
+<p>Location information can be specified for the nodes.</p>
+<pre><code class="python"># Python
 import time
 from voxelamming import Voxelamming
 
@@ -715,10 +724,10 @@ for i in range(5):
   vox.send_data()
   time.sleep(1)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
-        <h3>Node Rotation</h3>
-        <p>Voxelamming allows nodes to be rotated around the x-, y- and z-axes by changing the values of pitch, yaw and roll.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_sample.png" alt="move_sample" width="50%"/></p>
+<h3>Node Rotation</h3>
+<p>Voxelamming allows nodes to be rotated around the x-, y- and z-axes by changing the values of pitch, yaw and roll.</p>
+<pre><code class="python"># Python
 import time
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -759,10 +768,10 @@ for rotation in rotations:
     vox.send_data()
     time.sleep(0.1)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
-        <h3>Node Animation</h3>
-        <p>Node animations can be positioned, sized and rotated. The speed of the animation can be adjusted by changing the animation interval (interval).</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/rotation_sample.png" alt="rotation_sample" width="50%"/></p>
+<h3>Node Animation</h3>
+<p>Node animations can be positioned, sized and rotated. The speed of the animation can be adjusted by changing the animation interval (interval).</p>
+<pre><code class="python"># Python
 from time import sleep
 # Import the Voxelamming class from the voxelamming package
 from voxelamming_local import Voxelamming
@@ -796,10 +805,10 @@ vox.animate(10, 0, 0, pitch=0, yaw=30, roll=0, scale=2, interval=10)
 # Send voxel data to the app (2nd time)
 vox.send_data()
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
-        <h3>Global Animation</h3>
-        <p>Global animation animates all nodes. You can specify position, rotation, scale and animation interval (interval).</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/animation_sample.png" alt="animation_sample" width="50%"/></p>
+<h3>Global Animation</h3>
+<p>Global animation animates all nodes. You can specify position, rotation, scale and animation interval (interval).</p>
+<pre><code class="python"># Python
 from time import sleep
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -849,10 +858,10 @@ vox.animate_global(0, 0, 0, pitch=0, yaw=180, roll=0, scale=1, interval=100)
 vox.send_data()
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
-        <h3>Text Display</h3>
-        <p>Displays text in voxels. The text, position, colour and transparency can be specified. Fonts are available in Japanese, English and numbers.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/global_animation_sample.png" alt="animation_sample" width="50%"/></p>
+<h3>Text Display</h3>
+<p>Displays text in voxels. The text, position, colour and transparency can be specified. Fonts are available in Japanese, English and numbers.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -880,10 +889,10 @@ vox.write_sentence(&quot;今日は&quot;, 0, 0, 0, r=0, g=0, b=1, alpha=1, font_
 vox.send_data(&quot;write_sentence&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
-        <h3>Map</h3>
-        <p>The map is created in voxel. The map data uses elevation data from Geographical Survey Institute maps. The map data is read from a CSV file and converted to voxels.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/sentence_sample.png" alt="sentence_sample" width="50%"/></p>
+<h3>Map</h3>
+<p>The map is created in voxel. The map data uses elevation data from Geographical Survey Institute maps. The map data is read from a CSV file and converted to voxels.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming, get_map_data_from_csv, get_box_color
 # from voxelamming_local import Voxelamming, get_map_data_from_csv, get_box_color
@@ -927,10 +936,10 @@ for j in range(row_num // skip):
 # Send voxel data to the app
 vox.send_data(&quot;main_map_sample&quot;)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
-        <h3>Displaying Models Created with MagicaVoxel</h3>
-        <p>Import voxel art created in MagicaVoxel Export MagicaVoxel voxel art in PLY format and import it into Voxelamming.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/japan_map.png" alt="japan_map" width="50%"/></p>
+<h3>Displaying Models Created with MagicaVoxel</h3>
+<p>Import voxel art created in MagicaVoxel Export MagicaVoxel voxel art in PLY format and import it into Voxelamming.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming, get_boxes_from_ply
 # from voxelamming_local import Voxelamming, get_boxes_from_ply
@@ -956,10 +965,10 @@ for box in boxes:
 vox.send_data(&quot;main_make_model_sample&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
-        <h3>Transparent Voxel</h3>
-        <p>The transparency of the voxel can be set. The transparency is specified by a value between 0 and 1.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/voxel_model.png" alt="voxel_model" width="50%"/></p>
+<h3>Transparent Voxel</h3>
+<p>The transparency of the voxel can be set. The transparency is specified by a value between 0 and 1.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -991,10 +1000,10 @@ for i in range(50):
 vox.send_data(&quot;main_set_alpha_sample&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
-        <h3>Drawing a line</h3>
-        <p>Draw a line segment by specifying two points. You can specify the colour of the line; use the float command to draw a smooth line.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/set_alpha_sample.png" alt="set_alpha_sample" width="50%"/></p>
+<h3>Drawing a line</h3>
+<p>Draw a line segment by specifying two points. You can specify the colour of the line; use the float command to draw a smooth line.</p>
+<pre><code class="python"># Python
 import time
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -1017,10 +1026,10 @@ vox.send_data()
 vox.send_data(&quot;main_draw_line_sample&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
-        <h3>Changing the shape (cube, sphere, plane)</h3>
-        <p>The shape of the voxel can be changed. Shapes are available for cubes, spheres and planes.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/draw_line.png" alt="draw_line" width="50%"/></p>
+<h3>Changing the shape (cube, sphere, plane)</h3>
+<p>The shape of the voxel can be changed. Shapes are available for cubes, spheres and planes.</p>
+<pre><code class="python"># Python
 import time
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -1060,10 +1069,10 @@ vox.change_shape('plane')
 # Send voxel data to the app.
 vox.send_data('plane')  # Send voxel data of the plane to the app.
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
-        <h3>Changing the material (texture)</h3>
-        <p>The material can be set to have a metallic sheen or a roughness. If metallicness (is_metallic) is set to true, the material reflects the environment like a mirror. Roughness sets the surface roughness from 0 to 1.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/change_shape.png" alt="change_shape" width="50%"/></p>
+<h3>Changing the material (texture)</h3>
+<p>The material can be set to have a metallic sheen or a roughness. If metallicness (is_metallic) is set to true, the material reflects the environment like a mirror. Roughness sets the surface roughness from 0 to 1.</p>
+<pre><code class="python"># Python
 from time import sleep
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -1113,10 +1122,10 @@ for i in range(5):
     sleep(0.1)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
-        <h3>Light (iOS only)</h3>
-        <p>Light sources (lights) can be placed. You can set the position, colour, intensity and type of light (directional, spot, point) of the light.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/change_material.png" alt="change_material" width="50%"/></p>
+<h3>Light (iOS only)</h3>
+<p>Light sources (lights) can be placed. You can set the position, colour, intensity and type of light (directional, spot, point) of the light.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -1162,10 +1171,10 @@ vox.set_command('axis')
 vox.send_data(&quot;main_light_sample&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
-        <h3>Command</h3>
-        <p>A command is an instruction to perform a specific action. Commands can be used to perform specific actions. japaneseCastle command allows you to build a castle in Japan.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/light_sample.png" alt="light_sample" width="50%"/></p>
+<h3>Command</h3>
+<p>A command is an instruction to perform a specific action. Commands can be used to perform specific actions. japaneseCastle command allows you to build a castle in Japan.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -1180,10 +1189,10 @@ vox.set_command('japaneseCastle')
 vox.send_data(&quot;castle_command&quot;)
 
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
-        <h3>Reset Command</h3>
-        <p>The Reset command deletes all voxels. The model can be animated by alternately creating and resetting the model.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/command_sample.png" alt="command_sample" width="50%"/></p>
+<h3>Reset Command</h3>
+<p>The Reset command deletes all voxels. The model can be animated by alternately creating and resetting the model.</p>
+<pre><code class="python"># Python
 from time import sleep
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming, get_boxes_from_ply
@@ -1250,10 +1259,10 @@ for _ in range(3):
         vox.clear_data()
         sleep(0.1)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
-        <h3>Float Command</h3>
-        <p>The Float command allows voxels to be positioned precisely in 0.01 units (normally 1 unit).</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/reset_command.png" alt="reset_command" width="50%"/></p>
+<h3>Float Command</h3>
+<p>The Float command allows voxels to be positioned precisely in 0.01 units (normally 1 unit).</p>
+<pre><code class="python"># Python
 from time import sleep
 from math import sin, cos, radians, pi, sqrt
 # Import the Voxelamming class from the voxelamming package
@@ -1291,10 +1300,10 @@ for i in range(repeat_count):
 # Send voxel data to the app
 vox.send_data(&quot;main_float_command_sample&quot;)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
-        <h3>Saving and Restoring the Coordinate System</h3>
-        <p>Coordinate systems (matrices) can be saved and restored with the push_matrix command and the pop_matrix command. This example uses a matrix to recursively create a fractal tree.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/float_command.png" alt="float_command" width="50%"/></p>
+<h3>Saving and Restoring the Coordinate System</h3>
+<p>Coordinate systems (matrices) can be saved and restored with the push_matrix command and the pop_matrix command. This example uses a matrix to recursively create a fractal tree.</p>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -1347,10 +1356,10 @@ vox.draw_line(0, 0, 0, 0, initial_length, 0, r=0, g=1, b=1)
 draw_three_branches(repeat_count, initial_length)
 vox.send_data(&quot;main_matrix_sample&quot;)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
-        <h3>Texture</h3>
-        <p>Voxel textures can be set, textures can be pasted onto voxels by specifying an image.&quot; Textures for &quot;grass&quot;, &quot;stone&quot;, &quot;dirt&quot;, &quot;planks&quot; and &quot;bricks&quot; are available.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/push_matrix.png" alt="push_matrix" width="50%"/></p>
+<h3>Texture</h3>
+<p>Voxel textures can be set, textures can be pasted onto voxels by specifying an image.&quot; Textures for &quot;grass&quot;, &quot;stone&quot;, &quot;dirt&quot;, &quot;planks&quot; and &quot;bricks&quot; are available.</p>
+<pre><code class="python"># Python
 from time import sleep
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -1403,10 +1412,10 @@ for i, texture in enumerate(texture_names):
 # Send voxel data to the app
 vox.send_data()
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
-        <h3>Frame Animation</h3>
-        <p>Multiple frames can be recorded and animated. The FPS and number of repetitions of the animation can be specified.</p>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/texture.png" alt="texture" width="50%"/></p>
+<h3>Frame Animation</h3>
+<p>Multiple frames can be recorded and animated. The FPS and number of repetitions of the animation can be specified.</p>
+<pre><code class="python"># Python
 from math import sin, cos, radians
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
@@ -1619,32 +1628,32 @@ for angle in [30, 15, 0, -15, -30, -15, 0, 15]:
 # Send voxel data to the app
 vox.send_data('main_frame_sample')
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
-        <h3>Displaying Default Models</h3>
-        <p>You can display the default models built into Voxelamming. Currently, there are 19 models to choose from. By specifying an entity name, you can move the model using the <code>move_model</code> method.</p>
-        <p>List of built-in models:</p>
-        <ul>
-            <li>Mercury</li>
-            <li>Venus</li>
-            <li>Earth</li>
-            <li>Mars</li>
-            <li>Jupiter</li>
-            <li>Saturn</li>
-            <li>Uranus</li>
-            <li>Neptune</li>
-            <li>Pluto</li>
-            <li>Sun</li>
-            <li>Moon</li>
-            <li>ToyBiplane</li>
-            <li>ToyCar</li>
-            <li>Drummer</li>
-            <li>Robot</li>
-            <li>ToyRocket</li>
-            <li>RocketToy1</li>
-            <li>RocketToy2</li>
-            <li>Skull</li>
-        </ul>
-        <pre><code class="python"># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/frame_animation.png" alt="frame_animation" width="50%"/></p>
+<h3>Displaying Default Models</h3>
+<p>You can display the default models built into Voxelamming. Currently, there are 19 models to choose from. By specifying an entity name, you can move the model using the <code>move_model</code> method.</p>
+<p>List of built-in models:</p>
+<ul>
+  <li>Mercury</li>
+  <li>Venus</li>
+  <li>Earth</li>
+  <li>Mars</li>
+  <li>Jupiter</li>
+  <li>Saturn</li>
+  <li>Uranus</li>
+  <li>Neptune</li>
+  <li>Pluto</li>
+  <li>Sun</li>
+  <li>Moon</li>
+  <li>ToyBiplane</li>
+  <li>ToyCar</li>
+  <li>Drummer</li>
+  <li>Robot</li>
+  <li>ToyRocket</li>
+  <li>RocketToy1</li>
+  <li>RocketToy2</li>
+  <li>Skull</li>
+</ul>
+<pre><code class="python"># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming_local import Voxelamming
 # from voxelamming import Voxelamming
@@ -1675,10 +1684,10 @@ vox.create_model('Skull', 0, 14, 0, 90, 0, 90)
 # Send voxel data to the app
 vox.send_data(&quot;createModel&quot;)
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
-        <h2>Moving Default Models</h2>
-        <p>After displaying a default model built into Voxelamming with an entity name, you can move the model using the move_model method.</p>
-        <pre><code># Python
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/create_model.png" alt="create_model" width="50%"/></p>
+<h2>Moving Default Models</h2>
+<p>After displaying a default model built into Voxelamming with an entity name, you can move the model using the move_model method.</p>
+<pre><code># Python
 # Import the Voxelamming class from the voxelamming package
 from voxelamming import Voxelamming
 # from voxelamming_local import Voxelamming  # Use this when developing locally
@@ -1718,21 +1727,22 @@ for i in range(20):
     vox.move_model('skull_model_3', 0, 2, 0, 0, 0, 0, i * 0.1 + 1)
     vox.send_data()
 </code></pre>
-        <p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>
-        <h2>Settings</h2>
-        <p>You can open the settings screen from the &quot;Settings&quot; button at the top right of the app. Turning off debug mode will disable information display on the screen.</p>
-        <h2>Resetting the AR World</h2>
-        <p>You can reset the AR world from the &quot;Reset&quot; button at the bottom right of the app.  Resetting will delete all voxels.</p>
-        <h2>User Sharing</h2>
-        <p>Coming soon</p>
-        <h2>License</h2>
-        <p><a href="https://github.com/creativival/voxelamming/blob/master/LICENSE">MIT License</a></p>
-        <h2>Author</h2>
-        <p>creativival</p>
-        <h2>Contact</h2>
-        <p><a href="https://creativival.github.io/voxelamming/contact.html">Contact</a></p>
-        <h2>Privacy Policy</h2>
-        <p><a href="https://creativival.github.io/voxelamming/privacy.html">Privacy Policy</a></p>
+<p align="center"><img src="https://creativival.github.io/voxelamming/image/move_model.png" alt="move_model" width="50%"/></p>
+<h2>Settings</h2>
+<p>You can open the settings screen from the &quot;Settings&quot; button at the top right of the app. Turning off debug mode will disable information display on the screen.</p>
+<h2>Resetting the AR World</h2>
+<p>You can reset the AR world from the &quot;Reset&quot; button at the bottom right of the app.  Resetting will delete all voxels.</p>
+<h2>User Sharing</h2>
+<p>Coming soon</p>
+<h2>License</h2>
+<p><a href="https://github.com/creativival/voxelamming/blob/master/LICENSE">MIT License</a></p>
+<h2>Author</h2>
+<p>creativival</p>
+<h2>Contact</h2>
+<p><a href="https://creativival.github.io/voxelamming/contact.html">Contact</a></p>
+<h2>Privacy Policy</h2>
+<p><a href="https://creativival.github.io/voxelamming/privacy.html">Privacy Policy</a></p>
+
 
 
 
